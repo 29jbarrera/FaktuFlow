@@ -1,1 +1,89 @@
-<p>auth works!</p>
+<!-- auth.component.html -->
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  <!-- Contenedor principal -->
+  <div
+    class="flex flex-col md:flex-row w-full max-w-4xl p-6 bg-white shadow-lg rounded-lg"
+  >
+    <!-- Formulario de Inicio de Sesión -->
+    <div class="flex-1 p-4">
+      <h2 class="text-2xl font-semibold mb-4">Iniciar sesión</h2>
+      <form>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Correo electrónico</label
+          >
+          <input
+            pInputText
+            id="name"
+            type="text"
+            class="w-full mt-1"
+            placeholder="Introduce tu nombre completo"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Contraseña</label
+          >
+          <p-password
+            id="password"
+            class="w-full mt-1"
+            placeholder="Introduce tu contraseña"
+          ></p-password>
+        </div>
+        <p-button
+          label="Iniciar sesión"
+          class="w-full p-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        ></p-button>
+      </form>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <div class="flex-1 p-4 mt-6 md:mt-0 md:ml-6">
+      <h2 class="text-2xl font-semibold mb-4">Registro</h2>
+      <form>
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700"
+            >Nombre completo</label
+          >
+          <input
+            pInputText
+            id="name"
+            type="text"
+            class="w-full mt-1"
+            placeholder="Introduce tu nombre completo"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="email-register"
+            class="block text-sm font-medium text-gray-700"
+            >Correo electrónico</label
+          >
+          <input
+            pInputText
+            id="name"
+            type="text"
+            class="w-full mt-1"
+            placeholder="Introduce tu nombre completo"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="password-register"
+            class="block text-sm font-medium text-gray-700"
+            >Contraseña</label
+          >
+          <p-password
+            id="password-register"
+            class="w-full mt-1"
+            placeholder="Introduce tu contraseña"
+          ></p-password>
+        </div>
+        <p-button
+          label="Registrar"
+          class="w-full p-2 mt-4 bg-green-500 text-white rounded-md hover:bg-green-600"
+        ></p-button>
+      </form>
+    </div>
+  </div>
+</div>

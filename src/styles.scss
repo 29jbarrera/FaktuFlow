@@ -1,5 +1,9 @@
 /* styles.scss o styles.css */
 
+@import "primeng/resources/themes/mdc-light-indigo/theme.css";
+@import "primeng/resources/primeng.css"; // No olvides importar los estilos base de PrimeNG.
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,7 +22,7 @@
       BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
       sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
       "Noto Color Emoji";
-    background: #030712;
+    background: #eaeaea;
     height: 100%;
     margin: 0;
     padding: 0;
