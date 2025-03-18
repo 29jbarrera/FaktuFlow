@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.scss o styles.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-inter: 'Inter', sans-serif;
+    --tw-text-opacity: 1;
+  }
+  
+  html,
+  body {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+      sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
+    background: #030712;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1.625;
+    color: rgb(148 163 184 / var(--tw-text-opacity));
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* Establecer box-sizing para evitar problemas de diseño */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  /* Reset básico de listas y enlaces */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Configurar imágenes responsivas */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
