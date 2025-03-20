@@ -2,87 +2,123 @@
 <div class="flex justify-center items-center h-screen bg-gray-100">
   <!-- Contenedor principal -->
   <div
-    class="flex flex-col md:flex-row w-full max-w-4xl p-6 bg-white shadow-lg rounded-lg"
+    class="flex flex-col md:flex-row w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg"
   >
     <!-- Formulario de Inicio de Sesión -->
-    <div class="flex-1 p-4">
-      <h2 class="text-2xl font-semibold mb-4">Iniciar sesión</h2>
+    <div class="flex-1 p-6 flex flex-col items-center">
+      <!-- TODO: Añadir logo de usuarios -->
+      <img src="/src/assets/" class="mx-auto" />
+
+      <h2 class="mb-4 h2-form">Acceso usuarios</h2>
       <form>
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Correo electrónico</label
-          >
-          <input
-            pInputText
-            id="name"
-            type="text"
-            class="w-full mt-1"
-            placeholder="Introduce tu nombre completo"
-          />
+        <div class="mb-5">
+          <label for="email">Email</label>
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-envelope"></i>
+            </p-inputGroupAddon>
+            <input pInputText placeholder="Introduce tu email..." />
+          </p-inputGroup>
         </div>
-        <div class="mb-4">
-          <label for="password" class="block text-sm font-medium text-gray-700"
-            >Contraseña</label
-          >
-          <p-password
-            id="password"
-            class="w-full mt-1"
-            placeholder="Introduce tu contraseña"
-          ></p-password>
+        <label for="password">Contraseña</label>
+
+        <div class="mb-5 password-style">
+          <div class="flex">
+            <div class="flex">
+              <p-inputGroupAddon>
+                <i class="pi pi-lock"></i>
+              </p-inputGroupAddon>
+
+              <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                class="w-72"
+                placeholder="Introduce tu contraseña..."
+              ></p-password>
+            </div>
+          </div>
         </div>
-        <p-button
-          label="Iniciar sesión"
-          class="w-full p-2 mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        ></p-button>
+        <div class="w-full flex justify-center mt-8">
+          <p-button label="Iniciar sesión"></p-button>
+        </div>
       </form>
     </div>
 
+    <div class="md:ml-6 divider"></div>
+
     <!-- Formulario de Registro -->
-    <div class="flex-1 p-4 mt-6 md:mt-0 md:ml-6">
-      <h2 class="text-2xl font-semibold mb-4">Registro</h2>
+    <div class="flex-1 p-6 flex flex-col items-center">
+      <h2 class="mb-4 h2-form">Registrarse</h2>
       <form>
-        <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-gray-700"
-            >Nombre completo</label
-          >
-          <input
-            pInputText
-            id="name"
-            type="text"
-            class="w-full mt-1"
-            placeholder="Introduce tu nombre completo"
-          />
+        <div class="mb-5">
+          <label for="nombre">Nombre</label>
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-user"></i>
+            </p-inputGroupAddon>
+            <input pInputText placeholder="Introduce tu nombre..." />
+          </p-inputGroup>
         </div>
-        <div class="mb-4">
-          <label
-            for="email-register"
-            class="block text-sm font-medium text-gray-700"
-            >Correo electrónico</label
-          >
-          <input
-            pInputText
-            id="name"
-            type="text"
-            class="w-full mt-1"
-            placeholder="Introduce tu nombre completo"
-          />
+
+        <div class="mb-5">
+          <label for="apellidos">Apellidos</label>
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-user"></i>
+            </p-inputGroupAddon>
+            <input pInputText placeholder="Introduce tus apellidos..." />
+          </p-inputGroup>
         </div>
-        <div class="mb-4">
-          <label
-            for="password-register"
-            class="block text-sm font-medium text-gray-700"
-            >Contraseña</label
-          >
-          <p-password
-            id="password-register"
-            class="w-full mt-1"
-            placeholder="Introduce tu contraseña"
-          ></p-password>
+
+        <div class="mb-5">
+          <label for="email">Email</label>
+          <p-inputGroup>
+            <p-inputGroupAddon>
+              <i class="pi pi-envelope"></i>
+            </p-inputGroupAddon>
+            <input pInputText placeholder="Introduce tu email..." />
+          </p-inputGroup>
         </div>
-        <p-button
-          label="Registrar"
-          class="w-full p-2 mt-4 bg-green-500 text-white rounded-md hover:bg-green-600"
-        ></p-button>
+
+        <label for="password">Contraseña</label>
+        <div class="mb-5 password-style">
+          <div class="flex">
+            <div class="flex">
+              <p-inputGroupAddon>
+                <i class="pi pi-lock"></i>
+              </p-inputGroupAddon>
+
+              <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                class="w-72"
+                placeholder="Introduce tu contraseña..."
+              ></p-password>
+            </div>
+          </div>
+        </div>
+
+        <label for="password">Contraseña de nuevo</label>
+        <div class="mb-5 password-style">
+          <div class="flex">
+            <div class="flex">
+              <p-inputGroupAddon>
+                <i class="pi pi-lock"></i>
+              </p-inputGroupAddon>
+
+              <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                class="w-72"
+                placeholder="Introduce tu contraseña..."
+              ></p-password>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex justify-center mt-8">
+          <p-button label="Registrarse"></p-button>
+        </div>
       </form>
     </div>
   </div>

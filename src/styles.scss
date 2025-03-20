@@ -1,7 +1,8 @@
 /* styles.scss o styles.css */
 
-@import "primeng/resources/themes/mdc-light-indigo/theme.css";
+@import "primeng/resources/themes/saga-blue/theme.css";
 @import "primeng/resources/primeng.css"; // No olvides importar los estilos base de PrimeNG.
+
 
 
 @tailwind base;
@@ -11,7 +12,21 @@
 :root {
     --font-inter: 'Inter', sans-serif;
     --tw-text-opacity: 1;
+
+    --boton-primario-bg: #1976d2; /* Azul Material */
+    --boton-primario-border: #1565c0;
+    --boton-primario-text: white;
+
+    --boton-secundario-bg: #e0e0e0; /* Gris claro */
+    --boton-secundario-border: #bdbdbd;
+    --boton-secundario-text: black;
+
+    --color-primary: #112c35;
+    --color-secondary: #4ce1b9;
   }
+
+  // COLORS
+  
   
   html,
   body {
@@ -55,4 +70,213 @@
     max-width: 100%;
     height: auto;
   }
+
+  .container-router-outlet {
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  // Estilo para los formularios
+  /* Estilos globales para los inputs de PrimeNG */
+.p-inputtext{
+  @apply w-full p-2 rounded-md w-72 outline-none ring-0 focus:ring-0 focus:border-transparent;
+  color:var(--color-primary); 
+}
+
+/* Estilos para los p-inputGroup */
+.p-inputgroup {
+  @apply border rounded-md shadow-md overflow-hidden transition-all;
+  border: 1px solid gainsboro; 
+}
+
+/* Aplica borde verde cuando un input dentro del grupo está enfocado */
+.p-inputgroup:focus-within {
+  border-color: rgb(172, 172, 172); 
+  box-shadow: 0 4px 6px rgb(172, 172, 172,0.6);
+}
+
+/* Estilo para los iconos dentro de los inputs */
+.p-inputgroup-addon {
+  @apply bg-gray-100 px-3 flex items-center;
+  color: var(--color-primary)
+}
+
+.password-style {
+  @apply border rounded-md shadow-md overflow-hidden transition-all rounded-md;
+  border: 2px solid gainsboro;
+
+  /* Aplica borde verde cuando el input dentro del grupo está enfocado */
+  &:focus-within {
+    border-color: rgb(172, 172, 172); 
+    box-shadow: 0 4px 6px rgb(172, 172, 172,0.6);
+  }
+}
+
+.p-button {
+  background-color: var(--color-primary); /* Usar color secundario como fondo */
+  color: gainsboro; /* Color de texto blanco */
+  padding: 0.5rem 1rem; /* Espaciado interno para un diseño más limpio */
+  font-weight: 600; /* Hacer el texto más grueso */
+  border-radius: 0.375rem; /* Bordes redondeados */
+  transition: all 0.3s ease; /* Suavizar la transición cuando el estado cambia */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.p-button:hover {
+  background-color: gainsboro; /* Fondo transparente en hover */
+  color: var(--color-primary); /* Cambiar el texto a color secundario */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra suave al pasar el mouse */
+}
+
+label{
+  color: var(--color-primary); 
+  margin-bottom: 2px;
+  font-weight: 500;
+  font-size: small;
+}
+
+.h2-form{
+  font-size: x-large;
+  font-weight: bold;
+}
+
+  
+
+// Secundario
+.button-secondary {
+  color: #3bad2d;
+  background: #fff !important;
+  border: 1px solid #3bad2d;
+  &.p-button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #3bad2d, 0 1px 2px 0 #3bad2d !important;
+  }
+}
+
+
+  // Estilo de las Tablas
+.table-autoflow {
+  table {
+    border-collapse: collapse;
+    thead {
+      th {
+        background-color: #eeeeee;
+        color: #515151;
+        font-size: 14px;
+        div {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          .order {
+            margin-right: auto;
+          }
+          .filter {
+            margin-left: auto;
+          }
+          .p-column-filter-menu-button {
+            width: 32px;
+            height: 32px;
+            .p-icon {
+              width: 0.8rem;
+              height: 0.8rem;
+            }
+          }
+          .p-column-filter-menu-button-open {
+            background: #3cad2d;
+            color: #ffffff;
+          }
+
+          .p-column-filter-menu-button:hover {
+            color: #ffffff;
+            border-color: transparent;
+            background: #3cad2d;
+          }
+        }
+      }
+      th:first-child {
+        border-top-left-radius: 10px;
+      }
+      th:last-child {
+        border-top-right-radius: 10px;
+      }
+    }
+    td:first-child,
+    td:nth-child(2) {
+      width: 30px;
+      min-width: 30px;
+      padding: 0 !important;
+      margin: 0 !important;
+      position: relative;
+    }
+
+    td:first-child {
+      i {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        position: absolute;
+        top: 2px;
+        bottom: 2px;
+        right: 2px;
+        left: 2px;
+        font-size: 17px;
+        background-color: #3cad2d1f;
+        border: 1px solid #3cad2d48;
+        color: #3cad2d;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
+    td:nth-child(2){
+      i {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        position: absolute;
+        top: 2px;
+        bottom: 2px;
+        right: 2px;
+        left: 2px;
+        font-size: 17px;
+        background-color: #ad2d2d1f;
+        border: 1px solid #ad2d2d48;
+        color: #ad2d2d;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
+    td:last-child {
+      border-right: none;
+    }
+    td {
+      border-right: 1px solid #ddd;
+      max-width: 200px;
+      min-width: 100px;
+      font-size: 13px;
+      padding: 7px;
+      padding-left: 12px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    tr:nth-child(even) {
+      td {
+        background-color: #eeeeee;
+      }
+    }
+  }
+  .p-datatable .p-datatable-tfoot > tr > td {
+    height: 30px;
+  }
+  .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+    color: #3cad2d;
+  }
+
+  .p-datatable .p-sortable-column .p-sortable-column-icon {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
+
   
