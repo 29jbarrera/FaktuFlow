@@ -28,8 +28,6 @@
           </p-inputGroup>
         </div>
 
-        <p-messages></p-messages>
-
         <label for="password">Contraseña</label>
 
         <div class="mb-5 password-style">
@@ -52,10 +50,10 @@
           </div>
         </div>
 
-        <div class="w-full"></div>
+        <p-messages [(value)]="messagesLogin"></p-messages>
 
         <div class="w-full flex justify-center mt-8">
-          <p-button label="Iniciar sesión" (click)="onSubmit()"></p-button>
+          <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
       </form>
     </div>
@@ -133,8 +131,10 @@
           </div>
         </div>
 
+        <p-messages [(value)]="messagesRegister"></p-messages>
+
         <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
-          <p-button label="Registrarse"></p-button>
+          <p-button label="Registrarse" (click)="onRegisterSubmit()"></p-button>
         </div>
       </form>
     </div>
