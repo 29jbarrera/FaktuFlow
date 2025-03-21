@@ -71,11 +71,6 @@
     height: auto;
   }
 
-  .container-router-outlet {
-    max-width: 1800px;
-    margin: 0 auto;
-  }
-
   // Estilo para los formularios
   /* Estilos globales para los inputs de PrimeNG */
 .p-inputtext{
@@ -142,16 +137,14 @@ label{
 
   
 
-// Secundario
-.button-secondary {
-  color: #3bad2d;
-  background: #fff !important;
-  border: 1px solid #3bad2d;
-  &.p-button:focus {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #3bad2d, 0 1px 2px 0 #3bad2d !important;
-  }
-}
 
+
+// Valoriza ejem
+
+.container-router-outlet {
+  max-width: 1800px;
+  margin: 0 auto;
+}
 
   // Estilo de las Tablas
 .table-autoflow {

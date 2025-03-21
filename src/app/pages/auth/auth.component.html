@@ -1,5 +1,5 @@
 <!-- auth.component.html -->
-<div class="flex justify-center items-center h-screen bg-gray-100">
+<div class="flex justify-center items-center md:h-screen bg-gray-100">
   <!-- Contenedor principal -->
   <div
     class="flex flex-col md:flex-row w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg"
@@ -7,7 +7,7 @@
     <!-- Formulario de Inicio de Sesión -->
     <div class="flex-1 p-6 flex flex-col items-center">
       <!-- TODO: Añadir logo de usuarios -->
-      <img src="/src/assets/" class="mx-auto" />
+      <img src="/assets/ico/usuarios.avif" class="md:w-44 w-32" />
 
       <h2 class="mb-4 h2-form">Acceso usuarios</h2>
       <form>
@@ -45,10 +45,11 @@
     </div>
 
     <div class="md:ml-6 divider"></div>
+    <div class="divider-mobile sm:hidden"></div>
 
     <!-- Formulario de Registro -->
     <div class="flex-1 p-6 flex flex-col items-center">
-      <h2 class="mb-4 h2-form">Registrarse</h2>
+      <h2 class="mb-4 h2-form">Registro</h2>
       <form>
         <div class="mb-5">
           <label for="nombre">Nombre</label>
@@ -116,7 +117,7 @@
           </div>
         </div>
 
-        <div class="w-full flex justify-center mt-8">
+        <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
           <p-button label="Registrarse"></p-button>
         </div>
       </form>
