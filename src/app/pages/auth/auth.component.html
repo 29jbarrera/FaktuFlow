@@ -10,6 +10,7 @@
       <img src="/assets/ico/usuarios.avif" class="md:w-44 w-32" />
 
       <h2 class="mb-4 h2-form">Acceso usuarios</h2>
+
       <form>
         <div class="mb-5">
           <label for="email">Email</label>
@@ -17,9 +18,18 @@
             <p-inputGroupAddon>
               <i class="pi pi-envelope"></i>
             </p-inputGroupAddon>
-            <input pInputText placeholder="Introduce tu email..." />
+            <input
+              pInputText
+              placeholder="Introduce tu email..."
+              [(ngModel)]="email"
+              name="email"
+              required
+            />
           </p-inputGroup>
         </div>
+
+        <p-messages></p-messages>
+
         <label for="password">Contraseña</label>
 
         <div class="mb-5 password-style">
@@ -32,14 +42,20 @@
               <p-password
                 [toggleMask]="true"
                 [feedback]="false"
+                [(ngModel)]="password"
                 class="w-72"
                 placeholder="Introduce tu contraseña..."
+                name="password"
+                required
               ></p-password>
             </div>
           </div>
         </div>
+
+        <div class="w-full"></div>
+
         <div class="w-full flex justify-center mt-8">
-          <p-button label="Iniciar sesión"></p-button>
+          <p-button label="Iniciar sesión" (click)="onSubmit()"></p-button>
         </div>
       </form>
     </div>
