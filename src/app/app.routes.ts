@@ -7,6 +7,7 @@ import { ClientesComponent } from './pages/clientes/clientes.component';
 import { FacturasComponent } from './pages/facturas/facturas.component';
 import { GastosComponent } from './pages/gastos/gastos.component';
 import { IngresosComponent } from './pages/ingresos/ingresos.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: NavComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
