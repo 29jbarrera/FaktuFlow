@@ -135,6 +135,21 @@ label{
   font-weight: bold;
 }
 
+// Navegación
+
+nav{
+  background: var(--color-primary);
+  color: #4ce1b9;
+}
+
+.p-accordion {
+  width: 350px; /* Establece el ancho a 300px */
+  background: var(--color-secondary);
+  margin: auto;
+  border-radius: 8px;
+  color: var(--color-primary);
+}
+
 
 // Valoriza ejem
 

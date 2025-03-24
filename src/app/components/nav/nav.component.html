@@ -1,1 +1,69 @@
-<p>nav works!</p>
+<nav class="fixed top-0 left-0 w-[35%] h-screen overflow-hidden">
+  <!-- Logo centrado -->
+  <div class="flex justify-center items-center py-4">
+    <img src="assets/logo.png" alt="Logo" class="w-16 h-16" />
+    <!-- Ajusta la ruta de la imagen según corresponda -->
+  </div>
+
+  <!-- Zona de bienvenida y dropdown para el correo -->
+  <div class="p-4 mt-6 justify-center">
+    <h3 class="text-xl font-bold text-center mb-4">Bienvenido</h3>
+
+    <p-accordion [activeIndex]="1">
+      <p-accordionTab
+        header="{{ userEmail }}"
+        class="bg-gray-700 hover:bg-gray-600"
+      >
+        <button
+          class="w-full text-left px-4 py-2 text-sm hover:bg-gray-600 rounded-md mt-2"
+          (click)="logout()"
+        >
+          Cerrar sesión
+        </button>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+
+  <ul class="list-none p-4">
+    <li class="p-2 text-lg">
+      <a
+        routerLink="/dashboard/resumen"
+        class="block hover:bg-gray-600 px-2 py-1 rounded"
+        >Resumen</a
+      >
+    </li>
+    <li class="p-2 text-lg">
+      <a
+        routerLink="/dashboard/facturas"
+        class="block hover:bg-gray-600 px-2 py-1 rounded"
+        >Facturas</a
+      >
+    </li>
+    <li class="p-2 text-lg">
+      <a
+        routerLink="/dashboard/gastos"
+        class="block hover:bg-gray-600 px-2 py-1 rounded"
+        >Gastos</a
+      >
+    </li>
+    <li class="p-2 text-lg">
+      <a
+        routerLink="/dashboard/ingresos"
+        class="block hover:bg-gray-600 px-2 py-1 rounded"
+        >Ingresos</a
+      >
+    </li>
+    <li class="p-2 text-lg">
+      <a
+        routerLink="/dashboard/clientes"
+        class="block hover:bg-gray-600 px-2 py-1 rounded"
+        >Clientes</a
+      >
+    </li>
+    <!-- Agrega aquí más opciones de navegación si lo necesitas -->
+  </ul>
+</nav>
+
+<main class="ml-[35%] h-screen overflow-y-auto p-4">
+  <router-outlet></router-outlet>
+</main>

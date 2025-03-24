@@ -85,7 +85,9 @@ export class AuthComponent {
         .login(this.email, this.password)
         .toPromise();
 
-      localStorage.setItem('authToken', response.token);
+      sessionStorage.setItem('userEmail', this.email);
+
+      sessionStorage.setItem('authToken', response.token);
 
       this.messagesLogin = [
         {
@@ -212,14 +214,5 @@ export class AuthComponent {
         ];
       }
     }
-  }
-
-  //TODO: Añadir a componente navegador
-  logout(): void {
-    // Eliminar el token del localStorage
-    localStorage.removeItem('authToken');
-
-    // Redirigir al usuario al inicio de sesión
-    this.router.navigate(['/']);
   }
 }
