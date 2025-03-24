@@ -1,12 +1,15 @@
-<nav class="fixed top-0 left-0 w-[35%] h-screen overflow-hidden">
+<nav class="fixed top-0 left-0 w-[30%] h-screen overflow-hidden">
   <!-- Logo centrado -->
-  <div class="flex justify-center items-center py-4">
-    <img src="assets/logo.png" alt="Logo" class="w-16 h-16" />
-    <!-- Ajusta la ruta de la imagen según corresponda -->
+  <div class="flex justify-center items-center pt-4">
+    <img
+      src="/assets/ico/Autoflow-logo.webp"
+      alt="Logo"
+      class="w-48 h-48 logo"
+    />
   </div>
 
   <!-- Zona de bienvenida y dropdown para el correo -->
-  <div class="p-4 mt-6 justify-center">
+  <div class="p-2 justify-center">
     <h3 class="text-xl font-bold text-center mb-4">Bienvenido</h3>
 
     <p-accordion [activeIndex]="1">
@@ -64,6 +67,6 @@
   </ul>
 </nav>
 
-<main class="ml-[35%] h-screen overflow-y-auto p-4">
+<main class="ml-[30%] h-screen overflow-y-auto p-4">
   <router-outlet></router-outlet>
 </main>
