@@ -12,7 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
-import { MessageService } from 'primeng/api';
+import { MessageService, Message } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-auth',
@@ -29,6 +31,7 @@ import { MessageService } from 'primeng/api';
     HttpClientModule,
     FormsModule,
     MessagesModule,
+    ProgressSpinnerModule,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -38,10 +41,13 @@ export class AuthComponent {
   nombre: string = '';
   apellidos: string = '';
   email: string = '';
+  emailRegister: string = '';
   password: string = '';
-  passwordConfirm: string = '';
-  messagesLogin: any[] = [];
-  messagesRegister: any[] = [];
+  passwordRegister: string = '';
+  passwordRegisterConfirm: string = '';
+  messagesLogin: Message[] = [];
+  messagesRegister: Message[] = [];
+  isLoading = false;
 
   // Función para validar el formato del correo
   isEmailValid(email: string): boolean {
@@ -63,7 +69,6 @@ export class AuthComponent {
       return;
     }
 
-    // Validación del formato del correo antes de hacer la solicitud al backend
     if (!this.isEmailValid(this.email)) {
       this.messagesLogin = [
         {
@@ -80,10 +85,8 @@ export class AuthComponent {
         .login(this.email, this.password)
         .toPromise();
 
-      // Guardamos el token en el localStorage
       localStorage.setItem('authToken', response.token);
 
-      // Si el backend devuelve un mensaje de éxito
       this.messagesLogin = [
         {
           severity: 'success',
@@ -91,11 +94,13 @@ export class AuthComponent {
           detail: '¡Bienvenido!',
         },
       ];
-      this.router.navigate(['/dashboard']);
+      this.isLoading = true;
+      setTimeout(() => {
+        this.router.navigate(['/dashboard']);
+      }, 1000);
     } catch (error: any) {
       console.error('Error en login:', error);
 
-      // Verificamos si el error es de validación de formato de correo
       if (error?.error?.[0]?.msg === 'El email no es válido') {
         this.messagesLogin = [
           {
@@ -113,7 +118,6 @@ export class AuthComponent {
           },
         ];
       } else {
-        // Si no es el error de credenciales, mostramos un error genérico
         this.messagesLogin = [
           {
             severity: 'error',
@@ -122,18 +126,17 @@ export class AuthComponent {
           },
         ];
       }
+      this.isLoading = false;
     }
   }
 
-  // Función para manejar el registro
   async onRegisterSubmit(): Promise<void> {
-    // Verificar si los campos son válidos
     if (
       !this.nombre ||
       !this.apellidos ||
-      !this.email ||
-      !this.password ||
-      !this.passwordConfirm
+      !this.emailRegister ||
+      !this.passwordRegister ||
+      !this.passwordRegisterConfirm
     ) {
       this.messagesRegister = [
         {
@@ -145,8 +148,7 @@ export class AuthComponent {
       return;
     }
 
-    // Verificar que las contraseñas coincidan
-    if (this.password !== this.passwordConfirm) {
+    if (this.passwordRegister !== this.passwordRegisterConfirm) {
       this.messagesRegister = [
         {
           severity: 'error',
@@ -158,18 +160,26 @@ export class AuthComponent {
     }
 
     try {
-      // Crear el objeto con los datos del registro
-      const user = {
+      const user: User = {
         nombre: this.nombre,
         apellidos: this.apellidos,
-        email: this.email,
-        password: this.password,
+        email: this.emailRegister,
+        password: this.passwordRegister,
       };
 
-      // Llamar al servicio de registro
-      const response: any = await this.authService.register(user).toPromise();
+      const response = await this.authService.register(user).toPromise();
 
-      // Si la respuesta es exitosa
+      if (!response) {
+        this.messagesRegister = [
+          {
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se recibió respuesta del servidor',
+          },
+        ];
+        return;
+      }
+
       this.messagesRegister = [
         {
           severity: 'success',
@@ -178,20 +188,29 @@ export class AuthComponent {
         },
       ];
 
-      // Opcional: redirigir al usuario después del registro
-      // this.router.navigate(['/login']); // Si tienes una ruta de login
+      this.nombre = '';
+      this.apellidos = '';
+      this.emailRegister = '';
+      this.passwordRegister = '';
+      this.passwordRegisterConfirm = '';
     } catch (error: any) {
       console.error('Error en registro:', error);
 
-      // Manejar el error
-      const errorMessage = error?.error?.message || 'Error en el servidor';
-      this.messagesRegister = [
-        {
+      if (error?.error?.errors && Array.isArray(error.error.errors)) {
+        this.messagesRegister = error.error.errors.map((err: any) => ({
           severity: 'error',
           summary: 'Error',
-          detail: errorMessage,
-        },
-      ];
+          detail: err.msg,
+        }));
+      } else {
+        this.messagesRegister = [
+          {
+            severity: 'error',
+            summary: 'Error',
+            detail: error?.error?.message || 'Error en el servidor',
+          },
+        ];
+      }
     }
   }
 

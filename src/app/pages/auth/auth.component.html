@@ -1,17 +1,19 @@
-<!-- auth.component.html -->
 <div class="flex justify-center items-center md:h-screen bg-gray-100">
-  <!-- Contenedor principal -->
   <div
     class="flex flex-col md:flex-row w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg"
   >
-    <!-- Formulario de Inicio de Sesión -->
     <div class="flex-1 p-6 flex flex-col items-center">
-      <!-- TODO: Añadir logo de usuarios -->
-      <img src="/assets/ico/usuarios.avif" class="md:w-44 w-32" />
+      <img
+        src="/assets/ico/usuarios.avif"
+        class="md:w-44 w-32"
+        width="176"
+        height="128"
+        loading="lazy"
+      />
 
       <h2 class="mb-4 h2-form">Acceso usuarios</h2>
 
-      <form>
+      <form class="max-w-[332px]">
         <div class="mb-5">
           <label for="email">Email</label>
           <p-inputGroup>
@@ -50,28 +52,41 @@
           </div>
         </div>
 
-        <p-messages [(value)]="messagesLogin"></p-messages>
+        <p-messages
+          [(value)]="messagesLogin"
+          styleClass="custom-messages"
+        ></p-messages>
 
         <div class="w-full flex justify-center mt-8">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
+        <p-progressSpinner
+          *ngIf="isLoading"
+          ariaLabel="loading"
+          class="flex justify-center mt-4"
+        />
       </form>
     </div>
 
     <div class="md:ml-6 divider"></div>
     <div class="divider-mobile sm:hidden"></div>
 
-    <!-- Formulario de Registro -->
     <div class="flex-1 p-6 flex flex-col items-center">
       <h2 class="mb-4 h2-form">Registro</h2>
-      <form>
+      <form class="max-w-[332px]">
         <div class="mb-5">
           <label for="nombre">Nombre</label>
           <p-inputGroup>
             <p-inputGroupAddon>
               <i class="pi pi-user"></i>
             </p-inputGroupAddon>
-            <input pInputText placeholder="Introduce tu nombre..." />
+            <input
+              pInputText
+              placeholder="Introduce tu nombre..."
+              [(ngModel)]="nombre"
+              name="nombre"
+              required
+            />
           </p-inputGroup>
         </div>
 
@@ -81,7 +96,13 @@
             <p-inputGroupAddon>
               <i class="pi pi-user"></i>
             </p-inputGroupAddon>
-            <input pInputText placeholder="Introduce tus apellidos..." />
+            <input
+              pInputText
+              placeholder="Introduce tus apellidos..."
+              [(ngModel)]="apellidos"
+              name="apellidos"
+              required
+            />
           </p-inputGroup>
         </div>
 
@@ -91,7 +112,13 @@
             <p-inputGroupAddon>
               <i class="pi pi-envelope"></i>
             </p-inputGroupAddon>
-            <input pInputText placeholder="Introduce tu email..." />
+            <input
+              pInputText
+              placeholder="Introduce tu email..."
+              [(ngModel)]="emailRegister"
+              name="email"
+              required
+            />
           </p-inputGroup>
         </div>
 
@@ -108,6 +135,9 @@
                 [feedback]="false"
                 class="w-72"
                 placeholder="Introduce tu contraseña..."
+                [(ngModel)]="passwordRegister"
+                name="password"
+                required
               ></p-password>
             </div>
           </div>
@@ -126,6 +156,9 @@
                 [feedback]="false"
                 class="w-72"
                 placeholder="Introduce tu contraseña..."
+                [(ngModel)]="passwordRegisterConfirm"
+                name="passwordConfirm"
+                required
               ></p-password>
             </div>
           </div>
