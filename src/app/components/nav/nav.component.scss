@@ -1,4 +1,24 @@
 .logo {
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-  }
-  
+  filter: drop-shadow(0 0 5px rgba(76, 225, 185, 0.9));
+}
+
+.nav-item {
+  padding: 11px;
+  background: rgb(233, 236, 239, 0.08);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.nav-item:hover {
+  background: rgb(233, 236, 239, 0.2);
+}
+
+.nav-item.active {
+  background-color: rgb(233, 236, 239, 0.8);
+  color: var(--color-primary);
+}
+
+.icon-item {
+  margin-left: 20px;
+  margin-right: 15px;
+}

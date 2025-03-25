@@ -1,4 +1,6 @@
-<nav class="fixed top-0 left-0 w-[30%] h-screen overflow-hidden">
+<nav
+  class="fixed top-0 w-[23%] left-0 h-screen overflow-hidden transition-all duration-300"
+>
   <!-- Logo centrado -->
   <div class="flex justify-center items-center pt-4">
     <img
@@ -10,15 +12,12 @@
 
   <!-- Zona de bienvenida y dropdown para el correo -->
   <div class="p-2 justify-center">
-    <h3 class="text-xl font-bold text-center mb-4">Bienvenido</h3>
+    <h3 class="text-2xl font-semibold text-center mb-4">Bienvenido 👋🏻</h3>
 
     <p-accordion [activeIndex]="1">
-      <p-accordionTab
-        header="{{ userEmail }}"
-        class="bg-gray-700 hover:bg-gray-600"
-      >
+      <p-accordionTab header="{{ userEmail }}">
         <button
-          class="w-full text-left px-4 py-2 text-sm hover:bg-gray-600 rounded-md mt-2"
+          class="w-full text-left px-4 py-2 rounded-md mt-2"
           (click)="logout()"
         >
           Cerrar sesión
@@ -27,46 +26,65 @@
     </p-accordion>
   </div>
 
-  <ul class="list-none p-4">
+  <ul class="list-none py-6 px-8">
     <li class="p-2 text-lg">
       <a
         routerLink="/dashboard/resumen"
-        class="block hover:bg-gray-600 px-2 py-1 rounded"
-        >Resumen</a
+        routerLinkActive="active"
+        class="block px-2 py-1 rounded nav-item"
+        ><i class="fas fa-tachometer-alt icon-item"></i> Resumen</a
       >
     </li>
     <li class="p-2 text-lg">
       <a
         routerLink="/dashboard/facturas"
-        class="block hover:bg-gray-600 px-2 py-1 rounded"
-        >Facturas</a
+        routerLinkActive="active"
+        class="block px-2 py-1 rounded nav-item"
+        ><i class="fas fa-file-invoice icon-item"></i> Facturas</a
       >
     </li>
     <li class="p-2 text-lg">
       <a
         routerLink="/dashboard/gastos"
-        class="block hover:bg-gray-600 px-2 py-1 rounded"
-        >Gastos</a
+        routerLinkActive="active"
+        class="block px-2 py-1 rounded nav-item"
+        ><i class="fas fa-wallet icon-item"></i>Gastos</a
       >
     </li>
     <li class="p-2 text-lg">
       <a
         routerLink="/dashboard/ingresos"
-        class="block hover:bg-gray-600 px-2 py-1 rounded"
-        >Ingresos</a
+        routerLinkActive="active"
+        class="block px-2 py-1 rounded nav-item"
+        ><i class="fas fa-money-bill-alt icon-item"></i>Ingresos</a
       >
     </li>
     <li class="p-2 text-lg">
       <a
         routerLink="/dashboard/clientes"
-        class="block hover:bg-gray-600 px-2 py-1 rounded"
-        >Clientes</a
+        routerLinkActive="active"
+        class="block px-2 py-1 rounded nav-item"
+        ><i class="fas fa-users icon-item"></i>Clientes</a
       >
     </li>
-    <!-- Agrega aquí más opciones de navegación si lo necesitas -->
   </ul>
+
+  <div
+    class="absolute bottom-5 left-0 right-0 text-center text-xs px-4 text-teal-50"
+  >
+    <p>
+      Si te gusta la app...
+      <br />
+      <a
+        href="https://github.com/29jbarrera/autoflow-frontend"
+        target="_blank"
+        class="hover:underline"
+        >Puedes darme una estrella en GitHub pulsando aquí! ⭐</a
+      >
+    </p>
+  </div>
 </nav>
 
-<main class="ml-[30%] h-screen overflow-y-auto p-4">
+<main class="ml-[23%] h-screen overflow-y-auto p-4">
   <router-outlet></router-outlet>
 </main>
