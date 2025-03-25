@@ -1,12 +1,21 @@
+<!-- Botón para alternar el menú -->
+<button
+  class="fixed top-3 left-3 z-10 p-1 rounded-lg block shadow-lg sm:hidden toggle-menu"
+  (click)="toggleMenu()"
+>
+  <i class="fas fa-bars text-xl px-1"></i>
+</button>
+
 <nav
-  class="fixed top-0 w-[23%] left-0 h-screen overflow-hidden transition-all duration-300"
+  class="fixed top-0 w-full sm:w-[23%] left-0 h-screen overflow-hidden transition-all duration-300"
+  *ngIf="isMenuVisible"
 >
   <!-- Logo centrado -->
   <div class="flex justify-center items-center pt-4">
     <img
       src="/assets/ico/Autoflow-logo.webp"
       alt="Logo"
-      class="w-48 h-48 logo"
+      class="w-28 logo sm:w-48"
     />
   </div>
 
