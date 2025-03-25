@@ -32,4 +32,10 @@ export class NavComponent implements OnInit {
   toggleMenu(): void {
     this.isMenuVisible = !this.isMenuVisible;
   }
+
+  closeMenu(): void {
+    if (window.innerWidth < 640) {
+      this.isMenuVisible = false;
+    }
+  }
 }

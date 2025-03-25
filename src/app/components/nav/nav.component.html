@@ -7,7 +7,7 @@
 </button>
 
 <nav
-  class="fixed top-0 w-full sm:w-[23%] left-0 h-screen overflow-hidden transition-all duration-300"
+  class="fixed top-0 w-full sm:w-[23%] left-0 h-screen overflow-hidden"
   *ngIf="isMenuVisible"
 >
   <!-- Logo centrado -->
@@ -41,6 +41,7 @@
         routerLink="/dashboard/resumen"
         routerLinkActive="active"
         class="block px-2 py-1 rounded nav-item"
+        (click)="closeMenu()"
         ><i class="fas fa-tachometer-alt icon-item"></i> Resumen</a
       >
     </li>
@@ -49,6 +50,7 @@
         routerLink="/dashboard/facturas"
         routerLinkActive="active"
         class="block px-2 py-1 rounded nav-item"
+        (click)="closeMenu()"
         ><i class="fas fa-file-invoice icon-item"></i> Facturas</a
       >
     </li>
@@ -57,6 +59,7 @@
         routerLink="/dashboard/gastos"
         routerLinkActive="active"
         class="block px-2 py-1 rounded nav-item"
+        (click)="closeMenu()"
         ><i class="fas fa-wallet icon-item"></i>Gastos</a
       >
     </li>
@@ -65,6 +68,7 @@
         routerLink="/dashboard/ingresos"
         routerLinkActive="active"
         class="block px-2 py-1 rounded nav-item"
+        (click)="closeMenu()"
         ><i class="fas fa-money-bill-alt icon-item"></i>Ingresos</a
       >
     </li>
@@ -73,6 +77,7 @@
         routerLink="/dashboard/clientes"
         routerLinkActive="active"
         class="block px-2 py-1 rounded nav-item"
+        (click)="closeMenu()"
         ><i class="fas fa-users icon-item"></i>Clientes</a
       >
     </li>
