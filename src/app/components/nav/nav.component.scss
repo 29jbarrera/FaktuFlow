@@ -2,6 +2,17 @@
   filter: drop-shadow(0 0 5px rgba(76, 225, 185, 0.9));
 }
 
+.button-logout{
+  background: gainsboro;
+  color: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.button-logout:hover{
+  background: var(--color-primary-low);
+  color: var(--color-secondary);
+}
+
 .nav-item {
   padding: 11px;
   background: rgb(233, 236, 239, 0.08);
