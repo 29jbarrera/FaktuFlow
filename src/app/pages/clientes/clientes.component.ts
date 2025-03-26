@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './clientes.component.html',
-  styleUrl: './clientes.component.scss'
+  styleUrl: './clientes.component.scss',
 })
-export class ClientesComponent {
-
-}
+export class ClientesComponent {}

@@ -23,6 +23,7 @@
 
     --color-primary: #112c35;
     --color-primary-low: rgb(17, 44, 53, 0.8);
+    --color-primary-very-low: rgb(17, 44, 53, 0.1);
     --color-secondary: #4ce1b9;
   }
 
@@ -151,6 +152,24 @@ nav{
   color: var(--color-primary);
 }
 
+// Header
+.header-container {
+  background-color: white;
+  padding: 20px;
+  color: var(--color-primary);
+  text-align: center;
+  border-radius: 20px;
+  font-size: 45px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px var(--color-primary-very-low); /* Sombra suave */
+}
+
+/* Para pantallas móviles */
+@media (max-width: 640px) {
+  .header-container {
+    font-size: 30px; /* Tamaño de fuente en pantallas móviles */
+  }
+}
 
 // Valoriza ejem
 
