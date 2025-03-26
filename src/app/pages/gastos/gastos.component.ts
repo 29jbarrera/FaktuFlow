@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   selector: 'app-gastos',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './gastos.component.html',
-  styleUrl: './gastos.component.scss'
+  styleUrl: './gastos.component.scss',
 })
-export class GastosComponent {
-
-}
+export class GastosComponent {}
