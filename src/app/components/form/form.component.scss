@@ -1,0 +1,83 @@
+/* Estilo global del formulario */
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas de 50% */
+  gap: 20px; 
+  max-width: 100%; 
+  margin: 0 auto; 
+}
+
+/* Estilo de cada input, dropdown, calendar, textarea */
+.input-field {
+  width: 100%; /* Asegura que los inputs ocupen todo el ancho de su celda */
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+/* Estilo del botón */
+.btn-submit {
+  width: 180px;
+  padding: 12px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px; /* Separación del botón de los inputs */
+}
+
+.btn-submit:hover {
+  background-color: var(--color-primary-low);
+}
+
+/* Contenedor del botón con flexbox */
+.button-container {
+  display: flex;
+  justify-content: center;  /* Centra el botón horizontalmente */
+  align-items: center;      /* Asegura que el botón esté centrado verticalmente */
+  width: 100%;
+}/* Estilo del botón */
+.btn-submit {
+  width: 180px;
+  padding: 12px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px; /* Separación del botón de los inputs */
+}
+
+.btn-submit:hover {
+  background-color: var(--color-primary-low);
+}
+
+/* Estilos de las etiquetas */
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Estilos para los campos de texto largos (textarea) */
+textarea {
+  height: 45px;
+}
+
+/* Estilo en pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  form {
+    grid-template-columns: 1fr; /* En pantallas pequeñas, una columna */
+  }
+}
+
+.p-accordion {
+  width: 350px; /* Establece el ancho a 300px */
+  background: var(--color-secondary);
+  margin: auto;
+  border-radius: 8px;
+  color: var(--color-primary);
+}
