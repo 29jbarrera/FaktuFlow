@@ -1,4 +1,8 @@
 /* Estilo global del formulario */
+.section-form{
+  border: dashed 2px var(--color-primary-low);
+}
+
 form {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Dos columnas de 50% */
@@ -7,52 +11,39 @@ form {
   margin: 0 auto; 
 }
 
-/* Estilo de cada input, dropdown, calendar, textarea */
+label{
+  color: var(--color-primary);
+}
+
 .input-field {
-  width: 100%; /* Asegura que los inputs ocupen todo el ancho de su celda */
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  background-color: #f9f9f9;
-}
-
-/* Estilo del botón */
-.btn-submit {
-  width: 180px;
-  padding: 12px;
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  margin-top: 20px; /* Separación del botón de los inputs */
-}
-
-.btn-submit:hover {
-  background-color: var(--color-primary-low);
-}
-
-/* Contenedor del botón con flexbox */
-.button-container {
-  display: flex;
-  justify-content: center;  /* Centra el botón horizontalmente */
-  align-items: center;      /* Asegura que el botón esté centrado verticalmente */
   width: 100%;
-}/* Estilo del botón */
+  padding: 10px;
+  border-top-left-radius: 8px;  /* Redondeado solo en la parte superior izquierda */
+  border-top-right-radius: 8px; /* Redondeado solo en la parte superior derecha */
+  border-bottom-left-radius: 0; /* Sin redondeo en la parte inferior */
+  border-bottom-right-radius: 0; /* Sin redondeo en la parte inferior */
+  border: 1px solid #ccc; /* Borde general */
+  border-bottom: 2px solid var(--color-primary); /* Borde inferior verde */
+  font-size: 14px;
+  background-color: #eaeaea;
+  color: var(--color-primary);
+}
+
 .btn-submit {
   width: 180px;
   padding: 12px;
   background-color: var(--color-primary);
   border: none;
-  border-radius: 8px;
   color: white;
   cursor: pointer;
-  margin-top: 20px; /* Separación del botón de los inputs */
+  font-weight: bold;
+  box-shadow: 0px 4px 8px #eaeaea;
 }
 
 .btn-submit:hover {
-  background-color: var(--color-primary-low);
+  background-color: #eaeaea;
+  color: var(--color-primary);
+  box-shadow: 0px 2px 6px var(--color-primary);
 }
 
 /* Estilos de las etiquetas */
@@ -81,3 +72,5 @@ textarea {
   border-radius: 8px;
   color: var(--color-primary);
 }
+
+

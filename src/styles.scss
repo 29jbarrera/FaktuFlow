@@ -25,6 +25,7 @@
     --color-primary-low: rgb(17, 44, 53, 0.8);
     --color-primary-very-low: rgb(17, 44, 53, 0.1);
     --color-secondary: #4ce1b9;
+    --color-secondary-low: rgb(76, 225, 185, 0.06);
   }
 
   // COLORS
@@ -144,13 +145,13 @@ nav{
   color: #4ce1b9;
 }
 
-// .p-accordion {
-//   width: 350px; 
-//   background: var(--color-secondary);
-//   margin: auto;
-//   border-radius: 8px;
-//   color: var(--color-primary);
-// }
+.p-accordion {
+  width: 350px; 
+  background: var(--color-secondary);
+  margin: auto;
+  border-radius: 8px;
+  color: var(--color-primary);
+}
 
 
 // Header

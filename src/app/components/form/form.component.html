@@ -1,79 +1,78 @@
-<div class="sm:w-10/12 w-full m-auto my-10">
-  <p-accordion [activeIndex]="0">
-    <p-accordionTab header="Header I">
-      <form class="sm:w-full">
-        <div *ngFor="let field of formFields">
-          <div class="input-group">
-            <label for="{{ field.name }}" class="block">{{
-              field.label
-            }}</label>
+<div
+  class="sm:w-10/12 w-full m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
+>
+  <form class="sm:w-full">
+    <div *ngFor="let field of formFields">
+      <div class="input-group">
+        <label
+          *ngIf="field.type !== 'submit'"
+          for="{{ field.name }}"
+          class="block"
+          >{{ field.label }}</label
+        >
 
-            <!-- Input Text, Email, Number -->
-            <input
-              *ngIf="
-                field.type === 'text' ||
-                field.type === 'email' ||
-                field.type === 'number'
-              "
-              id="{{ field.name }}"
-              name="{{ field.name }}"
-              placeholder="{{ field.placeholder }}"
-              [required]="field.required"
-              class="input-field"
-            />
+        <!-- Input Text, Email, Number -->
+        <input
+          *ngIf="
+            field.type === 'text' ||
+            field.type === 'email' ||
+            field.type === 'number'
+          "
+          id="{{ field.name }}"
+          name="{{ field.name }}"
+          placeholder="{{ field.placeholder }}"
+          [required]="field.required"
+          class="input-field"
+        />
 
-            <!-- Dropdown for options -->
-            <p-dropdown
-              *ngIf="field.type === 'select'"
-              [options]="field.options"
-              optionLabel="label"
-              optionValue="value"
-              id="{{ field.name }}"
-              name="{{ field.name }}"
-              [required]="field.required"
-              class="input-field"
-            ></p-dropdown>
+        <!-- Dropdown for options -->
+        <p-dropdown
+          *ngIf="field.type === 'select'"
+          [options]="field.options"
+          optionLabel="label"
+          optionValue="value"
+          id="{{ field.name }}"
+          name="{{ field.name }}"
+          [required]="field.required"
+          class="input-field"
+        ></p-dropdown>
 
-            <!-- Calendar for date -->
-            <p-calendar
-              *ngIf="field.type === 'date'"
-              id="{{ field.name }}"
-              name="{{ field.name }}"
-              [required]="field.required"
-              class="input-field"
-            ></p-calendar>
+        <!-- Calendar for date -->
+        <p-calendar
+          *ngIf="field.type === 'date'"
+          id="{{ field.name }}"
+          name="{{ field.name }}"
+          [required]="field.required"
+          class="input-field"
+        ></p-calendar>
 
-            <!-- InputSwitch for toggle -->
-            <p-inputSwitch
-              *ngIf="field.type === 'toggle'"
-              id="{{ field.name }}"
-              name="{{ field.name }}"
-              class="input-field"
-            ></p-inputSwitch>
+        <!-- InputSwitch for toggle -->
+        <p-inputSwitch
+          *ngIf="field.type === 'toggle'"
+          id="{{ field.name }}"
+          name="{{ field.name }}"
+          class="input-field"
+        ></p-inputSwitch>
 
-            <!-- Textarea for longer description -->
-            <textarea
-              *ngIf="field.type === 'textarea'"
-              id="{{ field.name }}"
-              name="{{ field.name }}"
-              placeholder="{{ field.placeholder }}"
-              [required]="field.required"
-              class="input-field"
-            ></textarea>
+        <!-- Textarea for longer description -->
+        <textarea
+          *ngIf="field.type === 'textarea'"
+          id="{{ field.name }}"
+          name="{{ field.name }}"
+          placeholder="{{ field.placeholder }}"
+          [required]="field.required"
+          class="input-field"
+        ></textarea>
 
-            <!-- Submit button -->
-
-            <!-- Submit button -->
-          </div>
-          <button
-            *ngIf="field.type === 'submit'"
-            type="submit"
-            class="btn-submit"
-          >
-            {{ field.label }}
-          </button>
-        </div>
-      </form>
-    </p-accordionTab>
-  </p-accordion>
+        <!-- Submit button -->
+      </div>
+      <button
+        *ngIf="field.type === 'submit'"
+        type="submit"
+        class="relative inline-flex items-center justify-center px-12 py-3 text-lg font-semibold text-white bg-[rgb(21,44,53)] rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:bg-[rgb(31,64,74)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[rgb(31,64,74)] focus:ring-opacity-50"
+      >
+        {{ field.label }}
+      </button>
+    </div>
+  </form>
 </div>
