@@ -172,54 +172,53 @@ nav{
   }
 }
 
-// p-dropdown
+/* Estilo personalizado para p-calendar */
+.calendar-custom {
+  .p-inputtext {
+    background: #ffffff !important; /* Fondo blanco */
+    border-radius: 6px !important; /* Borde redondeado */
+    width: 100%; /* Ancho completo */
+    padding: 8px 10px; /* Espaciado interno */
+  }
 
-/* Estilo global para todos los p-dropdown */
-p-dropdown {
-  width: 100%; /* Hace que el dropdown ocupe el 100% de ancho */
-  padding: 10px;
-  border-top-left-radius: 8px; /* Redondeado solo en la parte superior izquierda */
-  border-top-right-radius: 8px; /* Redondeado solo en la parte superior derecha */
-  border-bottom-left-radius: 0; /* Sin redondeo en la parte inferior */
-  border-bottom-right-radius: 0; /* Sin redondeo en la parte inferior */
-  border: 1px solid #ccc; /* Borde general */
-  border-bottom: 2px solid var(--color-primary); /* Borde inferior del color principal */
-  font-size: 14px;
-  background-color: #eaeaea; /* Fondo similar al input */
-  color: var(--color-primary); /* Color del texto del dropdown */
+  /* Estilo al hacer foco en el p-calendar */
+  .p-inputtext:focus-within {
+    border-color: rgb(172, 172, 172); 
+    box-shadow: 0 4px 6px rgb(172, 172, 172,0.6);
+  }
+
+  /* Estilo adicional para el input dentro del p-calendar */
+  .p-calendar {
+    position: absolute;
+    top: 100%;  /* Esto lo mueve hacia abajo, por ejemplo */
+    left: 0;
+    z-index: 10; 
+    border-radius: 6px !important;
+    width: 100%;
+  }
+
+  /* Estilo para el icono de calendario */
+  .p-calendar-icon {
+    color: var(--color-primary);
+  }
+ /* Haciendo que el calendario sobresalga del input group */
+ .p-inputGroup {
+  position: absolute; /* Relativo para posicionar el calendario dentro */
+    z-index: 1;/* Relativo para posicionar el calendario dentro */
 }
 
-/* Estilo de la etiqueta del dropdown */
-p-dropdown .p-dropdown-label {
-  font-size: 14px;
-  color: var(--color-primary); /* Color del texto de la etiqueta */
+/* Hacer que el p-calendar sobresalga del input group */
+.p-inputGroup .p-calendar {
+  position: absolute;
+  top: -10px; /* Desplaza el calendario hacia arriba para que sobresalga */
+  left: 0;
+  right: 0;
+  z-index: 3; /* Asegura que el calendario esté por encima de otros elementos */
 }
-
-/* Estilo del panel del dropdown */
-p-dropdown .p-dropdown-panel {
-  background-color: #eaeaea; /* Fondo del panel */
-  border-radius: 8px; /* Bordes redondeados del panel */
-}
-
-/* Estilo de los elementos dentro del panel */
-p-dropdown .p-dropdown-items {
-  font-size: 14px;
-  color: var(--color-primary); /* Color de los elementos del dropdown */
-}
-
-/* Estilo para el hover sobre los elementos del dropdown */
-p-dropdown .p-dropdown-item:hover {
-  background-color: rgba(0, 0, 0, 0.1); /* Fondo al hacer hover en los elementos */
-}
-
-/* Estilo del ícono del dropdown (flecha) */
-p-dropdown .p-dropdown-trigger {
-  color: var(--color-primary); /* Color del ícono */
 }
 
 
 // Valoriza ejem
-
 .container-router-outlet {
   max-width: 1800px;
   margin: 0 auto;
