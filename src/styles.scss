@@ -160,7 +160,6 @@ nav{
   padding: 20px;
   color: var(--color-primary);
   text-align: center;
-  border-radius: 20px;
   font-size: 45px;
   font-weight: bold;
   box-shadow: 0 4px 10px var(--color-primary-very-low); /* Sombra suave */
@@ -172,6 +171,52 @@ nav{
     font-size: 30px; /* Tamaño de fuente en pantallas móviles */
   }
 }
+
+// p-dropdown
+
+/* Estilo global para todos los p-dropdown */
+p-dropdown {
+  width: 100%; /* Hace que el dropdown ocupe el 100% de ancho */
+  padding: 10px;
+  border-top-left-radius: 8px; /* Redondeado solo en la parte superior izquierda */
+  border-top-right-radius: 8px; /* Redondeado solo en la parte superior derecha */
+  border-bottom-left-radius: 0; /* Sin redondeo en la parte inferior */
+  border-bottom-right-radius: 0; /* Sin redondeo en la parte inferior */
+  border: 1px solid #ccc; /* Borde general */
+  border-bottom: 2px solid var(--color-primary); /* Borde inferior del color principal */
+  font-size: 14px;
+  background-color: #eaeaea; /* Fondo similar al input */
+  color: var(--color-primary); /* Color del texto del dropdown */
+}
+
+/* Estilo de la etiqueta del dropdown */
+p-dropdown .p-dropdown-label {
+  font-size: 14px;
+  color: var(--color-primary); /* Color del texto de la etiqueta */
+}
+
+/* Estilo del panel del dropdown */
+p-dropdown .p-dropdown-panel {
+  background-color: #eaeaea; /* Fondo del panel */
+  border-radius: 8px; /* Bordes redondeados del panel */
+}
+
+/* Estilo de los elementos dentro del panel */
+p-dropdown .p-dropdown-items {
+  font-size: 14px;
+  color: var(--color-primary); /* Color de los elementos del dropdown */
+}
+
+/* Estilo para el hover sobre los elementos del dropdown */
+p-dropdown .p-dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo al hacer hover en los elementos */
+}
+
+/* Estilo del ícono del dropdown (flecha) */
+p-dropdown .p-dropdown-trigger {
+  color: var(--color-primary); /* Color del ícono */
+}
+
 
 // Valoriza ejem
 

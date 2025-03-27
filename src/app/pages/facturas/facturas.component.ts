@@ -18,6 +18,7 @@ export class FacturasComponent {
       type: 'text',
       placeholder: 'Ingresa el número de la factura...',
       required: true,
+      icon: 'pi pi-file', // Icono de archivo
     },
     {
       name: 'category',
@@ -29,18 +30,21 @@ export class FacturasComponent {
         { label: 'Categoría 3', value: 'cat3' },
       ],
       required: true,
+      icon: 'pi pi-tags', // Icono de etiqueta
     },
     {
       name: 'date',
       label: 'Fecha',
       type: 'date',
       required: true,
+      icon: 'pi pi-calendar', // Icono de calendario
     },
     {
       name: 'isPaid',
       label: '¿Está pagada?',
       type: 'checkbox',
       required: false,
+      icon: 'pi pi-check-circle', // Icono de check
     },
     {
       name: 'amount',
@@ -48,18 +52,21 @@ export class FacturasComponent {
       type: 'number',
       placeholder: 'Ingresa el importe...',
       required: true,
+      icon: 'pi pi-dollar', // Icono de dólar
     },
     {
       name: 'file',
       label: 'Subir Archivo',
       type: 'file',
       required: false,
+      icon: 'pi pi-upload', // Icono de subida
     },
     {
       name: 'submit',
       label: 'Enviar',
       type: 'submit',
       required: false,
+      icon: 'pi pi-send', // Icono de enviar
     },
     {
       name: 'description',
@@ -67,6 +74,7 @@ export class FacturasComponent {
       type: 'textarea',
       placeholder: 'Ingresa una descripción...',
       required: false,
+      icon: 'pi pi-pencil', // Icono de lápiz
     },
   ];
 }

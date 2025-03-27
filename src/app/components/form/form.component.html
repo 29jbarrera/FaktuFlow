@@ -12,18 +12,24 @@
         >
 
         <!-- Input Text, Email, Number -->
-        <input
-          *ngIf="
-            field.type === 'text' ||
-            field.type === 'email' ||
-            field.type === 'number'
-          "
-          id="{{ field.name }}"
-          name="{{ field.name }}"
-          placeholder="{{ field.placeholder }}"
-          [required]="field.required"
-          class="input-field"
-        />
+        <p-inputGroup *ngIf="field.type !== 'submit'">
+          <p-inputGroupAddon>
+            <i [class]="field.icon"></i>
+          </p-inputGroupAddon>
+          <input
+            *ngIf="
+              field.type === 'text' ||
+              field.type === 'email' ||
+              field.type === 'number'
+            "
+            pInputText
+            id="{{ field.name }}"
+            name="{{ field.name }}"
+            placeholder="{{ field.placeholder }}"
+            [required]="field.required"
+            autocomplete="off"
+          />
+        </p-inputGroup>
 
         <!-- Dropdown for options -->
         <p-dropdown
@@ -34,7 +40,6 @@
           id="{{ field.name }}"
           name="{{ field.name }}"
           [required]="field.required"
-          class="input-field"
         ></p-dropdown>
 
         <!-- Calendar for date -->
@@ -66,13 +71,9 @@
 
         <!-- Submit button -->
       </div>
-      <button
-        *ngIf="field.type === 'submit'"
-        type="submit"
-        class="relative inline-flex items-center justify-center px-12 py-3 text-lg font-semibold text-white bg-[rgb(21,44,53)] rounded-lg shadow-lg transform transition-all duration-300 ease-in-out hover:bg-[rgb(31,64,74)] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[rgb(31,64,74)] focus:ring-opacity-50"
-      >
+      <p-button *ngIf="field.type === 'submit'" type="submit">
         {{ field.label }}
-      </button>
+      </p-button>
     </div>
   </form>
 </div>

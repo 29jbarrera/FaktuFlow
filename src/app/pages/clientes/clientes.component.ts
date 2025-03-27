@@ -18,6 +18,7 @@ export class ClientesComponent {
       type: 'text',
       placeholder: 'Ingresa tu nombre completo...',
       required: true,
+      icon: 'pi pi-user', // Icono para el campo de texto
     },
     {
       name: 'email',
@@ -25,6 +26,7 @@ export class ClientesComponent {
       type: 'email',
       placeholder: 'Ingresa tu correo electrónico...',
       required: true,
+      icon: 'pi pi-envelope', // Icono para el correo electrónico
     },
     {
       name: 'phone',
@@ -32,6 +34,7 @@ export class ClientesComponent {
       type: 'number',
       placeholder: 'Ingresa tu número de teléfono...',
       required: true,
+      icon: 'pi pi-phone', // Icono para el teléfono
     },
     {
       name: 'address',
@@ -39,6 +42,7 @@ export class ClientesComponent {
       type: 'text',
       placeholder: 'Ingresa tu dirección...',
       required: true,
+      icon: 'pi pi-map-marker', // Icono para la dirección
     },
     { name: 'submit', label: 'Enviar', type: 'submit', required: false },
   ];

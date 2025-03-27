@@ -18,6 +18,7 @@ export class GastosComponent {
       type: 'text',
       placeholder: 'Gasto...',
       required: true,
+      icon: 'pi pi-wallet', // Icono de billetera
     },
     {
       name: 'category',
@@ -29,12 +30,14 @@ export class GastosComponent {
         { label: 'Categoría 3', value: 'cat3' },
       ],
       required: true,
+      icon: 'pi pi-tags', // Icono de etiquetas
     },
     {
       name: 'date',
       label: 'Fecha',
       type: 'date',
       required: true,
+      icon: 'pi pi-calendar', // Icono de calendario
     },
     {
       name: 'amount',
@@ -42,12 +45,14 @@ export class GastosComponent {
       type: 'number',
       placeholder: 'Ingresa el importe...',
       required: true,
+      icon: 'pi pi-dollar', // Icono de dólar
     },
     {
       name: 'submit',
       label: 'Enviar',
       type: 'submit',
       required: false,
+      icon: 'pi pi-send', // Icono de enviar
     },
     {
       name: 'description',
@@ -55,6 +60,7 @@ export class GastosComponent {
       type: 'textarea',
       placeholder: 'Añade una descripción...',
       required: false,
+      icon: 'pi pi-pencil', // Icono de lápiz
     },
   ];
 }
