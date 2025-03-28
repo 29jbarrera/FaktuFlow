@@ -1,5 +1,5 @@
 <div
-  class="sm:w-10/12 w-full m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
+  class="sm:w-10/12 w-11/12 m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
 >
   <form class="sm:w-full">
     <div *ngFor="let field of formFields">
@@ -47,7 +47,7 @@
         ></p-inputSwitch>
 
         <!-- Calendar for date inside inputGroup with icon -->
-        <p-inputGroup *ngIf="field.type === 'date'" class="w-full relative">
+        <div class="flex custom-div-form" *ngIf="field.type === 'date'">
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
@@ -60,7 +60,7 @@
             [showButtonBar]="true"
             styleClass="w-full calendar-custom"
           ></p-calendar>
-        </p-inputGroup>
+        </div>
 
         <!-- Dropdown for options -->
         <p-dropdown

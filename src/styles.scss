@@ -77,7 +77,7 @@
   // Estilo para los formularios
   /* Estilos globales para los inputs de PrimeNG */
 .p-inputtext{
-  @apply w-full p-2 rounded-md w-72 outline-none ring-0 focus:ring-0 focus:border-transparent;
+  @apply w-full p-2 rounded-md outline-none ring-0 focus:ring-0 focus:border-transparent;
   color:var(--color-primary); 
 }
 
@@ -172,49 +172,21 @@ nav{
   }
 }
 
+.custom-div-form{
+  @apply border rounded-md shadow-md transition-all;
+  border: 3px solid gainsboro; 
+}
+
+.custom-div-form:focus-within {
+  border-color: rgb(172, 172, 172); 
+  box-shadow: 0 4px 6px rgb(172, 172, 172,0.6);
+}
+
 /* Estilo personalizado para p-calendar */
-.calendar-custom {
-  .p-inputtext {
-    background: #ffffff !important; /* Fondo blanco */
-    border-radius: 6px !important; /* Borde redondeado */
-    width: 100%; /* Ancho completo */
-    padding: 8px 10px; /* Espaciado interno */
-  }
-
-  /* Estilo al hacer foco en el p-calendar */
-  .p-inputtext:focus-within {
-    border-color: rgb(172, 172, 172); 
-    box-shadow: 0 4px 6px rgb(172, 172, 172,0.6);
-  }
-
-  /* Estilo adicional para el input dentro del p-calendar */
-  .p-calendar {
-    position: absolute;
-    top: 100%;  /* Esto lo mueve hacia abajo, por ejemplo */
-    left: 0;
-    z-index: 10; 
-    border-radius: 6px !important;
-    width: 100%;
-  }
-
-  /* Estilo para el icono de calendario */
-  .p-calendar-icon {
-    color: var(--color-primary);
-  }
- /* Haciendo que el calendario sobresalga del input group */
- .p-inputGroup {
-  position: absolute; /* Relativo para posicionar el calendario dentro */
-    z-index: 1;/* Relativo para posicionar el calendario dentro */
-}
-
-/* Hacer que el p-calendar sobresalga del input group */
-.p-inputGroup .p-calendar {
-  position: absolute;
-  top: -10px; /* Desplaza el calendario hacia arriba para que sobresalga */
-  left: 0;
-  right: 0;
-  z-index: 3; /* Asegura que el calendario esté por encima de otros elementos */
-}
+p-calendar{
+  @apply w-full rounded-md w-72 outline-none ring-0 focus:ring-0 focus:border-transparent;
+  color:var(--color-primary); 
+  width: 100%;
 }
 
 
