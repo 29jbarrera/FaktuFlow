@@ -1,60 +1,44 @@
 <div
-  class="sm:w-10/12 w-11/12 m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
+  class="sm:w-8/12 w-11/12 m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
 >
   <form class="sm:w-full">
     <div *ngFor="let field of formFields">
       <div class="input-group">
+        <!-- Label -->
         <label
           *ngIf="field.type !== 'submit'"
           for="{{ field.name }}"
           class="block"
-          >{{ field.label }}</label
         >
+          {{ field.label }}
+        </label>
 
-        <!-- Input Text, Email, Number -->
-        <p-inputGroup
-          *ngIf="
-            field.type !== 'submit' &&
-            field.type !== 'select' &&
-            field.type !== 'textarea' &&
-            field.type !== 'date' &&
-            field.type !== 'toggle'
-          "
-        >
+        <!-- Input Group for Text, Email, Number -->
+        <ng-container *ngIf="isTextInput(field)">
+          <p-inputGroup>
+            <p-inputGroupAddon *ngIf="field.type !== 'toggle'">
+              <i [class]="field.icon"></i>
+            </p-inputGroupAddon>
+            <input
+              pInputText
+              [id]="field.name"
+              [name]="field.name"
+              [placeholder]="field.placeholder"
+              [required]="field.required"
+              [type]="field.type"
+              autocomplete="off"
+            />
+          </p-inputGroup>
+        </ng-container>
+
+        <!-- Calendar for Date -->
+        <div *ngIf="field.type === 'date'" class="flex custom-div-form">
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
-          <input
-            *ngIf="
-              field.type === 'text' ||
-              field.type === 'email' ||
-              field.type === 'number'
-            "
-            pInputText
-            id="{{ field.name }}"
-            name="{{ field.name }}"
-            placeholder="{{ field.placeholder }}"
-            [required]="field.required"
-            autocomplete="off"
-          />
-        </p-inputGroup>
-
-        <!-- InputSwitch for toggle -->
-        <p-inputSwitch
-          *ngIf="field.type === 'toggle'"
-          id="{{ field.name }}"
-          name="{{ field.name }}"
-        ></p-inputSwitch>
-
-        <!-- Calendar for date inside inputGroup with icon -->
-        <div class="flex custom-div-form" *ngIf="field.type === 'date'">
-          <p-inputGroupAddon>
-            <i [class]="field.icon"></i>
-          </p-inputGroupAddon>
-
           <p-calendar
-            id="{{ field.name }}"
-            name="{{ field.name }}"
+            [id]="field.name"
+            [name]="field.name"
             [required]="field.required"
             [readonlyInput]="true"
             [showButtonBar]="true"
@@ -62,33 +46,74 @@
           ></p-calendar>
         </div>
 
-        <!-- Dropdown for options -->
-        <p-dropdown
-          *ngIf="field.type === 'select'"
-          [options]="field.options"
-          optionLabel="label"
-          optionValue="value"
-          id="{{ field.name }}"
-          name="{{ field.name }}"
-          [required]="field.required"
-          class="p-fluid"
-        ></p-dropdown>
+        <!-- Dropdown for Options -->
+        <div *ngIf="field.type === 'select'" class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i [class]="field.icon"></i>
+          </p-inputGroupAddon>
+          <p-dropdown
+            [options]="field.options"
+            optionLabel="label"
+            optionValue="value"
+            [id]="field.name"
+            [name]="field.name"
+            [required]="field.required"
+            class="w-full p-fluid custom-dropdown"
+          ></p-dropdown>
+        </div>
 
-        <!-- Textarea for longer description -->
-        <textarea
-          *ngIf="field.type === 'textarea'"
-          id="{{ field.name }}"
-          name="{{ field.name }}"
-          placeholder="{{ field.placeholder }}"
-          [required]="field.required"
-          class="p-fluid"
-        ></textarea>
+        <!-- Textarea for Description -->
+        <div *ngIf="field.type === 'textarea'" class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i [class]="field.icon"></i>
+          </p-inputGroupAddon>
+          <textarea
+            [id]="field.name"
+            [name]="field.name"
+            [placeholder]="field.placeholder"
+            [required]="field.required"
+            class="p-fluid w-full"
+          ></textarea>
+        </div>
 
-        <!-- Submit button -->
+        <!-- File Upload -->
+        <div *ngIf="field.type === 'file'" class="mt-3">
+          <p-fileUpload
+            mode="basic"
+            chooseIcon="pi pi-upload"
+            accept="image/*"
+            maxFileSize="1000000"
+            [auto]="true"
+            chooseLabel="Subir archivo"
+          />
+        </div>
+
+        <!-- Toggle Switch -->
+        <div *ngIf="field.type === 'toggle'" class="mt-4">
+          <label
+            class="relative inline-block h-8 w-14 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-[rgb(21,44,53)]"
+            [for]="field.name"
+          >
+            <input
+              class="peer sr-only"
+              type="checkbox"
+              [id]="field.name"
+              [name]="field.name"
+              [required]="field.required"
+            />
+            <span
+              class="absolute inset-y-0 start-0 m-1 size-6 rounded-full bg-gray-300 ring-[6px] ring-inset ring-white transition-all peer-checked:start-8 peer-checked:w-2 peer-checked:bg-white peer-checked:ring-transparent"
+            ></span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <div *ngIf="field.type === 'submit'">
+          <p-button type="submit">
+            {{ field.label }}
+          </p-button>
+        </div>
       </div>
-      <p-button *ngIf="field.type === 'submit'" type="submit">
-        {{ field.label }}
-      </p-button>
     </div>
   </form>
 </div>

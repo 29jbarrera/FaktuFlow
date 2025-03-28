@@ -4,11 +4,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ButtonModule } from 'primeng/button';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { AccordionModule } from 'primeng/accordion';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-form',
@@ -18,12 +18,12 @@ import { InputGroupModule } from 'primeng/inputgroup';
     InputTextModule,
     DropdownModule,
     CalendarModule,
-    InputSwitchModule,
     ButtonModule,
     InputTextareaModule,
     AccordionModule,
     InputGroupModule,
     InputGroupAddonModule,
+    FileUploadModule,
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
@@ -34,4 +34,10 @@ export class FormComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  isTextInput(field: any): boolean {
+    return (
+      field.type === 'text' || field.type === 'email' || field.type === 'number'
+    );
+  }
 }

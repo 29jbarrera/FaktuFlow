@@ -174,7 +174,7 @@ nav{
 
 .custom-div-form{
   @apply border rounded-md shadow-md transition-all;
-  border: 3px solid gainsboro; 
+  border: 2px solid gainsboro; 
 }
 
 .custom-div-form:focus-within {
@@ -189,6 +189,30 @@ p-calendar{
   width: 100%;
 }
 
+p-dropdown {
+  border: none !important; /* Quita el borde externo */
+  outline: none !important; /* Quita el contorno azul */
+}
+
+/* Estilo para cuando el p-dropdown recibe el foco */
+p-dropdown:focus{
+  border: none !important; /* Asegura que no haya borde en foco */
+  box-shadow: none !important; /* Elimina cualquier sombra */
+}
+
+textarea{
+  border: none !important; /* Quita el borde externo */
+  outline: none !important;
+}
+
+textarea:focus{
+  border: none !important; /* Asegura que no haya borde en foco */
+  box-shadow: none !important; /* Elimina cualquier sombra */
+}
+
+.p-inputswitch::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: purple;
+}
 
 // Valoriza ejem
 .container-router-outlet {

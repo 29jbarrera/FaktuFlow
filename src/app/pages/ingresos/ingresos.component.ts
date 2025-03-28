@@ -48,19 +48,26 @@ export class IngresosComponent {
       icon: 'pi pi-dollar', // Icono de dinero
     },
     {
+      name: 'description',
+      label: 'Descripción',
+      type: 'textarea',
+      placeholder: '  Añade una descripción...',
+      required: false,
+      icon: 'pi pi-pencil', // Icono de lápiz
+    },
+    {
+      name: '',
+      label: '',
+      type: '',
+      required: false,
+      icon: '',
+    },
+    {
       name: 'submit',
       label: 'Enviar',
       type: 'submit',
       required: false,
       icon: 'pi pi-send', // Icono de enviar
-    },
-    {
-      name: 'description',
-      label: 'Descripción',
-      type: 'textarea',
-      placeholder: 'Añade una descripción...',
-      required: false,
-      icon: 'pi pi-pencil', // Icono de lápiz
     },
   ];
 }
