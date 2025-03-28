@@ -1,0 +1,73 @@
+<div class="w-11/12 m-auto mb-20 table-autoflow rounded-xl shadow-lg">
+  <p-table
+    [value]="clientes"
+    styleClass="p-datatable-sm"
+    [tableStyle]="{ 'min-width': '60rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [paginator]="true"
+    [rows]="5"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" style="width: 15%">
+          <div>
+            Nombre
+            <p-sortIcon class="order" field="name" />
+          </div>
+        </th>
+
+        <th pSortableColumn="email" style="width: 20%">
+          <div>
+            Correo Electrónico
+            <p-sortIcon class="order" field="email" />
+          </div>
+        </th>
+
+        <th pSortableColumn="phone">
+          <div>
+            Teléfono
+            <p-sortIcon class="order" field="phone" />
+          </div>
+        </th>
+
+        <th pSortableColumn="address">
+          <div>
+            Dirección
+            <p-sortIcon class="order" field="address" />
+          </div>
+        </th>
+
+        <th style="width: 2%">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-cliente>
+      <tr class="body-table">
+        <td>{{ cliente.name }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.phone }}</td>
+        <td>{{ cliente.address }}</td>
+
+        <!-- Botón de eliminación -->
+        <td>
+          <button
+            class="p-button p-button-danger bg-red-500 hover:bg-red-700 text-white p-2 rounded-lg"
+          >
+            <i class="pi pi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="15">
+          <div class="pl-2">
+            Total de clientes:
+            <span class="font-bold">{{ clientes.length || 0 }}</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
