@@ -1,6 +1,6 @@
 <div class="w-11/12 m-auto mb-20 table-autoflow rounded-xl shadow-lg">
   <p-table
-    [value]="invoices"
+    [value]="facturas"
     styleClass="p-datatable-sm"
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
@@ -9,38 +9,38 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="invoiceNumber">
+        <th pSortableColumn="numero">
           <div>
             Nº Factura
-            <p-sortIcon class="order" field="invoiceNumber" />
+            <p-sortIcon class="order" field="numero" />
           </div>
         </th>
 
-        <th pSortableColumn="category">
+        <th pSortableColumn="cliente_id">
           <div>
-            Categoría
-            <p-sortIcon class="order" field="category" />
+            Cliente
+            <p-sortIcon class="order" field="cliente_id" />
           </div>
         </th>
 
-        <th pSortableColumn="date">
+        <th pSortableColumn="fecha_emision">
           <div>
             Fecha
-            <p-sortIcon class="order" field="date" />
+            <p-sortIcon class="order" field="fecha_emision" />
           </div>
         </th>
 
-        <th pSortableColumn="amount">
+        <th pSortableColumn="importe">
           <div>
             Importe
-            <p-sortIcon class="order" field="amount" />
+            <p-sortIcon class="order" field="importe" />
           </div>
         </th>
 
-        <th pSortableColumn="status">
+        <th pSortableColumn="estado">
           <div>
             Estado
-            <p-sortIcon class="order" field="status" />
+            <p-sortIcon class="order" field="estado" />
           </div>
         </th>
 
@@ -50,33 +50,33 @@
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-invoice>
+    <ng-template pTemplate="body" let-factura>
       <tr class="body-table">
-        <td>{{ invoice.invoiceNumber }}</td>
-        <td>{{ invoice.category }}</td>
-        <td>{{ invoice.date | date : "dd/MM/yyyy" }}</td>
-        <td>{{ invoice.amount | currency : "EUR" }}</td>
+        <td>{{ factura.numero }}</td>
+        <td>{{ factura.cliente_id }}</td>
+        <td>{{ factura.fecha_emision | date : "dd/MM/yyyy" }}</td>
+        <td>{{ factura.importe | currency : "EUR" }}</td>
 
         <!-- Estado Pagado / No Pagado -->
         <td>
           <span>
-            {{ invoice.status }}
+            {{ factura.estado }}
           </span>
         </td>
 
-        <td>{{ invoice.description }}</td>
+        <td>{{ factura.descripcion }}</td>
 
         <!-- Mostrar archivo si existe -->
         <td>
           <a
-            *ngIf="invoice.fileUrl"
-            [href]="invoice.fileUrl"
+            *ngIf="factura.fileUrl"
+            [href]="factura.fileUrl"
             target="_blank"
             class="text-blue-500 underline"
           >
             Ver archivo
           </a>
-          <span *ngIf="!invoice.fileUrl">-</span>
+          <span *ngIf="!factura.fileUrl">-</span>
         </td>
 
         <!-- Botón de eliminación -->
@@ -92,7 +92,7 @@
         <td colspan="15">
           <div class="pl-2">
             Resultado totales:
-            <span class="font-bold">{{ invoices.length || 0 }}</span>
+            <span class="font-bold">{{ facturas.length || 0 }}</span>
           </div>
         </td>
       </tr>

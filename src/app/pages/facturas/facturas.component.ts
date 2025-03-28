@@ -27,13 +27,13 @@ export class FacturasComponent {
       icon: 'pi pi-file', // Icono de archivo
     },
     {
-      name: 'category',
-      label: 'Categoría',
+      name: 'Cliente',
+      label: 'Cliente',
       type: 'select',
       options: [
-        { label: 'Categoría 1', value: 'cat1' },
-        { label: 'Categoría 2', value: 'cat2' },
-        { label: 'Categoría 3', value: 'cat3' },
+        { label: 'Cliente 1', value: 'cat1' },
+        { label: 'Cliente 2', value: 'cat2' },
+        { label: 'Cliente 3', value: 'cat3' },
       ],
       required: true,
       icon: 'pi pi-tags', // Icono de etiqueta
