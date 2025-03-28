@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FormComponent } from '../../components/form/form.component';
 import { CommonModule } from '@angular/common';
+import { GastosTableComponent } from './gastos-table/gastos-table.component';
 
 @Component({
   selector: 'app-gastos',
   standalone: true,
-  imports: [HeaderComponent, FormComponent, CommonModule],
+  imports: [HeaderComponent, FormComponent, CommonModule, GastosTableComponent],
   templateUrl: './gastos.component.html',
   styleUrl: './gastos.component.scss',
 })

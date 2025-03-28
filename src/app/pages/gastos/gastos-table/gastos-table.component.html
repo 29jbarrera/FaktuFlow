@@ -1,0 +1,75 @@
+<div class="w-11/12 m-auto mb-20 table-autoflow rounded-xl shadow-lg">
+  <p-table
+    [value]="gastos"
+    styleClass="p-datatable-sm"
+    [tableStyle]="{ 'min-width': '60rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [paginator]="true"
+    [rows]="5"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" style="width: 15%">
+          <div>
+            Nombre
+            <p-sortIcon class="order" field="name" />
+          </div>
+        </th>
+
+        <th pSortableColumn="category" style="width: 15%">
+          <div>
+            Categoría
+            <p-sortIcon class="order" field="category" />
+          </div>
+        </th>
+
+        <th pSortableColumn="date">
+          <div>
+            Fecha
+            <p-sortIcon class="order" field="date" />
+          </div>
+        </th>
+
+        <th pSortableColumn="amount">
+          <div>
+            Importe
+            <p-sortIcon class="order" field="amount" />
+          </div>
+        </th>
+
+        <th style="width: 30%">Descripción</th>
+        <th style="width: 2%">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-gasto>
+      <tr class="body-table">
+        <td>{{ gasto.name }}</td>
+        <td>{{ gasto.category }}</td>
+        <td>{{ gasto.date | date : "dd/MM/yyyy" }}</td>
+        <td>{{ gasto.amount | currency : "EUR" }}</td>
+        <td>{{ gasto.description }}</td>
+
+        <!-- Botón de eliminación -->
+        <td>
+          <button
+            class="p-button p-button-danger bg-red-500 hover:bg-red-700 text-white p-2 rounded-lg"
+          >
+            <i class="pi pi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="15">
+          <div class="pl-2">
+            Total de gastos:
+            <span class="font-bold">{{ gastos.length || 0 }}</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
