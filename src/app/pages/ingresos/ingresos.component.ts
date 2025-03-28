@@ -51,7 +51,7 @@ export class IngresosComponent {
       name: 'description',
       label: 'Descripción',
       type: 'textarea',
-      placeholder: '  Añade una descripción...',
+      placeholder: 'Añade una descripción...',
       required: false,
       icon: 'pi pi-pencil', // Icono de lápiz
     },

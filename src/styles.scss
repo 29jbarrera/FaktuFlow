@@ -203,6 +203,8 @@ p-dropdown:focus{
 textarea{
   border: none !important; /* Quita el borde externo */
   outline: none !important;
+  color: #112c35;
+  padding: 8px;
 }
 
 textarea:focus{
