@@ -1,0 +1,101 @@
+<div class="w-11/12 m-auto mb-20 table-autoflow rounded-xl shadow-lg">
+  <p-table
+    [value]="invoices"
+    styleClass="p-datatable-sm"
+    [tableStyle]="{ 'min-width': '60rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [paginator]="true"
+    [rows]="5"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="invoiceNumber">
+          <div>
+            Nº Factura
+            <p-sortIcon class="order" field="invoiceNumber" />
+          </div>
+        </th>
+
+        <th pSortableColumn="category">
+          <div>
+            Categoría
+            <p-sortIcon class="order" field="category" />
+          </div>
+        </th>
+
+        <th pSortableColumn="date">
+          <div>
+            Fecha
+            <p-sortIcon class="order" field="date" />
+          </div>
+        </th>
+
+        <th pSortableColumn="amount">
+          <div>
+            Importe
+            <p-sortIcon class="order" field="amount" />
+          </div>
+        </th>
+
+        <th pSortableColumn="status">
+          <div>
+            Estado
+            <p-sortIcon class="order" field="status" />
+          </div>
+        </th>
+
+        <th style="width: 20%">Descripción</th>
+        <th style="width: 10%">Archivo</th>
+        <th style="width: 2%">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-invoice>
+      <tr class="body-table">
+        <td>{{ invoice.invoiceNumber }}</td>
+        <td>{{ invoice.category }}</td>
+        <td>{{ invoice.date | date : "dd/MM/yyyy" }}</td>
+        <td>{{ invoice.amount | currency : "EUR" }}</td>
+
+        <!-- Estado Pagado / No Pagado -->
+        <td>
+          <span>
+            {{ invoice.status }}
+          </span>
+        </td>
+
+        <td>{{ invoice.description }}</td>
+
+        <!-- Mostrar archivo si existe -->
+        <td>
+          <a
+            *ngIf="invoice.fileUrl"
+            [href]="invoice.fileUrl"
+            target="_blank"
+            class="text-blue-500 underline"
+          >
+            Ver archivo
+          </a>
+          <span *ngIf="!invoice.fileUrl">-</span>
+        </td>
+
+        <!-- Botón de eliminación -->
+        <td>
+          <button class="p-button p-button-danger">
+            <i class="pi pi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="15">
+          <div class="pl-2">
+            Resultado totales:
+            <span class="font-bold">{{ invoices.length || 0 }}</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

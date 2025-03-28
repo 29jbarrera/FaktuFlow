@@ -1,0 +1,105 @@
+import { Component } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-facturas-table',
+  standalone: true,
+  imports: [TableModule, CommonModule],
+  templateUrl: './facturas-table.component.html',
+  styleUrl: './facturas-table.component.scss',
+})
+export class FacturasTableComponent {
+  invoices = [
+    {
+      invoiceNumber: 'F-001',
+      category: 'Servicios',
+      date: new Date(2024, 2, 15),
+      amount: 150.75,
+      status: 'Pagado',
+      description: 'Factura de consultoría',
+      fileUrl: 'https://example.com/file1.pdf',
+    },
+    {
+      invoiceNumber: 'F-002',
+      category: 'Productos',
+      date: new Date(2024, 2, 10),
+      amount: 320.5,
+      status: 'No Pagado',
+      description: 'Compra de insumos',
+      fileUrl: null,
+    },
+    {
+      invoiceNumber: 'F-003',
+      category: 'Mantenimiento',
+      date: new Date(2024, 1, 25),
+      amount: 95.0,
+      status: 'Pagado',
+      description: 'Reparación de equipos',
+      fileUrl: 'https://example.com/file3.pdf',
+    },
+    {
+      invoiceNumber: 'F-004',
+      category: 'Software',
+      date: new Date(2024, 0, 30),
+      amount: 499.99,
+      status: 'No Pagado',
+      description: 'Licencia de software',
+      fileUrl: null,
+    },
+    {
+      invoiceNumber: 'F-005',
+      category: 'Servicios',
+      date: new Date(2024, 2, 5),
+      amount: 210.0,
+      status: 'Pagado',
+      description: 'Asesoría financiera',
+      fileUrl: 'https://example.com/file5.pdf',
+    },
+    {
+      invoiceNumber: 'F-006',
+      category: 'Productos',
+      date: new Date(2024, 1, 12),
+      amount: 135.75,
+      status: 'Pagado',
+      description: 'Compra de material de oficina',
+      fileUrl: null,
+    },
+    {
+      invoiceNumber: 'F-007',
+      category: 'Mantenimiento',
+      date: new Date(2024, 2, 1),
+      amount: 60.0,
+      status: 'No Pagado',
+      description: 'Cambio de filtros de aire',
+      fileUrl: 'https://example.com/file7.pdf',
+    },
+    {
+      invoiceNumber: 'F-008',
+      category: 'Software',
+      date: new Date(2024, 2, 20),
+      amount: 799.99,
+      status: 'Pagado',
+      description: 'Desarrollo de aplicación web',
+      fileUrl: null,
+    },
+    {
+      invoiceNumber: 'F-009',
+      category: 'Servicios',
+      date: new Date(2024, 0, 10),
+      amount: 180.5,
+      status: 'No Pagado',
+      description: 'Capacitación de personal',
+      fileUrl: 'https://example.com/file9.pdf',
+    },
+    {
+      invoiceNumber: 'F-010',
+      category: 'Productos',
+      date: new Date(2024, 2, 8),
+      amount: 275.3,
+      status: 'Pagado',
+      description: 'Compra de mobiliario',
+      fileUrl: null,
+    },
+  ];
+}

@@ -229,7 +229,7 @@ textarea:focus{
     thead {
       th {
         background-color: #eeeeee;
-        color: #515151;
+        color: var(--color-primary);
         font-size: 14px;
         div {
           display: flex;
@@ -250,14 +250,14 @@ textarea:focus{
             }
           }
           .p-column-filter-menu-button-open {
-            background: #3cad2d;
+            background: var(--color-primary);
             color: #ffffff;
           }
 
           .p-column-filter-menu-button:hover {
             color: #ffffff;
             border-color: transparent;
-            background: #3cad2d;
+            background: var(--color-primary);
           }
         }
       }
@@ -272,49 +272,7 @@ textarea:focus{
     td:nth-child(2) {
       width: 30px;
       min-width: 30px;
-      padding: 0 !important;
-      margin: 0 !important;
-      position: relative;
     }
-
-    td:first-child {
-      i {
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        position: absolute;
-        top: 2px;
-        bottom: 2px;
-        right: 2px;
-        left: 2px;
-        font-size: 17px;
-        background-color: #3cad2d1f;
-        border: 1px solid #3cad2d48;
-        color: #3cad2d;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
-
-    td:nth-child(2){
-      i {
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        position: absolute;
-        top: 2px;
-        bottom: 2px;
-        right: 2px;
-        left: 2px;
-        font-size: 17px;
-        background-color: #ad2d2d1f;
-        border: 1px solid #ad2d2d48;
-        color: #ad2d2d;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
-
     td:last-child {
       border-right: none;
     }
@@ -322,8 +280,8 @@ textarea:focus{
       border-right: 1px solid #ddd;
       max-width: 200px;
       min-width: 100px;
-      font-size: 13px;
-      padding: 7px;
+      font-size: 15px;
+      padding: 8px;
       padding-left: 12px;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -337,15 +295,22 @@ textarea:focus{
   }
   .p-datatable .p-datatable-tfoot > tr > td {
     height: 30px;
+    color: var(--color-primary);
   }
   .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
-    color: #3cad2d;
+    color: var(--color-primary);
   }
 
   .p-datatable .p-sortable-column .p-sortable-column-icon {
     width: 0.8rem;
     height: 0.8rem;
   }
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: var(--color-primary-very-low) !important;
+  border-color: #ffffff;
+  color: var(--color-primary);
 }
 
   

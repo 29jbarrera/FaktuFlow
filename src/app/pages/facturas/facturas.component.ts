@@ -2,11 +2,17 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
+import { FacturasTableComponent } from './facturas-table/facturas-table.component';
 
 @Component({
   selector: 'app-facturas',
   standalone: true,
-  imports: [HeaderComponent, FormComponent, CommonModule],
+  imports: [
+    HeaderComponent,
+    FormComponent,
+    CommonModule,
+    FacturasTableComponent,
+  ],
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss',
 })
