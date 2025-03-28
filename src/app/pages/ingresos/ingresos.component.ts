@@ -2,11 +2,17 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FormComponent } from '../../components/form/form.component';
 import { CommonModule } from '@angular/common';
+import { IngresosTableComponent } from './ingresos-table/ingresos-table.component';
 
 @Component({
   selector: 'app-ingresos',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormComponent],
+  imports: [
+    HeaderComponent,
+    CommonModule,
+    FormComponent,
+    IngresosTableComponent,
+  ],
   templateUrl: './ingresos.component.html',
   styleUrl: './ingresos.component.scss',
 })
