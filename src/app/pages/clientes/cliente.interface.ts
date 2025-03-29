@@ -6,3 +6,7 @@ export interface Cliente {
   email: string;
   direccion_fiscal: string;
 }
+
+export interface ClientesResponse {
+  clientes: Cliente[];
+}

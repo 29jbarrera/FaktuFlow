@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
@@ -6,6 +6,10 @@ import { FacturasTableComponent } from './facturas-table/facturas-table.componen
 import { FacturasService } from './service/facturas.service';
 import { Factura } from './factura.interface';
 import { AuthService } from '../auth/auth.service';
+import { ClientesService } from '../clientes/clientes.service';
+import { Cliente } from '../clientes/cliente.interface';
+import { of } from 'rxjs'; // Usado para manejar valores retrasados
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-facturas',
@@ -19,7 +23,7 @@ import { AuthService } from '../auth/auth.service';
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss',
 })
-export class FacturasComponent {
+export class FacturasComponent implements OnInit {
   formModel = {
     numero: '',
     cliente_id: '',
@@ -31,10 +35,16 @@ export class FacturasComponent {
     usuario_id: null,
   };
 
+  clientes: { label: string; value: number }[] = [];
+  loadingClientes = true;
+
   constructor(
     private facturasService: FacturasService,
-    private authService: AuthService
+    private authService: AuthService,
+    private clientesService: ClientesService
   ) {}
+
+  ngOnInit(): void {}
 
   formFields = [
     {
@@ -49,11 +59,7 @@ export class FacturasComponent {
       name: 'cliente_id',
       label: 'Cliente',
       type: 'select',
-      options: [
-        { label: 'Cliente 1', value: 'cat1' },
-        { label: 'Cliente 2', value: 'cat2' },
-        { label: 'Cliente 3', value: 'cat3' },
-      ],
+      options: this.clientes,
       required: true,
       icon: 'pi pi-tags', // Icono de etiqueta
     },
