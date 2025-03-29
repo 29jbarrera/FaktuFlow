@@ -9,10 +9,10 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="name" style="width: 15%">
+        <th pSortableColumn="nombre" style="width: 15%">
           <div>
             Nombre
-            <p-sortIcon class="order" field="name" />
+            <p-sortIcon class="order" field="nombre" />
           </div>
         </th>
 
@@ -23,17 +23,17 @@
           </div>
         </th>
 
-        <th pSortableColumn="phone">
+        <th pSortableColumn="telefono">
           <div>
             Teléfono
-            <p-sortIcon class="order" field="phone" />
+            <p-sortIcon class="order" field="telefono" />
           </div>
         </th>
 
-        <th pSortableColumn="address">
+        <th pSortableColumn="direccion_fiscal">
           <div>
             Dirección
-            <p-sortIcon class="order" field="address" />
+            <p-sortIcon class="order" field="direccion_fiscal" />
           </div>
         </th>
 
@@ -43,10 +43,10 @@
 
     <ng-template pTemplate="body" let-cliente>
       <tr class="body-table">
-        <td>{{ cliente.name }}</td>
+        <td>{{ cliente.nombre }}</td>
         <td>{{ cliente.email }}</td>
-        <td>{{ cliente.phone }}</td>
-        <td>{{ cliente.address }}</td>
+        <td>{{ cliente.telefono }}</td>
+        <td>{{ cliente.direccion_fiscal }}</td>
 
         <!-- Botón de eliminación -->
         <td>
