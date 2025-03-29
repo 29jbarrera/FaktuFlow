@@ -7,6 +7,9 @@ export interface User {
 
 export interface LoginResponse {
   token: string;
+  usuario_id: string;
+  email: string;
+  rol: string;
 }
 
 export interface RegisterResponse {

@@ -85,9 +85,7 @@ export class AuthComponent {
         .login(this.email, this.password)
         .toPromise();
 
-      sessionStorage.setItem('userEmail', this.email);
-
-      sessionStorage.setItem('authToken', response.token);
+      this.authService.storeUserData(response);
 
       this.messagesLogin = [
         {

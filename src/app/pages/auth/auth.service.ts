@@ -21,10 +21,31 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}auth/login`, body);
   }
 
+  // Almacenar los datos del usuario en el sessionStorage
+  storeUserData(response: LoginResponse): void {
+    // Almacenar los datos en sessionStorage
+    sessionStorage.setItem('authToken', response.token); // Almacenar el token JWT
+    sessionStorage.setItem('usuario_id', response.usuario_id.toString()); // Almacenar el usuario_id
+    sessionStorage.setItem('userEmail', response.email); // Almacenar el email (si lo necesitas)
+    sessionStorage.setItem('rol', response.rol); // Almacenar el rol (si lo necesitas)
+  }
+
+  getUserId(): number | null {
+    const userId = sessionStorage.getItem('usuario_id');
+    return userId ? parseInt(userId, 10) : null;
+  }
+
   register(user: User): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>(
       `${this.apiUrl}auth/register`,
       user
     );
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('usuario_id');
+    sessionStorage.removeItem('userEmail');
+    sessionStorage.removeItem('rol');
   }
 }
