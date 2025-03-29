@@ -3,6 +3,9 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
 import { FacturasTableComponent } from './facturas-table/facturas-table.component';
+import { FacturasService } from './service/facturas.service';
+import { Factura } from './factura.interface';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-facturas',
@@ -17,9 +20,25 @@ import { FacturasTableComponent } from './facturas-table/facturas-table.componen
   styleUrl: './facturas.component.scss',
 })
 export class FacturasComponent {
+  formModel = {
+    numero: '',
+    cliente_id: '',
+    fecha_emision: null,
+    importe: null,
+    descripcion: '',
+    estado: false,
+    file: null,
+    usuario_id: null,
+  };
+
+  constructor(
+    private facturasService: FacturasService,
+    private authService: AuthService
+  ) {}
+
   formFields = [
     {
-      name: 'invoiceNumber',
+      name: 'numero',
       label: 'Número de Factura',
       type: 'text',
       placeholder: 'Ingresa el número de la factura...',
@@ -27,7 +46,7 @@ export class FacturasComponent {
       icon: 'pi pi-file', // Icono de archivo
     },
     {
-      name: 'Cliente',
+      name: 'cliente_id',
       label: 'Cliente',
       type: 'select',
       options: [
@@ -39,14 +58,14 @@ export class FacturasComponent {
       icon: 'pi pi-tags', // Icono de etiqueta
     },
     {
-      name: 'date',
+      name: 'fecha_emision',
       label: 'Fecha',
       type: 'date',
       required: true,
       icon: 'pi pi-calendar', // Icono de calendario
     },
     {
-      name: 'amount',
+      name: 'importe',
       label: 'Importe',
       type: 'number',
       placeholder: 'Ingresa el importe...',
@@ -54,7 +73,7 @@ export class FacturasComponent {
       icon: 'pi pi-dollar', // Icono de dólar
     },
     {
-      name: 'description',
+      name: 'descripcion',
       label: 'Descripción',
       type: 'textarea',
       placeholder: 'Ingresa una descripción...',
@@ -62,7 +81,7 @@ export class FacturasComponent {
       icon: 'pi pi-pencil', // Icono de lápiz
     },
     {
-      name: 'toggle',
+      name: 'estado',
       label: '¿Está pagada?',
       type: 'toggle',
       required: false,
@@ -79,7 +98,27 @@ export class FacturasComponent {
       label: 'Enviar',
       type: 'submit',
       required: false,
-      icon: 'pi pi-send', // Icono de enviar
     },
   ];
+
+  crearFactura(formModel: any) {
+    const usuarioId = this.authService.getUserId();
+
+    if (!usuarioId) {
+      console.error('❌ Error: usuario_id no encontrado en sessionStorage');
+      return;
+    }
+
+    formModel.usuario_id = usuarioId;
+    // Aquí se envía al servicio con los datos del formulario
+    this.facturasService.createFactura(formModel).subscribe(
+      (response) => {
+        console.log('Factura creada con éxito:', response);
+        // Aquí puedes redirigir a la lista de facturas o mostrar un mensaje de éxito
+      },
+      (error) => {
+        console.error('Error al crear la factura:', error);
+      }
+    );
+  }
 }

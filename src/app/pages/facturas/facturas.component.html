@@ -1,4 +1,9 @@
 <app-header [title]="'Facturas'" [icon]="'fas fa-file-invoice'"></app-header>
-<app-form [formFields]="formFields"></app-form>
+
+<app-form
+  [formFields]="formFields"
+  [formModel]="formModel"
+  (formSubmit)="crearFactura($event)"
+></app-form>
 
 <app-facturas-table></app-facturas-table>

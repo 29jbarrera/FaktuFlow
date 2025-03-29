@@ -203,7 +203,7 @@ p-dropdown:focus{
 textarea{
   border: none !important; /* Quita el borde externo */
   outline: none !important;
-  color: #112c35;
+  color: var(--color-primary);
   padding: 8px;
 }
 
@@ -215,6 +215,18 @@ textarea:focus{
 .p-inputswitch::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
   background: purple;
 }
+
+.p-confirm-dialog .p-dialog-footer .p-button {
+  margin-right: 15px;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-button:last-child {
+background: #0ed53d;
+}
+
+.p-confirm-dialog .p-dialog-footer .p-button:first-child {
+  background: #ff2020;
+  }
 
 // Valoriza ejem
 .container-router-outlet {
