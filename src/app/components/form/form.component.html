@@ -1,7 +1,7 @@
 <div
   class="sm:w-8/12 w-11/12 m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
 >
-  <form class="sm:w-full">
+  <form (ngSubmit)="onSubmit($event)" class="sm:w-full">
     <div *ngFor="let field of formFields">
       <div class="input-group">
         <!-- Label -->
@@ -21,6 +21,7 @@
             </p-inputGroupAddon>
             <input
               pInputText
+              [(ngModel)]="formModel[field.name]"
               [id]="field.name"
               [name]="field.name"
               [placeholder]="field.placeholder"
@@ -37,6 +38,7 @@
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
           <p-calendar
+            [(ngModel)]="formModel[field.name]"
             [id]="field.name"
             [name]="field.name"
             [required]="field.required"
@@ -52,6 +54,7 @@
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
           <p-dropdown
+            [(ngModel)]="formModel[field.name]"
             [options]="field.options"
             optionLabel="label"
             optionValue="value"
@@ -68,6 +71,7 @@
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
           <textarea
+            [(ngModel)]="formModel[field.name]"
             [id]="field.name"
             [name]="field.name"
             [placeholder]="field.placeholder"
@@ -79,6 +83,7 @@
         <!-- File Upload -->
         <div *ngIf="field.type === 'file'" class="mt-3">
           <p-fileUpload
+            [(ngModel)]="formModel[field.name]"
             mode="basic"
             chooseIcon="pi pi-upload"
             accept="image/*"
@@ -95,6 +100,7 @@
             [for]="field.name"
           >
             <input
+              [(ngModel)]="formModel[field.name]"
               class="peer sr-only"
               type="checkbox"
               [id]="field.name"
@@ -109,7 +115,7 @@
 
         <!-- Submit Button -->
         <div *ngIf="field.type === 'submit'">
-          <p-button type="submit">
+          <p-button type="submit" (click)="onSubmit($event)">
             {{ field.label }}
           </p-button>
         </div>
