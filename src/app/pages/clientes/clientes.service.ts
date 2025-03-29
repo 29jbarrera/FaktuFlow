@@ -25,4 +25,19 @@ export class ClientesService {
 
     return this.http.get<any>(this.apiUrl, { headers });
   }
+
+  deleteCliente(id: number): Observable<any> {
+    const token = sessionStorage.getItem('authToken'); // Obtener el token almacenado
+
+    if (!token) {
+      console.error('❌ Error: No hay token en sessionStorage');
+      throw new Error('No hay token disponible');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, // Incluir el token en la cabecera
+    });
+
+    return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+  }
 }
