@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environment';
 import { Factura } from '../factura.interface';
@@ -13,13 +13,17 @@ export class FacturasService {
   constructor(private http: HttpClient) {}
 
   // Método para obtener las facturas
-  getFacturas(page: number = 1, limit: number = 10): Observable<any> {
+  getFacturas(page: number, limit: number): Observable<any> {
     const token = sessionStorage.getItem('authToken');
 
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
+
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
 
     // Realizar la solicitud GET
     return this.http.get<any>(`${this.apiUrl}facturas`, {

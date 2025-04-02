@@ -17,6 +17,10 @@ import { ToastModule } from 'primeng/toast';
 })
 export class FacturasTableComponent {
   facturas: Factura[] = [];
+  totalFacturas: number = 0;
+  totalPages: number = 0;
+  currentPage: number = 1;
+  limit: number = 10;
   constructor(
     private facturasService: FacturasService,
     private confirmationService: ConfirmationService
@@ -27,7 +31,7 @@ export class FacturasTableComponent {
   }
 
   cargarFacturas() {
-    this.facturasService.getFacturas().subscribe(
+    this.facturasService.getFacturas(this.currentPage, this.limit).subscribe(
       (response) => {
         this.facturas = response.facturas;
       },
@@ -35,6 +39,13 @@ export class FacturasTableComponent {
         console.error('❌ Error al obtener las facturas:', error);
       }
     );
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.cargarFacturas();
+    }
   }
 
   deleteFactura(id: number) {

@@ -103,5 +103,9 @@
   </p-table>
 </div>
 
+<div *ngIf="facturas.length === 0">
+  <p>No hay facturas para mostrar.</p>
+</div>
+
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>
