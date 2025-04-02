@@ -8,7 +8,7 @@ import { TableModule } from 'primeng/table';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
@@ -28,7 +28,11 @@ import { User } from '../../interfaces/user';
     InputGroupModule,
     InputGroupAddonModule,
     ReactiveFormsModule,
-    HttpClientModule,
+    
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule,
     FormsModule,
     MessagesModule,
     ProgressSpinnerModule,
