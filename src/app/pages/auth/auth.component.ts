@@ -11,14 +11,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {} from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
-import { MessagesModule } from 'primeng/messages';
-import { MessageService, Message } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-auth',
-  standalone: true,
   imports: [
     InputTextModule,
     ButtonModule,
@@ -28,13 +27,8 @@ import { User } from '../../interfaces/user';
     InputGroupModule,
     InputGroupAddonModule,
     ReactiveFormsModule,
-    
-// TODO: `HttpClientModule` should not be imported into a component directly.
-// Please refactor the code to add `provideHttpClient()` call to the provider list in the
-// application bootstrap logic and remove the `HttpClientModule` import from this component.
-HttpClientModule,
     FormsModule,
-    MessagesModule,
+    MessageModule,
     ProgressSpinnerModule,
   ],
   templateUrl: './auth.component.html',
@@ -49,8 +43,8 @@ export class AuthComponent {
   password: string = '';
   passwordRegister: string = '';
   passwordRegisterConfirm: string = '';
-  messagesLogin: Message[] = [];
-  messagesRegister: Message[] = [];
+  messagesLogin: any[] = [];
+  messagesRegister: any[] = [];
   isLoading = false;
 
   // Función para validar el formato del correo

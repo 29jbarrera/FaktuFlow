@@ -12,16 +12,15 @@ import { of } from 'rxjs'; // Usado para manejar valores retrasados
 import { delay } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-facturas',
-  standalone: true,
-  imports: [
-    HeaderComponent,
-    FormComponent,
-    CommonModule,
-    FacturasTableComponent,
-  ],
-  templateUrl: './facturas.component.html',
-  styleUrl: './facturas.component.scss',
+    selector: 'app-facturas',
+    imports: [
+        HeaderComponent,
+        FormComponent,
+        CommonModule,
+        FacturasTableComponent,
+    ],
+    templateUrl: './facturas.component.html',
+    styleUrl: './facturas.component.scss'
 })
 export class FacturasComponent implements OnInit {
   formModel = {

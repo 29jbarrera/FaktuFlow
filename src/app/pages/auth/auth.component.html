@@ -8,7 +8,6 @@
         class="md:w-44 w-32"
         width="176"
         height="128"
-        loading="lazy"
       />
 
       <h2 class="mb-4 h2-form">Acceso usuarios</h2>
@@ -52,10 +51,12 @@
           </div>
         </div>
 
-        <p-messages
-          [(value)]="messagesLogin"
+        <p-message
+          icon="pi pi-times-circle"
+          closable
           styleClass="custom-messages"
-        ></p-messages>
+        >
+        </p-message>
 
         <div class="w-full flex justify-center mt-8">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
@@ -164,7 +165,13 @@
           </div>
         </div>
 
-        <p-messages [(value)]="messagesRegister"></p-messages>
+        <p-message
+          severity="success"
+          icon="pi pi-times-circle"
+          closable
+          styleClass="custom-messages"
+        >
+        </p-message>
 
         <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
           <p-button label="Registrarse" (click)="onRegisterSubmit()"></p-button>

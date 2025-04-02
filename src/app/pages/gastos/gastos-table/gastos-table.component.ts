@@ -3,11 +3,10 @@ import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-gastos-table',
-  standalone: true,
-  imports: [TableModule, CommonModule],
-  templateUrl: './gastos-table.component.html',
-  styleUrl: './gastos-table.component.scss',
+    selector: 'app-gastos-table',
+    imports: [TableModule, CommonModule],
+    templateUrl: './gastos-table.component.html',
+    styleUrl: './gastos-table.component.scss'
 })
 export class GastosTableComponent {
   gastos = [

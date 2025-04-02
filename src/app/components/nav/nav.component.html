@@ -24,14 +24,17 @@
     <h3 class="text-2xl font-semibold text-center mb-4">Bienvenido 👋🏻</h3>
 
     <p-accordion [activeIndex]="1">
-      <p-accordionTab header="{{ userEmail }}">
-        <button
-          class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
-          (click)="logout()"
-        >
-          Cerrar sesión
-        </button>
-      </p-accordionTab>
+      <p-accordion-panel value="0">
+        <p-accordion-header> {{ userEmail }} I</p-accordion-header>
+        <p-accordion-content>
+          <button
+            class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
+            (click)="logout()"
+          >
+            Cerrar sesión
+          </button>
+        </p-accordion-content>
+      </p-accordion-panel>
     </p-accordion>
   </div>
 

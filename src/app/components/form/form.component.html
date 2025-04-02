@@ -1,7 +1,7 @@
 <div
   class="sm:w-8/12 w-11/12 m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
 >
-  <form (ngSubmit)="onSubmit($event)" class="sm:w-full">
+  <form (ngSubmit)="onSubmit($event)" class="sm:w-full" #form="ngForm">
     <div *ngFor="let field of formFields">
       <div class="input-group">
         <!-- Label -->
@@ -37,7 +37,7 @@
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
-          <p-calendar
+          <p-datepicker
             [(ngModel)]="formModel[field.name]"
             [id]="field.name"
             [name]="field.name"
@@ -45,7 +45,7 @@
             [readonlyInput]="true"
             [showButtonBar]="true"
             styleClass="w-full calendar-custom"
-          ></p-calendar>
+          ></p-datepicker>
         </div>
 
         <!-- Dropdown for Options -->
@@ -53,16 +53,17 @@
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
-          <p-dropdown
+          <p-autocomplete
             [(ngModel)]="formModel[field.name]"
-            [options]="field.options"
+            (completeMethod)="(field.options)"
+            [dropdown]="true"
             optionLabel="label"
             optionValue="value"
             [id]="field.name"
             [name]="field.name"
             [required]="field.required"
             class="w-full p-fluid custom-dropdown"
-          ></p-dropdown>
+          ></p-autocomplete>
         </div>
 
         <!-- Textarea for Description -->
@@ -115,7 +116,11 @@
 
         <!-- Submit Button -->
         <div *ngIf="field.type === 'submit'">
-          <p-button type="submit" (click)="onSubmit($event)">
+          <p-button
+            type="submit"
+            (click)="onSubmit($event)"
+            class="boton-clase"
+          >
             {{ field.label }}
           </p-button>
         </div>

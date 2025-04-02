@@ -8,12 +8,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-  selector: 'app-clientes-table',
-  standalone: true,
-  imports: [TableModule, CommonModule, ConfirmDialogModule, ToastModule],
-  templateUrl: './clientes-table.component.html',
-  styleUrl: './clientes-table.component.scss',
-  providers: [ConfirmationService, MessageService],
+    selector: 'app-clientes-table',
+    imports: [TableModule, CommonModule, ConfirmDialogModule, ToastModule],
+    templateUrl: './clientes-table.component.html',
+    styleUrl: './clientes-table.component.scss',
+    providers: [ConfirmationService, MessageService]
 })
 export class ClientesTableComponent {
   clientes: Cliente[] = [];

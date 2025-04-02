@@ -1,14 +1,26 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {} from '@angular/common/http';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+import { routes } from './app.routes';
+
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideAnimationsAsync(), // Asegúrate de incluir este módulo para que las animaciones funcionen
-    importProvidersFrom(HttpClientModule),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: {
+          prefix: 'p',
+          darkModeSelector: 'light',
+          cssLayer: false,
+        }, // Configurar el tema de PrimeNG
+      },
+    }),
+    provideHttpClient(),
   ],
 };
