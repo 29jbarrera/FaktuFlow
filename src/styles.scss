@@ -97,13 +97,18 @@
 
 .password-style {
   @apply border rounded-md shadow-md overflow-hidden transition-all rounded-md;
-  border: 2px solid gainsboro;
+  border: 1px solid gainsboro;
 
   /* Aplica borde verde cuando el input dentro del grupo está enfocado */
   &:focus-within {
     border-color: rgb(172, 172, 172); 
     box-shadow: 0 4px 6px rgb(172, 172, 172,0.6);
   }
+}
+
+p-password .p-password-input {
+  border-top-left-radius: 0 !important; 
+  border-bottom-left-radius: 0 !important; 
 }
 
 .p-accordion {

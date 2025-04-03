@@ -17,12 +17,6 @@
     color: var(--color-primary);
 }
   
-:host ::ng-deep p-messages {
-    width: 100%; 
-    max-width: 300px; 
-    height: 80px; 
-    overflow: auto; 
-  }
 
   
   
