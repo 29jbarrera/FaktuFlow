@@ -51,20 +51,24 @@
           </div>
         </div>
 
-        <p-message
-          icon="pi pi-times-circle"
-          closable
-          styleClass="custom-messages"
-        >
-        </p-message>
+        <div *ngFor="let message of messagesLogin">
+          <p-message
+            icon="pi pi-times-circle"
+            [severity]="message.severity"
+            [text]="message.text"
+            [closable]="true"
+            styleClass="custom-messages"
+          ></p-message>
+        </div>
 
         <div class="w-full flex justify-center mt-8">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
         <p-progressSpinner
           *ngIf="isLoading"
+          strokeWidth="3"
           ariaLabel="loading"
-          class="flex justify-center mt-4"
+          class="flex justify-center mt-6 -mb-8"
         />
       </form>
     </div>
@@ -165,13 +169,15 @@
           </div>
         </div>
 
-        <p-message
-          severity="success"
-          icon="pi pi-times-circle"
-          closable
-          styleClass="custom-messages"
-        >
-        </p-message>
+        <div *ngFor="let message of messagesRegister">
+          <p-message
+            icon="pi pi-times-circle"
+            [severity]="message.severity"
+            [text]="message.text"
+            [closable]="true"
+            styleClass="custom-messages"
+          ></p-message>
+        </div>
 
         <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
           <p-button label="Registrarse" (click)="onRegisterSubmit()"></p-button>

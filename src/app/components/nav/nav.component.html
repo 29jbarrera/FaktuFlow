@@ -7,7 +7,7 @@
 </button>
 
 <nav
-  class="fixed top-0 w-full sm:w-[20%] left-0 h-screen overflow-hidden shadow-lg z-10"
+  class="fixed top-0 w-full sm:w-[22%] left-0 h-screen overflow-hidden shadow-lg z-10"
   *ngIf="isMenuVisible"
 >
   <!-- Logo centrado -->
@@ -15,17 +15,17 @@
     <img
       src="/assets/ico/Autoflow-logo.webp"
       alt="Logo"
-      class="w-28 logo sm:w-48"
+      class="w-36 logo sm:w-48"
     />
   </div>
 
   <!-- Zona de bienvenida y dropdown para el correo -->
-  <div class="p-2 justify-center">
-    <h3 class="text-2xl font-semibold text-center mb-4">Bienvenido 👋🏻</h3>
+  <div class="py-4 px-5 justify-center">
+    <h3 class="text-2xl font-semibold text-center mb-6">Bienvenido 👋🏻</h3>
 
     <p-accordion [activeIndex]="1">
       <p-accordion-panel value="0">
-        <p-accordion-header> {{ userEmail }} I</p-accordion-header>
+        <p-accordion-header> {{ userEmail }}</p-accordion-header>
         <p-accordion-content>
           <button
             class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
@@ -87,7 +87,7 @@
   </ul>
 
   <div
-    class="absolute bottom-5 left-0 right-0 text-center text-xs px-4 text-teal-50"
+    class="absolute bottom-6 left-0 right-0 text-center text-xs px-4 text-teal-50"
   >
     <p>
       Si te gusta la app...
@@ -102,6 +102,6 @@
   </div>
 </nav>
 
-<main class="ml-0 sm:ml-[20%] h-screen overflow-y-auto">
+<main class="ml-0 sm:ml-[22%] h-screen overflow-y-auto">
   <router-outlet></router-outlet>
 </main>
