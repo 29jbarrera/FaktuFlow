@@ -8,6 +8,7 @@ import { AuthService } from '../../pages/auth/auth.service';
 
 @Component({
   selector: 'app-nav',
+  standalone: true,
   imports: [RouterModule, ButtonModule, AccordionModule, CommonModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',

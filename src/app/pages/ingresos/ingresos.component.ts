@@ -5,15 +5,16 @@ import { CommonModule } from '@angular/common';
 import { IngresosTableComponent } from './ingresos-table/ingresos-table.component';
 
 @Component({
-    selector: 'app-ingresos',
-    imports: [
-        HeaderComponent,
-        CommonModule,
-        FormComponent,
-        IngresosTableComponent,
-    ],
-    templateUrl: './ingresos.component.html',
-    styleUrl: './ingresos.component.scss'
+  selector: 'app-ingresos',
+  standalone: true,
+  imports: [
+    HeaderComponent,
+    CommonModule,
+    FormComponent,
+    IngresosTableComponent,
+  ],
+  templateUrl: './ingresos.component.html',
+  styleUrl: './ingresos.component.scss',
 })
 export class IngresosComponent {
   formFields = [

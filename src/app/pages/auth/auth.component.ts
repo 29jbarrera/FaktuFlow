@@ -17,6 +17,7 @@ import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-auth',
+  standalone: true,
   imports: [
     InputTextModule,
     ButtonModule,

@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { GastosTableComponent } from './gastos-table/gastos-table.component';
 
 @Component({
-    selector: 'app-gastos',
-    imports: [HeaderComponent, FormComponent, CommonModule, GastosTableComponent],
-    templateUrl: './gastos.component.html',
-    styleUrl: './gastos.component.scss'
+  selector: 'app-gastos',
+  standalone: true,
+  imports: [HeaderComponent, FormComponent, CommonModule, GastosTableComponent],
+  templateUrl: './gastos.component.html',
+  styleUrl: './gastos.component.scss',
 })
 export class GastosComponent {
   formFields = [

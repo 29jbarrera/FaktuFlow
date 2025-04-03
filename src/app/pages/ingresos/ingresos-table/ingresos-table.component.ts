@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'app-ingresos-table',
-    imports: [TableModule, CommonModule],
-    templateUrl: './ingresos-table.component.html',
-    styleUrl: './ingresos-table.component.scss'
+  selector: 'app-ingresos-table',
+  standalone: true,
+  imports: [TableModule, CommonModule],
+  templateUrl: './ingresos-table.component.html',
+  styleUrl: './ingresos-table.component.scss',
 })
 export class IngresosTableComponent {
   ingresos = [

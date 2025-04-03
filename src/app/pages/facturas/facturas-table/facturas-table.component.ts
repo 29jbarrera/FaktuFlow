@@ -8,11 +8,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'app-facturas-table',
-    imports: [TableModule, CommonModule, ConfirmDialogModule, ToastModule],
-    templateUrl: './facturas-table.component.html',
-    styleUrl: './facturas-table.component.scss',
-    providers: [ConfirmationService, MessageService]
+  selector: 'app-facturas-table',
+  standalone: true,
+  imports: [TableModule, CommonModule, ConfirmDialogModule, ToastModule],
+  templateUrl: './facturas-table.component.html',
+  styleUrl: './facturas-table.component.scss',
+  providers: [ConfirmationService, MessageService],
 })
 export class FacturasTableComponent {
   facturas: Factura[] = [];

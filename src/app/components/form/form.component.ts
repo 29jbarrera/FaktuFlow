@@ -14,6 +14,7 @@ import { ClientesService } from '../../pages/clientes/clientes.service';
 
 @Component({
   selector: 'app-form',
+  standalone: true,
   imports: [
     InputTextModule,
     CommonModule,

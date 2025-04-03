@@ -5,15 +5,16 @@ import { CommonModule } from '@angular/common';
 import { ClientesTableComponent } from './clientes-table/clientes-table.component';
 
 @Component({
-    selector: 'app-clientes',
-    imports: [
-        HeaderComponent,
-        FormComponent,
-        CommonModule,
-        ClientesTableComponent,
-    ],
-    templateUrl: './clientes.component.html',
-    styleUrl: './clientes.component.scss'
+  selector: 'app-clientes',
+  standalone: true,
+  imports: [
+    HeaderComponent,
+    FormComponent,
+    CommonModule,
+    ClientesTableComponent,
+  ],
+  templateUrl: './clientes.component.html',
+  styleUrl: './clientes.component.scss',
 })
 export class ClientesComponent {
   formFields = [
