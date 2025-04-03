@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import { AccordionModule } from 'primeng/accordion';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -16,12 +16,12 @@ import { ClientesService } from '../../pages/clientes/clientes.service';
   selector: 'app-form',
   standalone: true,
   imports: [
-    CommonModule,
     InputTextModule,
-    DropdownModule,
-    CalendarModule,
+    CommonModule,
+    TextareaModule,
+    AutoCompleteModule,
+    DatePickerModule,
     ButtonModule,
-    InputTextareaModule,
     AccordionModule,
     InputGroupModule,
     InputGroupAddonModule,

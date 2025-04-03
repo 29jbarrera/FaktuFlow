@@ -1,7 +1,7 @@
 <div
   class="sm:w-8/12 w-11/12 m-auto p-5 my-12 border-dashed border-2 rounded-xl bg-white section-form"
 >
-  <form (ngSubmit)="onSubmit($event)" class="sm:w-full">
+  <form (ngSubmit)="onSubmit($event)" class="sm:w-full" #form="ngForm">
     <div *ngFor="let field of formFields">
       <div class="input-group">
         <!-- Label -->
@@ -37,15 +37,15 @@
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
-          <p-calendar
+          <p-datepicker
             [(ngModel)]="formModel[field.name]"
             [id]="field.name"
             [name]="field.name"
             [required]="field.required"
             [readonlyInput]="true"
             [showButtonBar]="true"
-            styleClass="w-full calendar-custom"
-          ></p-calendar>
+            styleClass="p-fluid w-full"
+          ></p-datepicker>
         </div>
 
         <!-- Dropdown for Options -->
@@ -53,16 +53,17 @@
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
-          <p-dropdown
+          <p-autocomplete
             [(ngModel)]="formModel[field.name]"
-            [options]="field.options"
+            (completeMethod)="(field.options)"
+            [dropdown]="true"
             optionLabel="label"
             optionValue="value"
             [id]="field.name"
             [name]="field.name"
             [required]="field.required"
-            class="w-full p-fluid custom-dropdown"
-          ></p-dropdown>
+            styleClass="p-fluid w-full"
+          ></p-autocomplete>
         </div>
 
         <!-- Textarea for Description -->
@@ -71,6 +72,7 @@
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
           <textarea
+            pTextarea
             [(ngModel)]="formModel[field.name]"
             [id]="field.name"
             [name]="field.name"
@@ -81,20 +83,20 @@
         </div>
 
         <!-- File Upload -->
-        <div *ngIf="field.type === 'file'" class="mt-3">
+        <div *ngIf="field.type === 'file'" class="custom-div-file sm:mb-0 mb-8">
           <p-fileUpload
             [(ngModel)]="formModel[field.name]"
             mode="basic"
             chooseIcon="pi pi-upload"
-            accept="image/*"
-            maxFileSize="1000000"
+            accept=".pdf, .jpg, .png"
+            maxFileSize="500000"
             [auto]="true"
             chooseLabel="Subir archivo"
-          />
+          ></p-fileUpload>
         </div>
 
         <!-- Toggle Switch -->
-        <div *ngIf="field.type === 'toggle'" class="mt-4">
+        <div *ngIf="field.type === 'toggle'" class="sm:mt-4 -mb-3 sm:-mb-0">
           <label
             class="relative inline-block h-8 w-14 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-[rgb(21,44,53)]"
             [for]="field.name"
@@ -114,8 +116,11 @@
         </div>
 
         <!-- Submit Button -->
-        <div *ngIf="field.type === 'submit'">
-          <p-button type="submit" (click)="onSubmit($event)">
+        <div
+          *ngIf="field.type === 'submit'"
+          class="flex m-auto justify-center md:justify-start -mt-8 md:mt-0"
+        >
+          <p-button type="submit" (click)="onSubmit($event)" class="font-bold">
             {{ field.label }}
           </p-button>
         </div>

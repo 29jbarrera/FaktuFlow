@@ -8,11 +8,10 @@ import { TableModule } from 'primeng/table';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
-import { MessagesModule } from 'primeng/messages';
-import { MessageService, Message } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
+import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { User } from '../../interfaces/user';
 
@@ -28,9 +27,8 @@ import { User } from '../../interfaces/user';
     InputGroupModule,
     InputGroupAddonModule,
     ReactiveFormsModule,
-    HttpClientModule,
     FormsModule,
-    MessagesModule,
+    MessageModule,
     ProgressSpinnerModule,
   ],
   templateUrl: './auth.component.html',
@@ -45,8 +43,8 @@ export class AuthComponent {
   password: string = '';
   passwordRegister: string = '';
   passwordRegisterConfirm: string = '';
-  messagesLogin: Message[] = [];
-  messagesRegister: Message[] = [];
+  messagesLogin: any[] = [];
+  messagesRegister: any[] = [];
   isLoading = false;
 
   // Función para validar el formato del correo
@@ -63,7 +61,7 @@ export class AuthComponent {
         {
           severity: 'error',
           summary: 'Error',
-          detail: 'Por favor, completa todos los campos',
+          text: 'Por favor, completa todos los campos',
         },
       ];
       return;
@@ -74,7 +72,7 @@ export class AuthComponent {
         {
           severity: 'error',
           summary: 'Error',
-          detail: 'Formato inválido del correo',
+          text: 'Formato inválido del correo',
         },
       ];
       return;
@@ -91,7 +89,7 @@ export class AuthComponent {
         {
           severity: 'success',
           summary: 'Inicio de sesión',
-          detail: '¡Bienvenido!',
+          text: '¡Bienvenido!',
         },
       ];
       this.isLoading = true;
@@ -106,7 +104,7 @@ export class AuthComponent {
           {
             severity: 'error',
             summary: 'Error',
-            detail: 'El formato del correo electrónico es incorrecto',
+            text: 'El formato del correo electrónico es incorrecto',
           },
         ];
       } else if (error?.error?.message === 'Credenciales inválidas') {
@@ -114,7 +112,7 @@ export class AuthComponent {
           {
             severity: 'error',
             summary: 'Error',
-            detail: 'Correo o contraseña incorrectos',
+            text: 'Correo o contraseña incorrectos',
           },
         ];
       } else {
@@ -122,7 +120,7 @@ export class AuthComponent {
           {
             severity: 'error',
             summary: 'Error en el servidor',
-            detail: 'Hubo un problema al iniciar sesión. Intenta nuevamente',
+            text: 'Hubo un problema al iniciar sesión. Intenta nuevamente',
           },
         ];
       }
@@ -142,7 +140,7 @@ export class AuthComponent {
         {
           severity: 'error',
           summary: 'Error',
-          detail: 'Por favor, completa todos los campos',
+          text: 'Por favor, completa todos los campos',
         },
       ];
       return;
@@ -153,7 +151,7 @@ export class AuthComponent {
         {
           severity: 'error',
           summary: 'Error',
-          detail: 'Las contraseñas no coinciden',
+          text: 'Las contraseñas no coinciden',
         },
       ];
       return;
@@ -174,7 +172,7 @@ export class AuthComponent {
           {
             severity: 'error',
             summary: 'Error',
-            detail: 'No se recibió respuesta del servidor',
+            text: 'No se recibió respuesta del servidor',
           },
         ];
         return;
@@ -184,7 +182,7 @@ export class AuthComponent {
         {
           severity: 'success',
           summary: 'Registro exitoso',
-          detail: '¡Te has registrado correctamente!',
+          text: '¡Te has registrado correctamente!',
         },
       ];
 
@@ -200,14 +198,14 @@ export class AuthComponent {
         this.messagesRegister = error.error.errors.map((err: any) => ({
           severity: 'error',
           summary: 'Error',
-          detail: err.msg,
+          text: err.msg,
         }));
       } else {
         this.messagesRegister = [
           {
             severity: 'error',
             summary: 'Error',
-            detail: error?.error?.message || 'Error en el servidor',
+            text: error?.error?.message || 'Error en el servidor',
           },
         ];
       }
