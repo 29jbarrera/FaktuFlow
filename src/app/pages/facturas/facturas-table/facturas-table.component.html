@@ -5,39 +5,44 @@
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
     [paginator]="true"
-    [rows]="5"
+    [rows]="limit"
+    [totalRecords]="totalFacturas"
+    (onLazyLoad)="cargarFacturas($event)"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    lazy="true"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="numero">
-          <div>
-            Nº Factura
-            <p-sortIcon class="order" field="numero" />
-          </div>
-        </th>
-
-        <th pSortableColumn="cliente_id">
-          <div>
-            Cliente
-            <p-sortIcon class="order" field="cliente_id" />
-          </div>
-        </th>
-
-        <th pSortableColumn="fecha_emision">
+        <th pSortableColumn="fecha_emision" style="width: 10%">
           <div>
             Fecha
             <p-sortIcon class="order" field="fecha_emision" />
           </div>
         </th>
 
-        <th pSortableColumn="importe">
+        <th pSortableColumn="numero" style="width: 12.5%">
+          <div>
+            Nº Factura
+            <p-sortIcon class="order" field="numero" />
+          </div>
+        </th>
+
+        <th pSortableColumn="cliente_id" style="width: 12.5%">
+          <div>
+            Cliente
+            <p-sortIcon class="order" field="cliente_id" />
+          </div>
+        </th>
+
+        <th pSortableColumn="importe" style="width: 10%">
           <div>
             Importe
             <p-sortIcon class="order" field="importe" />
           </div>
         </th>
 
-        <th pSortableColumn="estado">
+        <th pSortableColumn="estado" style="width: 5%">
           <div>
             Estado
             <p-sortIcon class="order" field="estado" />
@@ -46,15 +51,15 @@
 
         <th style="width: 20%">Descripción</th>
         <th style="width: 10%">Archivo</th>
-        <th style="width: 2%">Acciones</th>
+        <th style="width: 1%">Acciones</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-factura>
       <tr class="body-table">
+        <td>{{ factura.fecha_emision | date : "dd/MM/yyyy" }}</td>
         <td>{{ factura.numero }}</td>
         <td>{{ factura.cliente_id }}</td>
-        <td>{{ factura.fecha_emision | date : "dd/MM/yyyy" }}</td>
         <td>{{ factura.importe | currency : "EUR" }}</td>
 
         <!-- Estado Pagado / No Pagado -->
@@ -69,14 +74,14 @@
         <!-- Mostrar archivo si existe -->
         <td>
           <a
-            *ngIf="factura.fileUrl"
-            [href]="factura.fileUrl"
+            *ngIf="factura.archivo"
+            [href]="factura.archivo_url"
             target="_blank"
             class="text-blue-500 underline"
           >
             Ver archivo
           </a>
-          <span *ngIf="!factura.fileUrl">-</span>
+          <span *ngIf="!factura.archivo">-</span>
         </td>
 
         <!-- Botón de eliminación -->
@@ -95,7 +100,7 @@
         <td colspan="15">
           <div class="pl-2">
             Resultado totales:
-            <span class="font-bold">{{ facturas.length || 0 }}</span>
+            <span class="font-bold">{{ totalFacturas || 0 }}</span>
           </div>
         </td>
       </tr>

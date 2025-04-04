@@ -18,34 +18,40 @@ import { ToastModule } from 'primeng/toast';
 export class FacturasTableComponent {
   facturas: Factura[] = [];
   totalFacturas: number = 0;
-  totalPages: number = 0;
+  limit: number = 5;
+  sortField: string = 'fecha_emision';
+  sortOrder: number = -1;
   currentPage: number = 1;
-  limit: number = 10;
+
   constructor(
     private facturasService: FacturasService,
     private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
-    this.cargarFacturas();
+    this.cargarFacturas({
+      first: 0,
+      rows: this.limit,
+      sortField: this.sortField,
+      sortOrder: this.sortOrder,
+    });
   }
 
-  cargarFacturas() {
-    this.facturasService.getFacturas(this.currentPage, this.limit).subscribe(
-      (response) => {
-        this.facturas = response.facturas;
-      },
-      (error) => {
-        console.error('❌ Error al obtener las facturas:', error);
-      }
-    );
-  }
+  cargarFacturas(event: any): void {
+    const { first, rows, sortField, sortOrder } = event;
+    const page = first / rows + 1;
 
-  changePage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.cargarFacturas();
-    }
+    this.facturasService
+      .getFacturas(page, rows, sortField, sortOrder)
+      .subscribe(
+        (response) => {
+          this.facturas = response.facturas;
+          this.totalFacturas = response.total;
+        },
+        (error) => {
+          console.error('Error al cargar las facturas', error);
+        }
+      );
   }
 
   deleteFactura(id: number) {

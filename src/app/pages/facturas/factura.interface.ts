@@ -7,6 +7,8 @@ export interface Factura {
   estado: boolean;
   numero: string;
   descripcion: string;
+  archivo: string;
+  archivo_url: string;
 }
 
 export interface FacturasResponse {
