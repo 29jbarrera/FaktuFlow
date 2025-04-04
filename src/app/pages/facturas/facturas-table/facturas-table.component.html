@@ -50,7 +50,7 @@
         </th>
 
         <th style="width: 20%">Descripción</th>
-        <th style="width: 10%">Archivo</th>
+        <th style="width: 1%">Archivo</th>
         <th style="width: 1%">Acciones</th>
       </tr>
     </ng-template>
@@ -65,7 +65,11 @@
         <!-- Estado Pagado / No Pagado -->
         <td>
           <span>
-            {{ factura.estado }}
+            <p-tag
+              [value]="factura.estado ? 'Pagada' : 'Pendiente'"
+              [severity]="factura.estado ? 'success' : 'danger'"
+            >
+            </p-tag>
           </span>
         </td>
 
@@ -77,9 +81,9 @@
             *ngIf="factura.archivo"
             [href]="factura.archivo_url"
             target="_blank"
-            class="text-blue-500 underline"
+            class="text-[#112c35] hover:text-[#4ce1b9] transition-colors ml-3"
           >
-            Ver archivo
+            <i class="pi pi-file-pdf" style="font-size: 1.4rem"></i>
           </a>
           <span *ngIf="!factura.archivo">-</span>
         </td>
@@ -105,12 +109,22 @@
         </td>
       </tr>
     </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td
+          colspan="8"
+          style="text-align: center; padding: 30px; align-items: center"
+        >
+          <i
+            class="pi pi-info-circle"
+            style="margin-right: 15px; font-size: 1.6rem; color: blue"
+          ></i>
+          <strong>No hay facturas para mostrar.</strong>
+        </td>
+      </tr>
+    </ng-template>
   </p-table>
 </div>
-
-<div *ngIf="facturas.length === 0">
-  <p>No hay facturas para mostrar.</p>
-</div>
-
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>

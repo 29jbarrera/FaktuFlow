@@ -6,11 +6,18 @@ import { Factura } from '../factura.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-facturas-table',
   standalone: true,
-  imports: [TableModule, CommonModule, ConfirmDialogModule, ToastModule],
+  imports: [
+    TableModule,
+    CommonModule,
+    ConfirmDialogModule,
+    ToastModule,
+    TagModule,
+  ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
   providers: [ConfirmationService, MessageService],
