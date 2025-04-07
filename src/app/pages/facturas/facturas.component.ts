@@ -35,6 +35,8 @@ export class FacturasComponent implements OnInit {
 
   clientes: { label: string; value: number }[] = [];
   loadingClientes = true;
+  validationMessages: { severity: string; summary: string; text: string }[] =
+    [];
 
   constructor(
     private facturasService: FacturasService,
@@ -109,22 +111,89 @@ export class FacturasComponent implements OnInit {
   ];
 
   crearFactura(formModel: any) {
-    const usuarioId = this.authService.getUserId();
+    this.validationMessages = []; // Limpiar mensajes anteriores
 
+    const camposRequeridos = [
+      'numero',
+      'cliente_id',
+      'fecha_emision',
+      'importe',
+    ];
+    const camposFaltantes = camposRequeridos.filter(
+      (campo) => !formModel[campo]
+    );
+
+    if (camposFaltantes.length > 0) {
+      this.validationMessages = [
+        {
+          severity: 'error',
+          summary: 'Campos incompletos',
+          text: 'Por favor completa todos los campos obligatorios.',
+        },
+      ];
+      return;
+    }
+
+    const usuarioId = this.authService.getUserId();
     if (!usuarioId) {
-      console.error('❌ Error: usuario_id no encontrado en sessionStorage');
+      this.validationMessages = [
+        {
+          severity: 'error',
+          summary: 'Error de autenticación',
+          text: 'No se ha podido identificar al usuario.',
+        },
+      ];
       return;
     }
 
     formModel.usuario_id = usuarioId;
-    // Aquí se envía al servicio con los datos del formulario
+
     this.facturasService.createFactura(formModel).subscribe(
       (response) => {
-        console.log('Factura creada con éxito:', response);
-        // Aquí puedes redirigir a la lista de facturas o mostrar un mensaje de éxito
+        this.validationMessages = [
+          {
+            severity: 'success',
+            summary: 'Éxito',
+            text: 'Factura creada exitosamente!',
+          },
+        ];
+
+        this.formModel = {
+          numero: '',
+          cliente_id: '',
+          fecha_emision: null,
+          importe: null,
+          descripcion: '',
+          estado: false,
+          file: null,
+          usuario_id: null,
+        };
+
+        this.resetFormFields();
       },
       (error) => {
         console.error('Error al crear la factura:', error);
+
+        if (
+          error?.status === 400 &&
+          error?.error?.message === 'Ya existe una factura con ese número.'
+        ) {
+          this.validationMessages = [
+            {
+              severity: 'error',
+              summary: 'Error',
+              text: 'Ya existe una factura con ese número.',
+            },
+          ];
+        } else {
+          this.validationMessages = [
+            {
+              severity: 'error',
+              summary: 'Error en el servidor',
+              text: 'Hubo un problema al crear la factura. Intentalo nuevamente.',
+            },
+          ];
+        }
       }
     );
   }
@@ -148,6 +217,14 @@ export class FacturasComponent implements OnInit {
         console.error('❌ Error al obtener los clientes:', error);
         this.loadingClientes = false;
       },
+    });
+  }
+
+  resetFormFields() {
+    const formElements = document.querySelectorAll('input, select, textarea');
+    formElements.forEach((element: any) => {
+      element.classList.remove('ng-dirty');
+      element.classList.remove('ng-touched');
     });
   }
 }

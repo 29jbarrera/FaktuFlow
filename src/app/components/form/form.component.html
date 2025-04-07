@@ -128,4 +128,13 @@
       </div>
     </div>
   </form>
+  <div *ngFor="let message of validationMessages" class="w-full mt-6">
+    <p-message
+      icon="pi pi-times-circle"
+      [severity]="message.severity"
+      [text]="message.text"
+      [closable]="true"
+      styleClass="custom-messages"
+    ></p-message>
+  </div>
 </div>
