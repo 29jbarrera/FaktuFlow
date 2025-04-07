@@ -1,8 +1,10 @@
 <app-header [title]="'Facturas'" [icon]="'fas fa-file-invoice'"></app-header>
 
 <app-form
+  *ngIf="clientes.length > 0"
   [formFields]="formFields"
   [formModel]="formModel"
+  [clientes]="clientes"
   (formSubmit)="crearFactura($event)"
 ></app-form>
 

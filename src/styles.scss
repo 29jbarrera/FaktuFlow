@@ -142,16 +142,16 @@ p-datepicker .p-datepicker-input{
   border-radius: 0px 6px 6px 0px  !important;
 }
 
-p-autocomplete {
+.custom-p-select{
   width: 100%;
+  border-radius: 0px 6px 6px 0px !important;
 }
 
-p-autocomplete .p-autocomplete-input {
-  border-radius: 0px !important;
+.custom-p-select:hover{
+  border: solid 1px  gainsboro !important; /* Cambia el borde al pasar el mouse */
 }
-
 /* Estilo para cuando el p-dropdown recibe el foco */
-p-autocomplete:focus{
+.custom-p-select:focus{
   border: none !important; /* Asegura que no haya borde en foco */
   box-shadow: none !important; /* Elimina cualquier sombra */
 }
@@ -164,7 +164,6 @@ textarea{
 .custom-div-file{
   width: 159px;
 }
-
 
 .p-inputswitch::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
   background: purple;

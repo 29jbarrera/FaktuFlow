@@ -53,17 +53,18 @@
           <p-inputGroupAddon>
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
-          <p-autocomplete
-            [(ngModel)]="formModel[field.name]"
-            (completeMethod)="(field.options)"
-            [dropdown]="true"
+          <p-select
+            [(ngModel)]="formModel[field.id]"
+            [options]="clientes"
             optionLabel="label"
             optionValue="value"
             [id]="field.name"
             [name]="field.name"
             [required]="field.required"
-            styleClass="p-fluid w-full"
-          ></p-autocomplete>
+            [filter]="true"
+            placeholder="Selecciona un cliente"
+            class="p-fluid w-full custom-p-select"
+          ></p-select>
         </div>
 
         <!-- Textarea for Description -->

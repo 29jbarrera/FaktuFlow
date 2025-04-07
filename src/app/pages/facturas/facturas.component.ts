@@ -8,8 +8,6 @@ import { Factura } from './factura.interface';
 import { AuthService } from '../auth/auth.service';
 import { ClientesService } from '../clientes/clientes.service';
 import { Cliente } from '../clientes/cliente.interface';
-import { of } from 'rxjs'; // Usado para manejar valores retrasados
-import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-facturas',
@@ -44,7 +42,9 @@ export class FacturasComponent implements OnInit {
     private clientesService: ClientesService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cargarClientesSelect();
+  }
 
   formFields = [
     {
@@ -56,12 +56,13 @@ export class FacturasComponent implements OnInit {
       icon: 'pi pi-file', // Icono de archivo
     },
     {
-      name: 'cliente_id',
+      name: 'nombre',
       label: 'Cliente',
       type: 'select',
       options: this.clientes,
       required: true,
       icon: 'pi pi-tags', // Icono de etiqueta
+      id: 'cliente_id',
     },
     {
       name: 'fecha_emision',
@@ -126,5 +127,27 @@ export class FacturasComponent implements OnInit {
         console.error('Error al crear la factura:', error);
       }
     );
+  }
+
+  cargarClientesSelect() {
+    this.clientesService.getClientes().subscribe({
+      next: (response) => {
+        console.log('Clientes obtenidos:', response); // Verifica la respuesta aquí
+        if (response && response.clientes) {
+          this.clientes = response.clientes.map((cliente) => ({
+            label: cliente.nombre,
+            value: cliente.id,
+          }));
+          this.loadingClientes = false;
+        } else {
+          console.error('No se encontraron clientes en la respuesta');
+          this.loadingClientes = false;
+        }
+      },
+      error: (error) => {
+        console.error('❌ Error al obtener los clientes:', error);
+        this.loadingClientes = false;
+      },
+    });
   }
 }

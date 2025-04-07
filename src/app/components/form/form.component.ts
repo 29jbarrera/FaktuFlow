@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ButtonModule } from 'primeng/button';
 import { TextareaModule } from 'primeng/textarea';
@@ -11,15 +10,16 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormsModule } from '@angular/forms';
 import { ClientesService } from '../../pages/clientes/clientes.service';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-form',
   standalone: true,
   imports: [
     InputTextModule,
+    SelectModule,
     CommonModule,
     TextareaModule,
-    AutoCompleteModule,
     DatePickerModule,
     ButtonModule,
     AccordionModule,
@@ -34,27 +34,23 @@ import { ClientesService } from '../../pages/clientes/clientes.service';
 export class FormComponent implements OnInit {
   @Input() formFields: any[] = [];
   @Input() formModel: any = {};
+  @Input() clientes: { label: string; value: number }[] = [];
   @Output() formSubmit = new EventEmitter<any>();
-
-  clientes: { label: string; value: number }[] = [];
 
   constructor(private clientesService: ClientesService) {}
 
   ngOnInit(): void {
-    // Cargar los clientes si el formulario tiene un campo de tipo 'select' para cliente
-    this.cargarClientesSelect();
+    // this.cargarClientesSelect();
   }
 
   cargarClientesSelect() {
     this.clientesService.getClientes().subscribe(
       (response) => {
-        // Mapeamos los clientes para ajustar la estructura a la que requiere el select
         this.clientes = response.clientes.map((cliente) => ({
-          label: cliente.nombre, // Usamos el nombre como label
-          value: cliente.id, // Usamos el id como value
+          label: cliente.nombre,
+          value: cliente.id,
         }));
 
-        // Aquí actualizamos las opciones del campo correspondiente
         this.formFields.forEach((field: any) => {
           if (field.name === 'cliente_id') {
             field.options = this.clientes;
