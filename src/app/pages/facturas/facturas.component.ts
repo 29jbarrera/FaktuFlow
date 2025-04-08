@@ -23,6 +23,8 @@ import { Cliente } from '../clientes/cliente.interface';
 })
 export class FacturasComponent implements OnInit {
   @ViewChild('formulario') formularioComponent!: FormComponent;
+  @ViewChild(FacturasTableComponent)
+  facturasTableComponent!: FacturasTableComponent;
 
   formModel = {
     numero: '',
@@ -106,7 +108,7 @@ export class FacturasComponent implements OnInit {
     },
     {
       name: 'submit',
-      label: 'Enviar',
+      label: 'Crear Factura',
       type: 'submit',
       required: false,
     },
@@ -158,6 +160,7 @@ export class FacturasComponent implements OnInit {
             text: 'Factura creada exitosamente!',
           },
         ];
+        this.facturasTableComponent.cargarFacturas();
 
         this.formularioComponent.resetForm();
       },
@@ -191,7 +194,6 @@ export class FacturasComponent implements OnInit {
   cargarClientesSelect() {
     this.clientesService.getClientes().subscribe({
       next: (response) => {
-        console.log('Clientes obtenidos:', response); // Verifica la respuesta aquí
         if (response && response.clientes) {
           this.clientes = response.clientes.map((cliente) => ({
             label: cliente.nombre,

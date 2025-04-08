@@ -35,16 +35,14 @@ export class FacturasTableComponent {
     private confirmationService: ConfirmationService
   ) {}
 
-  ngOnInit() {
-    this.cargarFacturas({
+  cargarFacturas(
+    event: any = {
       first: 0,
       rows: this.limit,
       sortField: this.sortField,
       sortOrder: this.sortOrder,
-    });
-  }
-
-  cargarFacturas(event: any): void {
+    }
+  ) {
     const { first, rows, sortField, sortOrder } = event;
     const page = first / rows + 1;
 
@@ -62,7 +60,6 @@ export class FacturasTableComponent {
   }
 
   deleteFactura(id: number) {
-    // Abre el diálogo de confirmación
     this.confirmationService.confirm({
       message: '¿Estás seguro de que deseas eliminar esta factura?',
       header: 'Confirmación',
