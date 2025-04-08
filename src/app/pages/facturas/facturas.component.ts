@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
@@ -22,6 +22,8 @@ import { Cliente } from '../clientes/cliente.interface';
   styleUrl: './facturas.component.scss',
 })
 export class FacturasComponent implements OnInit {
+  @ViewChild('formulario') formularioComponent!: FormComponent;
+
   formModel = {
     numero: '',
     cliente_id: '',
@@ -145,7 +147,6 @@ export class FacturasComponent implements OnInit {
       ];
       return;
     }
-
     formModel.usuario_id = usuarioId;
 
     this.facturasService.createFactura(formModel).subscribe(
@@ -158,18 +159,7 @@ export class FacturasComponent implements OnInit {
           },
         ];
 
-        this.formModel = {
-          numero: '',
-          cliente_id: '',
-          fecha_emision: null,
-          importe: null,
-          descripcion: '',
-          estado: false,
-          file: null,
-          usuario_id: null,
-        };
-
-        this.resetFormFields();
+        this.formularioComponent.resetForm();
       },
       (error) => {
         console.error('Error al crear la factura:', error);
@@ -217,14 +207,6 @@ export class FacturasComponent implements OnInit {
         console.error('❌ Error al obtener los clientes:', error);
         this.loadingClientes = false;
       },
-    });
-  }
-
-  resetFormFields() {
-    const formElements = document.querySelectorAll('input, select, textarea');
-    formElements.forEach((element: any) => {
-      element.classList.remove('ng-dirty');
-      element.classList.remove('ng-touched');
     });
   }
 }
