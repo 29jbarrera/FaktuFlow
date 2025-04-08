@@ -89,7 +89,10 @@
         </td>
 
         <!-- Botón de eliminación -->
-        <td>
+        <td class="flex gap-2">
+          <button class="p-button">
+            <i class="pi pi-file-edit"></i>
+          </button>
           <button
             class="p-button p-button-danger"
             (click)="deleteFactura(factura.id)"

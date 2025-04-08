@@ -64,6 +64,8 @@ export class FacturasTableComponent {
       message: '¿Estás seguro de que deseas eliminar esta factura?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
       accept: () => {
         this.facturasService.deleteFactura(id).subscribe(
           (response) => {

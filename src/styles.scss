@@ -170,18 +170,9 @@ textarea{
   background: purple;
 }
 
-.p-confirm-dialog .p-dialog-footer .p-button {
-  margin-right: 15px;
+p-confirm-dialog .p-dialog-footer .p-button {
+  margin-right: 25px !important;
 }
-
-.p-confirm-dialog .p-dialog-footer .p-button:last-child {
-background: #0ed53d;
-}
-
-.p-confirm-dialog .p-dialog-footer .p-button:first-child {
-  background: #ff2020;
-  }
-
 
 .p-button {
   background-color: var(--color-primary) !important; /* Usar color secundario como fondo */
