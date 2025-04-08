@@ -84,8 +84,12 @@
         </div>
 
         <!-- File Upload -->
-        <div *ngIf="field.type === 'file'" class="custom-div-file sm:mb-0 mb-8">
+        <div
+          *ngIf="field.type === 'file'"
+          class="custom-div-file sm:mb-0 mb-8 flex"
+        >
           <p-fileUpload
+            #fileInput
             [(ngModel)]="formModel[field.name]"
             mode="basic"
             chooseIcon="pi pi-upload"
@@ -93,7 +97,11 @@
             maxFileSize="500000"
             [auto]="true"
             chooseLabel="Subir archivo"
+            (onSelect)="onFileSelect($event)"
           ></p-fileUpload>
+          <div *ngIf="uploadedFileName">
+            {{ uploadedFileName }}
+          </div>
         </div>
 
         <!-- Toggle Switch -->

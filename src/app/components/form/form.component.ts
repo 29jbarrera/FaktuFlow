@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
@@ -50,6 +51,9 @@ export class FormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<any>();
 
   @ViewChild('form', { static: false }) form!: NgForm;
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  uploadedFileName: string = '';
 
   constructor() {}
 
@@ -66,6 +70,10 @@ export class FormComponent implements OnInit {
       file: null,
       usuario_id: null,
     });
+
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
   }
 
   onSubmit(event: Event) {
@@ -77,5 +85,11 @@ export class FormComponent implements OnInit {
     return (
       field.type === 'text' || field.type === 'email' || field.type === 'number'
     );
+  }
+
+  onFileSelect(event: any) {
+    if (event.files && event.files.length > 0) {
+      this.uploadedFileName = event.files[0].name;
+    }
   }
 }
