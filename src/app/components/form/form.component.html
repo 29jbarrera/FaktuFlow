@@ -44,6 +44,7 @@
             [required]="field.required"
             [readonlyInput]="true"
             [showButtonBar]="true"
+            dateFormat="dd/mm/yy"
             styleClass="p-fluid w-full"
           ></p-datepicker>
         </div>
@@ -86,21 +87,31 @@
         <!-- File Upload -->
         <div
           *ngIf="field.type === 'file'"
-          class="custom-div-file sm:mb-0 mb-8 flex"
+          class="custom-div-file sm:mb-0 mb-8 flex flex-col sm:flex-row"
         >
-          <p-fileUpload
-            #fileInput
-            [(ngModel)]="formModel[field.name]"
-            mode="basic"
-            chooseIcon="pi pi-upload"
-            accept=".pdf, .jpg, .png"
-            maxFileSize="500000"
-            [auto]="true"
-            chooseLabel="Subir archivo"
-            (onSelect)="onFileSelect($event)"
-          ></p-fileUpload>
-          <div *ngIf="uploadedFileName">
-            {{ uploadedFileName }}
+          <div>
+            <p-fileUpload
+              #fileInput
+              [(ngModel)]="formModel[field.name]"
+              mode="basic"
+              chooseIcon="pi pi-upload"
+              accept=".pdf, .jpg, .png"
+              maxFileSize="500000"
+              [auto]="true"
+              chooseLabel="Subir archivo"
+              (onSelect)="onFileSelect($event)"
+            ></p-fileUpload>
+          </div>
+
+          <div class="flex" *ngIf="uploadedFileName">
+            <span class="mr-5">{{ uploadedFileName }}</span>
+            <p-button
+              class="mr-3"
+              variant="text"
+              (click)="removeUploadedFile()"
+            >
+              <i class="pi pi-times"></i>
+            </p-button>
           </div>
         </div>
 

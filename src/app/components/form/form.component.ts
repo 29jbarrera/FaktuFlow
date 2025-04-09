@@ -21,6 +21,7 @@ import { SelectModule } from 'primeng/select';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -55,9 +56,9 @@ export class FormComponent implements OnInit {
 
   uploadedFileName: string | null = null;
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
 
   resetForm(): void {
     this.form.resetForm({
@@ -96,5 +97,18 @@ export class FormComponent implements OnInit {
       this.formModel.file = file;
       this.uploadedFileName = file.name;
     }
+    this.cdr.detectChanges();
+  }
+
+  removeUploadedFile(): void {
+    this.formModel.file = null;
+    this.uploadedFileName = null;
+
+    // Limpia el componente p-fileUpload (si el método clear está disponible)
+    const fileUploadComponent = this.fileInput?.nativeElement as any;
+    if (fileUploadComponent?.clear) {
+      fileUploadComponent.clear();
+    }
+    this.cdr.detectChanges();
   }
 }
