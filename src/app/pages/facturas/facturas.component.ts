@@ -151,6 +151,14 @@ export class FacturasComponent implements OnInit {
     }
     formModel.usuario_id = usuarioId;
 
+    if (formModel.fecha_emision instanceof Date) {
+      const fecha = formModel.fecha_emision;
+      const yyyy = fecha.getFullYear();
+      const mm = String(fecha.getMonth() + 1).padStart(2, '0');
+      const dd = String(fecha.getDate()).padStart(2, '0');
+      formModel.fecha_emision = `${yyyy}-${mm}-${dd}`;
+    }
+
     this.facturasService.createFactura(formModel).subscribe(
       (response) => {
         this.validationMessages = [

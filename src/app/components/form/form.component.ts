@@ -53,7 +53,7 @@ export class FormComponent implements OnInit {
   @ViewChild('form', { static: false }) form!: NgForm;
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  uploadedFileName: string = '';
+  uploadedFileName: string | null = null;
 
   constructor() {}
 
@@ -71,8 +71,11 @@ export class FormComponent implements OnInit {
       usuario_id: null,
     });
 
+    this.formModel.file = null;
+    this.uploadedFileName = null;
+
     if (this.fileInput) {
-      this.fileInput.nativeElement.value = '';
+      (this.fileInput as any)?.clear?.(); // Método propio de p-fileUpload
     }
   }
 
@@ -87,9 +90,11 @@ export class FormComponent implements OnInit {
     );
   }
 
-  onFileSelect(event: any) {
-    if (event.files && event.files.length > 0) {
-      this.uploadedFileName = event.files[0].name;
+  onFileSelect(event: any): void {
+    const file = event.files[0];
+    if (file) {
+      this.formModel.file = file;
+      this.uploadedFileName = file.name;
     }
   }
 }

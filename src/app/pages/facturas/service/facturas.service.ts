@@ -36,7 +36,6 @@ export class FacturasService {
     });
   }
 
-  // Método para eliminar una factura
   deleteFactura(id: number): Observable<any> {
     const token = sessionStorage.getItem('authToken');
 
@@ -45,19 +44,32 @@ export class FacturasService {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
-    // Realizar la solicitud DELETE
     return this.http.delete<any>(`${this.apiUrl}facturas/${id}`, { headers });
   }
 
-  createFactura(factura: Factura): Observable<any> {
+  createFactura(factura: any): Observable<any> {
     const token = sessionStorage.getItem('authToken');
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
 
-    return this.http.post<any>(`${this.apiUrl}facturas`, factura, {
-      headers,
-    });
+    const formData = new FormData();
+
+    for (const key in factura) {
+      if (
+        factura.hasOwnProperty(key) &&
+        factura[key] !== null &&
+        factura[key] !== undefined
+      ) {
+        if (key === 'file' && factura[key] instanceof File) {
+          formData.append('archivo', factura[key]);
+        } else {
+          formData.append(key, factura[key]);
+        }
+      }
+    }
+
+    return this.http.post<any>(`${this.apiUrl}facturas`, formData, { headers });
   }
 }
