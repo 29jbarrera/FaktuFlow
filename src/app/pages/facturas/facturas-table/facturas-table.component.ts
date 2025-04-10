@@ -53,6 +53,7 @@ export class FacturasTableComponent {
   currentPage: number = 1;
   facturaSeleccionada: any = {};
   mostrarDialogo: boolean = false;
+  nuevoArchivo: File | null = null;
 
   uploadedFileName: string | null = null; // Para almacenar el nombre del archivo subido
   @ViewChild('fileInput') fileInput: any;
@@ -120,10 +121,37 @@ export class FacturasTableComponent {
     }
   }
 
-  guardarFacturaEditada() {
-    console.log('Guardando factura:', this.facturaSeleccionada);
-    this.mostrarDialogo = false;
-    // Idealmente refrescas datos con cargarFacturas o actualizas localmente
+  actualizarFactura() {
+    // Preparamos la información a enviar:
+    // Si no se ha seleccionado un nuevo archivo, no se incluye el campo 'archivo' (o se deja vacío)
+    const facturaActualizada: any = {
+      cliente_id: this.facturaSeleccionada.cliente_id,
+      fecha_emision: this.formatFecha(this.facturaSeleccionada.fecha_emision),
+      importe: this.facturaSeleccionada.importe,
+      estado: this.facturaSeleccionada.estado,
+      numero: this.facturaSeleccionada.numero,
+      descripcion: this.facturaSeleccionada.descripcion,
+    };
+
+    // Si hay un archivo nuevo, lo incluimos
+    if (this.facturaSeleccionada.archivo instanceof File) {
+      facturaActualizada.archivo = this.facturaSeleccionada.archivo;
+    }
+
+    // Llama al servicio
+    this.facturasService
+      .updateFactura(this.facturaSeleccionada.id, facturaActualizada)
+      .subscribe(
+        (response) => {
+          // Actualiza la lista local de facturas si es necesario
+          console.log('Factura actualizada', response);
+          // Opcional: cierra el diálogo y refresca la lista
+          this.mostrarDialogo = false;
+        },
+        (error) => {
+          console.error('Error al actualizar factura', error);
+        }
+      );
   }
 
   onFileSelect(event: any): void {
@@ -145,5 +173,14 @@ export class FacturasTableComponent {
       fileUploadComponent.clear();
     }
     this.cdr.detectChanges();
+  }
+
+  formatFecha(fecha: Date | string): string {
+    if (!fecha) return '';
+    const d = new Date(fecha);
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const day = d.getDate().toString().padStart(2, '0');
+    const year = d.getFullYear();
+    return `${year}-${month}-${day}`;
   }
 }

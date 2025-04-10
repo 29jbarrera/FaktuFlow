@@ -85,7 +85,7 @@
           >
             <i class="pi pi-file-pdf" style="font-size: 1.4rem"></i>
           </a>
-          <span *ngIf="!factura.archivo">-</span>
+          <span class="ml-5" *ngIf="!factura.archivo">-</span>
         </td>
 
         <!-- Botón de eliminación -->
@@ -267,7 +267,7 @@
           pButton
           type="button"
           label="Guardar"
-          (click)="guardarFacturaEditada()"
+          (click)="actualizarFactura()"
         ></button>
       </div>
     </div>
