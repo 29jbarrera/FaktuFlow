@@ -101,4 +101,16 @@ export class FacturasService {
       headers,
     });
   }
+
+  deleteArchivoFactura(id: number): Observable<any> {
+    const token = sessionStorage.getItem('authToken');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return this.http.delete<any>(`${this.apiUrl}facturas/${id}/archivo`, {
+      headers,
+    });
+  }
 }

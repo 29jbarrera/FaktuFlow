@@ -164,15 +164,31 @@ export class FacturasTableComponent {
   }
 
   removeUploadedFile(): void {
-    this.facturaSeleccionada.archivo = null;
-    this.uploadedFileName = null;
+    if (!this.facturaSeleccionada?.id) return;
 
-    // Limpia el componente p-fileUpload si el método clear está disponible
-    const fileUploadComponent = this.fileInput?.nativeElement as any;
-    if (fileUploadComponent?.clear) {
-      fileUploadComponent.clear();
-    }
-    this.cdr.detectChanges();
+    this.facturasService
+      .deleteArchivoFactura(this.facturaSeleccionada.id)
+      .subscribe(
+        () => {
+          this.facturaSeleccionada.archivo = null;
+          this.uploadedFileName = null;
+
+          // Limpia el componente p-fileUpload si el método clear está disponible
+          const fileUploadComponent = this.fileInput?.nativeElement as any;
+          if (fileUploadComponent?.clear) {
+            fileUploadComponent.clear();
+          }
+
+          this.cdr.detectChanges();
+          console.log('✅ Archivo eliminado correctamente');
+        },
+        (error) => {
+          console.error(
+            '❌ Error al eliminar el archivo en el servidor:',
+            error
+          );
+        }
+      );
   }
 
   formatFecha(fecha: Date | string): string {
