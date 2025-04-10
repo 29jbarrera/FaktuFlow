@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { FacturasService } from '../service/facturas.service';
+import { FacturasService } from '../facturas.service';
 import { Factura } from '../factura.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';

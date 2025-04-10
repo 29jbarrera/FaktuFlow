@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
 import { LoginResponse, User, RegisterResponse } from '../../interfaces/user';
@@ -11,6 +11,17 @@ export class AuthService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
+
+  getAuthHeaders(): HttpHeaders {
+    const token = sessionStorage.getItem('authToken');
+    let headers = new HttpHeaders();
+
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return headers;
+  }
 
   login(email: string, password: string): Observable<LoginResponse> {
     const body = {

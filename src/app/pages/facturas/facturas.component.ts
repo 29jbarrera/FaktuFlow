@@ -3,7 +3,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
 import { FacturasTableComponent } from './facturas-table/facturas-table.component';
-import { FacturasService } from './service/facturas.service';
+import { FacturasService } from './facturas.service';
 import { Factura } from './factura.interface';
 import { AuthService } from '../auth/auth.service';
 import { ClientesService } from '../clientes/clientes.service';
@@ -55,7 +55,7 @@ export class FacturasComponent implements OnInit {
   formFields = [
     {
       name: 'numero',
-      label: 'Número de Factura',
+      label: 'Número de Factura *',
       type: 'text',
       placeholder: 'Ingresa el número de la factura...',
       required: true,
@@ -63,7 +63,7 @@ export class FacturasComponent implements OnInit {
     },
     {
       name: 'nombre',
-      label: 'Cliente',
+      label: 'Cliente *',
       type: 'select',
       options: this.clientes,
       required: true,
@@ -72,14 +72,14 @@ export class FacturasComponent implements OnInit {
     },
     {
       name: 'fecha_emision',
-      label: 'Fecha',
+      label: 'Fecha *',
       type: 'date',
       required: true,
       icon: 'pi pi-calendar', // Icono de calendario
     },
     {
       name: 'importe',
-      label: 'Importe',
+      label: 'Importe *',
       type: 'number',
       placeholder: 'Ingresa el importe...',
       required: true,
@@ -132,7 +132,7 @@ export class FacturasComponent implements OnInit {
         {
           severity: 'error',
           summary: 'Campos incompletos',
-          text: 'Por favor completa todos los campos obligatorios.',
+          text: 'Por favor completa todos los campos obligatorios. (*)',
         },
       ];
       return;

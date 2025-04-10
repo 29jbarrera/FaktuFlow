@@ -15,3 +15,13 @@ export interface FacturasResponse {
   facturas: Factura[];
   total: number;
 }
+
+export interface CreateFacturaRequest {
+  cliente_id: number;
+  fecha_emision: string;
+  importe: number;
+  estado: string;
+  numero: string;
+  descripcion: string;
+  archivo?: File | null;
+}

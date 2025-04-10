@@ -60,7 +60,7 @@
         <td>{{ factura.fecha_emision | date : "dd/MM/yyyy" }}</td>
         <td>{{ factura.numero }}</td>
         <td>{{ factura.cliente_nombre }}</td>
-        <td>{{ factura.importe | currency : "EUR" }}</td>
+        <td>€ {{ factura.importe }}</td>
 
         <!-- Estado Pagado / No Pagado -->
         <td>
