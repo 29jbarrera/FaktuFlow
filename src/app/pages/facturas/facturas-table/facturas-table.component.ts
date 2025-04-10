@@ -18,6 +18,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { TextareaModule } from 'primeng/textarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ChangeDetectorRef } from '@angular/core';
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-facturas-table',
@@ -38,6 +39,7 @@ import { ChangeDetectorRef } from '@angular/core';
     InputGroupModule,
     TextareaModule,
     FileUploadModule,
+    Toast,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
@@ -54,6 +56,7 @@ export class FacturasTableComponent {
   facturaSeleccionada: any = {};
   mostrarDialogo: boolean = false;
   nuevoArchivo: File | null = null;
+  archivoMarcadoParaEliminar: boolean = false;
 
   uploadedFileName: string | null = null; // Para almacenar el nombre del archivo subido
   @ViewChild('fileInput') fileInput: any;
@@ -61,7 +64,8 @@ export class FacturasTableComponent {
   constructor(
     private facturasService: FacturasService,
     private confirmationService: ConfirmationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private messageService: MessageService
   ) {}
 
   cargarFacturas(
@@ -88,9 +92,9 @@ export class FacturasTableComponent {
       );
   }
 
-  deleteFactura(id: number) {
+  deleteFactura(id: number, numeroFactura: string) {
     this.confirmationService.confirm({
-      message: '¿Estás seguro de que deseas eliminar esta factura?',
+      message: `¿Estás seguro de que deseas eliminar la factura: ${numeroFactura}?`,
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
@@ -122,8 +126,6 @@ export class FacturasTableComponent {
   }
 
   actualizarFactura() {
-    // Preparamos la información a enviar:
-    // Si no se ha seleccionado un nuevo archivo, no se incluye el campo 'archivo' (o se deja vacío)
     const facturaActualizada: any = {
       cliente_id: this.facturaSeleccionada.cliente_id,
       fecha_emision: this.formatFecha(this.facturaSeleccionada.fecha_emision),
@@ -133,25 +135,59 @@ export class FacturasTableComponent {
       descripcion: this.facturaSeleccionada.descripcion,
     };
 
-    // Si hay un archivo nuevo, lo incluimos
     if (this.facturaSeleccionada.archivo instanceof File) {
       facturaActualizada.archivo = this.facturaSeleccionada.archivo;
     }
 
-    // Llama al servicio
-    this.facturasService
-      .updateFactura(this.facturaSeleccionada.id, facturaActualizada)
-      .subscribe(
-        (response) => {
-          // Actualiza la lista local de facturas si es necesario
-          console.log('Factura actualizada', response);
-          // Opcional: cierra el diálogo y refresca la lista
-          this.mostrarDialogo = false;
-        },
-        (error) => {
-          console.error('Error al actualizar factura', error);
-        }
-      );
+    const finalizarActualizacion = () => {
+      this.facturasService
+        .updateFactura(this.facturaSeleccionada.id, facturaActualizada)
+        .subscribe(
+          (response) => {
+            console.log('Factura actualizada', response);
+            this.mostrarDialogo = false;
+            this.archivoMarcadoParaEliminar = false; // reseteamos
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Confirmación',
+              detail: 'Factura actualizada exitosamente',
+              life: 4000,
+            });
+            this.cargarFacturas();
+          },
+
+          (error) => {
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Error',
+              detail: 'Error al actualizar la factura, intente nuevamente',
+              life: 4000,
+            });
+            console.error('Error al actualizar factura', error);
+          }
+        );
+    };
+
+    if (this.archivoMarcadoParaEliminar) {
+      this.facturasService
+        .deleteArchivoFactura(this.facturaSeleccionada.id)
+        .subscribe(
+          () => {
+            console.log('✅ Archivo eliminado correctamente');
+            finalizarActualizacion();
+          },
+          (error) => {
+            console.error(
+              '❌ Error al eliminar el archivo en el servidor:',
+              error
+            );
+            // Aun así actualizamos la factura aunque el archivo no se haya eliminado
+            finalizarActualizacion();
+          }
+        );
+    } else {
+      finalizarActualizacion();
+    }
   }
 
   onFileSelect(event: any): void {
@@ -164,31 +200,16 @@ export class FacturasTableComponent {
   }
 
   removeUploadedFile(): void {
-    if (!this.facturaSeleccionada?.id) return;
+    this.archivoMarcadoParaEliminar = true;
+    this.facturaSeleccionada.archivo = null;
+    this.uploadedFileName = null;
 
-    this.facturasService
-      .deleteArchivoFactura(this.facturaSeleccionada.id)
-      .subscribe(
-        () => {
-          this.facturaSeleccionada.archivo = null;
-          this.uploadedFileName = null;
+    const fileUploadComponent = this.fileInput?.nativeElement as any;
+    if (fileUploadComponent?.clear) {
+      fileUploadComponent.clear();
+    }
 
-          // Limpia el componente p-fileUpload si el método clear está disponible
-          const fileUploadComponent = this.fileInput?.nativeElement as any;
-          if (fileUploadComponent?.clear) {
-            fileUploadComponent.clear();
-          }
-
-          this.cdr.detectChanges();
-          console.log('✅ Archivo eliminado correctamente');
-        },
-        (error) => {
-          console.error(
-            '❌ Error al eliminar el archivo en el servidor:',
-            error
-          );
-        }
-      );
+    this.cdr.detectChanges();
   }
 
   formatFecha(fecha: Date | string): string {
