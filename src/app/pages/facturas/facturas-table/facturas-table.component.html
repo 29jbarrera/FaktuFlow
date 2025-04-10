@@ -90,7 +90,7 @@
 
         <!-- Botón de eliminación -->
         <td class="flex gap-2">
-          <button class="p-button">
+          <button class="p-button" (click)="abrirModalEdicion(factura)">
             <i class="pi pi-file-edit"></i>
           </button>
           <button
@@ -128,6 +128,150 @@
       </tr>
     </ng-template>
   </p-table>
+  <p-dialog
+    header="Editar Factura: {{ facturaSeleccionada.numero }}"
+    [(visible)]="mostrarDialogo"
+    [modal]="true"
+    styleClass="w-full sm:w-10/12 md:w-1/2"
+    [closable]="true"
+    (onHide)="mostrarDialogo = false"
+    [responsive]="true"
+  >
+    <div class="custom-grid-form p-4">
+      <div>
+        <label class="block"> Número de Factura </label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-file"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="numeroFactura"
+            [(ngModel)]="facturaSeleccionada.numero"
+          />
+        </p-inputGroup>
+      </div>
+
+      <!-- Dropdown for Options -->
+      <div>
+        <label class="block"> Cliente </label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-tags"></i>
+          </p-inputGroupAddon>
+          <p-select
+            [(ngModel)]="facturaSeleccionada.cliente_id"
+            [options]="clientes"
+            optionLabel="label"
+            optionValue="value"
+            [filter]="true"
+            class="p-fluid w-full custom-p-select"
+          ></p-select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block"> Fecha </label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-calendar"></i>
+          </p-inputGroupAddon>
+          <p-datepicker
+            [(ngModel)]="facturaSeleccionada.fecha_emision"
+            required="true"
+            [readonlyInput]="true"
+            [showButtonBar]="true"
+            dateFormat="dd/mm/yy"
+            styleClass="p-fluid w-full"
+            [appendTo]="'body'"
+          ></p-datepicker>
+        </div>
+      </div>
+
+      <div>
+        <label class="block"> Importe </label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-dollar"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            [(ngModel)]="facturaSeleccionada.importe"
+            required="true"
+            autocomplete="off"
+            type="number"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block"> Descripción </label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-pencil"></i>
+          </p-inputGroupAddon>
+          <textarea
+            pTextarea
+            [(ngModel)]="facturaSeleccionada.descripcion"
+            required="true"
+            class="p-fluid w-full"
+          ></textarea>
+        </div>
+      </div>
+
+      <div>
+        <label class="block"> ¿Está pagada? </label>
+        <label
+          class="relative inline-block h-8 w-14 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-[rgb(21,44,53)]"
+          [for]="'estado-' + facturaSeleccionada.id"
+        >
+          <input
+            [(ngModel)]="facturaSeleccionada.estado"
+            class="peer sr-only"
+            [id]="'estado-' + facturaSeleccionada.id"
+            type="checkbox"
+          />
+          <span
+            class="absolute inset-y-0 start-0 m-1 size-6 rounded-full bg-gray-300 ring-[6px] ring-inset ring-white transition-all peer-checked:start-8 peer-checked:w-2 peer-checked:bg-white peer-checked:ring-transparent"
+          ></span>
+        </label>
+      </div>
+
+      <div class="custom-div-file sm:mb-0 mb-8 flex flex-col sm:flex-row">
+        <div>
+          <p-fileUpload
+            #fileInput
+            [(ngModel)]="facturaSeleccionada.archivo"
+            mode="basic"
+            chooseIcon="pi pi-upload"
+            accept=".pdf, .jpg, .png"
+            maxFileSize="500000"
+            [auto]="true"
+            chooseLabel="Subir archivo"
+            (onSelect)="onFileSelect($event)"
+          ></p-fileUpload>
+        </div>
+        <div class="flex items-center ml-4" *ngIf="facturaSeleccionada.archivo">
+          <span class="mr-5 text-gray-400">
+            {{ facturaSeleccionada.archivo }}
+          </span>
+          <p-button class="mr-3" variant="text" (click)="removeUploadedFile()">
+            <i class="pi pi-times"></i>
+          </p-button>
+        </div>
+      </div>
+
+      <div class="mt-2 p-3 flex justify-end gap-2">
+        <button
+          pButton
+          type="button"
+          label="Guardar"
+          (click)="guardarFacturaEditada()"
+        ></button>
+      </div>
+    </div>
+  </p-dialog>
 </div>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>

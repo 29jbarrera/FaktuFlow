@@ -1,0 +1,25 @@
+/* Estilos de las etiquetas */
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--color-primary);
+  }
+  
+  textarea {
+    height: 42px;
+  }
+
+.custom-grid-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px; 
+    max-width: 100%; 
+    margin: 0 auto; 
+  }
+
+  @media (max-width: 768px) {
+    .custom-grid-form {
+      grid-template-columns: 1fr;/* En pantallas pequeñas, una columna */
+    }
+  }
