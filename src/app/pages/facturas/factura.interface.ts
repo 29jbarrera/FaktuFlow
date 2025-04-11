@@ -18,9 +18,9 @@ export interface FacturasResponse {
 
 export interface CreateFacturaRequest {
   cliente_id: number;
-  fecha_emision: string;
+  fecha_emision: string | Date;
   importe: number;
-  estado: string;
+  estado: boolean;
   numero: string;
   descripcion: string;
   archivo?: File | null;

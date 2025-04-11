@@ -1,21 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
 import { FormComponent } from '../../components/form/form.component';
 import { FacturasTableComponent } from './facturas-table/facturas-table.component';
 import { FacturasService } from './facturas.service';
-import { Factura } from './factura.interface';
 import { AuthService } from '../auth/auth.service';
 import { ClientesService } from '../clientes/clientes.service';
+import { formatFechaToYMD } from '../../shared/utils/date.util';
+import { CreateFacturaRequest } from './factura.interface';
 import { Cliente } from '../clientes/cliente.interface';
+import { FormField } from '../../interfaces/form-field.interface';
+import { ValidationMessage } from '../../interfaces/validation-message.interface';
 
 @Component({
   selector: 'app-facturas',
   standalone: true,
   imports: [
+    CommonModule,
     HeaderComponent,
     FormComponent,
-    CommonModule,
     FacturasTableComponent,
   ],
   templateUrl: './facturas.component.html',
@@ -26,11 +29,14 @@ export class FacturasComponent implements OnInit {
   @ViewChild(FacturasTableComponent)
   facturasTableComponent!: FacturasTableComponent;
 
-  formModel = {
+  formModel: CreateFacturaRequest & {
+    file: File | null;
+    usuario_id: number | null;
+  } = {
     numero: '',
-    cliente_id: '',
-    fecha_emision: null,
-    importe: null,
+    cliente_id: 0,
+    fecha_emision: '',
+    importe: 0,
     descripcion: '',
     estado: false,
     file: null,
@@ -39,27 +45,17 @@ export class FacturasComponent implements OnInit {
 
   clientes: { label: string; value: number }[] = [];
   loadingClientes = true;
-  validationMessages: { severity: string; summary: string; text: string }[] =
-    [];
 
-  constructor(
-    private facturasService: FacturasService,
-    private authService: AuthService,
-    private clientesService: ClientesService
-  ) {}
+  validationMessages: ValidationMessage[] = [];
 
-  ngOnInit(): void {
-    this.cargarClientesSelect();
-  }
-
-  formFields = [
+  formFields: FormField[] = [
     {
       name: 'numero',
       label: 'Número de Factura *',
       type: 'text',
       placeholder: 'Ingresa el número de la factura...',
       required: true,
-      icon: 'pi pi-file', // Icono de archivo
+      icon: 'pi pi-file',
     },
     {
       name: 'nombre',
@@ -67,7 +63,7 @@ export class FacturasComponent implements OnInit {
       type: 'select',
       options: this.clientes,
       required: true,
-      icon: 'pi pi-tags', // Icono de etiqueta
+      icon: 'pi pi-tags',
       id: 'cliente_id',
     },
     {
@@ -75,7 +71,7 @@ export class FacturasComponent implements OnInit {
       label: 'Fecha *',
       type: 'date',
       required: true,
-      icon: 'pi pi-calendar', // Icono de calendario
+      icon: 'pi pi-calendar',
     },
     {
       name: 'importe',
@@ -83,7 +79,7 @@ export class FacturasComponent implements OnInit {
       type: 'number',
       placeholder: 'Ingresa el importe...',
       required: true,
-      icon: 'pi pi-dollar', // Icono de dólar
+      icon: 'pi pi-dollar',
     },
     {
       name: 'descripcion',
@@ -91,7 +87,7 @@ export class FacturasComponent implements OnInit {
       type: 'textarea',
       placeholder: 'Ingresa una descripción...',
       required: false,
-      icon: 'pi pi-pencil', // Icono de lápiz
+      icon: 'pi pi-pencil',
     },
     {
       name: 'estado',
@@ -104,7 +100,7 @@ export class FacturasComponent implements OnInit {
       label: 'Subir Archivo',
       type: 'file',
       required: false,
-      icon: 'pi pi-upload', // Icono de subida
+      icon: 'pi pi-upload',
     },
     {
       name: 'submit',
@@ -114,10 +110,20 @@ export class FacturasComponent implements OnInit {
     },
   ];
 
-  crearFactura(formModel: any) {
-    this.validationMessages = []; // Limpiar mensajes anteriores
+  constructor(
+    private facturasService: FacturasService,
+    private authService: AuthService,
+    private clientesService: ClientesService
+  ) {}
 
-    const camposRequeridos = [
+  ngOnInit(): void {
+    this.cargarClientesSelect();
+  }
+
+  crearFactura(formModel: CreateFacturaRequest & { usuario_id?: number }) {
+    this.validationMessages = [];
+
+    const camposRequeridos: (keyof CreateFacturaRequest)[] = [
       'numero',
       'cliente_id',
       'fecha_emision',
@@ -152,11 +158,7 @@ export class FacturasComponent implements OnInit {
     formModel.usuario_id = usuarioId;
 
     if (formModel.fecha_emision instanceof Date) {
-      const fecha = formModel.fecha_emision;
-      const yyyy = fecha.getFullYear();
-      const mm = String(fecha.getMonth() + 1).padStart(2, '0');
-      const dd = String(fecha.getDate()).padStart(2, '0');
-      formModel.fecha_emision = `${yyyy}-${mm}-${dd}`;
+      formModel.fecha_emision = formatFechaToYMD(formModel.fecha_emision);
     }
 
     this.facturasService.createFactura(formModel).subscribe(
@@ -199,15 +201,14 @@ export class FacturasComponent implements OnInit {
     );
   }
 
-  cargarClientesSelect() {
+  cargarClientesSelect(): void {
     this.clientesService.getClientes().subscribe({
       next: (response) => {
         if (response && response.clientes) {
-          this.clientes = response.clientes.map((cliente) => ({
+          this.clientes = response.clientes.map((cliente: Cliente) => ({
             label: cliente.nombre,
             value: cliente.id,
           }));
-          this.loadingClientes = false;
         } else {
           console.error('No se encontraron clientes en la respuesta');
           this.loadingClientes = false;
