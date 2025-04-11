@@ -8,6 +8,7 @@ import {
   Factura,
   FacturasResponse,
 } from '../factura.interface';
+import { FacturasPipe } from '../facturas-pipe/facturas.pipe';
 
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -46,6 +47,7 @@ import { Toast } from 'primeng/toast';
     FileUploadModule,
     Toast,
     ReactiveFormsModule,
+    FacturasPipe,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
@@ -53,6 +55,7 @@ import { Toast } from 'primeng/toast';
 })
 export class FacturasTableComponent {
   @Input() clientes: { label: string; value: number }[] = [];
+  searchTerm = '';
 
   facturas: Factura[] = [];
   totalFacturas = 0;

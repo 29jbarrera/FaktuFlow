@@ -1,4 +1,3 @@
-/* Estilos de las etiquetas */
 label {
     font-weight: bold;
     margin-bottom: 8px;
@@ -20,6 +19,6 @@ label {
 
   @media (max-width: 768px) {
     .custom-grid-form {
-      grid-template-columns: 1fr;/* En pantallas pequeñas, una columna */
+      grid-template-columns: 1fr;
     }
   }

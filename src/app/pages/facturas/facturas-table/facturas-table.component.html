@@ -1,6 +1,20 @@
 <div class="w-11/12 m-auto mb-20 table-autoflow rounded-xl shadow-lg">
+  <div class="mb-6 px-3 md:w-5/12 w-full flex items-center gap-3">
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <i class="pi pi-search"></i>
+      </p-inputGroupAddon>
+      <input
+        type="text"
+        pInputText
+        placeholder="Buscar por fecha, número o descripción..."
+        [(ngModel)]="searchTerm"
+      />
+    </p-inputGroup>
+  </div>
+
   <p-table
-    [value]="facturas"
+    [value]="facturas | facturas : searchTerm"
     styleClass="p-datatable-sm"
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
