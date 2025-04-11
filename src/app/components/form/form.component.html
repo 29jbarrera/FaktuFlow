@@ -149,6 +149,7 @@
   </form>
   <div *ngFor="let message of validationMessages" class="w-full mt-6">
     <p-message
+      [life]="8000"
       icon="pi pi-times-circle"
       [severity]="message.severity"
       [text]="message.text"

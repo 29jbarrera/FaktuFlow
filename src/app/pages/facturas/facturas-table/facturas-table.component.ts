@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacturasService } from '../facturas.service';
 import { formatFechaToYMD } from '../../../shared/utils/date.util';
 import {
@@ -45,6 +45,7 @@ import { Toast } from 'primeng/toast';
     TextareaModule,
     FileUploadModule,
     Toast,
+    ReactiveFormsModule,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
@@ -108,6 +109,14 @@ export class FacturasTableComponent {
         this.facturasService.deleteFactura(id).subscribe((response) => {
           this.facturas = this.facturas.filter((factura) => factura.id !== id);
         });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Factura Eliminada',
+          detail: 'La factura ha sido eliminada exitosamente.',
+          life: 4000,
+        });
+
+        this.cargarFacturas();
       },
       reject: () => {},
     });
