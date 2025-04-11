@@ -2,12 +2,12 @@ export interface Factura {
   id: number;
   usuario_id: number;
   cliente_id: number;
-  fecha_emision: Date;
+  fecha_emision: string | Date;
   importe: number;
   estado: boolean;
   numero: string;
   descripcion: string;
-  archivo: string;
+  archivo?: File | null;
   archivo_url: string;
 }
 

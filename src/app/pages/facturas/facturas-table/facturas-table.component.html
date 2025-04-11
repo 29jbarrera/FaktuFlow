@@ -62,7 +62,6 @@
         <td>{{ factura.cliente_nombre }}</td>
         <td>€ {{ factura.importe }}</td>
 
-        <!-- Estado Pagado / No Pagado -->
         <td>
           <span>
             <p-tag
@@ -75,7 +74,6 @@
 
         <td>{{ factura.descripcion }}</td>
 
-        <!-- Mostrar archivo si existe -->
         <td>
           <a
             *ngIf="factura.archivo"
@@ -88,7 +86,6 @@
           <span class="ml-5" *ngIf="!factura.archivo">-</span>
         </td>
 
-        <!-- Botón de eliminación -->
         <td class="flex gap-2">
           <button class="p-button" (click)="abrirModalEdicion(factura)">
             <i class="pi pi-file-edit"></i>
@@ -152,7 +149,6 @@
         </p-inputGroup>
       </div>
 
-      <!-- Dropdown for Options -->
       <div>
         <label class="block"> Cliente </label>
         <div class="flex custom-div-form">
@@ -254,7 +250,7 @@
         <div class="flex items-center ml-4" *ngIf="facturaSeleccionada.archivo">
           <span class="mr-5 text-gray-400">
             {{
-              facturaSeleccionada.archivo?.name || facturaSeleccionada.archivo
+              facturaSeleccionada.archivo.name || facturaSeleccionada.archivo
             }}
           </span>
           <p-button class="mr-3" variant="text" (click)="removeUploadedFile()">

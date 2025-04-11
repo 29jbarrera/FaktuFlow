@@ -1,8 +1,15 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { Component, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { FacturasService } from '../facturas.service';
-import { Factura } from '../factura.interface';
+import { formatFechaToYMD } from '../../../shared/utils/date.util';
+import {
+  CreateFacturaRequest,
+  Factura,
+  FacturasResponse,
+} from '../factura.interface';
+
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -10,14 +17,12 @@ import { TagModule } from 'primeng/tag';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { TextareaModule } from 'primeng/textarea';
 import { FileUploadModule } from 'primeng/fileupload';
-import { ChangeDetectorRef } from '@angular/core';
 import { Toast } from 'primeng/toast';
 
 @Component({
@@ -47,18 +52,20 @@ import { Toast } from 'primeng/toast';
 })
 export class FacturasTableComponent {
   @Input() clientes: { label: string; value: number }[] = [];
-  facturas: Factura[] = [];
-  totalFacturas: number = 0;
-  limit: number = 5;
-  sortField: string = 'fecha_emision';
-  sortOrder: number = -1;
-  currentPage: number = 1;
-  facturaSeleccionada: any = {};
-  mostrarDialogo: boolean = false;
-  nuevoArchivo: File | null = null;
-  archivoMarcadoParaEliminar: boolean = false;
 
-  uploadedFileName: string | null = null; // Para almacenar el nombre del archivo subido
+  facturas: Factura[] = [];
+  totalFacturas = 0;
+  limit = 5;
+  sortField = 'fecha_emision';
+  sortOrder = -1;
+  currentPage = 1;
+
+  facturaSeleccionada: Partial<Factura> = {};
+  mostrarDialogo = false;
+  nuevoArchivo: File | null = null;
+  archivoMarcadoParaEliminar = false;
+  uploadedFileName: string | null = null;
+
   @ViewChild('fileInput') fileInput: any;
 
   constructor(
@@ -68,31 +75,29 @@ export class FacturasTableComponent {
     private messageService: MessageService
   ) {}
 
-  cargarFacturas(
-    event: any = {
-      first: 0,
-      rows: this.limit,
-      sortField: this.sortField,
-      sortOrder: this.sortOrder,
-    }
-  ) {
-    const { first, rows, sortField, sortOrder } = event;
-    const page = first / rows + 1;
+  cargarFacturas(event: TableLazyLoadEvent = {}): void {
+    const {
+      first = 0,
+      rows = this.limit,
+      sortField = this.sortField,
+      sortOrder = this.sortOrder,
+    } = event;
+
+    const page = Math.floor(first / (rows ?? this.limit)) + 1;
+    const finalSortField = Array.isArray(sortField)
+      ? sortField[0]
+      : sortField || 'fecha_emision';
+    const finalSortOrder = sortOrder ?? -1;
 
     this.facturasService
-      .getFacturas(page, rows, sortField, sortOrder)
-      .subscribe(
-        (response) => {
-          this.facturas = response.facturas;
-          this.totalFacturas = response.total;
-        },
-        (error) => {
-          console.error('Error al cargar las facturas', error);
-        }
-      );
+      .getFacturas(page, rows ?? this.limit, finalSortField, finalSortOrder)
+      .subscribe((response: FacturasResponse) => {
+        this.facturas = response.facturas;
+        this.totalFacturas = response.total;
+      });
   }
 
-  deleteFactura(id: number, numeroFactura: string) {
+  deleteFactura(id: number, numeroFactura: string): void {
     this.confirmationService.confirm({
       message: `¿Estás seguro de que deseas eliminar la factura: ${numeroFactura}?`,
       header: 'Confirmación',
@@ -100,39 +105,32 @@ export class FacturasTableComponent {
       acceptLabel: 'Sí',
       rejectLabel: 'No',
       accept: () => {
-        this.facturasService.deleteFactura(id).subscribe(
-          (response) => {
-            this.facturas = this.facturas.filter(
-              (factura) => factura.id !== id
-            );
-          },
-          (error) => {
-            console.error('❌ Error al eliminar la factura:', error);
-          }
-        );
+        this.facturasService.deleteFactura(id).subscribe((response) => {
+          this.facturas = this.facturas.filter((factura) => factura.id !== id);
+        });
       },
       reject: () => {},
     });
   }
 
-  abrirModalEdicion(factura: any) {
-    if (factura) {
-      this.facturaSeleccionada = { ...factura };
-      this.facturaSeleccionada.fecha_emision = new Date(
-        this.facturaSeleccionada.fecha_emision
-      );
-      this.mostrarDialogo = true;
-    }
+  abrirModalEdicion(factura: Factura): void {
+    this.facturaSeleccionada = { ...factura };
+    this.facturaSeleccionada.fecha_emision = new Date(factura.fecha_emision);
+    this.mostrarDialogo = true;
   }
 
-  actualizarFactura() {
-    const facturaActualizada: any = {
-      cliente_id: this.facturaSeleccionada.cliente_id,
-      fecha_emision: this.formatFecha(this.facturaSeleccionada.fecha_emision),
-      importe: this.facturaSeleccionada.importe,
-      estado: this.facturaSeleccionada.estado,
-      numero: this.facturaSeleccionada.numero,
-      descripcion: this.facturaSeleccionada.descripcion,
+  actualizarFactura(): void {
+    if (!this.facturaSeleccionada.id) return;
+
+    const facturaActualizada: CreateFacturaRequest = {
+      cliente_id: this.facturaSeleccionada.cliente_id!,
+      fecha_emision: formatFechaToYMD(
+        new Date(this.facturaSeleccionada.fecha_emision!)
+      ),
+      importe: this.facturaSeleccionada.importe!,
+      estado: this.facturaSeleccionada.estado!,
+      numero: this.facturaSeleccionada.numero!,
+      descripcion: this.facturaSeleccionada.descripcion!,
     };
 
     if (this.facturaSeleccionada.archivo instanceof File) {
@@ -141,12 +139,11 @@ export class FacturasTableComponent {
 
     const finalizarActualizacion = () => {
       this.facturasService
-        .updateFactura(this.facturaSeleccionada.id, facturaActualizada)
+        .updateFactura(this.facturaSeleccionada.id!, facturaActualizada)
         .subscribe(
-          (response) => {
-            console.log('Factura actualizada', response);
+          () => {
             this.mostrarDialogo = false;
-            this.archivoMarcadoParaEliminar = false; // reseteamos
+            this.archivoMarcadoParaEliminar = false;
             this.messageService.add({
               severity: 'success',
               summary: 'Confirmación',
@@ -155,15 +152,15 @@ export class FacturasTableComponent {
             });
             this.cargarFacturas();
           },
-
           (error) => {
             this.messageService.add({
               severity: 'warn',
               summary: 'Error',
-              detail: 'Error al actualizar la factura, intente nuevamente',
+              detail: `Error al actualizar la factura, ${
+                error.message || 'intente nuevamente'
+              }`,
               life: 4000,
             });
-            console.error('Error al actualizar factura', error);
           }
         );
     };
@@ -173,15 +170,9 @@ export class FacturasTableComponent {
         .deleteArchivoFactura(this.facturaSeleccionada.id)
         .subscribe(
           () => {
-            console.log('✅ Archivo eliminado correctamente');
             finalizarActualizacion();
           },
           (error) => {
-            console.error(
-              '❌ Error al eliminar el archivo en el servidor:',
-              error
-            );
-            // Aun así actualizamos la factura aunque el archivo no se haya eliminado
             finalizarActualizacion();
           }
         );
@@ -190,11 +181,11 @@ export class FacturasTableComponent {
     }
   }
 
-  onFileSelect(event: any): void {
+  onFileSelect(event: { files: File[] }): void {
     const file = event.files[0];
     if (file) {
       this.facturaSeleccionada.archivo = file;
-      this.uploadedFileName = file.name; // Guardar el nombre del archivo
+      this.uploadedFileName = file.name;
     }
     this.cdr.detectChanges();
   }
@@ -204,20 +195,11 @@ export class FacturasTableComponent {
     this.facturaSeleccionada.archivo = null;
     this.uploadedFileName = null;
 
-    const fileUploadComponent = this.fileInput?.nativeElement as any;
+    const fileUploadComponent = this.fileInput?.nativeElement;
     if (fileUploadComponent?.clear) {
       fileUploadComponent.clear();
     }
 
     this.cdr.detectChanges();
-  }
-
-  formatFecha(fecha: Date | string): string {
-    if (!fecha) return '';
-    const d = new Date(fecha);
-    const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const day = d.getDate().toString().padStart(2, '0');
-    const year = d.getFullYear();
-    return `${year}-${month}-${day}`;
   }
 }
