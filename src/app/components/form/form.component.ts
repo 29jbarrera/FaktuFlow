@@ -70,6 +70,10 @@ export class FormComponent implements OnInit {
       estado: false,
       file: null,
       usuario_id: null,
+      nombre: '',
+      email: '',
+      telefono: null,
+      direccion_fiscal: '',
     });
 
     this.formModel.file = null;

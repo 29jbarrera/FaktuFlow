@@ -73,88 +73,81 @@ export class ClientesComponent {
   ];
 
   constructor(
-    private clientesService: ClientesService,
-    private authService: AuthService
+    private readonly clientesService: ClientesService,
+    private readonly authService: AuthService
   ) {}
 
-  createCliente(cliente: CreateClienteRequest) {
+  createCliente(cliente: CreateClienteRequest): void {
     this.validationMessages = [];
 
-    if (!cliente.nombre || cliente.nombre.trim() === '') {
-      this.validationMessages = [
-        {
-          severity: 'error',
-          summary: 'Campos incompletos',
-          text: 'Por favor completa todos los campos obligatorios. (*)',
-        },
-      ];
-      return;
-    }
-    const usuarioId = this.authService.getUserId();
+    if (!this.validarFormulario(cliente)) return;
 
+    const usuarioId = this.authService.getUserId();
     if (!usuarioId) {
-      this.validationMessages = [
-        {
-          severity: 'error',
-          summary: 'Error de autenticación',
-          text: 'No se ha podido identificar al usuario.',
-        },
-      ];
+      this.setValidationMessage(
+        'error',
+        'Error de autenticación',
+        'No se ha podido identificar al usuario.'
+      );
       return;
     }
+
     cliente.usuario_id = usuarioId;
 
-    if (!cliente.email) {
-      delete cliente.email; // Esto elimina la propiedad 'email' si está vacía o nula
-    }
+    if (!cliente.email) delete cliente.email;
+    if (!cliente.telefono) delete cliente.telefono;
 
-    if (!cliente.telefono) {
-      delete cliente.telefono; // Esto elimina la propiedad 'telefono' si está vacía o nula
-    }
-
-    this.clientesService.createCliente(cliente).subscribe({
-      next: (response) => {
+    this.clientesService.createCliente(cliente).subscribe(
+      (response) => {
         this.validationMessages = [
           {
             severity: 'success',
             summary: 'Éxito',
-            text: 'Cliente creado  exitosamente!',
+            text: 'Cliente creado exitosamente!',
           },
         ];
-        console.log('Cliente creado:', response);
         this.clientesTableComponent.cargarClientes();
-
         this.formularioComponent.resetForm();
       },
-      error: (error) => {
-        // Si viene del backend con array de errores tipo express-validator
-        if (Array.isArray(error.error?.errors)) {
-          const mensajes = error.error.errors.map((e: any) => e.msg);
-          this.validationMessages = mensajes.map((msg: string) => ({
-            severity: 'error',
-            summary: 'Error de validación',
-            text: msg,
-          }));
-        } else if (error.error?.message) {
-          this.validationMessages = [
-            {
-              severity: 'error',
-              summary: 'Error',
-              text: error.error.message,
-            },
-          ];
-        } else {
-          this.validationMessages = [
-            {
-              severity: 'error',
-              summary: 'Error inesperado',
-              text: 'Ocurrió un error al crear el cliente.',
-            },
-          ];
-        }
+      (error) => this.handleCreateClienteError(error)
+    );
+  }
 
-        console.error('Error creating cliente:', error);
-      },
-    });
+  private validarFormulario(cliente: CreateClienteRequest): boolean {
+    if (!cliente.nombre || cliente.nombre.trim() === '') {
+      this.setValidationMessage(
+        'error',
+        'Campos incompletos',
+        'Por favor completa todos los campos obligatorios. (*)'
+      );
+      return false;
+    }
+    return true;
+  }
+
+  private setValidationMessage(
+    severity: 'error' | 'success' | 'warn',
+    summary: string,
+    text: string
+  ): void {
+    this.validationMessages = [{ severity, summary, text }];
+  }
+
+  private handleCreateClienteError(error: any): void {
+    if (Array.isArray(error.error?.errors)) {
+      this.validationMessages = error.error.errors.map((e: any) => ({
+        severity: 'error',
+        summary: 'Error de validación',
+        text: e.msg,
+      }));
+    } else if (error.error?.message) {
+      this.setValidationMessage('error', 'Error', error.error.message);
+    } else {
+      this.setValidationMessage(
+        'error',
+        'Error inesperado',
+        'Ocurrió un error al crear el cliente.'
+      );
+    }
   }
 }
