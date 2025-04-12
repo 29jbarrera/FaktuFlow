@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
-import { Cliente, ClientesResponse } from './cliente.interface';
+import {
+  Cliente,
+  ClientesResponse,
+  CreateClienteRequest,
+} from './cliente.interface';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -36,6 +40,15 @@ export class ClientesService {
     return this.http.get<ClientesResponse>(`${this.apiUrl}clientes/table`, {
       headers,
       params,
+    });
+  }
+
+  // Método para crear un cliente
+  createCliente(cliente: CreateClienteRequest): Observable<Cliente> {
+    const headers = this.auth.getAuthHeaders();
+
+    return this.http.post<Cliente>(`${this.apiUrl}clientes`, cliente, {
+      headers,
     });
   }
 

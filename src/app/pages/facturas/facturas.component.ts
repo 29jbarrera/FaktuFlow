@@ -175,8 +175,6 @@ export class FacturasComponent implements OnInit {
         this.formularioComponent.resetForm();
       },
       (error) => {
-        console.error('Error al crear la factura:', error);
-
         if (
           error?.status === 400 &&
           error?.error?.message === 'Ya existe una factura con ese número.'
@@ -210,12 +208,10 @@ export class FacturasComponent implements OnInit {
             value: cliente.id,
           }));
         } else {
-          console.error('No se encontraron clientes en la respuesta');
           this.loadingClientes = false;
         }
       },
-      error: (error) => {
-        console.error('❌ Error al obtener los clientes:', error);
+      error: () => {
         this.loadingClientes = false;
       },
     });
