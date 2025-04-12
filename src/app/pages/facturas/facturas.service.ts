@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
 import { AuthService } from '../auth/auth.service';
@@ -13,9 +13,13 @@ import {
   providedIn: 'root',
 })
 export class FacturasService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}facturas`;
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  private get authHeaders(): HttpHeaders {
+    return this.authService.getAuthHeaders();
+  }
 
   // Método para obtener las facturas del usuario
   getFacturas(
@@ -24,22 +28,20 @@ export class FacturasService {
     sortField: string,
     sortOrder: number
   ): Observable<FacturasResponse> {
-    const headers = this.auth.getAuthHeaders();
     const params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString())
       .set('sortField', sortField)
       .set('sortOrder', sortOrder.toString());
 
-    return this.http.get<FacturasResponse>(`${this.apiUrl}facturas`, {
-      headers,
+    return this.http.get<FacturasResponse>(this.apiUrl, {
+      headers: this.authHeaders,
       params,
     });
   }
 
   //Método para crear una factura
   createFactura(factura: CreateFacturaRequest): Observable<Factura> {
-    const headers = this.auth.getAuthHeaders();
     const formData = new FormData();
 
     const facturaEntries = Object.entries(factura) as [
@@ -57,8 +59,8 @@ export class FacturasService {
       }
     }
 
-    return this.http.post<Factura>(`${this.apiUrl}facturas`, formData, {
-      headers,
+    return this.http.post<Factura>(this.apiUrl, formData, {
+      headers: this.authHeaders,
     });
   }
 
@@ -67,8 +69,6 @@ export class FacturasService {
     id: number,
     factura: CreateFacturaRequest
   ): Observable<Factura> {
-    const headers = this.auth.getAuthHeaders();
-
     const formData = new FormData();
 
     const facturaEntries = Object.entries(factura) as [
@@ -86,26 +86,22 @@ export class FacturasService {
       }
     }
 
-    return this.http.put<Factura>(`${this.apiUrl}facturas/${id}`, formData, {
-      headers,
+    return this.http.put<Factura>(`${this.apiUrl}/${id}`, formData, {
+      headers: this.authHeaders,
     });
   }
 
   //Método para eliminar una factura
   deleteFactura(id: number): Observable<Factura> {
-    const headers = this.auth.getAuthHeaders();
-
-    return this.http.delete<Factura>(`${this.apiUrl}facturas/${id}`, {
-      headers,
+    return this.http.delete<Factura>(`${this.apiUrl}/${id}`, {
+      headers: this.authHeaders,
     });
   }
 
   //Método para eliminar un archivo de una factura
   deleteArchivoFactura(id: number): Observable<void> {
-    const headers = this.auth.getAuthHeaders();
-
-    return this.http.delete<void>(`${this.apiUrl}facturas/${id}/archivo`, {
-      headers,
+    return this.http.delete<void>(`${this.apiUrl}/${id}/archivo`, {
+      headers: this.authHeaders,
     });
   }
 }
