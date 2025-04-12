@@ -5,7 +5,12 @@
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
     [paginator]="true"
-    [rows]="5"
+    [rows]="limit"
+    [totalRecords]="totalClientes"
+    (onLazyLoad)="cargarClientes($event)"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    lazy="true"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -64,9 +69,24 @@
       <tr>
         <td colspan="15">
           <div class="pl-2">
-            Total de clientes:
-            <span class="font-bold">{{ clientes.length || 0 }}</span>
+            Resultado totales:
+            <span class="font-bold">{{ totalClientes || 0 }}</span>
           </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td
+          colspan="8"
+          style="text-align: center; padding: 30px; align-items: center"
+        >
+          <i
+            class="pi pi-info-circle"
+            style="margin-right: 15px; font-size: 1.6rem; color: blue"
+          ></i>
+          <strong>No hay clientes para mostrar.</strong>
         </td>
       </tr>
     </ng-template>

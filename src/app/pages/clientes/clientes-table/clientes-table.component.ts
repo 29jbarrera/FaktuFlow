@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ClientesService } from '../clientes.service';
-import { Cliente } from '../cliente.interface';
+import { Cliente, ClientesResponse } from '../cliente.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -17,24 +17,42 @@ import { ToastModule } from 'primeng/toast';
 })
 export class ClientesTableComponent {
   clientes: Cliente[] = [];
+  totalClientes = 0;
+  limit = 5;
+  sortField = 'nombre';
+  sortOrder = -1;
+  currentPage = 1;
+
   constructor(
     private clientesService: ClientesService,
     private confirmationService: ConfirmationService
   ) {}
 
-  ngOnInit() {
-    this.cargarClientes();
-  }
+  cargarClientes(event: TableLazyLoadEvent = {}): void {
+    const {
+      first = 0,
+      rows = this.limit,
+      sortField = this.sortField,
+      sortOrder = this.sortOrder,
+    } = event;
 
-  cargarClientes() {
-    this.clientesService.getClientes().subscribe(
-      (response) => {
+    const page = Math.floor(first / (rows ?? this.limit)) + 1;
+    const finalSortField = Array.isArray(sortField)
+      ? sortField[0]
+      : sortField || 'nombre';
+    const finalSortOrder = sortOrder ?? -1;
+
+    this.clientesService
+      .getClientesTable(
+        page,
+        rows ?? this.limit,
+        finalSortField,
+        finalSortOrder
+      )
+      .subscribe((response: ClientesResponse) => {
         this.clientes = response.clientes;
-      },
-      (error) => {
-        console.error('❌ Error al obtener los clientes:', error);
-      }
-    );
+        this.totalClientes = response.total;
+      });
   }
 
   deleteCliente(id: number) {

@@ -9,4 +9,5 @@ export interface Cliente {
 
 export interface ClientesResponse {
   clientes: Cliente[];
+  total: number;
 }
