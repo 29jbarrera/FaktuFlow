@@ -92,10 +92,12 @@ export class FacturasService {
   }
 
   //Método para eliminar una factura
-  deleteFactura(id: number): Observable<void> {
+  deleteFactura(id: number): Observable<Factura> {
     const headers = this.auth.getAuthHeaders();
 
-    return this.http.delete<void>(`${this.apiUrl}facturas/${id}`, { headers });
+    return this.http.delete<Factura>(`${this.apiUrl}facturas/${id}`, {
+      headers,
+    });
   }
 
   //Método para eliminar un archivo de una factura

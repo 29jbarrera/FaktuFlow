@@ -52,9 +52,11 @@ export class ClientesService {
     });
   }
 
-  deleteCliente(id: number): Observable<any> {
+  deleteCliente(id: number): Observable<Cliente> {
     const headers = this.auth.getAuthHeaders();
 
-    return this.http.delete<Cliente>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.delete<Cliente>(`${this.apiUrl}clientes/${id}`, {
+      headers,
+    });
   }
 }
