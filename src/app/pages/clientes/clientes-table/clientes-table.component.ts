@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { ClientesService } from '../clientes.service';
-import { Cliente, ClientesResponse } from '../cliente.interface';
+import {
+  Cliente,
+  ClientesResponse,
+  CreateClienteRequest,
+} from '../cliente.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -12,6 +16,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { ValidationMessage } from '../../../interfaces/validation-message.interface';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   selector: 'app-clientes-table',
@@ -28,6 +34,7 @@ import { ButtonModule } from 'primeng/button';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
+    MessageModule,
   ],
   templateUrl: './clientes-table.component.html',
   styleUrl: './clientes-table.component.scss',
@@ -43,6 +50,7 @@ export class ClientesTableComponent {
 
   clienteSeleccionado: Partial<Cliente> = {};
   openDialog = false;
+  validationMessages: ValidationMessage[] = [];
 
   constructor(
     private clientesService: ClientesService,
@@ -104,5 +112,88 @@ export class ClientesTableComponent {
   abrirModalEdicion(cliente: Cliente): void {
     this.clienteSeleccionado = { ...cliente };
     this.openDialog = true;
+  }
+
+  actualizarCliente(): void {
+    this.validationMessages = [];
+
+    if (!this.clienteSeleccionado.id) return;
+
+    if (
+      !this.clienteSeleccionado.nombre ||
+      this.clienteSeleccionado.nombre.trim() === ''
+    ) {
+      this.validationMessages.push({
+        severity: 'error',
+        summary: 'Campos incompletos',
+        text: 'El nombre es obligatorio.',
+      });
+    }
+
+    const clienteActualizado: CreateClienteRequest = {
+      nombre: this.clienteSeleccionado.nombre!,
+      email: this.clienteSeleccionado.email,
+      telefono: this.clienteSeleccionado.telefono,
+      usuario_id: this.clienteSeleccionado.usuario_id!,
+      direccion_fiscal: this.clienteSeleccionado.direccion_fiscal,
+    };
+
+    if (!clienteActualizado.email || clienteActualizado.email.trim() === '') {
+      delete clienteActualizado.email; // Elimina el email si está vacío o nulo
+    }
+
+    if (!clienteActualizado.telefono || clienteActualizado.telefono === 0) {
+      delete clienteActualizado.telefono; // Elimina el teléfono si está vacío o nulo
+    }
+
+    if (this.validationMessages.length > 0) {
+      return;
+    }
+
+    this.clientesService
+      .updateCliente(this.clienteSeleccionado.id, clienteActualizado)
+      .subscribe(
+        (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cliente Actualizado',
+            detail: 'El cliente ha sido actualizado exitosamente.',
+            life: 4000,
+          });
+          this.cargarClientes();
+          this.openDialog = false;
+        },
+        (error) => {
+          if (error?.error?.errors) {
+            error.error.errors.forEach((e: any) => {
+              // Agregar mensajes específicos de backend
+              if (e.path === 'email') {
+                this.validationMessages.push({
+                  severity: 'error',
+                  summary: 'Error en el email',
+                  text: 'El formato del email no es válido.',
+                });
+              }
+
+              if (e.path === 'telefono') {
+                this.validationMessages.push({
+                  severity: 'error',
+                  summary: 'Error en el teléfono',
+                  text: 'El teléfono debe tener exactamente 9 dígitos numéricos.',
+                });
+              }
+            });
+          } else {
+            // Manejo de otros errores generales
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Error inesperado',
+              detail:
+                error.message || 'Ocurrió un error al actualizar el cliente.',
+              life: 4000,
+            });
+          }
+        }
+      );
   }
 }

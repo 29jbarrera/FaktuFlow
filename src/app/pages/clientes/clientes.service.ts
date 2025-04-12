@@ -52,6 +52,17 @@ export class ClientesService {
     });
   }
 
+  updateCliente(
+    id: number,
+    cliente: CreateClienteRequest
+  ): Observable<Cliente> {
+    const headers = this.auth.getAuthHeaders();
+
+    return this.http.put<Cliente>(`${this.apiUrl}clientes/${id}`, cliente, {
+      headers,
+    });
+  }
+
   deleteCliente(id: number): Observable<Cliente> {
     const headers = this.auth.getAuthHeaders();
 

@@ -103,10 +103,10 @@
   >
     <div class="custom-grid-form p-4">
       <div>
-        <label class="block">Nombre o Razón social</label>
+        <label class="block">Nombre o Razón social *</label>
         <p-inputGroup>
           <p-inputGroupAddon>
-            <i class="pi pi-file"></i>
+            <i class="pi pi-user"></i>
           </p-inputGroupAddon>
           <input
             pInputText
@@ -120,7 +120,7 @@
         <label class="block">Correo electrónico</label>
         <p-inputGroup>
           <p-inputGroupAddon>
-            <i class="pi pi-file"></i>
+            <i class="pi pi-envelope"></i>
           </p-inputGroupAddon>
           <input
             pInputText
@@ -134,7 +134,7 @@
         <label class="block">Número de teléfono</label>
         <p-inputGroup>
           <p-inputGroupAddon>
-            <i class="pi pi-file"></i>
+            <i class="pi pi-phone"></i>
           </p-inputGroupAddon>
           <input
             pInputText
@@ -148,7 +148,7 @@
         <label class="block">Dirección</label>
         <p-inputGroup>
           <p-inputGroupAddon>
-            <i class="pi pi-file"></i>
+            <i class="pi pi-map-marker"></i>
           </p-inputGroupAddon>
           <input
             pInputText
@@ -159,9 +159,24 @@
         </p-inputGroup>
       </div>
       <div></div>
-      <div class="mt-2 p-3 flex justify-end gap-2">
-        <button pButton type="button" label="Guardar"></button>
+      <div class="-mt-7 md:mt-2 p-3 flex justify-end gap-2">
+        <button
+          pButton
+          type="button"
+          label="Guardar"
+          (click)="actualizarCliente()"
+        ></button>
       </div>
+    </div>
+    <div *ngFor="let message of validationMessages" class="w-full p-1">
+      <p-message
+        [life]="8000"
+        icon="pi pi-times-circle"
+        [severity]="message.severity"
+        [text]="message.text"
+        [closable]="true"
+        styleClass="custom-messages"
+      ></p-message>
     </div>
   </p-dialog>
 </div>
