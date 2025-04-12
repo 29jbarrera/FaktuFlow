@@ -7,6 +7,8 @@ import {
   ClientesResponse,
   CreateClienteRequest,
 } from '../cliente.interface';
+import { ClientesPipe } from '../clientes.pipe';
+
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -35,6 +37,7 @@ import { MessageModule } from 'primeng/message';
     InputTextModule,
     ButtonModule,
     MessageModule,
+    ClientesPipe,
   ],
   templateUrl: './clientes-table.component.html',
   styleUrl: './clientes-table.component.scss',
@@ -51,6 +54,8 @@ export class ClientesTableComponent {
   clienteSeleccionado: Partial<Cliente> = {};
   openDialog = false;
   validationMessages: ValidationMessage[] = [];
+
+  searchTerm = '';
 
   constructor(
     private clientesService: ClientesService,
