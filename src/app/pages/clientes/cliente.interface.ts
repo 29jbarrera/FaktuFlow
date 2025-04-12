@@ -14,8 +14,8 @@ export interface ClientesResponse {
 
 export interface CreateClienteRequest {
   nombre: string;
-  email: string;
-  telefono: number;
-  direccion_fiscal: string;
+  email?: string;
+  telefono?: number | null;
+  direccion_fiscal?: string;
   usuario_id: number;
 }

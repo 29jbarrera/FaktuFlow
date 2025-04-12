@@ -28,7 +28,7 @@ export class ClientesComponent {
   formModel: CreateClienteRequest = {
     nombre: '',
     email: '',
-    telefono: 0,
+    telefono: null,
     direccion_fiscal: '',
     usuario_id: 0,
   };
@@ -103,6 +103,14 @@ export class ClientesComponent {
       return;
     }
     cliente.usuario_id = usuarioId;
+
+    if (!cliente.email) {
+      delete cliente.email; // Esto elimina la propiedad 'email' si está vacía o nula
+    }
+
+    if (!cliente.telefono) {
+      delete cliente.telefono; // Esto elimina la propiedad 'telefono' si está vacía o nula
+    }
 
     this.clientesService.createCliente(cliente).subscribe({
       next: (response) => {

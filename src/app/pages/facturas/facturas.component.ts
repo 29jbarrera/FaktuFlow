@@ -36,7 +36,7 @@ export class FacturasComponent implements OnInit {
     numero: '',
     cliente_id: 0,
     fecha_emision: '',
-    importe: 0,
+    importe: null,
     descripcion: '',
     estado: false,
     file: null,
