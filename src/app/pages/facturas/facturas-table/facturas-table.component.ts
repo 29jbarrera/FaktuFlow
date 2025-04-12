@@ -65,7 +65,7 @@ export class FacturasTableComponent {
   currentPage = 1;
 
   facturaSeleccionada: Partial<Factura> = {};
-  mostrarDialogo = false;
+  openDialog = false;
   nuevoArchivo: File | null = null;
   archivoMarcadoParaEliminar = false;
   uploadedFileName: string | null = null;
@@ -128,7 +128,7 @@ export class FacturasTableComponent {
   abrirModalEdicion(factura: Factura): void {
     this.facturaSeleccionada = { ...factura };
     this.facturaSeleccionada.fecha_emision = new Date(factura.fecha_emision);
-    this.mostrarDialogo = true;
+    this.openDialog = true;
   }
 
   actualizarFactura(): void {
@@ -154,7 +154,7 @@ export class FacturasTableComponent {
         .updateFactura(this.facturaSeleccionada.id!, facturaActualizada)
         .subscribe(
           () => {
-            this.mostrarDialogo = false;
+            this.openDialog = false;
             this.archivoMarcadoParaEliminar = false;
             this.messageService.add({
               severity: 'success',

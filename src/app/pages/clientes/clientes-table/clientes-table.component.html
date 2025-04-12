@@ -53,8 +53,10 @@
         <td>{{ cliente.telefono }}</td>
         <td>{{ cliente.direccion_fiscal }}</td>
 
-        <!-- Botón de eliminación -->
-        <td>
+        <td class="flex gap-2">
+          <button class="p-button" (click)="abrirModalEdicion(cliente)">
+            <i class="pi pi-file-edit"></i>
+          </button>
           <button
             class="p-button p-button-danger"
             (click)="deleteCliente(cliente.id)"
@@ -91,6 +93,77 @@
       </tr>
     </ng-template>
   </p-table>
+  <p-dialog
+    header="Editar Factura: {{ clienteSeleccionado.nombre }}"
+    [(visible)]="openDialog"
+    [modal]="true"
+    styleClass="w-full sm:w-10/12 md:w-1/2"
+    [closable]="true"
+    (onHide)="openDialog = false"
+  >
+    <div class="custom-grid-form p-4">
+      <div>
+        <label class="block">Nombre o Razón social</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-file"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="nombre"
+            [(ngModel)]="clienteSeleccionado.nombre"
+          />
+        </p-inputGroup>
+      </div>
+      <div>
+        <label class="block">Correo electrónico</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-file"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="email"
+            [(ngModel)]="clienteSeleccionado.email"
+          />
+        </p-inputGroup>
+      </div>
+      <div>
+        <label class="block">Número de teléfono</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-file"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="telefono"
+            [(ngModel)]="clienteSeleccionado.telefono"
+          />
+        </p-inputGroup>
+      </div>
+      <div>
+        <label class="block">Dirección</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-file"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="direccion_fiscal"
+            [(ngModel)]="clienteSeleccionado.direccion_fiscal"
+          />
+        </p-inputGroup>
+      </div>
+      <div></div>
+      <div class="mt-2 p-3 flex justify-end gap-2">
+        <button pButton type="button" label="Guardar"></button>
+      </div>
+    </div>
+  </p-dialog>
 </div>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>

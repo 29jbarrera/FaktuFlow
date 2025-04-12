@@ -143,11 +143,11 @@
   <!-- Modal de edición de factura -->
   <p-dialog
     header="Editar Factura: {{ facturaSeleccionada.numero }}"
-    [(visible)]="mostrarDialogo"
+    [(visible)]="openDialog"
     [modal]="true"
     styleClass="w-full sm:w-10/12 md:w-1/2"
     [closable]="true"
-    (onHide)="mostrarDialogo = false"
+    (onHide)="openDialog = false"
   >
     <div class="custom-grid-form p-4">
       <div>
