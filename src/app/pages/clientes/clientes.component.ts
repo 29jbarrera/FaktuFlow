@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FormComponent } from '../../components/form/form.component';
-import { CommonModule } from '@angular/common';
 import { ClientesTableComponent } from './clientes-table/clientes-table.component';
-import { ValidationMessage } from '../../interfaces/validation-message.interface';
-import { CreateClienteRequest } from './cliente.interface';
 import { ClientesService } from './clientes.service';
 import { AuthService } from '../auth/auth.service';
+import { ValidationMessage } from '../../interfaces/validation-message.interface';
+import { CreateClienteRequest } from './cliente.interface';
 
 @Component({
   selector: 'app-clientes',

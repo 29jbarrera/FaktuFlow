@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientesService } from '../clientes.service';
 import {
   Cliente,
   ClientesResponse,
   CreateClienteRequest,
 } from '../cliente.interface';
+import { ValidationMessage } from '../../../interfaces/validation-message.interface';
 import { ClientesPipe } from '../clientes.pipe';
 
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { ValidationMessage } from '../../../interfaces/validation-message.interface';
 import { MessageModule } from 'primeng/message';
 
 @Component({
@@ -46,11 +46,12 @@ import { MessageModule } from 'primeng/message';
 export class ClientesTableComponent {
   clientes: Cliente[] = [];
   totalClientes = 0;
-  limit = 5;
-  sortField = 'nombre';
-  sortOrder = 1;
-  currentPage = 1;
 
+  readonly limit = 5;
+  readonly sortField = 'nombre';
+  readonly sortOrder = 1;
+
+  currentPage = 1;
   clienteSeleccionado: Partial<Cliente> = {};
   openDialog = false;
   validationMessages: ValidationMessage[] = [];
@@ -90,27 +91,38 @@ export class ClientesTableComponent {
       });
   }
 
-  deleteCliente(id: number) {
+  deleteCliente(id: number): void {
     this.confirmationService.confirm({
       message: '¿Estás seguro de que deseas eliminar este cliente?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
       rejectLabel: 'No',
-      accept: () => {
-        this.clientesService.deleteCliente(id).subscribe((response) => {
-          this.clientes = this.clientes.filter((cliente) => cliente.id !== id);
-        });
+      accept: () => this.ejecutarEliminacionCliente(id),
+    });
+  }
+
+  private ejecutarEliminacionCliente(id: number): void {
+    this.clientesService.deleteCliente(id).subscribe({
+      next: () => {
         this.messageService.add({
           severity: 'success',
           summary: 'Cliente Eliminado',
-          detail: 'El cliente ha sido eliminada exitosamente.',
+          detail: 'El cliente ha sido eliminado exitosamente.',
           life: 4000,
         });
 
         this.cargarClientes();
       },
-      reject: () => {},
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error al eliminar',
+          detail: 'No se pudo eliminar el cliente. Intenta nuevamente.',
+          life: 4000,
+        });
+        console.error('Error al eliminar cliente:', err);
+      },
     });
   }
 
@@ -124,10 +136,7 @@ export class ClientesTableComponent {
 
     if (!this.clienteSeleccionado.id) return;
 
-    if (
-      !this.clienteSeleccionado.nombre ||
-      this.clienteSeleccionado.nombre.trim() === ''
-    ) {
+    if (!this.clienteSeleccionado.nombre?.trim()) {
       this.validationMessages.push({
         severity: 'error',
         summary: 'Campos incompletos',
@@ -143,13 +152,9 @@ export class ClientesTableComponent {
       direccion_fiscal: this.clienteSeleccionado.direccion_fiscal,
     };
 
-    if (!clienteActualizado.email || clienteActualizado.email.trim() === '') {
-      delete clienteActualizado.email; // Elimina el email si está vacío o nulo
-    }
-
-    if (!clienteActualizado.telefono || clienteActualizado.telefono === 0) {
-      delete clienteActualizado.telefono; // Elimina el teléfono si está vacío o nulo
-    }
+    if (!clienteActualizado.email) delete clienteActualizado.email;
+    if (!clienteActualizado.telefono || clienteActualizado.telefono === 0)
+      delete clienteActualizado.telefono;
 
     if (this.validationMessages.length > 0) {
       return;
@@ -171,7 +176,6 @@ export class ClientesTableComponent {
         (error) => {
           if (error?.error?.errors) {
             error.error.errors.forEach((e: any) => {
-              // Agregar mensajes específicos de backend
               if (e.path === 'email') {
                 this.validationMessages.push({
                   severity: 'error',
@@ -189,7 +193,6 @@ export class ClientesTableComponent {
               }
             });
           } else {
-            // Manejo de otros errores generales
             this.messageService.add({
               severity: 'warn',
               summary: 'Error inesperado',
