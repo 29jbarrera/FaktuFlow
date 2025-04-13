@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Factura } from '../factura.interface';
-import { formatFechaToDMY } from '../../../shared/utils/date.util';
+import { Factura } from './factura.interface';
+import { formatFechaToDMY } from '../../shared/utils/date.util';
 
 @Pipe({
   name: 'facturas',

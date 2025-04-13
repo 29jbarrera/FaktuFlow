@@ -8,7 +8,7 @@ import {
   Factura,
   FacturasResponse,
 } from '../factura.interface';
-import { FacturasPipe } from '../facturas-pipe/facturas.pipe';
+import { FacturasPipe } from '../facturas.pipe';
 
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
