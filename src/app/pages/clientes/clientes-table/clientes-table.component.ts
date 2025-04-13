@@ -1,4 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  AfterViewInit,
+} from '@angular/core';
+import { fromEvent, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientesService } from '../clientes.service';
@@ -43,7 +51,7 @@ import { MessageModule } from 'primeng/message';
   styleUrl: './clientes-table.component.scss',
   providers: [ConfirmationService, MessageService],
 })
-export class ClientesTableComponent {
+export class ClientesTableComponent implements AfterViewInit, OnDestroy {
   clientes: Cliente[] = [];
   totalClientes = 0;
 
@@ -57,12 +65,33 @@ export class ClientesTableComponent {
   validationMessages: ValidationMessage[] = [];
 
   searchTerm = '';
+  @ViewChild('searchInput') searchInputRef!: ElementRef;
+  private searchSub!: Subscription;
 
   constructor(
     private clientesService: ClientesService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
+
+  ngAfterViewInit(): void {
+    this.searchSub = fromEvent(this.searchInputRef.nativeElement, 'input')
+      .pipe(
+        map((event: any) => event.target.value),
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe((value: string) => {
+        this.searchTerm = value.trim();
+        this.cargarClientes();
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchSub) {
+      this.searchSub.unsubscribe();
+    }
+  }
 
   cargarClientes(event: TableLazyLoadEvent = {}): void {
     const {
@@ -83,7 +112,8 @@ export class ClientesTableComponent {
         page,
         rows ?? this.limit,
         finalSortField,
-        finalSortOrder
+        finalSortOrder,
+        this.searchTerm
       )
       .subscribe((response: ClientesResponse) => {
         this.clientes = response.clientes;
