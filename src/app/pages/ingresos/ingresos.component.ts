@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { FormComponent } from '../../components/form/form.component';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,19 @@ import { IngresosTableComponent } from './ingresos-table/ingresos-table.componen
   styleUrl: './ingresos.component.scss',
 })
 export class IngresosComponent {
+  @ViewChild('formulario') formularioComponent!: FormComponent;
+  @ViewChild(IngresosTableComponent)
+  gastosTableComponent!: IngresosTableComponent;
+
+  categoriaOptions = [
+    { label: 'Cosecha Pipas', value: 'Cosecha Pipas' },
+    { label: 'Cosecha Trigo', value: 'Cosecha Trigo' },
+    { label: 'Cosecha Garbanzo', value: 'Cosecha Garbanzo' },
+    { label: 'Subvención', value: 'Subvención' },
+    { label: 'Salario', value: 'Salario' },
+    { label: 'Otros', value: 'Otros' },
+  ];
+
   formFields = [
     {
       name: 'name',
@@ -30,11 +43,7 @@ export class IngresosComponent {
       name: 'category',
       label: 'Categoría',
       type: 'select',
-      options: [
-        { label: 'Categoría 1', value: 'cat1' },
-        { label: 'Categoría 2', value: 'cat2' },
-        { label: 'Categoría 3', value: 'cat3' },
-      ],
+      options: this.categoriaOptions,
       required: true,
       icon: 'pi pi-tags', // Icono de etiqueta
     },
