@@ -5,9 +5,11 @@ import {
   OnDestroy,
   ViewChild,
   ChangeDetectorRef,
+  Input,
 } from '@angular/core';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -20,6 +22,16 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
+import { CreateGastoRequest, Gasto } from '../gastos.interface';
+import { ValidationMessage } from '../../../interfaces/validation-message.interface';
+import { DatePickerModule } from 'primeng/datepicker';
+import { formatFechaToYMD } from '../../../shared/utils/date.util';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-gastos-table',
@@ -30,13 +42,23 @@ import { ButtonModule } from 'primeng/button';
     ToastModule,
     ConfirmDialogModule,
     ButtonModule,
+    DialogModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    MessageModule,
+    DatePickerModule,
+    SelectModule,
   ],
   templateUrl: './gastos-table.component.html',
   styleUrl: './gastos-table.component.scss',
   providers: [ConfirmationService, MessageService],
 })
 export class GastosTableComponent implements AfterViewInit, OnDestroy {
-  gastos: any[] = [];
+  @Input() categoriaOptions: { label: string; value: string }[] = [];
+  gastos: Gasto[] = [];
   totalGastos = 0;
 
   readonly limit = 5;
@@ -44,6 +66,9 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
   readonly sortOrder = 1;
 
   currentPage = 1;
+  gastoSeleccionado: Partial<Gasto> = {};
+  openDialog = false;
+  validationMessages: ValidationMessage[] = [];
 
   searchTerm = '';
   @ViewChild('searchInput') searchInputRef!: ElementRef;
@@ -131,5 +156,73 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
         });
       },
     });
+  }
+
+  openModal(gasto: Gasto): void {
+    this.gastoSeleccionado = { ...gasto };
+    this.openDialog = true;
+  }
+
+  updateGasto(): void {
+    this.validationMessages = [];
+
+    if (!this.gastoSeleccionado.id) return;
+
+    const { nombre_gasto, categoria, fecha, importe_total } =
+      this.gastoSeleccionado;
+
+    if (
+      !nombre_gasto ||
+      nombre_gasto.trim() === '' ||
+      !categoria ||
+      categoria.trim?.() === '' ||
+      !fecha ||
+      fecha.toString().trim() === '' ||
+      importe_total === null ||
+      importe_total === undefined ||
+      importe_total.toString().trim() === ''
+    ) {
+      this.validationMessages.push({
+        severity: 'error',
+        summary: 'Campos incompletos',
+        text: 'Por favor completa todos los campos obligatorios. (*)',
+      });
+      return;
+    }
+
+    const gastoSeleccionado: CreateGastoRequest = {
+      nombre_gasto: nombre_gasto.trim(),
+      categoria: categoria.trim(),
+      fecha: formatFechaToYMD(new Date(this.gastoSeleccionado.fecha!)),
+      importe_total: Number(importe_total),
+      usuario_id: this.gastoSeleccionado.usuario_id!,
+    };
+
+    if (this.validationMessages.length > 0) {
+      return;
+    }
+
+    this.gastosService
+      .updateGasto(this.gastoSeleccionado.id, gastoSeleccionado)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Gasto Actualizado',
+            detail: 'El gasto ha sido actualizado exitosamente',
+            life: 4000,
+          });
+          this.cargarGastos();
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo actualizar el gasto',
+            life: 4000,
+          });
+        },
+      });
+    this.openDialog = false;
   }
 }

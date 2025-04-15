@@ -47,6 +47,13 @@ export class GastosService {
     });
   }
 
+  // Método para editar un gasto
+  updateGasto(id: number, gasto: CreateGastoRequest): Observable<Gasto> {
+    return this.http.put<Gasto>(`${this.apiUrl}/${id}`, gasto, {
+      headers: this.authHeaders,
+    });
+  }
+
   // Método para eliminar un gasto
   deleteGasto(id: number): Observable<Gasto> {
     return this.http.delete<Gasto>(`${this.apiUrl}/${id}`, {

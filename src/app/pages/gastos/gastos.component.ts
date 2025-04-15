@@ -30,6 +30,12 @@ export class GastosComponent {
 
   loadingClientes = true;
   validationMessages: ValidationMessage[] = [];
+  categoriaOptions = [
+    { label: 'Mano de obra', value: 'Mano de obra' },
+    { label: 'Transporte', value: 'Transporte' },
+    { label: 'Cuota', value: 'Cuota' },
+    { label: 'Otros', value: 'Otros' },
+  ];
 
   formFields = [
     {
@@ -44,12 +50,7 @@ export class GastosComponent {
       name: 'categoria',
       label: 'Categoría *',
       type: 'select',
-      options: [
-        { label: 'Mano de obra', value: 'Mano de obra' },
-        { label: 'Transporte', value: 'Transporte' },
-        { label: 'Cuota', value: 'Cuota' },
-        { label: 'Otros', value: 'Otros' },
-      ],
+      options: this.categoriaOptions,
       required: true,
       icon: 'pi pi-tags',
     },

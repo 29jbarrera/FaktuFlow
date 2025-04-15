@@ -5,6 +5,7 @@ export interface Gasto {
   fecha: string | Date;
   importe_total: number;
   descripcion: string;
+  usuario_id: number;
 }
 export interface GastosResponse {
   gastos: Gasto[];
