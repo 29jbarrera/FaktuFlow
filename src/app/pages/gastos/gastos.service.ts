@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
-import { Gasto, GastosResponse } from './gastos.interface';
+import { CreateGastoRequest, Gasto, GastosResponse } from './gastos.interface';
 import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root',
@@ -37,6 +37,13 @@ export class GastosService {
     return this.http.get<GastosResponse>(this.apiUrl, {
       headers: this.authHeaders,
       params,
+    });
+  }
+
+  // Método para crear un gasto
+  createGasto(gasto: CreateGastoRequest): Observable<Gasto> {
+    return this.http.post<Gasto>(this.apiUrl, gasto, {
+      headers: this.authHeaders,
     });
   }
 

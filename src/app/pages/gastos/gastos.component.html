@@ -1,3 +1,9 @@
 <app-header [title]="'Gastos'" [icon]="'fas fa-wallet '"></app-header>
-<app-form [formFields]="formFields"></app-form>
+<app-form
+  [formFields]="formFields"
+  (formSubmit)="createGasto($event)"
+  [formModel]="formModel"
+  [validationMessages]="validationMessages"
+  #formulario
+></app-form>
 <app-gastos-table></app-gastos-table>

@@ -55,15 +55,15 @@
             <i [class]="field.icon"></i>
           </p-inputGroupAddon>
           <p-select
-            [(ngModel)]="formModel[field.id]"
-            [options]="clientes"
+            [(ngModel)]="formModel[field.name]"
+            [options]="field.options?.length ? field.options : clientes"
             optionLabel="label"
             optionValue="value"
             [id]="field.name"
             [name]="field.name"
             [required]="field.required"
             [filter]="true"
-            placeholder="Selecciona un cliente"
+            placeholder="Selecciona una opción"
             class="p-fluid w-full custom-p-select"
           ></p-select>
         </div>
