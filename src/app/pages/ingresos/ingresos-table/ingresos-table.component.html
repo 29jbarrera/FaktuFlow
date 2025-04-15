@@ -5,35 +5,40 @@
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
     [paginator]="true"
-    [rows]="5"
+    [rows]="limit"
+    [totalRecords]="totalIngresos"
+    (onLazyLoad)="cargarIngresos($event)"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    lazy="true"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="name" style="width: 15%">
-          <div>
-            Nombre
-            <p-sortIcon class="order" field="name" />
-          </div>
-        </th>
-
-        <th pSortableColumn="category" style="width: 15%">
-          <div>
-            Categoría
-            <p-sortIcon class="order" field="category" />
-          </div>
-        </th>
-
-        <th pSortableColumn="date">
+        <th pSortableColumn="fecha_ingreso">
           <div>
             Fecha
-            <p-sortIcon class="order" field="date" />
+            <p-sortIcon class="order" field="fecha_ingreso" />
           </div>
         </th>
 
-        <th pSortableColumn="amount">
+        <th pSortableColumn="nombre_ingreso" style="width: 15%">
+          <div>
+            Nombre
+            <p-sortIcon class="order" field="nombre_ingreso" />
+          </div>
+        </th>
+
+        <th pSortableColumn="categoria" style="width: 15%">
+          <div>
+            Categoría
+            <p-sortIcon class="order" field="categoria" />
+          </div>
+        </th>
+
+        <th pSortableColumn="importe_total">
           <div>
             Importe
-            <p-sortIcon class="order" field="amount" />
+            <p-sortIcon class="order" field="importe_total" />
           </div>
         </th>
 
@@ -44,11 +49,11 @@
 
     <ng-template pTemplate="body" let-ingreso>
       <tr class="body-table">
-        <td>{{ ingreso.name }}</td>
-        <td>{{ ingreso.category }}</td>
-        <td>{{ ingreso.date | date : "dd/MM/yyyy" }}</td>
-        <td>{{ ingreso.amount | currency : "EUR" }}</td>
-        <td>{{ ingreso.description }}</td>
+        <td>{{ ingreso.fecha_ingreso | date : "dd/MM/yyyy" }}</td>
+        <td>{{ ingreso.nombre_ingreso }}</td>
+        <td>{{ ingreso.categoria }}</td>
+        <td>€ {{ ingreso.importe_total }}</td>
+        <td>{{ ingreso.descripcion }}</td>
 
         <!-- Botón de eliminación -->
         <td>
@@ -66,8 +71,23 @@
         <td colspan="15">
           <div class="pl-2">
             Total de ingresos:
-            <span class="font-bold">{{ ingresos.length || 0 }}</span>
+            <span class="font-bold">{{ totalIngresos || 0 }}</span>
           </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td
+          colspan="8"
+          style="text-align: center; padding: 30px; align-items: center"
+        >
+          <i
+            class="pi pi-info-circle"
+            style="margin-right: 15px; font-size: 1.6rem; color: blue"
+          ></i>
+          <strong>No hay ingresos para mostrar.</strong>
         </td>
       </tr>
     </ng-template>
