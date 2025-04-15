@@ -17,11 +17,20 @@ import {
 } from 'rxjs';
 import { GastosService } from '../gastos.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-gastos-table',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [
+    TableModule,
+    CommonModule,
+    ToastModule,
+    ConfirmDialogModule,
+    ButtonModule,
+  ],
   templateUrl: './gastos-table.component.html',
   styleUrl: './gastos-table.component.scss',
   providers: [ConfirmationService, MessageService],
@@ -89,5 +98,38 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
         this.gastos = response.gastos;
         this.totalGastos = response.total;
       });
+  }
+
+  deleteGasto(id: number): void {
+    this.confirmationService.confirm({
+      message: `¿Está seguro de que desea eliminar este gasto?`,
+      header: 'Confirmación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      accept: () => this.ejecutarEliminacionGasto(id),
+    });
+  }
+
+  private ejecutarEliminacionGasto(id: number): void {
+    this.gastosService.deleteGasto(id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Gasto Eliminado',
+          detail: 'El gasto ha sido eliminado exitosamente',
+          life: 4000,
+        });
+        this.cargarGastos();
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo eliminar el gasto',
+          life: 4000,
+        });
+      },
+    });
   }
 }

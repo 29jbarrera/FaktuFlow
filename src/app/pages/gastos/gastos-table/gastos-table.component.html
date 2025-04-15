@@ -55,9 +55,15 @@
         <td>€ {{ gasto.importe_total }}</td>
         <td>{{ gasto.descripcion }}</td>
 
-        <!-- Botón de eliminación -->
-        <td>
-          <button class="p-button p-button-danger">
+        <td class="flex gap-2">
+          <button class="p-button">
+            <i class="pi pi-file-edit"></i>
+          </button>
+          <button
+            pButton
+            class="p-button p-button-danger"
+            (click)="deleteGasto(gasto.id)"
+          >
             <i class="pi pi-trash"></i>
           </button>
         </td>
@@ -76,3 +82,5 @@
     </ng-template>
   </p-table>
 </div>
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

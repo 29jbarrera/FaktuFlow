@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { environment } from '../../../../environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from '../../../../environment';
+import { Gasto, GastosResponse } from './gastos.interface';
+import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +23,7 @@ export class GastosService {
     sortField: string,
     sortOrder: number,
     searchTerm: string = ''
-  ): Observable<any> {
+  ): Observable<GastosResponse> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString())
@@ -34,9 +34,16 @@ export class GastosService {
       params = params.set('search', searchTerm.trim());
     }
 
-    return this.http.get<any>(this.apiUrl, {
+    return this.http.get<GastosResponse>(this.apiUrl, {
       headers: this.authHeaders,
       params,
+    });
+  }
+
+  // Método para eliminar un gasto
+  deleteGasto(id: number): Observable<Gasto> {
+    return this.http.delete<Gasto>(`${this.apiUrl}/${id}`, {
+      headers: this.authHeaders,
     });
   }
 }
