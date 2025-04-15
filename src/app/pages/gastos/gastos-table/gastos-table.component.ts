@@ -160,6 +160,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
 
   openModal(gasto: Gasto): void {
     this.gastoSeleccionado = { ...gasto };
+    this.gastoSeleccionado.fecha = new Date(gasto.fecha);
     this.openDialog = true;
   }
 
@@ -197,6 +198,8 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       importe_total: Number(importe_total),
       usuario_id: this.gastoSeleccionado.usuario_id!,
     };
+
+    console.log(gastoSeleccionado);
 
     if (this.validationMessages.length > 0) {
       return;
