@@ -75,8 +75,23 @@
         <td colspan="15">
           <div class="pl-2">
             Total de gastos:
-            <span class="font-bold">{{ gastos.length || 0 }}</span>
+            <span class="font-bold">{{ totalGastos || 0 }}</span>
           </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td
+          colspan="8"
+          style="text-align: center; padding: 30px; align-items: center"
+        >
+          <i
+            class="pi pi-info-circle"
+            style="margin-right: 15px; font-size: 1.6rem; color: blue"
+          ></i>
+          <strong>No hay gastos para mostrar.</strong>
         </td>
       </tr>
     </ng-template>
