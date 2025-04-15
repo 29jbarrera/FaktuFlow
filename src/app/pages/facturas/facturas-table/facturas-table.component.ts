@@ -12,6 +12,7 @@ import { FacturasPipe } from '../facturas.pipe';
 
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
@@ -25,6 +26,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { TextareaModule } from 'primeng/textarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { Toast } from 'primeng/toast';
+import { ValidationMessage } from '../../../interfaces/validation-message.interface';
 
 @Component({
   selector: 'app-facturas-table',
@@ -48,6 +50,7 @@ import { Toast } from 'primeng/toast';
     Toast,
     ReactiveFormsModule,
     FacturasPipe,
+    MessageModule,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
@@ -66,6 +69,7 @@ export class FacturasTableComponent {
 
   facturaSeleccionada: Partial<Factura> = {};
   openDialog = false;
+  validationMessages: ValidationMessage[] = [];
   nuevoArchivo: File | null = null;
   archivoMarcadoParaEliminar = false;
   uploadedFileName: string | null = null;
@@ -132,7 +136,20 @@ export class FacturasTableComponent {
   }
 
   actualizarFactura(): void {
+    this.validationMessages = [];
+
     if (!this.facturaSeleccionada.id) return;
+
+    const { numero, cliente_id, fecha_emision, importe } =
+      this.facturaSeleccionada;
+    if (!numero || !cliente_id || !fecha_emision || !importe) {
+      this.validationMessages.push({
+        severity: 'error',
+        summary: 'Error',
+        text: 'Por favor completa todos los campos obligatorios. (*)',
+      });
+      return;
+    }
 
     const facturaActualizada: CreateFacturaRequest = {
       cliente_id: this.facturaSeleccionada.cliente_id!,

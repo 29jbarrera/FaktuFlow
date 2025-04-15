@@ -284,6 +284,16 @@
         ></button>
       </div>
     </div>
+    <div *ngFor="let message of validationMessages" class="w-full p-1">
+      <p-message
+        [life]="8000"
+        icon="pi pi-times-circle"
+        [severity]="message.severity"
+        [text]="message.text"
+        [closable]="true"
+        styleClass="custom-messages"
+      ></p-message>
+    </div>
   </p-dialog>
 </div>
 <p-confirmDialog></p-confirmDialog>
