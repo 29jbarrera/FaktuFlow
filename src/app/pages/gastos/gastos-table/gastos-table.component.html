@@ -5,35 +5,40 @@
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
     [paginator]="true"
-    [rows]="5"
+    [rows]="limit"
+    [totalRecords]="totalGastos"
+    (onLazyLoad)="cargarGastos($event)"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    lazy="true"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="name" style="width: 15%">
-          <div>
-            Nombre
-            <p-sortIcon class="order" field="name" />
-          </div>
-        </th>
-
-        <th pSortableColumn="category" style="width: 15%">
-          <div>
-            Categoría
-            <p-sortIcon class="order" field="category" />
-          </div>
-        </th>
-
-        <th pSortableColumn="date">
+        <th pSortableColumn="fecha">
           <div>
             Fecha
-            <p-sortIcon class="order" field="date" />
+            <p-sortIcon class="order" field="fecha" />
           </div>
         </th>
 
-        <th pSortableColumn="amount">
+        <th pSortableColumn="nombre_gasto" style="width: 15%">
+          <div>
+            Nombre
+            <p-sortIcon class="order" field="nombre_gasto" />
+          </div>
+        </th>
+
+        <th pSortableColumn="categoria" style="width: 15%">
+          <div>
+            Categoría
+            <p-sortIcon class="order" field="categoria" />
+          </div>
+        </th>
+
+        <th pSortableColumn="importe_total">
           <div>
             Importe
-            <p-sortIcon class="order" field="amount" />
+            <p-sortIcon class="order" field="importe_total" />
           </div>
         </th>
 
@@ -44,17 +49,15 @@
 
     <ng-template pTemplate="body" let-gasto>
       <tr class="body-table">
-        <td>{{ gasto.name }}</td>
-        <td>{{ gasto.category }}</td>
-        <td>{{ gasto.date | date : "dd/MM/yyyy" }}</td>
-        <td>{{ gasto.amount | currency : "EUR" }}</td>
-        <td>{{ gasto.description }}</td>
+        <td>{{ gasto.fecha | date : "dd/MM/yyyy" }}</td>
+        <td>{{ gasto.nombre_gasto }}</td>
+        <td>{{ gasto.categoria }}</td>
+        <td>€ {{ gasto.importe_total }}</td>
+        <td>{{ gasto.descripcion }}</td>
 
         <!-- Botón de eliminación -->
         <td>
-          <button
-            class="p-button p-button-danger bg-red-500 hover:bg-red-700 text-white p-2 rounded-lg"
-          >
+          <button class="p-button p-button-danger">
             <i class="pi pi-trash"></i>
           </button>
         </td>
