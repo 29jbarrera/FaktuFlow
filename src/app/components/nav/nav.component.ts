@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../pages/auth/auth.service';
+import { NavService } from './nav.service';
 
 @Component({
   selector: 'app-nav',
@@ -16,11 +17,17 @@ import { AuthService } from '../../pages/auth/auth.service';
 export class NavComponent implements OnInit {
   userEmail: string | null = null;
   isMenuVisible: boolean = true;
+  starCount: number = 0;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private navService: NavService
+  ) {}
 
   ngOnInit(): void {
     this.userEmail = sessionStorage.getItem('userEmail');
+    this.getStartCount();
   }
 
   logout(): void {
@@ -36,5 +43,11 @@ export class NavComponent implements OnInit {
     if (window.innerWidth < 640) {
       this.isMenuVisible = false;
     }
+  }
+
+  getStartCount(): void {
+    this.navService.getStarCount().subscribe((count) => {
+      this.starCount = count;
+    });
   }
 }
