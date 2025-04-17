@@ -7,6 +7,8 @@ import { IngresoService } from './ingreso.service';
 import { AuthService } from '../auth/auth.service';
 import { CreateIngresoRequest } from './ingreso.interface';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
+import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
+
 @Component({
   selector: 'app-ingresos',
   standalone: true,
@@ -100,7 +102,8 @@ export class IngresosComponent {
   ];
   constructor(
     private readonly ingresoService: IngresoService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   createIngreso(ingreso: CreateIngresoRequest): void {
@@ -119,8 +122,9 @@ export class IngresosComponent {
     }
 
     ingreso.usuario_id = usuarioId;
-    this.ingresoService.createIngreso(ingreso).subscribe(
-      (response) => {
+
+    this.ingresoService.createIngreso(ingreso).subscribe({
+      next: () => {
         this.validationMessages = [
           {
             severity: 'success',
@@ -131,8 +135,13 @@ export class IngresosComponent {
         this.ingresosTableComponent.cargarIngresos();
         this.formularioComponent.resetForm();
       },
-      (error) => this.handleCreateClienteError(error)
-    );
+      error: (error) =>
+        this.errorHandler.handleHttpError(
+          error,
+          (msgs) => (this.validationMessages = msgs),
+          this.setValidationMessage.bind(this)
+        ),
+    });
   }
 
   private validarFormulario(ingreso: CreateIngresoRequest): boolean {
@@ -159,28 +168,10 @@ export class IngresosComponent {
   }
 
   private setValidationMessage(
-    severity: 'error' | 'success' | 'warn',
+    severity: string,
     summary: string,
     text: string
   ): void {
     this.validationMessages = [{ severity, summary, text }];
-  }
-
-  private handleCreateClienteError(error: any): void {
-    if (Array.isArray(error.error?.errors)) {
-      this.validationMessages = error.error.errors.map((e: any) => ({
-        severity: 'error',
-        summary: 'Error de validación',
-        text: e.msg,
-      }));
-    } else if (error.error?.message) {
-      this.setValidationMessage('error', 'Error', error.error.message);
-    } else {
-      this.setValidationMessage(
-        'error',
-        'Error inesperado',
-        'Ocurrió un error al crear el cliente.'
-      );
-    }
   }
 }

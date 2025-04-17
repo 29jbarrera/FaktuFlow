@@ -1,5 +1,5 @@
 export interface ValidationMessage {
-  severity: 'error' | 'success' | 'info' | 'warn';
+  severity: string;
   summary: string;
   text: string;
 }

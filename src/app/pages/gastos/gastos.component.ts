@@ -7,6 +7,7 @@ import { GastosService } from './gastos.service';
 import { AuthService } from '../auth/auth.service';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { CreateGastoRequest } from './gastos.interface';
+import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
 
 @Component({
   selector: 'app-gastos',
@@ -93,7 +94,8 @@ export class GastosComponent {
 
   constructor(
     private readonly gastosService: GastosService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   createGasto(gasto: CreateGastoRequest): void {
@@ -113,8 +115,8 @@ export class GastosComponent {
 
     gasto.usuario_id = usuarioId;
 
-    this.gastosService.createGasto(gasto).subscribe(
-      (response) => {
+    this.gastosService.createGasto(gasto).subscribe({
+      next: () => {
         this.validationMessages = [
           {
             severity: 'success',
@@ -125,8 +127,13 @@ export class GastosComponent {
         this.gastosTableComponent.cargarGastos();
         this.formularioComponent.resetForm();
       },
-      (error) => this.handleCreateClienteError(error)
-    );
+      error: (error) =>
+        this.errorHandler.handleHttpError(
+          error,
+          (msgs) => (this.validationMessages = msgs),
+          this.setValidationMessage.bind(this)
+        ),
+    });
   }
 
   private validarFormulario(gastos: CreateGastoRequest): boolean {
@@ -153,28 +160,10 @@ export class GastosComponent {
   }
 
   private setValidationMessage(
-    severity: 'error' | 'success' | 'warn',
+    severity: string,
     summary: string,
     text: string
   ): void {
     this.validationMessages = [{ severity, summary, text }];
-  }
-
-  private handleCreateClienteError(error: any): void {
-    if (Array.isArray(error.error?.errors)) {
-      this.validationMessages = error.error.errors.map((e: any) => ({
-        severity: 'error',
-        summary: 'Error de validación',
-        text: e.msg,
-      }));
-    } else if (error.error?.message) {
-      this.setValidationMessage('error', 'Error', error.error.message);
-    } else {
-      this.setValidationMessage(
-        'error',
-        'Error inesperado',
-        'Ocurrió un error al crear el cliente.'
-      );
-    }
   }
 }
