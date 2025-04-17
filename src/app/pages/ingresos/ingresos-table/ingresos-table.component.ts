@@ -12,11 +12,22 @@ import {
 } from 'rxjs';
 import { IngresoService } from '../ingreso.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-ingresos-table',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [
+    TableModule,
+    CommonModule,
+    DialogModule,
+    ToastModule,
+    ConfirmDialogModule,
+    ButtonModule,
+  ],
   templateUrl: './ingresos-table.component.html',
   styleUrl: './ingresos-table.component.scss',
   providers: [ConfirmationService, MessageService],
@@ -88,5 +99,38 @@ export class IngresosTableComponent {
         this.ingresos = response.ingresos;
         this.totalIngresos = response.total;
       });
+  }
+
+  deleteIngreso(id: number): void {
+    this.confirmationService.confirm({
+      message: `¿Está seguro de que desea eliminar este ingreso?`,
+      header: 'Confirmación',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí',
+      rejectLabel: 'No',
+      accept: () => this.ejecutarEliminacionIngreso(id),
+    });
+  }
+
+  private ejecutarEliminacionIngreso(id: number): void {
+    this.ingresoService.deleteIngreso(id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Ingreso Eliminado',
+          detail: 'El ingreso ha sido eliminado exitosamente',
+          life: 4000,
+        });
+        this.cargarIngresos();
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo eliminar el ingreso',
+          life: 4000,
+        });
+      },
+    });
   }
 }
