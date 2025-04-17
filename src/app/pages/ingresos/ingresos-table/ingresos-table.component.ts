@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { Ingreso } from '../ingreso.interface';
+import { CreateIngresoRequest, Ingreso } from '../ingreso.interface';
 import { ValidationMessage } from '../../../interfaces/validation-message.interface';
 import {
   debounceTime,
@@ -16,6 +17,13 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ButtonModule } from 'primeng/button';
+import { formatFechaToYMD } from '../../../shared/utils/date.util';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageModule } from 'primeng/message';
+import { DatePickerModule } from 'primeng/datepicker';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-ingresos-table',
@@ -27,6 +35,14 @@ import { ButtonModule } from 'primeng/button';
     ToastModule,
     ConfirmDialogModule,
     ButtonModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    MessageModule,
+    DatePickerModule,
+    SelectModule,
   ],
   templateUrl: './ingresos-table.component.html',
   styleUrl: './ingresos-table.component.scss',
@@ -132,5 +148,76 @@ export class IngresosTableComponent {
         });
       },
     });
+  }
+
+  openModal(ingreso: Ingreso): void {
+    this.ingresoSeleccionado = { ...ingreso };
+    this.ingresoSeleccionado.fecha_ingreso = new Date(ingreso.fecha_ingreso);
+    this.openDialog = true;
+  }
+
+  updateIngreso(): void {
+    this.validationMessages = [];
+
+    if (!this.ingresoSeleccionado.id) return;
+
+    const { nombre_ingreso, categoria, fecha_ingreso, importe_total } =
+      this.ingresoSeleccionado;
+
+    if (
+      !nombre_ingreso ||
+      nombre_ingreso.trim() === '' ||
+      !categoria ||
+      categoria.trim?.() === '' ||
+      !fecha_ingreso ||
+      fecha_ingreso.toString().trim() === '' ||
+      importe_total === null ||
+      importe_total === undefined ||
+      importe_total.toString().trim() === ''
+    ) {
+      this.validationMessages.push({
+        severity: 'error',
+        summary: 'Campos incompletos',
+        text: 'Por favor completa todos los campos obligatorios. (*)',
+      });
+      return;
+    }
+
+    const ingresoSeleccionado: CreateIngresoRequest = {
+      nombre_ingreso: nombre_ingreso.trim(),
+      categoria: categoria.trim(),
+      fecha_ingreso: formatFechaToYMD(
+        new Date(this.ingresoSeleccionado.fecha_ingreso!)
+      ),
+      importe_total: Number(importe_total),
+      usuario_id: this.ingresoSeleccionado.usuario_id!,
+    };
+
+    if (this.validationMessages.length > 0) {
+      return;
+    }
+
+    this.ingresoService
+      .updateIngreso(this.ingresoSeleccionado.id, ingresoSeleccionado)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Ingreso Actualizado',
+            detail: 'El ingreso ha sido actualizado exitosamente',
+            life: 4000,
+          });
+          this.cargarIngresos();
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo actualizar el gasto',
+            life: 4000,
+          });
+        },
+      });
+    this.openDialog = false;
   }
 }

@@ -55,7 +55,10 @@
         <td>€ {{ ingreso.importe_total }}</td>
         <td>{{ ingreso.descripcion }}</td>
 
-        <td>
+        <td class="flex gap-2">
+          <button class="p-button" (click)="openModal(ingreso)">
+            <i class="pi pi-file-edit"></i>
+          </button>
           <button
             class="p-button p-button-danger"
             (click)="deleteIngreso(ingreso.id)"
@@ -92,6 +95,120 @@
       </tr>
     </ng-template>
   </p-table>
+
+  <!-- Modal de edición de Ingresos -->
+  <p-dialog
+    header="Editar Gasto: {{ ingresoSeleccionado.nombre_ingreso }}"
+    [(visible)]="openDialog"
+    [modal]="true"
+    styleClass="w-full sm:w-10/12 md:w-1/2"
+    [closable]="true"
+    (onHide)="openDialog = false"
+  >
+    <div class="custom-grid-form p-4">
+      <div>
+        <label class="block">Nombre del Ingreso *</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-wallet"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="nombre_ingreso"
+            [(ngModel)]="ingresoSeleccionado.nombre_ingreso"
+          />
+        </p-inputGroup>
+      </div>
+
+      <div>
+        <label class="block"> Categoria *</label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-tags"></i>
+          </p-inputGroupAddon>
+          <p-select
+            [(ngModel)]="ingresoSeleccionado.categoria"
+            [options]="categoriaOptions"
+            optionLabel="label"
+            optionValue="value"
+            [filter]="true"
+            class="p-fluid w-full custom-p-select"
+          ></p-select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block"> Fecha *</label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-calendar"></i>
+          </p-inputGroupAddon>
+          <p-datepicker
+            [(ngModel)]="ingresoSeleccionado.fecha_ingreso"
+            required="true"
+            [readonlyInput]="true"
+            [showButtonBar]="true"
+            dateFormat="dd/mm/yy"
+            styleClass="p-fluid w-full"
+            [appendTo]="'body'"
+          ></p-datepicker>
+        </div>
+      </div>
+
+      <div>
+        <label class="block">Importe *</label>
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-map-marker"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            required="true"
+            id="importe_total"
+            [(ngModel)]="ingresoSeleccionado.importe_total"
+          />
+        </p-inputGroup>
+      </div>
+
+      <div>
+        <label class="block"> Descripción </label>
+        <div class="flex custom-div-form">
+          <p-inputGroupAddon>
+            <i class="pi pi-pencil"></i>
+          </p-inputGroupAddon>
+          <textarea
+            pTextarea
+            [(ngModel)]="ingresoSeleccionado.descripcion"
+            required="true"
+            class="p-fluid w-full"
+          ></textarea>
+        </div>
+      </div>
+
+      <div></div>
+      <div></div>
+
+      <div class="-mt-7 md:mt-2 p-3 flex justify-end gap-2">
+        <button
+          pButton
+          type="button"
+          label="Guardar"
+          (click)="updateIngreso()"
+        ></button>
+      </div>
+    </div>
+    <div *ngFor="let message of validationMessages" class="w-full p-1">
+      <p-message
+        [life]="8000"
+        icon="pi pi-times-circle"
+        [severity]="message.severity"
+        [text]="message.text"
+        [closable]="true"
+        styleClass="custom-messages"
+      ></p-message>
+    </div>
+  </p-dialog>
 </div>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>

@@ -52,7 +52,6 @@ export class IngresoService {
   }
 
   // Método para editar un ingreso
-
   updateIngreso(
     id: number,
     ingreso: CreateIngresoRequest
