@@ -1,3 +1,9 @@
 <app-header [title]="'Ingresos'" [icon]="'fas fa-money-bill'"></app-header>
-<app-form [formFields]="formFields"></app-form>
+<app-form
+  [formFields]="formFields"
+  (formSubmit)="createIngreso($event)"
+  [formModel]="formModel"
+  [validationMessages]="validationMessages"
+  #formulario
+></app-form>
 <app-ingresos-table></app-ingresos-table>

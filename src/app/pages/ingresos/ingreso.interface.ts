@@ -2,7 +2,7 @@ export interface Ingreso {
   id: number;
   nombre_ingreso: string;
   categoria: string;
-  fecha: string | Date;
+  fecha_ingreso: string | Date;
   importe_total: number;
   descripcion: string;
   usuario_id: number;
@@ -16,7 +16,7 @@ export interface IngresosResponse {
 export interface CreateIngresoRequest {
   nombre_ingreso: string;
   categoria: string;
-  fecha: string | Date;
+  fecha_ingreso: string | Date;
   importe_total: number;
   descripcion?: string;
   usuario_id: number;
