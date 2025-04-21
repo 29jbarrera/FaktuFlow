@@ -1,4 +1,12 @@
-import { Component, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ChangeDetectorRef,
+  ElementRef,
+  OnDestroy,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacturasService } from '../facturas.service';
@@ -8,7 +16,6 @@ import {
   Factura,
   FacturasResponse,
 } from '../factura.interface';
-import { FacturasPipe } from '../facturas.pipe';
 
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -27,6 +34,13 @@ import { TextareaModule } from 'primeng/textarea';
 import { FileUploadModule } from 'primeng/fileupload';
 import { Toast } from 'primeng/toast';
 import { ValidationMessage } from '../../../interfaces/validation-message.interface';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  fromEvent,
+  map,
+  Subscription,
+} from 'rxjs';
 
 @Component({
   selector: 'app-facturas-table',
@@ -49,16 +63,14 @@ import { ValidationMessage } from '../../../interfaces/validation-message.interf
     FileUploadModule,
     Toast,
     ReactiveFormsModule,
-    FacturasPipe,
     MessageModule,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
   providers: [ConfirmationService, MessageService],
 })
-export class FacturasTableComponent {
+export class FacturasTableComponent implements AfterViewInit, OnDestroy {
   @Input() clientes: { label: string; value: number }[] = [];
-  searchTerm = '';
 
   facturas: Factura[] = [];
   totalFacturas = 0;
@@ -76,12 +88,35 @@ export class FacturasTableComponent {
 
   @ViewChild('fileInput') fileInput: any;
 
+  searchTerm = '';
+  @ViewChild('searchInput') searchInputRef!: ElementRef;
+  private searchSub!: Subscription;
+
   constructor(
     private facturasService: FacturasService,
     private confirmationService: ConfirmationService,
     private cdr: ChangeDetectorRef,
     private messageService: MessageService
   ) {}
+
+  ngAfterViewInit(): void {
+    this.searchSub = fromEvent(this.searchInputRef.nativeElement, 'input')
+      .pipe(
+        map((event: any) => event.target.value),
+        debounceTime(600),
+        distinctUntilChanged()
+      )
+      .subscribe((value: string) => {
+        this.searchTerm = value.trim();
+        this.cargarFacturas();
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchSub) {
+      this.searchSub.unsubscribe();
+    }
+  }
 
   cargarFacturas(event: TableLazyLoadEvent = {}): void {
     const {
@@ -98,11 +133,26 @@ export class FacturasTableComponent {
     const finalSortOrder = sortOrder ?? -1;
 
     this.facturasService
-      .getFacturas(page, rows ?? this.limit, finalSortField, finalSortOrder)
+      .getFacturas(
+        page,
+        rows ?? this.limit,
+        finalSortField,
+        finalSortOrder,
+        this.searchTerm
+      )
       .subscribe((response: FacturasResponse) => {
         this.facturas = response.facturas;
         this.totalFacturas = response.total;
       });
+  }
+
+  searchTimeout: any;
+
+  onSearchChange() {
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      this.cargarFacturas(); // usa el searchTerm actual
+    }, 400); // debounce para evitar llamadas excesivas
   }
 
   deleteFactura(id: number, numeroFactura: string): void {

@@ -5,16 +5,16 @@
         <i class="pi pi-search"></i>
       </p-inputGroupAddon>
       <input
+        #searchInput
         type="text"
         pInputText
         placeholder="Buscar por fecha, número o descripción..."
-        [(ngModel)]="searchTerm"
       />
     </p-inputGroup>
   </div>
 
   <p-table
-    [value]="facturas | facturas : searchTerm"
+    [value]="facturas"
     styleClass="p-datatable-sm"
     [tableStyle]="{ 'min-width': '60rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"

@@ -16,7 +16,6 @@ import {
   CreateClienteRequest,
 } from '../cliente.interface';
 import { ValidationMessage } from '../../../interfaces/validation-message.interface';
-import { ClientesPipe } from '../clientes.pipe';
 
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -45,7 +44,6 @@ import { MessageModule } from 'primeng/message';
     InputTextModule,
     ButtonModule,
     MessageModule,
-    ClientesPipe,
   ],
   templateUrl: './clientes-table.component.html',
   styleUrl: './clientes-table.component.scss',
@@ -78,7 +76,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
     this.searchSub = fromEvent(this.searchInputRef.nativeElement, 'input')
       .pipe(
         map((event: any) => event.target.value),
-        debounceTime(500),
+        debounceTime(600),
         distinctUntilChanged()
       )
       .subscribe((value: string) => {

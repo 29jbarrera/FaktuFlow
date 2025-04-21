@@ -26,14 +26,18 @@ export class FacturasService {
     page: number,
     limit: number,
     sortField: string,
-    sortOrder: number
+    sortOrder: number,
+    searchTerm: string = ''
   ): Observable<FacturasResponse> {
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString())
       .set('sortField', sortField)
       .set('sortOrder', sortOrder.toString());
 
+    if (searchTerm.trim() !== '') {
+      params = params.set('search', searchTerm.trim());
+    }
     return this.http.get<FacturasResponse>(this.apiUrl, {
       headers: this.authHeaders,
       params,
