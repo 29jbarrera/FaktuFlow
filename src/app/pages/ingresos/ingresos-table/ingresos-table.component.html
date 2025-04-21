@@ -1,4 +1,17 @@
 <div class="w-11/12 m-auto mb-20 table-autoflow rounded-xl shadow-lg">
+  <div class="mb-6 px-3 md:w-5/12 w-full flex items-center gap-3">
+    <p-inputGroup>
+      <p-inputGroupAddon>
+        <i class="pi pi-search"></i>
+      </p-inputGroupAddon>
+      <input
+        #searchInput
+        type="text"
+        pInputText
+        placeholder="Buscar ingreso por fecha, nombre, categoría o descripción..."
+      />
+    </p-inputGroup>
+  </div>
   <p-table
     [value]="ingresos"
     styleClass="p-datatable-sm"

@@ -76,7 +76,7 @@ export class IngresosTableComponent {
     this.searchSub = fromEvent(this.searchInputRef.nativeElement, 'input')
       .pipe(
         map((event: any) => event.target.value),
-        debounceTime(500),
+        debounceTime(600),
         distinctUntilChanged()
       )
       .subscribe((value: string) => {
