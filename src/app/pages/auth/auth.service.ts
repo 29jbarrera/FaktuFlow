@@ -39,6 +39,8 @@ export class AuthService {
     sessionStorage.setItem('usuario_id', response.usuario_id.toString()); // Almacenar el usuario_id
     sessionStorage.setItem('userEmail', response.email); // Almacenar el email (si lo necesitas)
     sessionStorage.setItem('rol', response.rol); // Almacenar el rol (si lo necesitas)
+    sessionStorage.setItem('nombre', response.nombre);
+    sessionStorage.setItem('apellidos', response.apellidos);
   }
 
   getUserId(): number | null {

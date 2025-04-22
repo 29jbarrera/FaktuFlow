@@ -15,7 +15,8 @@ import { NavService } from './nav.service';
   styleUrl: './nav.component.scss',
 })
 export class NavComponent implements OnInit {
-  userEmail: string | null = null;
+  userName: string | null = null;
+  userApellidos: string | null = null;
   isMenuVisible: boolean = true;
   starCount: number = 0;
 
@@ -26,7 +27,8 @@ export class NavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userEmail = sessionStorage.getItem('userEmail');
+    this.userName = sessionStorage.getItem('nombre');
+    this.userApellidos = sessionStorage.getItem('apellidos');
     this.getStartCount();
   }
 

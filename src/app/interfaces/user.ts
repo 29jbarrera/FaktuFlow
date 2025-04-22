@@ -10,6 +10,8 @@ export interface LoginResponse {
   usuario_id: string;
   email: string;
   rol: string;
+  nombre: string;
+  apellidos: string;
 }
 
 export interface RegisterResponse {

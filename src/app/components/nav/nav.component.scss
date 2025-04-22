@@ -14,6 +14,14 @@
   color: var(--color-secondary);
 }
 
+nav {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hidden-mobile {
+  transform: translateX(-100%);
+}
+
 .nav-item {
   padding: 11px;
   background: rgb(233, 236, 239, 0.08);
@@ -38,5 +46,5 @@
 .toggle-menu {
   background: var(--color-secondary);
   color: white;
-  padding: 12px;
+  padding: 8px;
 }

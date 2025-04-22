@@ -1,13 +1,13 @@
 <!-- Botón para alternar el menú -->
 <button
-  class="fixed top-8 left-8 z-10 p-1 rounded-lg block shadow-lg sm:hidden toggle-menu"
+  class="fixed top-5 left-4 z-10 p-1 rounded-lg block shadow-lg sm:hidden toggle-menu"
   (click)="toggleMenu()"
 >
-  <i class="fas fa-bars text-xl px-1"></i>
+  <i class="fas fa-bars text-lg px-1"></i>
 </button>
 
 <nav
-  class="fixed top-0 w-full sm:w-[22%] left-0 h-screen overflow-hidden shadow-lg z-10"
+  class="fixed top-0 w-full sm:w-[18%] left-0 h-screen overflow-hidden shadow-lg z-10"
   *ngIf="isMenuVisible"
 >
   <!-- Logo centrado -->
@@ -15,7 +15,7 @@
     <img
       src="/assets/ico/Autoflow-logo.webp"
       alt="Logo"
-      class="w-36 logo sm:w-48"
+      class="w-36 logo sm:w-42"
     />
   </div>
 
@@ -25,7 +25,9 @@
 
     <p-accordion [activeIndex]="1">
       <p-accordion-panel value="0">
-        <p-accordion-header> {{ userEmail }}</p-accordion-header>
+        <p-accordion-header>
+          {{ userName }} {{ userApellidos }}</p-accordion-header
+        >
         <p-accordion-content>
           <button
             class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
@@ -138,6 +140,6 @@
   </div>
 </nav>
 
-<main class="ml-0 sm:ml-[22%] h-screen overflow-y-auto">
+<main class="ml-0 sm:ml-[18%] h-screen overflow-y-auto">
   <router-outlet></router-outlet>
 </main>
