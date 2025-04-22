@@ -6,7 +6,9 @@
     <input
       type="number"
       [(ngModel)]="year"
-      (change)="cargarResumenFacturas(); cargarResumenGastos()"
+      (change)="
+        cargarResumenFacturas(); cargarResumenGastos(); cargarResumenIngresos()
+      "
       class="border rounded px-3 py-1 w-24"
     />
   </label>
@@ -133,6 +135,70 @@
       </thead>
       <tbody>
         <tr *ngFor="let mes of mensualGastos" class="hover:bg-gray-50 border-t">
+          <td class="px-4 py-2 text-sm text-gray-600">
+            {{ nombreMes(mes.mes) }}
+          </td>
+          <td class="px-4 py-2 text-sm text-red-600">
+            {{ mes.total }}
+          </td>
+          <td class="px-4 py-2 text-sm text-red-600">
+            {{ mes.totalImporte | currency }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div
+  *ngIf="!loading && resumenIngresos"
+  class="flex justify-center items-center py-6"
+>
+  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 space-y-6">
+    <!-- Resumen de Ingresos -->
+    <h2 class="text-2xl font-semibold text-gray-800 text-center">
+      Resumen de Ingresos {{ year }}
+    </h2>
+
+    <ul class="space-y-4">
+      <li class="text-lg font-medium text-gray-700 flex justify-between">
+        <span class="font-semibold">Total de gastos:</span>
+        <span class="text-green-600">{{ resumenIngresos.totalIngresos }}</span>
+      </li>
+      <li class="text-lg font-medium text-gray-700 flex justify-between">
+        <span class="font-semibold">Importe total:</span>
+        <span class="text-green-600">{{
+          resumenIngresos.totalImporte | currency
+        }}</span>
+      </li>
+      <li class="text-lg font-medium text-gray-700 flex justify-between">
+        <span class="font-semibold">Promedio ingresos:</span>
+        <span class="text-green-600">{{
+          resumenIngresos.promedioImporte | currency
+        }}</span>
+      </li>
+    </ul>
+
+    <!-- Resumen Mensual de Ingresos -->
+    <h3 class="text-xl font-semibold text-gray-800">
+      Resumen mensual de ingresos
+    </h3>
+
+    <table
+      class="min-w-full table-auto bg-white rounded-lg shadow-sm border border-gray-200"
+    >
+      <thead class="bg-gray-100 text-left">
+        <tr>
+          <th class="py-2 px-4">Mes</th>
+          <th class="py-2 px-4">Total</th>
+          <th class="py-2 px-4">Importe Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let mes of mensualIngresos"
+          class="hover:bg-gray-50 border-t"
+        >
           <td class="px-4 py-2 text-sm text-gray-600">
             {{ nombreMes(mes.mes) }}
           </td>

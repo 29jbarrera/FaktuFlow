@@ -16,8 +16,10 @@ export class DashboardComponent implements OnInit {
   loading = false;
   resumenFacturas: any;
   resumenGastos: any;
+  resumenIngresos: any;
   mensualFacturas: any[] = [];
   mensualGastos: any[] = [];
+  mensualIngresos: any[] = [];
 
   nombreMes(mes: string): string {
     const meses = [
@@ -43,6 +45,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.cargarResumenFacturas();
     this.cargarResumenGastos();
+    this.cargarResumenIngresos();
   }
 
   cargarResumenFacturas() {
@@ -66,6 +69,21 @@ export class DashboardComponent implements OnInit {
       next: (res) => {
         this.resumenGastos = res.resumen;
         this.mensualGastos = res.mensual;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar resumen de gastos:', err);
+        this.loading = false;
+      },
+    });
+  }
+
+  cargarResumenIngresos() {
+    this.loading = true;
+    this.DashboardService.getResumenIngresosPorYear(this.year).subscribe({
+      next: (res) => {
+        this.resumenIngresos = res.resumen;
+        this.mensualIngresos = res.mensual;
         this.loading = false;
       },
       error: (err) => {
