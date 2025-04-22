@@ -14,25 +14,62 @@ import { DashboardService } from './dashboard.service';
 export class DashboardComponent implements OnInit {
   year = new Date().getFullYear();
   loading = false;
-  resumen: any;
-  mensual: any[] = [];
+  resumenFacturas: any;
+  resumenGastos: any;
+  mensualFacturas: any[] = [];
+  mensualGastos: any[] = [];
+
+  nombreMes(mes: string): string {
+    const meses = [
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre',
+    ];
+    const index = parseInt(mes) - 1;
+    return meses[index] || 'Desconocido';
+  }
 
   constructor(private DashboardService: DashboardService) {}
 
   ngOnInit(): void {
-    this.cargarResumen();
+    this.cargarResumenFacturas();
+    this.cargarResumenGastos();
   }
 
-  cargarResumen() {
+  cargarResumenFacturas() {
     this.loading = true;
     this.DashboardService.getResumenPorYear(this.year).subscribe({
       next: (res) => {
-        this.resumen = res.resumen;
-        this.mensual = res.mensual;
+        this.resumenFacturas = res.resumen;
+        this.mensualFacturas = res.mensual;
         this.loading = false;
       },
       error: (err) => {
-        console.error('❌ Error al cargar resumen:', err);
+        console.error('❌ Error al cargar resumen de facturas:', err);
+        this.loading = false;
+      },
+    });
+  }
+
+  cargarResumenGastos() {
+    this.loading = true;
+    this.DashboardService.getResumenGastosPorYear(this.year).subscribe({
+      next: (res) => {
+        this.resumenGastos = res.resumen;
+        this.mensualGastos = res.mensual;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar resumen de gastos:', err);
         this.loading = false;
       },
     });

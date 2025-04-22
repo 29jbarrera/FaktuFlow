@@ -21,4 +21,12 @@ export class DashboardService {
       params,
     });
   }
+
+  getResumenGastosPorYear(year: number) {
+    const params = new HttpParams().set('year', year.toString());
+    return this.http.get<any>(`${this.baseUrl}gastos/resumen`, {
+      headers: this.authHeaders,
+      params,
+    });
+  }
 }

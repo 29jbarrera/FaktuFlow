@@ -6,7 +6,7 @@
     <input
       type="number"
       [(ngModel)]="year"
-      (change)="cargarResumen()"
+      (change)="cargarResumenFacturas(); cargarResumenGastos()"
       class="border rounded px-3 py-1 w-24"
     />
   </label>
@@ -16,35 +16,38 @@
     <p class="mt-2">Cargando resumen...</p>
   </div>
 
-  <div *ngIf="!loading && resumen" class="space-y-6">
+  <div *ngIf="!loading && resumenFacturas" class="space-y-6">
     <div class="bg-white shadow rounded-xl p-6">
       <h2 class="text-xl font-semibold mb-4">Resumen de facturas {{ year }}</h2>
       <ul class="space-y-2 text-gray-700">
-        <li><strong>Total facturas:</strong> {{ resumen.totalFacturas }}</li>
-        <li><strong>Pagadas:</strong> {{ resumen.pagadas }}</li>
-        <li><strong>No pagadas:</strong> {{ resumen.noPagadas }}</li>
         <li>
-          <strong>Importe total:</strong> {{ resumen.totalImporte | currency }}
+          <strong>Total facturas:</strong> {{ resumenFacturas.totalFacturas }}
+        </li>
+        <li><strong>Pagadas:</strong> {{ resumenFacturas.pagadas }}</li>
+        <li><strong>No pagadas:</strong> {{ resumenFacturas.noPagadas }}</li>
+        <li>
+          <strong>Importe total:</strong>
+          {{ resumenFacturas.totalImporte | currency }}
         </li>
         <li>
           <strong>Importe pagadas:</strong>
-          {{ resumen.importePagadas | currency }}
+          {{ resumenFacturas.importePagadas | currency }}
         </li>
         <li>
           <strong>Importe no pagadas:</strong>
-          {{ resumen.importeNoPagadas | currency }}
+          {{ resumenFacturas.importeNoPagadas | currency }}
         </li>
         <li>
           <strong>Promedio por factura:</strong>
-          {{ resumen.promedioImporte | currency }}
+          {{ resumenFacturas.promedioImporte | currency }}
         </li>
         <li>
           <strong>Promedio pagadas:</strong>
-          {{ resumen.promedioPagadas | currency }}
+          {{ resumenFacturas.promedioPagadas | currency }}
         </li>
         <li>
           <strong>Promedio no pagadas:</strong>
-          {{ resumen.promedioNoPagadas | currency }}
+          {{ resumenFacturas.promedioNoPagadas | currency }}
         </li>
       </ul>
     </div>
@@ -65,8 +68,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let mes of mensual" class="hover:bg-gray-50 border-t">
-              <td class="py-2 px-4">{{ mes.mes }}</td>
+            <tr
+              *ngFor="let mes of mensualFacturas"
+              class="hover:bg-gray-50 border-t"
+            >
+              <td class="px-4 py-2 text-sm text-gray-600">
+                {{ nombreMes(mes.mes) }}
+              </td>
               <td class="py-2 px-4">{{ mes.total }}</td>
               <td class="py-2 px-4">{{ mes.pagadas }}</td>
               <td class="py-2 px-4">{{ mes.noPagadas }}</td>
@@ -76,5 +84,66 @@
         </table>
       </div>
     </div>
+  </div>
+</div>
+
+<div
+  *ngIf="!loading && resumenGastos"
+  class="flex justify-center items-center py-6"
+>
+  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 space-y-6">
+    <!-- Resumen de Gastos -->
+    <h2 class="text-2xl font-semibold text-gray-800 text-center">
+      Resumen de Gastos {{ year }}
+    </h2>
+
+    <ul class="space-y-4">
+      <li class="text-lg font-medium text-gray-700 flex justify-between">
+        <span class="font-semibold">Total de gastos:</span>
+        <span class="text-green-600">{{ resumenGastos.totalGastos }}</span>
+      </li>
+      <li class="text-lg font-medium text-gray-700 flex justify-between">
+        <span class="font-semibold">Importe total:</span>
+        <span class="text-green-600">{{
+          resumenGastos.totalImporte | currency
+        }}</span>
+      </li>
+      <li class="text-lg font-medium text-gray-700 flex justify-between">
+        <span class="font-semibold">Promedio gastos:</span>
+        <span class="text-green-600">{{
+          resumenGastos.promedioImporte | currency
+        }}</span>
+      </li>
+    </ul>
+
+    <!-- Resumen Mensual de Gastos -->
+    <h3 class="text-xl font-semibold text-gray-800">
+      Resumen mensual de gastos
+    </h3>
+
+    <table
+      class="min-w-full table-auto bg-white rounded-lg shadow-sm border border-gray-200"
+    >
+      <thead class="bg-gray-100 text-left">
+        <tr>
+          <th class="py-2 px-4">Mes</th>
+          <th class="py-2 px-4">Total</th>
+          <th class="py-2 px-4">Importe Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mes of mensualGastos" class="hover:bg-gray-50 border-t">
+          <td class="px-4 py-2 text-sm text-gray-600">
+            {{ nombreMes(mes.mes) }}
+          </td>
+          <td class="px-4 py-2 text-sm text-red-600">
+            {{ mes.total }}
+          </td>
+          <td class="px-4 py-2 text-sm text-red-600">
+            {{ mes.totalImporte | currency }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
