@@ -92,4 +92,11 @@ export class DashboardComponent implements OnInit {
       },
     });
   }
+
+  changeYear(delta: number) {
+    this.year += delta;
+    this.cargarResumenFacturas();
+    this.cargarResumenGastos();
+    this.cargarResumenIngresos();
+  }
 }
