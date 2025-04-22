@@ -32,6 +32,7 @@ import { ValidationMessage } from '../../../interfaces/validation-message.interf
 import { DatePickerModule } from 'primeng/datepicker';
 import { formatFechaToYMD } from '../../../shared/utils/date.util';
 import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-gastos-table',
@@ -51,6 +52,7 @@ import { SelectModule } from 'primeng/select';
     MessageModule,
     DatePickerModule,
     SelectModule,
+    TextareaModule,
   ],
   templateUrl: './gastos-table.component.html',
   styleUrl: './gastos-table.component.scss',
@@ -197,9 +199,8 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       fecha: formatFechaToYMD(new Date(this.gastoSeleccionado.fecha!)),
       importe_total: Number(importe_total),
       usuario_id: this.gastoSeleccionado.usuario_id!,
+      descripcion: this.gastoSeleccionado.descripcion,
     };
-
-    console.log(gastoSeleccionado);
 
     if (this.validationMessages.length > 0) {
       return;

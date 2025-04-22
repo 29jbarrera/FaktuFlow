@@ -174,8 +174,8 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
 
     const clienteActualizado: CreateClienteRequest = {
       nombre: this.clienteSeleccionado.nombre!,
-      email: this.clienteSeleccionado.email,
-      telefono: this.clienteSeleccionado.telefono,
+      email: this.clienteSeleccionado.email!,
+      telefono: this.clienteSeleccionado.telefono!,
       usuario_id: this.clienteSeleccionado.usuario_id!,
       direccion_fiscal: this.clienteSeleccionado.direccion_fiscal,
     };

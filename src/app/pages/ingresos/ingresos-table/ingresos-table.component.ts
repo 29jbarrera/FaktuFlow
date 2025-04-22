@@ -24,6 +24,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
+import { TextareaModule } from 'primeng/textarea';
 
 @Component({
   selector: 'app-ingresos-table',
@@ -43,6 +44,7 @@ import { SelectModule } from 'primeng/select';
     MessageModule,
     DatePickerModule,
     SelectModule,
+    TextareaModule,
   ],
   templateUrl: './ingresos-table.component.html',
   styleUrl: './ingresos-table.component.scss',
@@ -191,6 +193,7 @@ export class IngresosTableComponent {
       ),
       importe_total: Number(importe_total),
       usuario_id: this.ingresoSeleccionado.usuario_id!,
+      descripcion: this.ingresoSeleccionado.descripcion,
     };
 
     if (this.validationMessages.length > 0) {

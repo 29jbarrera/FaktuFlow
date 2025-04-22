@@ -58,7 +58,7 @@ export class FacturasComponent implements OnInit {
       icon: 'pi pi-file',
     },
     {
-      name: 'nombre',
+      name: 'cliente_id',
       label: 'Cliente *',
       type: 'select',
       options: this.clientes,
