@@ -47,6 +47,10 @@ export class NavComponent implements OnInit {
     }
   }
 
+  navigateMiPerfil(): void {
+    this.router.navigate(['/dashboard/info']);
+  }
+
   getStartCount(): void {
     this.navService.getStarCount().subscribe((count) => {
       this.starCount = count;

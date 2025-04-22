@@ -29,12 +29,22 @@
           {{ userName }} {{ userApellidos }}</p-accordion-header
         >
         <p-accordion-content>
-          <button
-            class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
-            (click)="logout()"
-          >
-            Cerrar sesión
-          </button>
+          <div class="mb-1">
+            <button
+              class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
+              (click)="navigateMiPerfil()"
+            >
+              Mi perfil
+            </button>
+          </div>
+          <div>
+            <button
+              class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
+              (click)="logout()"
+            >
+              Cerrar sesión
+            </button>
+          </div>
         </p-accordion-content>
       </p-accordion-panel>
     </p-accordion>

@@ -8,6 +8,7 @@ import { FacturasComponent } from './pages/facturas/facturas.component';
 import { GastosComponent } from './pages/gastos/gastos.component';
 import { IngresosComponent } from './pages/ingresos/ingresos.component';
 import { authGuard } from './guards/auth.guard';
+import { InfoComponent } from './components/info/info.component';
 
 export const routes: Routes = [
   {
@@ -47,6 +48,10 @@ export const routes: Routes = [
       {
         path: 'ingresos',
         component: IngresosComponent,
+      },
+      {
+        path: 'info',
+        component: InfoComponent,
       },
     ],
   },
