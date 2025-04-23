@@ -37,4 +37,13 @@ export class DashboardService {
       params,
     });
   }
+
+  getTotalClientesPorUsuario() {
+    return this.http.get<{ totalClientes: number }>(
+      `${this.baseUrl}clientes/total`,
+      {
+        headers: this.authHeaders,
+      }
+    );
+  }
 }

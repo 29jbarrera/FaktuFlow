@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   mensualFacturas: any[] = [];
   mensualGastos: any[] = [];
   mensualIngresos: any[] = [];
+  balanceGlobal: number = 0;
+  totalClientes: number = 0;
 
   nombreMes(mes: string): string {
     const meses = [
@@ -46,6 +48,7 @@ export class DashboardComponent implements OnInit {
     this.cargarResumenFacturas();
     this.cargarResumenGastos();
     this.cargarResumenIngresos();
+    this.getTotalClientes();
   }
 
   cargarResumenFacturas() {
@@ -55,6 +58,7 @@ export class DashboardComponent implements OnInit {
         this.resumenFacturas = res.resumen;
         this.mensualFacturas = res.mensual;
         this.loading = false;
+        this.actualizarBalanceGlobal();
       },
       error: (err) => {
         console.error('❌ Error al cargar resumen de facturas:', err);
@@ -70,6 +74,7 @@ export class DashboardComponent implements OnInit {
         this.resumenGastos = res.resumen;
         this.mensualGastos = res.mensual;
         this.loading = false;
+        this.actualizarBalanceGlobal();
       },
       error: (err) => {
         console.error('❌ Error al cargar resumen de gastos:', err);
@@ -85,6 +90,7 @@ export class DashboardComponent implements OnInit {
         this.resumenIngresos = res.resumen;
         this.mensualIngresos = res.mensual;
         this.loading = false;
+        this.actualizarBalanceGlobal();
       },
       error: (err) => {
         console.error('❌ Error al cargar resumen de gastos:', err);
@@ -98,5 +104,32 @@ export class DashboardComponent implements OnInit {
     this.cargarResumenFacturas();
     this.cargarResumenGastos();
     this.cargarResumenIngresos();
+    this.actualizarBalanceGlobal();
+    this.getTotalClientes();
+  }
+
+  private actualizarBalanceGlobal() {
+    if (this.resumenFacturas && this.resumenGastos && this.resumenIngresos) {
+      const totalFacturas = this.resumenFacturas.totalImporte || 0;
+      const totalGastos = this.resumenGastos.totalImporte || 0;
+      const totalIngresos = this.resumenIngresos.totalImporte || 0;
+
+      this.balanceGlobal = totalIngresos - (totalFacturas + totalGastos);
+    }
+  }
+
+  getBalanceColor(): string {
+    return this.balanceGlobal < 0 ? 'text-red-800' : 'text-[#112c35]';
+  }
+
+  getTotalClientes() {
+    this.DashboardService.getTotalClientesPorUsuario().subscribe({
+      next: (res) => {
+        this.totalClientes = res.totalClientes;
+      },
+      error: (err) => {
+        console.error('❌ Error al cargar total de clientes:', err);
+      },
+    });
   }
 }

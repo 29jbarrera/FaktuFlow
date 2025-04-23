@@ -102,11 +102,9 @@
           ></i>
           <p class="text-xl font-semibold text-gray-700">Total Clientes</p>
           <p class="text-3xl font-bold text-yellow-600 mt-2">
-            {{ resumenIngresos.totalImporte }}
+            {{ totalClientes }}
           </p>
-          <p class="text-sm text-gray-500 mt-1">
-            Clientes nuevos: {{ resumenIngresos.promedioImporte }}
-          </p>
+          <p class="text-sm text-gray-500 mt-1">Clientes activos registrados</p>
         </div>
       </div>
 
@@ -119,12 +117,12 @@
             class="pi pi-chart-bar text-[#112c35] mb-4 drop-shadow-sm"
             style="font-size: 2rem"
           ></i>
-          <p class="text-xl font-semibold text-gray-700">Resumen global</p>
-          <p class="text-3xl font-bold text-[#112c35] mt-2">
-            {{ resumenIngresos.totalImporte | currency }}
+          <p class="text-xl font-semibold text-gray-700">Balance Global</p>
+          <p class="text-3xl font-bold mt-2" [ngClass]="getBalanceColor()">
+            {{ balanceGlobal | currency }}
           </p>
           <p class="text-sm text-gray-500 mt-1">
-            Promedio anual: {{ resumenIngresos.promedioImporte | currency }}
+            Balance global actual en {{ year }}
           </p>
         </div>
       </div>
