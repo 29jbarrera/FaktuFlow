@@ -65,7 +65,7 @@
         <td>{{ gasto.fecha | date : "dd/MM/yyyy" }}</td>
         <td>{{ gasto.nombre_gasto }}</td>
         <td>{{ gasto.categoria }}</td>
-        <td>€ {{ gasto.importe_total }}</td>
+        <td>{{ gasto.importe_total | importeEur }}</td>
         <td>{{ gasto.descripcion }}</td>
 
         <td class="flex gap-2">

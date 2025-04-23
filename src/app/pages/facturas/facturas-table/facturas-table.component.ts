@@ -16,7 +16,7 @@ import {
   Factura,
   FacturasResponse,
 } from '../factura.interface';
-
+import { ImporteEurPipe } from '../../../shared/utils/import-eur.pipe';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
@@ -64,6 +64,7 @@ import {
     Toast,
     ReactiveFormsModule,
     MessageModule,
+    ImporteEurPipe,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',

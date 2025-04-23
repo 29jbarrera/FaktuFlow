@@ -65,7 +65,7 @@
         <td>{{ ingreso.fecha_ingreso | date : "dd/MM/yyyy" }}</td>
         <td>{{ ingreso.nombre_ingreso }}</td>
         <td>{{ ingreso.categoria }}</td>
-        <td>€ {{ ingreso.importe_total }}</td>
+        <td>{{ ingreso.importe_total | importeEur }}</td>
         <td>{{ ingreso.descripcion }}</td>
 
         <td class="flex gap-2">

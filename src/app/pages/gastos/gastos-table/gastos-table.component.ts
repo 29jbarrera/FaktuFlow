@@ -18,6 +18,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { GastosService } from '../gastos.service';
+import { ImporteEurPipe } from '../../../shared/utils/import-eur.pipe';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -53,6 +54,7 @@ import { TextareaModule } from 'primeng/textarea';
     DatePickerModule,
     SelectModule,
     TextareaModule,
+    ImporteEurPipe,
   ],
   templateUrl: './gastos-table.component.html',
   styleUrl: './gastos-table.component.scss',

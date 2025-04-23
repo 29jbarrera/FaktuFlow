@@ -12,6 +12,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { IngresoService } from '../ingreso.service';
+import { ImporteEurPipe } from '../../../shared/utils/import-eur.pipe';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
@@ -45,6 +46,7 @@ import { TextareaModule } from 'primeng/textarea';
     DatePickerModule,
     SelectModule,
     TextareaModule,
+    ImporteEurPipe,
   ],
   templateUrl: './ingresos-table.component.html',
   styleUrl: './ingresos-table.component.scss',

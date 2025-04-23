@@ -4,11 +4,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
+import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [HeaderComponent, FormsModule, CommonModule, ChartModule],
+  imports: [
+    HeaderComponent,
+    FormsModule,
+    CommonModule,
+    ChartModule,
+    ImporteEurPipe,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
