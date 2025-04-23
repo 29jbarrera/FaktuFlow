@@ -3,7 +3,7 @@
 <div class="p-3 space-y-6 max-w-4xl mx-auto content">
   <div class="flex justify-center items-center py-6">
     <div
-      class="flex items-center gap-8 bg-white px-6 py-4 rounded-2xl shadow-md"
+      class="flex items-center gap-8 bg-gradient-to-br from-white via-[#f2f7fa] to-[#dce7ed] px-6 py-4 rounded-2xl shadow-md"
     >
       <button
         (click)="changeYear(-1)"
@@ -135,76 +135,105 @@
   class="w-[80%] text-[#112c35] mx-auto mt-12 p-8 rounded-3xl shadow-xl bg-gradient-to-br from-[#e6f1f4] via-white to-[#cddde2] border border-[#b7cfd6] backdrop-blur-md"
 >
   <h2 class="text-3xl font-bold text-center mb-6 tracking-wider drop-shadow-md">
-    📈 Gráfico de Resumen Anual
+    📈 Gráfico Anual
   </h2>
-
   <p-chart type="line" [data]="data" [options]="options"></p-chart>
 </div>
 
-<div *ngIf="!loading && resumenFacturas" class="space-y-6 mt-20">
-  <div class="bg-white shadow rounded-xl p-6">
-    <h2 class="text-xl font-semibold mb-4">Resumen de facturas {{ year }}</h2>
-    <ul class="space-y-2">
-      <li>
-        <strong>Total facturas:</strong>
-        {{ resumenFacturas.totalFacturas }}
-      </li>
-      <li><strong>Pagadas:</strong> {{ resumenFacturas.pagadas }}</li>
-      <li><strong>No pagadas:</strong> {{ resumenFacturas.noPagadas }}</li>
-      <li>
-        <strong>Importe total:</strong>
-        {{ resumenFacturas.totalImporte | currency }}
-      </li>
-      <li>
-        <strong>Importe pagadas:</strong>
-        {{ resumenFacturas.importePagadas | currency }}
-      </li>
-      <li>
-        <strong>Importe no pagadas:</strong>
-        {{ resumenFacturas.importeNoPagadas | currency }}
-      </li>
-      <li>
-        <strong>Promedio por factura:</strong>
-        {{ resumenFacturas.promedioImporte | currency }}
-      </li>
-      <li>
-        <strong>Promedio pagadas:</strong>
-        {{ resumenFacturas.promedioPagadas | currency }}
-      </li>
-      <li>
-        <strong>Promedio no pagadas:</strong>
-        {{ resumenFacturas.promedioNoPagadas | currency }}
-      </li>
-    </ul>
-  </div>
+<div *ngIf="!loading && resumenFacturas" class="content-dashboard">
+  <!-- Resumen general -->
+  <div
+    class="bg-gradient-to-br from-white via-[#f2f7fa] to-[#dce7ed] rounded-3xl shadow-xl p-10 text-gray-800"
+  >
+    <h2 class="text-2xl font-bold mb-8 text-center tracking-wider">
+      📋 Resumen Facturas General - {{ year }}
+    </h2>
 
-  <div class="bg-white shadow rounded-xl p-6">
-    <h3 class="text-lg font-semibold mb-4">Resumen mensual</h3>
-    <div class="overflow-x-auto">
-      <table
-        class="min-w-full border rounded overflow-hidden text-sm text-gray-700"
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
       >
-        <thead class="bg-gray-100 text-left">
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Pagadas</h3>
+        <p class="text-2xl font-bold text-green-600">
+          {{ resumenFacturas.pagadas }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">No Pagadas</h3>
+        <p class="text-2xl font-bold text-red-500">
+          {{ resumenFacturas.noPagadas }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">
+          Total de Facturas
+        </h3>
+        <p class="text-2xl font-bold text-[#0f172a]">
+          {{ resumenFacturas.totalFacturas }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Importe Pagadas</h3>
+        <p class="text-xl font-bold text-green-600">
+          {{ resumenFacturas.importePagadas | currency }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">
+          Importe No Pagadas
+        </h3>
+        <p class="text-xl font-bold text-red-500">
+          {{ resumenFacturas.importeNoPagadas | currency }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Importe Total</h3>
+        <p class="text-xl font-bold text-[#0f172a]">
+          {{ resumenFacturas.totalImporte | currency }}
+        </p>
+      </div>
+    </div>
+
+    <h3 class="text-xl mt-8 font-semibold mb-6 text-center text-[#1e293b]">
+      📆 Detalle Mensual de Facturas
+    </h3>
+
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm text-left border-collapse">
+        <thead class="bg-[#e2e8f0] text-[#1e293b]">
           <tr>
-            <th class="py-2 px-4">Mes</th>
-            <th class="py-2 px-4">Total</th>
-            <th class="py-2 px-4">Pagadas</th>
-            <th class="py-2 px-4">No Pagadas</th>
-            <th class="py-2 px-4">Importe Total</th>
+            <th class="py-3 px-4 font-semibold">Mes</th>
+            <th class="py-3 px-4 font-semibold">Facturas</th>
+            <th class="py-3 px-4 font-semibold">Pagadas</th>
+            <th class="py-3 px-4 font-semibold">No Pagadas</th>
+            <th class="py-3 px-4 font-semibold">Importe Total</th>
           </tr>
         </thead>
         <tbody>
           <tr
             *ngFor="let mes of mensualFacturas"
-            class="hover:bg-gray-50 border-t"
+            class="border-b hover:bg-[#f1f5f9] transition"
           >
-            <td class="px-4 py-2 text-sm text-gray-600">
-              {{ nombreMes(mes.mes) }}
-            </td>
-            <td class="py-2 px-4">{{ mes.total }}</td>
-            <td class="py-2 px-4">{{ mes.pagadas }}</td>
-            <td class="py-2 px-4">{{ mes.noPagadas }}</td>
-            <td class="py-2 px-4">{{ mes.totalImporte | currency }}</td>
+            <td class="px-4 py-2 font-medium">{{ nombreMes(mes.mes) }}</td>
+            <td class="px-4 py-2">{{ mes.total }}</td>
+            <td class="px-4 py-2 text-green-700">{{ mes.pagadas }}</td>
+            <td class="px-4 py-2 text-red-700">{{ mes.noPagadas }}</td>
+            <td class="px-4 py-2">{{ mes.totalImporte | currency }}</td>
           </tr>
         </tbody>
       </table>
@@ -212,127 +241,144 @@
   </div>
 </div>
 
-<div
-  *ngIf="!loading && resumenGastos"
-  class="flex justify-center items-center py-6"
->
-  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 space-y-6">
-    <!-- Resumen de Gastos -->
-    <h2 class="text-2xl font-semibold text-gray-800 text-center">
-      Resumen de Gastos {{ year }}
+<div *ngIf="!loading && resumenGastos" class="content-dashboard">
+  <!-- Resumen general -->
+  <div
+    class="bg-gradient-to-br from-white via-[#f2f7fa] to-[#dce7ed] rounded-3xl shadow-xl p-10 text-gray-800"
+  >
+    <h2 class="text-2xl font-bold mb-8 text-center tracking-wider">
+      💸 Resumen Gastos General - {{ year }}
     </h2>
 
-    <ul class="space-y-4">
-      <li class="text-lg font-medium text-gray-700 flex justify-between">
-        <span class="font-semibold">Total de gastos:</span>
-        <span class="text-green-600">{{ resumenGastos.totalGastos }}</span>
-      </li>
-      <li class="text-lg font-medium text-gray-700 flex justify-between">
-        <span class="font-semibold">Importe total:</span>
-        <span class="text-green-600">{{
-          resumenGastos.totalImporte | currency
-        }}</span>
-      </li>
-      <li class="text-lg font-medium text-gray-700 flex justify-between">
-        <span class="font-semibold">Promedio gastos:</span>
-        <span class="text-green-600">{{
-          resumenGastos.promedioImporte | currency
-        }}</span>
-      </li>
-    </ul>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Total de Gastos</h3>
+        <p class="text-2xl font-bold text-[#0f172a]">
+          {{ resumenGastos.totalGastos }}
+        </p>
+      </div>
 
-    <!-- Resumen Mensual de Gastos -->
-    <h3 class="text-xl font-semibold text-gray-800">
-      Resumen mensual de gastos
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">
+          Promedio de Gastos
+        </h3>
+        <p class="text-xl font-bold text-[#0f172a]">
+          {{ resumenGastos.promedioImporte | currency }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Importe Total</h3>
+        <p class="text-xl font-bold text-red-500">
+          {{ resumenGastos.totalImporte | currency }}
+        </p>
+      </div>
+    </div>
+
+    <h3 class="text-xl mt-8 font-semibold mb-6 text-center text-[#1e293b]">
+      📆 Detalle Mensual de Gastos
     </h3>
 
-    <table
-      class="min-w-full table-auto bg-white rounded-lg shadow-sm border border-gray-200"
-    >
-      <thead class="bg-gray-100 text-left">
-        <tr>
-          <th class="py-2 px-4">Mes</th>
-          <th class="py-2 px-4">Total</th>
-          <th class="py-2 px-4">Importe Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mes of mensualGastos" class="hover:bg-gray-50 border-t">
-          <td class="px-4 py-2 text-sm text-gray-600">
-            {{ nombreMes(mes.mes) }}
-          </td>
-          <td class="px-4 py-2 text-sm text-red-600">
-            {{ mes.total }}
-          </td>
-          <td class="px-4 py-2 text-sm text-red-600">
-            {{ mes.totalImporte | currency }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm text-left border-collapse">
+        <thead class="bg-[#e2e8f0] text-[#1e293b]">
+          <tr>
+            <th class="py-3 px-4 font-semibold">Mes</th>
+            <th class="py-3 px-4 font-semibold">Gastos</th>
+            <th class="py-3 px-4 font-semibold">Importe Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let mes of mensualGastos"
+            class="border-b hover:bg-[#f1f5f9] transition"
+          >
+            <td class="px-4 py-2 font-medium">{{ nombreMes(mes.mes) }}</td>
+            <td class="px-4 py-2 text-red-700">{{ mes.total }}</td>
+            <td class="px-4 py-2 text-red-700">
+              {{ mes.totalImporte | currency }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<div
-  *ngIf="!loading && resumenIngresos"
-  class="flex justify-center items-center py-6"
->
-  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6 space-y-6">
-    <!-- Resumen de Ingresos -->
-    <h2 class="text-2xl font-semibold text-gray-800 text-center">
-      Resumen de Ingresos {{ year }}
+<div *ngIf="!loading && resumenIngresos" class="content-dashboard">
+  <!-- Resumen general -->
+  <div
+    class="bg-gradient-to-br from-white via-[#f2f7fa] to-[#dce7ed] rounded-3xl shadow-xl p-10 text-gray-800"
+  >
+    <h2 class="text-2xl font-bold mb-8 text-center tracking-wider">
+      💰 Resumen Ingresos General - {{ year }}
     </h2>
 
-    <ul class="space-y-4">
-      <li class="text-lg font-medium text-gray-700 flex justify-between">
-        <span class="font-semibold">Total de gastos:</span>
-        <span class="text-green-600">{{ resumenIngresos.totalIngresos }}</span>
-      </li>
-      <li class="text-lg font-medium text-gray-700 flex justify-between">
-        <span class="font-semibold">Importe total:</span>
-        <span class="text-green-600">{{
-          resumenIngresos.totalImporte | currency
-        }}</span>
-      </li>
-      <li class="text-lg font-medium text-gray-700 flex justify-between">
-        <span class="font-semibold">Promedio ingresos:</span>
-        <span class="text-green-600">{{
-          resumenIngresos.promedioImporte | currency
-        }}</span>
-      </li>
-    </ul>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">
+          Total de Ingresos
+        </h3>
+        <p class="text-2xl font-bold text-[#0f172a]">
+          {{ resumenIngresos.totalIngresos }}
+        </p>
+      </div>
 
-    <!-- Resumen Mensual de Ingresos -->
-    <h3 class="text-xl font-semibold text-gray-800">
-      Resumen mensual de ingresos
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">
+          Promedio por Ingreso
+        </h3>
+        <p class="text-xl font-bold text-[#0f172a]">
+          {{ resumenIngresos.promedioImporte | currency }}
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+      >
+        <h3 class="text-sm font-medium text-gray-500 mb-1">Importe Total</h3>
+        <p class="text-xl font-bold text-green-600">
+          {{ resumenIngresos.totalImporte | currency }}
+        </p>
+      </div>
+    </div>
+
+    <h3 class="text-xl mt-8 font-semibold mb-6 text-center text-[#1e293b]">
+      📆 Detalle Mensual de Ingresos
     </h3>
 
-    <table
-      class="min-w-full table-auto bg-white rounded-lg shadow-sm border border-gray-200"
-    >
-      <thead class="bg-gray-100 text-left">
-        <tr>
-          <th class="py-2 px-4">Mes</th>
-          <th class="py-2 px-4">Total</th>
-          <th class="py-2 px-4">Importe Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let mes of mensualIngresos"
-          class="hover:bg-gray-50 border-t"
-        >
-          <td class="px-4 py-2 text-sm text-gray-600">
-            {{ nombreMes(mes.mes) }}
-          </td>
-          <td class="px-4 py-2 text-sm text-red-600">
-            {{ mes.total }}
-          </td>
-          <td class="px-4 py-2 text-sm text-red-600">
-            {{ mes.totalImporte | currency }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-sm text-left border-collapse">
+        <thead class="bg-[#e2e8f0] text-[#1e293b]">
+          <tr>
+            <th class="py-3 px-4 font-semibold">Mes</th>
+            <th class="py-3 px-4 font-semibold">Ingresos</th>
+            <th class="py-3 px-4 font-semibold">Importe Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let mes of mensualIngresos"
+            class="border-b hover:bg-[#f1f5f9] transition"
+          >
+            <td class="px-4 py-2 font-medium">{{ nombreMes(mes.mes) }}</td>
+            <td class="px-4 py-2 text-green-700">{{ mes.total }}</td>
+            <td class="px-4 py-2 text-green-700">
+              {{ mes.totalImporte | currency }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

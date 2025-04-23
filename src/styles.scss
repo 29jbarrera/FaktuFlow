@@ -241,6 +241,13 @@ nav{
   }
 }
 
+// Dashboard 
+
+/* En tu archivo styles.css, styles.scss o tailwind.css */
+.content-dashboard {
+  @apply mx-4 sm:mx-10 md:mx-28 mt-20 space-y-10;
+}
+
 
 // Valoriza ejem
 .container-router-outlet {
