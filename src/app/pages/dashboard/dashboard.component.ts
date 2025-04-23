@@ -3,11 +3,12 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from './dashboard.service';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [HeaderComponent, FormsModule, CommonModule],
+  imports: [HeaderComponent, FormsModule, CommonModule, ChartModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -22,6 +23,9 @@ export class DashboardComponent implements OnInit {
   mensualIngresos: any[] = [];
   balanceGlobal: number = 0;
   totalClientes: number = 0;
+
+  data: any;
+  options: any;
 
   nombreMes(mes: string): string {
     const meses = [
@@ -116,6 +120,7 @@ export class DashboardComponent implements OnInit {
 
       this.balanceGlobal = totalIngresos - (totalFacturas + totalGastos);
     }
+    this.configurarGrafico();
   }
 
   getBalanceColor(): string {
@@ -131,5 +136,69 @@ export class DashboardComponent implements OnInit {
         console.error('❌ Error al cargar total de clientes:', err);
       },
     });
+  }
+
+  configurarGrafico() {
+    const labels = this.mensualFacturas.map((item) => this.nombreMes(item.mes));
+
+    const dataFacturas = this.mensualFacturas.map((item) => item.total);
+    const dataGastos = this.mensualGastos.map((item) => item.total);
+    const dataIngresos = this.mensualIngresos.map((item) => item.total);
+
+    this.data = {
+      labels,
+      datasets: [
+        {
+          label: 'Ingresos',
+          data: dataIngresos,
+          borderWidth: 2,
+          borderColor: '#22c55e', // verde
+          tension: 0.4,
+          fill: false,
+        },
+        {
+          type: 'bar',
+          label: 'Facturas',
+          data: dataFacturas,
+          borderWidth: 2,
+          backgroundColor: 'rgba(239, 68, 68, 0.3)',
+          borderColor: '#ef4444', // rojo
+          tension: 0.4,
+          fill: false,
+        },
+        {
+          type: 'bar',
+          label: 'Gastos',
+          data: dataGastos,
+          borderWidth: 2,
+          backgroundColor: 'rgba(59, 130, 246, 0.3)',
+          borderColor: '#3b82f6', // azul
+          tension: 0.4,
+          fill: false,
+        },
+      ],
+    };
+
+    this.options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#374151', // texto del gráfico
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: { color: '#6b7280' },
+          grid: { color: '#e5e7eb' },
+        },
+        y: {
+          ticks: { color: '#6b7280' },
+          grid: { color: '#e5e7eb' },
+        },
+      },
+    };
   }
 }
