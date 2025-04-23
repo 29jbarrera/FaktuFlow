@@ -59,7 +59,7 @@ export class IngresosTableComponent {
 
   readonly limit = 5;
   readonly sortField = 'fecha_ingreso';
-  readonly sortOrder = 1;
+  readonly sortOrder = -1;
 
   currentPage = 1;
   ingresoSeleccionado: Partial<Ingreso> = {};

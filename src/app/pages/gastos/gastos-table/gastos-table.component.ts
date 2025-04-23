@@ -67,7 +67,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
 
   readonly limit = 5;
   readonly sortField = 'fecha';
-  readonly sortOrder = 1;
+  readonly sortOrder = -1;
 
   currentPage = 1;
   gastoSeleccionado: Partial<Gasto> = {};
