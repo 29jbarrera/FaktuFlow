@@ -13,6 +13,8 @@ import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-info',
@@ -26,6 +28,8 @@ import { NgForm } from '@angular/forms';
     InputGroupModule,
     InputGroupAddonModule,
     MessageModule,
+    DialogModule,
+    InputTextModule,
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss',
@@ -47,7 +51,11 @@ export class InfoComponent implements OnInit {
   newPassword: string = '';
   confirmNewPassword: string = '';
 
-  messageService: ValidationMessage[] = [];
+  openDialog = false;
+
+  validationPassword: ValidationMessage[] = [];
+
+  validationUserData: ValidationMessage[] = [];
 
   constructor(private infoService: InfoService) {}
 
@@ -77,13 +85,17 @@ export class InfoComponent implements OnInit {
       : '';
   }
 
+  abrirModalEdicion(usuario: UserData): void {
+    this.openDialog = true;
+  }
+
   changePassword() {
     if (
       !this.currentPassword ||
       !this.newPassword ||
       !this.confirmNewPassword
     ) {
-      this.messageService = [
+      this.validationPassword = [
         {
           severity: 'error',
           summary: 'Campos incompletos',
@@ -94,7 +106,7 @@ export class InfoComponent implements OnInit {
     }
 
     if (this.newPassword.length < 4) {
-      this.messageService = [
+      this.validationPassword = [
         {
           severity: 'error',
           summary: 'Error',
@@ -105,7 +117,7 @@ export class InfoComponent implements OnInit {
     }
 
     if (this.newPassword !== this.confirmNewPassword) {
-      this.messageService = [
+      this.validationPassword = [
         {
           severity: 'error',
           summary: 'Error',
@@ -121,7 +133,7 @@ export class InfoComponent implements OnInit {
       .changePassword(usuario_id, this.currentPassword, this.newPassword)
       .subscribe({
         next: (res) => {
-          this.messageService = [
+          this.validationPassword = [
             {
               severity: 'success',
               summary: 'Éxito',
@@ -131,7 +143,7 @@ export class InfoComponent implements OnInit {
           this.passwordForm.resetForm();
         },
         error: (err) => {
-          this.messageService = [
+          this.validationPassword = [
             {
               severity: 'error',
               summary: 'Error',

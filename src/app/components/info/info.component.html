@@ -35,10 +35,90 @@
       <button
         pButton
         class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-6 py-2 rounded-xl shadow transition duration-300"
+        (click)="abrirModalEdicion(usuario)"
       >
         <i class="fas fa-pen mr-1"></i> Editar Perfil
       </button>
     </div>
+
+    <!-- Modal Editar Información Personal -->
+    <p-dialog
+      header="📝 Editar Información Personal"
+      [(visible)]="openDialog"
+      [modal]="true"
+      styleClass="w-full sm:w-10/12 md:w-1/3"
+      [closable]="true"
+      (onHide)="openDialog = false"
+    >
+      <div class="w-full border-t pt-6 space-y-4">
+        <div class="flex flex-col m-auto w-72 space-y-4">
+          <div class="input-group">
+            <label class="block">Nombre</label>
+            <p-inputGroup>
+              <p-inputGroupAddon>
+                <i class="pi pi-user"></i>
+              </p-inputGroupAddon>
+              <input
+                pInputText
+                required="true"
+                id="nombre"
+                [(ngModel)]="usuario.nombre"
+              />
+            </p-inputGroup>
+          </div>
+
+          <div class="input-group">
+            <label class="block">Apellidos</label>
+            <p-inputGroup>
+              <p-inputGroupAddon>
+                <i class="pi pi-user"></i>
+              </p-inputGroupAddon>
+              <input
+                pInputText
+                required="true"
+                id="apellidos"
+                [(ngModel)]="usuario.apellidos"
+              />
+            </p-inputGroup>
+          </div>
+
+          <div class="input-group">
+            <label class="block">Email</label>
+            <p-inputGroup>
+              <p-inputGroupAddon>
+                <i class="pi pi-envelope"></i>
+              </p-inputGroupAddon>
+              <input
+                pInputText
+                required="true"
+                id="email"
+                [(ngModel)]="usuario.email"
+              />
+            </p-inputGroup>
+          </div>
+
+          <div *ngFor="let message of validationUserData" class="w-full p-1">
+            <p-message
+              [life]="8000"
+              icon="pi pi-times-circle"
+              [severity]="message.severity"
+              [text]="message.text"
+              [closable]="true"
+              styleClass="custom-messages"
+            ></p-message>
+          </div>
+
+          <div class="text-center font-bold py-3">
+            <button
+              pButton
+              class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-xl transition shadow"
+            >
+              <i class="fas fa-save mr-1"></i>Guardar Cambios
+            </button>
+          </div>
+        </div>
+      </div>
+    </p-dialog>
 
     <!-- Cambiar contraseña -->
     <div class="border-t pt-6 space-y-4">
@@ -107,7 +187,7 @@
         </form>
       </div>
       <div
-        *ngFor="let message of messageService"
+        *ngFor="let message of validationPassword"
         class="sm:w-[80%] w-full m-auto mt-6"
       >
         <p-message
