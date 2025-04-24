@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../pages/auth/auth.service';
 import { NavService } from './nav.service';
 import { FooterComponent } from '../footer/footer.component';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-nav',
@@ -17,6 +18,7 @@ import { FooterComponent } from '../footer/footer.component';
     AccordionModule,
     CommonModule,
     FooterComponent,
+    AvatarModule,
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
@@ -25,6 +27,7 @@ export class NavComponent implements OnInit {
   userName: string | null = null;
   userApellidos: string | null = null;
   isMenuVisible: boolean = true;
+  userInitial: string = '';
 
   constructor(
     private router: Router,
@@ -35,6 +38,7 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.userName = sessionStorage.getItem('nombre');
     this.userApellidos = sessionStorage.getItem('apellidos');
+    this.getUserInitial();
   }
 
   logout(): void {
@@ -54,5 +58,11 @@ export class NavComponent implements OnInit {
 
   navigateMiPerfil(): void {
     this.router.navigate(['/dashboard/info']);
+  }
+
+  getUserInitial(): void {
+    this.userInitial = this.userName
+      ? this.userName.charAt(0).toUpperCase()
+      : '';
   }
 }
