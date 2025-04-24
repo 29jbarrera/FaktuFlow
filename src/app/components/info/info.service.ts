@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environment';
-import { UserData } from '../../interfaces/user';
+import { UpdateUserResponse, UserData } from '../../interfaces/user';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../pages/auth/auth.service';
 
@@ -37,5 +37,25 @@ export class InfoService {
     return this.http.post(`${environment.apiUrl}auth/change-password`, body, {
       headers: this.authHeaders,
     });
+  }
+
+  updateUserInfo(
+    usuario_id: number,
+    nombre: string,
+    apellidos: string,
+    email: string
+  ) {
+    return this.http.put<UpdateUserResponse>(
+      `${environment.apiUrl}auth/update-info`,
+      {
+        usuario_id,
+        nombre,
+        apellidos,
+        email,
+      },
+      {
+        headers: this.authHeaders,
+      }
+    );
   }
 }

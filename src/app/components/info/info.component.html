@@ -53,7 +53,7 @@
       <div class="w-full border-t pt-6 space-y-4">
         <div class="flex flex-col m-auto w-72 space-y-4">
           <div class="input-group">
-            <label class="block">Nombre</label>
+            <label class="block">Nombre *</label>
             <p-inputGroup>
               <p-inputGroupAddon>
                 <i class="pi pi-user"></i>
@@ -62,13 +62,13 @@
                 pInputText
                 required="true"
                 id="nombre"
-                [(ngModel)]="usuario.nombre"
+                [(ngModel)]="tempUsuario.nombre"
               />
             </p-inputGroup>
           </div>
 
           <div class="input-group">
-            <label class="block">Apellidos</label>
+            <label class="block">Apellidos *</label>
             <p-inputGroup>
               <p-inputGroupAddon>
                 <i class="pi pi-user"></i>
@@ -77,13 +77,13 @@
                 pInputText
                 required="true"
                 id="apellidos"
-                [(ngModel)]="usuario.apellidos"
+                [(ngModel)]="tempUsuario.apellidos"
               />
             </p-inputGroup>
           </div>
 
           <div class="input-group">
-            <label class="block">Email</label>
+            <label class="block">Email *</label>
             <p-inputGroup>
               <p-inputGroupAddon>
                 <i class="pi pi-envelope"></i>
@@ -92,30 +92,34 @@
                 pInputText
                 required="true"
                 id="email"
-                [(ngModel)]="usuario.email"
+                [(ngModel)]="tempUsuario.email"
               />
             </p-inputGroup>
           </div>
+        </div>
 
-          <div *ngFor="let message of validationUserData" class="w-full p-1">
-            <p-message
-              [life]="8000"
-              icon="pi pi-times-circle"
-              [severity]="message.severity"
-              [text]="message.text"
-              [closable]="true"
-              styleClass="custom-messages"
-            ></p-message>
-          </div>
+        <div
+          *ngFor="let message of validationUserData"
+          class="w-[80%] m-auto p-1"
+        >
+          <p-message
+            [life]="8000"
+            icon="pi pi-times-circle"
+            [severity]="message.severity"
+            [text]="message.text"
+            [closable]="true"
+            styleClass="custom-messages"
+          ></p-message>
+        </div>
 
-          <div class="text-center font-bold py-3">
-            <button
-              pButton
-              class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-xl transition shadow"
-            >
-              <i class="fas fa-save mr-1"></i>Guardar Cambios
-            </button>
-          </div>
+        <div class="text-center font-bold py-2">
+          <button
+            pButton
+            class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-xl transition shadow"
+            (click)="updateUserData()"
+          >
+            <i class="fas fa-save mr-1"></i>Guardar Cambios
+          </button>
         </div>
       </div>
     </p-dialog>

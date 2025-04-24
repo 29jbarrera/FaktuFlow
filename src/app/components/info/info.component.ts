@@ -57,6 +57,8 @@ export class InfoComponent implements OnInit {
 
   validationUserData: ValidationMessage[] = [];
 
+  tempUsuario: UserData = { ...this.usuario };
+
   constructor(private infoService: InfoService) {}
 
   cerrarSesion() {
@@ -86,7 +88,72 @@ export class InfoComponent implements OnInit {
   }
 
   abrirModalEdicion(usuario: UserData): void {
+    this.tempUsuario = { ...usuario };
     this.openDialog = true;
+  }
+
+  updateUserData() {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (
+      !this.tempUsuario.nombre ||
+      !this.tempUsuario.apellidos ||
+      !this.tempUsuario.email
+    ) {
+      this.validationUserData = [
+        {
+          severity: 'error',
+          summary: 'Campos incompletos',
+          text: 'Por favor completa todos los campos obligatorios (*).',
+        },
+      ];
+      return;
+    }
+
+    if (!emailRegex.test(this.usuario.email)) {
+      this.validationUserData = [
+        {
+          severity: 'error',
+          summary: 'Email inválido',
+          text: 'Por favor ingresa un correo electrónico válido.',
+        },
+      ];
+      return;
+    }
+
+    this.infoService
+      .updateUserInfo(
+        this.tempUsuario.id,
+        this.tempUsuario.nombre,
+        this.tempUsuario.apellidos,
+        this.tempUsuario.email
+      )
+      .subscribe({
+        next: (res) => {
+          this.usuario = { ...this.tempUsuario };
+          this.validationUserData = [
+            {
+              severity: 'success',
+              summary: 'Éxito',
+              text: res?.message || 'Datos actualizados correctamente.',
+            },
+          ];
+          this.openDialog = false;
+        },
+        error: (err) => {
+          const serverError =
+            err?.error?.errors?.[0]?.msg ||
+            err.error.message ||
+            'Error al actualizar los datos.';
+          this.validationUserData = [
+            {
+              severity: 'error',
+              summary: 'Error',
+              text: serverError,
+            },
+          ];
+        },
+      });
   }
 
   changePassword() {

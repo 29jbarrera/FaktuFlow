@@ -27,3 +27,13 @@ export interface UserData {
   rol: string;
   fecha_registro: Date;
 }
+
+export interface UpdateUserResponse {
+  message: string;
+  user: {
+    id: number;
+    nombre: string;
+    apellidos: string;
+    email: string;
+  };
+}
