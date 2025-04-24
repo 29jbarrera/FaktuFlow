@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { InfoService } from './info.service';
 import { UserData } from '../../interfaces/user';
@@ -15,6 +17,8 @@ import { ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { AuthService } from '../../pages/auth/auth.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-info',
@@ -30,6 +34,8 @@ import { InputTextModule } from 'primeng/inputtext';
     MessageModule,
     DialogModule,
     InputTextModule,
+    RouterModule,
+    ToastModule,
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss',
@@ -59,11 +65,12 @@ export class InfoComponent implements OnInit {
 
   tempUsuario: UserData = { ...this.usuario };
 
-  constructor(private infoService: InfoService) {}
-
-  cerrarSesion() {
-    console.log('Cerrar sesión');
-  }
+  constructor(
+    private infoService: InfoService,
+    private authService: AuthService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     const userId = Number(sessionStorage.getItem('usuario_id'));
@@ -131,13 +138,13 @@ export class InfoComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.usuario = { ...this.tempUsuario };
-          this.validationUserData = [
-            {
-              severity: 'success',
-              summary: 'Éxito',
-              text: res?.message || 'Datos actualizados correctamente.',
-            },
-          ];
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Éxito',
+            detail: 'Se han actualizado los datos exitosamente.',
+            life: 4000,
+          });
+
           this.openDialog = false;
         },
         error: (err) => {
@@ -219,5 +226,10 @@ export class InfoComponent implements OnInit {
           ];
         },
       });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
