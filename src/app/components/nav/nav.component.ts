@@ -6,11 +6,18 @@ import { AccordionModule } from 'primeng/accordion';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../pages/auth/auth.service';
 import { NavService } from './nav.service';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [RouterModule, ButtonModule, AccordionModule, CommonModule],
+  imports: [
+    RouterModule,
+    ButtonModule,
+    AccordionModule,
+    CommonModule,
+    FooterComponent,
+  ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
 })
@@ -18,7 +25,6 @@ export class NavComponent implements OnInit {
   userName: string | null = null;
   userApellidos: string | null = null;
   isMenuVisible: boolean = true;
-  starCount: number = 0;
 
   constructor(
     private router: Router,
@@ -29,7 +35,6 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.userName = sessionStorage.getItem('nombre');
     this.userApellidos = sessionStorage.getItem('apellidos');
-    this.getStartCount();
   }
 
   logout(): void {
@@ -49,11 +54,5 @@ export class NavComponent implements OnInit {
 
   navigateMiPerfil(): void {
     this.router.navigate(['/dashboard/info']);
-  }
-
-  getStartCount(): void {
-    this.navService.getStarCount().subscribe((count) => {
-      this.starCount = count;
-    });
   }
 }

@@ -16,6 +16,7 @@
 
     --color-primary: #112c35;
     --color-primary-low: rgb(17, 44, 53, 0.8);
+    --color-primary-low-footer: rgb(17, 44, 53, 0.2);
     --color-primary-very-low: rgb(17, 44, 53, 0.1);
     --color-secondary: #4ce1b9;
     --color-secondary-low: rgb(76, 225, 185, 0.06);
@@ -246,6 +247,16 @@ nav{
 /* En tu archivo styles.css, styles.scss o tailwind.css */
 .content-dashboard {
   @apply mx-4 sm:mx-10 md:mx-28 mt-20 space-y-10;
+}
+
+
+.footer-content {
+  color: var(--color-primary);
+  background-color: var(--color-primary-low-footer);
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50px;
 }
 
 
