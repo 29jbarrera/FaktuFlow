@@ -58,6 +58,7 @@ export class NavComponent implements OnInit {
 
   navigateMiPerfil(): void {
     this.router.navigate(['/dashboard/info']);
+    this.closeMenu();
   }
 
   getUserInitial(): void {

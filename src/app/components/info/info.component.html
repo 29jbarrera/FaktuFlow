@@ -1,1 +1,125 @@
-<p>info works!</p>
+<div class="min-h-screen flex items-center justify-center p-6">
+  <div
+    class="shadow-2xl content-info bg-zinc-50 rounded-3xl max-w-3xl w-full p-10 space-y-10"
+  >
+    <h2 class="text-4xl font-extrabold text-center border-b pb-4">
+      <i class="fas fa-user"></i> Mi Perfil
+    </h2>
+
+    <!-- Información del usuario -->
+    <div class="flex flex-col items-center gap-4">
+      <p-avatar
+        [label]="userInitial"
+        size="xlarge"
+        class="text-4xl font-bold"
+        [style]="{
+          'background-color': 'rgb(76, 225, 185, 0.2)',
+          color: '#112c35',
+          'font-weight': 'bold'
+        }"
+      ></p-avatar>
+
+      <div class="text-center space-y-2 mt-2">
+        <h3 class="text-2xl font-semibold">
+          {{ usuario.nombre }} {{ usuario.apellidos }}
+        </h3>
+        <p>
+          <i class="pi pi-envelope text-blue-600 mr-2"></i>{{ usuario.email }}
+        </p>
+        <p class="text-sm text-gray-500">
+          <i class="pi pi-calendar text-green-600 mr-2"></i>Miembro desde:
+          {{ usuario.fecha_registro | date : "dd/MM/yyyy" }}
+        </p>
+      </div>
+
+      <button
+        pButton
+        class="mt-4 bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold px-6 py-2 rounded-xl shadow transition duration-300"
+      >
+        <i class="fas fa-pen mr-1"></i> Editar Perfil
+      </button>
+    </div>
+
+    <!-- Cambiar contraseña -->
+    <div class="border-t pt-6 space-y-4">
+      <h4 class="text-xl font-bold text-center">🔒 Cambiar Contraseña</h4>
+
+      <div class="flex flex-col m-auto w-72">
+        <div class="mb-5 password-style">
+          <div class="flex">
+            <div class="flex">
+              <p-inputGroupAddon>
+                <i class="pi pi-lock"></i>
+              </p-inputGroupAddon>
+
+              <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                class="w-72"
+                placeholder="Contraseña actual"
+                name="password"
+                required
+              ></p-password>
+            </div>
+          </div>
+        </div>
+        <div class="mb-5 password-style">
+          <div class="flex">
+            <div class="flex">
+              <p-inputGroupAddon>
+                <i class="pi pi-lock"></i>
+              </p-inputGroupAddon>
+
+              <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                styleClass="w-full p-fluid"
+                placeholder="Nueva contraseña"
+                name="password"
+                required
+              ></p-password>
+            </div>
+          </div>
+        </div>
+        <div class="mb-5 password-style">
+          <div class="flex">
+            <div class="flex">
+              <p-inputGroupAddon>
+                <i class="pi pi-lock"></i>
+              </p-inputGroupAddon>
+
+              <p-password
+                [toggleMask]="true"
+                [feedback]="false"
+                styleClass="w-full p-fluid"
+                placeholder="Nueva contraseña"
+                name="password"
+                required
+              ></p-password>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center font-bold">
+        <button
+          pButton
+          class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-xl transition shadow"
+        >
+          <i class="fas fa-pen mr-1"></i>Actualizar nueva contraseña
+        </button>
+      </div>
+    </div>
+
+    <!-- Cerrar sesión -->
+    <div class="text-center pt-6 border-t font-bold">
+      <button
+        pButton
+        class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition"
+        (click)="cerrarSesion()"
+      >
+        <i class="fas fa-sign-out-alt mr-1"></i> Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>

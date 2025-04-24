@@ -18,3 +18,12 @@ export interface RegisterResponse {
   message: string;
   user: User;
 }
+
+export interface UserData {
+  id: string;
+  nombre: string;
+  apellidos: string;
+  email: string;
+  rol: string;
+  fecha_registro: Date;
+}
