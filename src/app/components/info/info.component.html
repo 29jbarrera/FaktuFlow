@@ -45,66 +45,86 @@
       <h4 class="text-xl font-bold text-center">🔒 Cambiar Contraseña</h4>
 
       <div class="flex flex-col m-auto w-72">
-        <div class="mb-5 password-style">
-          <div class="flex">
+        <form #passwordForm="ngForm">
+          <div class="mb-5 password-style">
             <div class="flex">
-              <p-inputGroupAddon>
-                <i class="pi pi-lock"></i>
-              </p-inputGroupAddon>
+              <div class="flex">
+                <p-inputGroupAddon>
+                  <i class="pi pi-lock"></i>
+                </p-inputGroupAddon>
 
-              <p-password
-                [toggleMask]="true"
-                [feedback]="false"
-                class="w-72"
-                placeholder="Contraseña actual"
-                name="password"
-                required
-              ></p-password>
+                <p-password
+                  [(ngModel)]="currentPassword"
+                  [toggleMask]="true"
+                  [feedback]="false"
+                  class="w-72"
+                  placeholder="Contraseña actual"
+                  name="password"
+                  required
+                ></p-password>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="mb-5 password-style">
-          <div class="flex">
+          <div class="mb-5 password-style">
             <div class="flex">
-              <p-inputGroupAddon>
-                <i class="pi pi-lock"></i>
-              </p-inputGroupAddon>
+              <div class="flex">
+                <p-inputGroupAddon>
+                  <i class="pi pi-lock"></i>
+                </p-inputGroupAddon>
 
-              <p-password
-                [toggleMask]="true"
-                [feedback]="false"
-                styleClass="w-full p-fluid"
-                placeholder="Nueva contraseña"
-                name="password"
-                required
-              ></p-password>
+                <p-password
+                  [(ngModel)]="newPassword"
+                  [toggleMask]="true"
+                  [feedback]="false"
+                  styleClass="w-full p-fluid"
+                  placeholder="Nueva contraseña"
+                  name="password"
+                  required
+                ></p-password>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="mb-5 password-style">
-          <div class="flex">
+          <div class="mb-5 password-style">
             <div class="flex">
-              <p-inputGroupAddon>
-                <i class="pi pi-lock"></i>
-              </p-inputGroupAddon>
+              <div class="flex">
+                <p-inputGroupAddon>
+                  <i class="pi pi-lock"></i>
+                </p-inputGroupAddon>
 
-              <p-password
-                [toggleMask]="true"
-                [feedback]="false"
-                styleClass="w-full p-fluid"
-                placeholder="Nueva contraseña"
-                name="password"
-                required
-              ></p-password>
+                <p-password
+                  [(ngModel)]="confirmNewPassword"
+                  [ngModelOptions]="{ standalone: true }"
+                  [toggleMask]="true"
+                  [feedback]="false"
+                  styleClass="w-full p-fluid"
+                  placeholder="Repetir nueva contraseña"
+                  name="password"
+                  required
+                ></p-password>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
+      </div>
+      <div
+        *ngFor="let message of messageService"
+        class="sm:w-[80%] w-full m-auto mt-6"
+      >
+        <p-message
+          [life]="8000"
+          icon="pi pi-times-circle"
+          [severity]="message.severity"
+          [text]="message.text"
+          [closable]="true"
+          styleClass="custom-messages"
+        ></p-message>
       </div>
 
       <div class="text-center font-bold">
         <button
           pButton
           class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-xl transition shadow"
+          (click)="changePassword()"
         >
           <i class="fas fa-pen mr-1"></i>Actualizar nueva contraseña
         </button>
@@ -115,6 +135,7 @@
     <div class="text-center pt-6 border-t font-bold">
       <button
         pButton
+        type="button"
         class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition"
         (click)="cerrarSesion()"
       >

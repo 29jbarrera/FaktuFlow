@@ -22,4 +22,20 @@ export class InfoService {
       headers: this.authHeaders,
     });
   }
+
+  changePassword(
+    usuario_id: number,
+    currentPassword: string,
+    newPassword: string
+  ): Observable<any> {
+    const body = {
+      usuario_id,
+      currentPassword,
+      newPassword,
+    };
+
+    return this.http.post(`${environment.apiUrl}auth/change-password`, body, {
+      headers: this.authHeaders,
+    });
+  }
 }

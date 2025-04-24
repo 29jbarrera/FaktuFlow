@@ -5,9 +5,14 @@ import { InfoService } from './info.service';
 import { UserData } from '../../interfaces/user';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
+import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { PasswordModule } from 'primeng/password';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { MessageService } from 'primeng/api';
+import { MessageModule } from 'primeng/message';
+import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-info',
@@ -20,14 +25,17 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     PasswordModule,
     InputGroupModule,
     InputGroupAddonModule,
+    MessageModule,
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss',
+  providers: [MessageService],
 })
 export class InfoComponent implements OnInit {
+  @ViewChild('passwordForm') passwordForm!: NgForm;
   userInitial: string = '';
   usuario: UserData = {
-    id: '',
+    id: 0,
     nombre: '',
     apellidos: '',
     email: '',
@@ -35,21 +43,16 @@ export class InfoComponent implements OnInit {
     rol: '',
   };
 
-  config = {
-    temaOscuro: false,
-    notificaciones: true,
-  };
+  currentPassword: string = '';
+  newPassword: string = '';
+  confirmNewPassword: string = '';
+
+  messageService: ValidationMessage[] = [];
 
   constructor(private infoService: InfoService) {}
 
   cerrarSesion() {
     console.log('Cerrar sesión');
-    // Aquí pones tu lógica real para cerrar sesión
-  }
-
-  cambiarContrasena() {
-    console.log('Cambiar contraseña');
-    // Redireccionas o abres modal
   }
 
   ngOnInit(): void {
@@ -72,5 +75,70 @@ export class InfoComponent implements OnInit {
     this.userInitial = this.usuario.nombre
       ? this.usuario.nombre.charAt(0).toUpperCase()
       : '';
+  }
+
+  changePassword() {
+    if (
+      !this.currentPassword ||
+      !this.newPassword ||
+      !this.confirmNewPassword
+    ) {
+      this.messageService = [
+        {
+          severity: 'error',
+          summary: 'Campos incompletos',
+          text: 'Por favor completa todos los campos.',
+        },
+      ];
+      return;
+    }
+
+    if (this.newPassword.length < 4) {
+      this.messageService = [
+        {
+          severity: 'error',
+          summary: 'Error',
+          text: 'La nueva contraseña debe tener al menos 4 caracteres.',
+        },
+      ];
+      return;
+    }
+
+    if (this.newPassword !== this.confirmNewPassword) {
+      this.messageService = [
+        {
+          severity: 'error',
+          summary: 'Error',
+          text: 'Las contraseñas nuevas no coinciden.',
+        },
+      ];
+      return;
+    }
+
+    const usuario_id = this.usuario.id;
+
+    this.infoService
+      .changePassword(usuario_id, this.currentPassword, this.newPassword)
+      .subscribe({
+        next: (res) => {
+          this.messageService = [
+            {
+              severity: 'success',
+              summary: 'Éxito',
+              text: res.message,
+            },
+          ];
+          this.passwordForm.resetForm();
+        },
+        error: (err) => {
+          this.messageService = [
+            {
+              severity: 'error',
+              summary: 'Error',
+              text: err.error.message,
+            },
+          ];
+        },
+      });
   }
 }
