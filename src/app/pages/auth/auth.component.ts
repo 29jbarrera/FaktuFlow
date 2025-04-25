@@ -129,7 +129,9 @@ export class AuthComponent {
           {
             severity: 'error',
             summary: 'Error en el servidor',
-            text: 'Hubo un problema al iniciar sesión. Intenta nuevamente',
+            text:
+              error?.error?.message ||
+              'Hubo un problema al iniciar sesión. Intenta nuevamente',
           },
         ];
       }
@@ -200,6 +202,8 @@ export class AuthComponent {
       this.emailRegister = '';
       this.passwordRegister = '';
       this.passwordRegisterConfirm = '';
+
+      this.openDialog = true;
     } catch (error: any) {
       console.error('Error en registro:', error);
 

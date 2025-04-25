@@ -9,6 +9,9 @@ import { GastosComponent } from './pages/gastos/gastos.component';
 import { IngresosComponent } from './pages/ingresos/ingresos.component';
 import { authGuard } from './guards/auth.guard';
 import { InfoComponent } from './components/info/info.component';
+import { AvisoLegalComponent } from './pages/aviso-legal/aviso-legal.component';
+import { PoliticaCookiesComponent } from './pages/politica-cookies/politica-cookies.component';
+import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politica-privacidad.component';
 
 export const routes: Routes = [
   {
@@ -54,6 +57,18 @@ export const routes: Routes = [
         component: InfoComponent,
       },
     ],
+  },
+  {
+    path: 'aviso-legal',
+    component: AvisoLegalComponent,
+  },
+  {
+    path: 'politica-privacidad',
+    component: PoliticaPrivacidadComponent,
+  },
+  {
+    path: 'politica-cookies',
+    component: PoliticaCookiesComponent,
   },
   {
     path: '**',
