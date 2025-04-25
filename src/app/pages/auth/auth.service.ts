@@ -61,4 +61,11 @@ export class AuthService {
     sessionStorage.removeItem('userEmail');
     sessionStorage.removeItem('rol');
   }
+
+  verifyCode(email: string, codigo_verificacion: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}auth/verify-code`, {
+      email,
+      codigo_verificacion,
+    });
+  }
 }

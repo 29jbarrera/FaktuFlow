@@ -64,6 +64,13 @@
         <div class="w-full flex justify-center mt-8">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
+
+        <div class="w-full flex justify-center mt-4">
+          <p-button
+            label="Verificar cuenta"
+            (click)="openModalVerifyCode()"
+          ></p-button>
+        </div>
         <p-progressSpinner
           *ngIf="isLoading"
           strokeWidth="3"
@@ -184,3 +191,58 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  header=""
+  [(visible)]="openDialog"
+  [modal]="true"
+  styleClass="w-full sm:w-10/12 md:w-1/4 p-3"
+  [closable]="true"
+  (onHide)="openDialog = false"
+  ><div class="flex flex-col items-center">
+    <div class="font-bold text-2xl mb-2">Verifica tu cuenta</div>
+    <p class="text-muted-color block mb-8">
+      Por favor introduce tu email y el código recibido en tu email.
+    </p>
+
+    <div class="mb-4 w-80">
+      <p-inputGroup>
+        <p-inputGroupAddon>
+          <i class="pi pi-envelope"></i>
+        </p-inputGroupAddon>
+        <input
+          pInputText
+          placeholder="Introduce tu email..."
+          [(ngModel)]="emailVerify"
+          name="email"
+          required
+        />
+      </p-inputGroup>
+    </div>
+
+    <p-inputotp [(ngModel)]="CodeToVerify" [length]="6">
+      <ng-template #input let-token let-events="events" let-index="index">
+        <input
+          type="text"
+          [maxLength]="1"
+          (input)="events.input($event)"
+          (keydown)="events.keydown($event)"
+          [attr.value]="token"
+          class="custom-otp-input"
+        />
+      </ng-template>
+    </p-inputotp>
+    <div *ngFor="let message of messagesVerify">
+      <p-message
+        icon="pi pi-times-circle"
+        [severity]="message.severity"
+        [text]="message.text"
+        [closable]="true"
+        styleClass="custom-messages mt-4 -mb-4 w-96"
+      ></p-message>
+    </div>
+    <div class="flex m-auto gap-10 mt-8 mb-4 self-stretch">
+      <p-button label="Reenviar código" />
+      <p-button label="Enviar código" (click)="verifyCode()" />
+    </div></div
+></p-dialog>

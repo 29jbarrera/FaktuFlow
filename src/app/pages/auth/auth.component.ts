@@ -14,6 +14,8 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { User } from '../../interfaces/user';
+import { DialogModule } from 'primeng/dialog';
+import { InputOtpModule } from 'primeng/inputotp';
 
 @Component({
   selector: 'app-auth',
@@ -30,6 +32,8 @@ import { User } from '../../interfaces/user';
     FormsModule,
     MessageModule,
     ProgressSpinnerModule,
+    DialogModule,
+    InputOtpModule,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -46,6 +50,11 @@ export class AuthComponent {
   messagesLogin: any[] = [];
   messagesRegister: any[] = [];
   isLoading = false;
+
+  openDialog = false;
+  messagesVerify: any[] = [];
+  emailVerify: string = '';
+  CodeToVerify: string = '';
 
   // Función para validar el formato del correo
   isEmailValid(email: string): boolean {
@@ -210,5 +219,27 @@ export class AuthComponent {
         ];
       }
     }
+  }
+
+  openModalVerifyCode() {
+    this.openDialog = true;
+  }
+
+  verifyCode() {
+    this.authService.verifyCode(this.emailVerify, this.CodeToVerify).subscribe({
+      next: (res) => {
+        this.messagesVerify = [
+          {
+            severity: 'success',
+            text: res.message || 'Cuenta verificada exitosamente',
+          },
+        ];
+      },
+      error: (err) => {
+        this.messagesVerify = [
+          { severity: 'error', text: err.error.message || 'Código incorrecto' },
+        ];
+      },
+    });
   }
 }
