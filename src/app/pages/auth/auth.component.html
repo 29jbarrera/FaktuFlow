@@ -242,7 +242,7 @@
       ></p-message>
     </div>
     <div class="flex m-auto gap-10 mt-8 mb-4 self-stretch">
-      <p-button label="Reenviar código" />
+      <p-button label="Reenviar código" (click)="resendVerificationCode()" />
       <p-button label="Enviar código" (click)="verifyCode()" />
     </div></div
 ></p-dialog>

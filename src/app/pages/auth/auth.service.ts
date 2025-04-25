@@ -68,4 +68,8 @@ export class AuthService {
       codigo_verificacion,
     });
   }
+
+  resendCode(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}auth/resend-code`, { email });
+  }
 }

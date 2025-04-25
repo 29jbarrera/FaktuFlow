@@ -234,10 +234,33 @@ export class AuthComponent {
             text: res.message || 'Cuenta verificada exitosamente',
           },
         ];
+        this.emailVerify = '';
+        this.CodeToVerify = '';
       },
       error: (err) => {
         this.messagesVerify = [
           { severity: 'error', text: err.error.message || 'Código incorrecto' },
+        ];
+      },
+    });
+  }
+
+  resendVerificationCode() {
+    this.authService.resendCode(this.emailVerify).subscribe({
+      next: (res) => {
+        this.messagesVerify = [
+          {
+            severity: 'info',
+            text: res.message || 'Código reenviado con éxito',
+          },
+        ];
+      },
+      error: (err) => {
+        this.messagesVerify = [
+          {
+            severity: 'error',
+            text: err.error.message || 'Error al reenviar el código',
+          },
         ];
       },
     });
