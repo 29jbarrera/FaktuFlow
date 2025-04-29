@@ -201,7 +201,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       fecha: formatFechaToYMD(new Date(this.gastoSeleccionado.fecha!)),
       importe_total: Number(importe_total),
       usuario_id: this.gastoSeleccionado.usuario_id!,
-      descripcion: this.gastoSeleccionado.descripcion,
+      descripcion: this.gastoSeleccionado.descripcion?.trim() || '',
     };
 
     if (this.validationMessages.length > 0) {

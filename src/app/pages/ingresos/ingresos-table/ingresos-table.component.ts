@@ -195,7 +195,7 @@ export class IngresosTableComponent {
       ),
       importe_total: Number(importe_total),
       usuario_id: this.ingresoSeleccionado.usuario_id!,
-      descripcion: this.ingresoSeleccionado.descripcion,
+      descripcion: this.ingresoSeleccionado.descripcion?.trim() || '',
     };
 
     if (this.validationMessages.length > 0) {
