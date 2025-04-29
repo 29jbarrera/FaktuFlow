@@ -101,11 +101,11 @@
         </td>
 
         <td class="flex gap-2">
-          <button class="p-button" (click)="abrirModalEdicion(factura)">
-            <i class="pi pi-file-edit"></i>
+          <button class="p-button edit" (click)="abrirModalEdicion(factura)">
+            <i class="pi pi-pencil"></i>
           </button>
           <button
-            class="p-button p-button-danger"
+            class="p-button danger"
             (click)="deleteFactura(factura.id, factura.numero)"
           >
             <i class="pi pi-trash"></i>

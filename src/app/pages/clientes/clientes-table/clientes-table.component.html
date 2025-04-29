@@ -67,13 +67,10 @@
         <td>{{ cliente.direccion_fiscal }}</td>
 
         <td class="flex gap-2">
-          <button class="p-button" (click)="abrirModalEdicion(cliente)">
-            <i class="pi pi-file-edit"></i>
+          <button class="p-button edit" (click)="abrirModalEdicion(cliente)">
+            <i class="pi pi-pencil"></i>
           </button>
-          <button
-            class="p-button p-button-danger"
-            (click)="deleteCliente(cliente.id)"
-          >
+          <button class="p-button danger" (click)="deleteCliente(cliente.id)">
             <i class="pi pi-trash"></i>
           </button>
         </td>
@@ -110,7 +107,7 @@
     header="Editar Factura: {{ clienteSeleccionado.nombre }}"
     [(visible)]="openDialog"
     [modal]="true"
-    styleClass="w-full sm:w-10/12 md:w-1/2"
+    styleClass=" custom-dialog  w-full sm:w-10/12 md:w-1/2"
     [closable]="true"
     (onHide)="openDialog = false"
   >

@@ -69,12 +69,12 @@
         <td>{{ gasto.descripcion }}</td>
 
         <td class="flex gap-2">
-          <button class="p-button" (click)="openModal(gasto)">
-            <i class="pi pi-file-edit"></i>
+          <button class="p-button edit" (click)="openModal(gasto)">
+            <i class="pi pi-pencil"></i>
           </button>
           <button
             pButton
-            class="p-button p-button-danger"
+            class="p-button danger"
             (click)="deleteGasto(gasto.id)"
           >
             <i class="pi pi-trash"></i>

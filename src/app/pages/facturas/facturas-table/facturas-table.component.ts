@@ -162,7 +162,9 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
+      acceptButtonStyleClass: 'p-button danger',
       rejectLabel: 'No',
+      rejectButtonStyleClass: 'p-button cancel',
       accept: () => {
         this.facturasService.deleteFactura(id).subscribe((response) => {
           this.facturas = this.facturas.filter((factura) => factura.id !== id);

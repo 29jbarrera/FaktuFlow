@@ -194,6 +194,72 @@ p-confirm-dialog .p-dialog-footer .p-button {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important; /* Sombra suave al pasar el mouse */
 }
 
+.p-button.danger{
+  background-color: #dc3545 !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  padding: 0.5rem 1rem !important; /* Espaciado interno para un diseño más limpio */
+  border-radius: 0.375rem !important; /* Bordes redondeados */
+  transition: all 0.3s ease !important; /* Suavizar la transición cuando el estado cambia */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+  border: none !important;
+  --p-button-label-font-weight: bold; 
+}
+
+.p-button.danger:hover{
+  background-color: rgb(189, 26, 26) !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+}
+
+.p-button.edit{
+  background-color: rgb(40, 157, 240) !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  padding: 0.5rem 1rem !important; /* Espaciado interno para un diseño más limpio */
+  border-radius: 0.375rem !important; /* Bordes redondeados */
+  transition: all 0.3s ease !important; /* Suavizar la transición cuando el estado cambia */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+  border: none !important;
+  --p-button-label-font-weight: bold; 
+}
+
+.p-button.edit:hover{
+  background-color: rgb(35, 121, 183) !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+}
+
+.p-button.cancel{
+  background-color: #949697  !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  padding: 0.5rem 1rem !important; /* Espaciado interno para un diseño más limpio */
+  border-radius: 0.375rem !important; /* Bordes redondeados */
+  transition: all 0.3s ease !important; /* Suavizar la transición cuando el estado cambia */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+  border: none !important;
+  --p-button-label-font-weight: bold; 
+}
+
+.p-button.cancel:hover{
+  background-color: #848a8f !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+}
+
+.p-dialog .p-dialog-close-button {
+  background-color: #dc3545 !important;
+  color: white !important; /* rojo */
+  border: none !important;
+  font-size: 1.3rem !important;
+  padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.p-dialog .p-dialog-close-button:hover {
+  background-color: rgb(189, 26, 26) !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+}
+
 label{
   color: var(--color-primary); 
   margin-bottom: 2px;
