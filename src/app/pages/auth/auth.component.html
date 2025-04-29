@@ -64,13 +64,6 @@
         <div class="w-full flex justify-center mt-8">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
-
-        <div class="w-full flex justify-center mt-4">
-          <p-button
-            label="Verificar cuenta"
-            (click)="openModalVerifyCode()"
-          ></p-button>
-        </div>
         <p-progressSpinner
           *ngIf="isLoading"
           strokeWidth="3"
@@ -187,6 +180,15 @@
         <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
           <p-button label="Registrarse" (click)="onRegisterSubmit()"></p-button>
         </div>
+
+        <div class="w-full flex justify-center mt-4">
+          <button
+            class="p-button verify italic"
+            (click)="openModalVerifyCode()"
+          >
+            Verificar cuenta
+          </button>
+        </div>
       </form>
     </div>
   </div>
@@ -242,7 +244,9 @@
       ></p-message>
     </div>
     <div class="flex m-auto gap-10 mt-8 mb-4 self-stretch">
-      <p-button label="Reenviar código" (click)="resendVerificationCode()" />
-      <p-button label="Enviar código" (click)="verifyCode()" />
+      <button class="p-button verify" (click)="resendVerificationCode()">
+        Reenviar código
+      </button>
+      <p-button label="Verificar código" (click)="verifyCode()" />
     </div></div
 ></p-dialog>

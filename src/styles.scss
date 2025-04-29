@@ -245,6 +245,39 @@ p-confirm-dialog .p-dialog-footer .p-button {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
 }
 
+.p-button.cancel{
+  background-color: #949697  !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  padding: 0.5rem 1rem !important; /* Espaciado interno para un diseño más limpio */
+  border-radius: 0.375rem !important; /* Bordes redondeados */
+  transition: all 0.3s ease !important; /* Suavizar la transición cuando el estado cambia */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+  border: none !important;
+  --p-button-label-font-weight: bold; 
+}
+
+.p-button.cancel:hover{
+  background-color: #848a8f !important; /* Usar color secundario como fondo */
+  color: white !important; /* Color de texto blanco */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important; 
+
+}
+
+.p-button.verify{
+  background-color: transparent  !important; /* Usar color secundario como fondo */
+  color: var(--color-primary) !important; /* Color de texto blanco */
+  font-weight: 600;
+  padding: 0.5rem 1rem !important; /* Espaciado interno para un diseño más limpio */
+  transition: all 0.3s ease !important; /* Suavizar la transición cuando el estado cambia */
+  border: none !important;
+  box-shadow: none !important;       /* <- Elimina la sombra */
+  border-radius: 0 !important;   
+}
+
+.p-button.verify:hover{
+  color: var(--color-secondary) !important; /* Color de texto blanco */
+}
+
 .p-dialog .p-dialog-close-button {
   background-color: #dc3545 !important;
   color: white !important; /* rojo */

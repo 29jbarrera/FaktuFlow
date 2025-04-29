@@ -269,9 +269,13 @@
               facturaSeleccionada.archivo.name || facturaSeleccionada.archivo
             }}
           </span>
-          <p-button class="mr-3" variant="text" (click)="removeUploadedFile()">
-            <i class="pi pi-times"></i>
-          </p-button>
+          <button
+            class="mr-3 p-button danger"
+            variant="text"
+            (click)="removeUploadedFile()"
+          >
+            <i class="pi pi-trash"></i>
+          </button>
         </div>
       </div>
 

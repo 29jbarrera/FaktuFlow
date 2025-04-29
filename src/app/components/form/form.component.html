@@ -105,13 +105,13 @@
 
           <div class="flex" *ngIf="uploadedFileName">
             <span class="mr-5">{{ uploadedFileName }}</span>
-            <p-button
-              class="mr-3"
+            <button
+              class="mr-3 p-button danger"
               variant="text"
               (click)="removeUploadedFile()"
             >
-              <i class="pi pi-times"></i>
-            </p-button>
+              <i class="pi pi-trash"></i>
+            </button>
           </div>
         </div>
 
