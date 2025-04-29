@@ -1,5 +1,9 @@
 .logo {
-  filter: drop-shadow(0 0 5px rgba(76, 225, 185, 0.9));
+  border-radius: 1rem;
+  filter: drop-shadow(gainsboro);
+  background-color:rgb(233, 236, 239, 0.08);
+  width: 200px;
+  filter: drop-shadow(0 0 7px rgba(217, 217, 217, 0.9));
 }
 
 .button-logout{
