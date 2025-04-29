@@ -1,5 +1,5 @@
 {
-  "name": "autoflow-frontend",
+  "name": "faktuflow",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

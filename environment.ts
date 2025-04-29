@@ -5,5 +5,5 @@ export const environment = {
 
 export const gitHub = {
   production: false, // En producción, este valor será true
-  GITHUB_API_URL: 'https://api.github.com/repos/29jbarrera/autoflow-frontend', // URL de la API en producción
+  GITHUB_API_URL: 'https://api.github.com/repos/29jbarrera/FaktuFlow', // URL de la API en producción
 };
