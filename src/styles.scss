@@ -343,6 +343,24 @@ nav{
 
 // Dashboard 
 
+/* Eliminar fondo de los paneles de contenido de los tabs */
+.p-tabs-panel {
+  background-color: transparent !important; /* Elimina el fondo */
+  padding: 0 !important; /* Si también quieres eliminar el padding extra */
+  border: none !important; /* Si hay un borde por defecto, lo eliminamos */
+}
+
+
+/* Tab activo */
+.p-tab.p-tab-active {
+  color: var(--color-primary) !important;
+  font-weight: bold; /* Opcional: remarcar visualmente */
+}
+
+.p-tablist-active-bar {
+  background-color: var(--color-secondary) !important; /* Cambia el color del borde activo */
+}
+
 /* En tu archivo styles.css, styles.scss o tailwind.css */
 .content-dashboard {
   @apply mx-4 sm:mx-10 md:mx-28 mt-20 space-y-10;

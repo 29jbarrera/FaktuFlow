@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
 import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,7 @@ import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
     CommonModule,
     ChartModule,
     ImporteEurPipe,
+    TabsModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
