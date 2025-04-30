@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,7 +7,7 @@ import { PasswordModule } from 'primeng/password';
 import { TableModule } from 'primeng/table';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgForm, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
@@ -40,6 +40,8 @@ import { InputOtpModule } from 'primeng/inputotp';
   providers: [MessageService],
 })
 export class AuthComponent {
+  @ViewChild('registerForm') registerForm!: NgForm;
+  @ViewChild('resendForm') resendForm!: NgForm;
   nombre: string = '';
   apellidos: string = '';
   email: string = '';
@@ -139,7 +141,7 @@ export class AuthComponent {
     }
   }
 
-  async onRegisterSubmit(): Promise<void> {
+  async onRegisterSubmit(form: NgForm): Promise<void> {
     if (
       !this.nombre ||
       !this.apellidos ||
@@ -197,13 +199,11 @@ export class AuthComponent {
         },
       ];
 
-      this.nombre = '';
-      this.apellidos = '';
-      this.emailRegister = '';
-      this.passwordRegister = '';
-      this.passwordRegisterConfirm = '';
+      form.resetForm();
 
-      this.openDialog = true;
+      setTimeout(() => {
+        this.openDialog = true;
+      }, 3000);
     } catch (error: any) {
       console.error('Error en registro:', error);
 
@@ -229,17 +229,22 @@ export class AuthComponent {
     this.openDialog = true;
   }
 
-  verifyCode() {
+  verifyCode(form: NgForm) {
     this.authService.verifyCode(this.emailVerify, this.CodeToVerify).subscribe({
       next: (res) => {
         this.messagesVerify = [
           {
             severity: 'success',
-            text: res.message || 'Cuenta verificada exitosamente',
+            text: res.message || 'Cuenta verificada con éxito.',
           },
         ];
-        this.emailVerify = '';
+
         this.CodeToVerify = '';
+        form.resetForm();
+
+        setTimeout(() => {
+          this.openDialog = false;
+        }, 2500);
       },
       error: (err) => {
         this.messagesVerify = [

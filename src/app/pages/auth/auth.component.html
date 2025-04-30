@@ -78,7 +78,7 @@
 
     <div class="flex-1 p-6 flex flex-col items-center">
       <h2 class="mb-4 h2-form">Registro</h2>
-      <form class="max-w-[332px]">
+      <form #registerForm="ngForm" class="max-w-[332px]">
         <div class="mb-5">
           <label for="nombre">Nombre</label>
           <p-inputGroup>
@@ -178,7 +178,10 @@
         </div>
 
         <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
-          <p-button label="Registrarse" (click)="onRegisterSubmit()"></p-button>
+          <p-button
+            label="Registrarse"
+            (click)="onRegisterSubmit(registerForm)"
+          ></p-button>
         </div>
 
         <div class="w-full flex justify-center mt-4">
@@ -207,20 +210,22 @@
       Por favor introduce tu email y el código recibido en tu email.
     </p>
 
-    <div class="mb-4 w-80">
-      <p-inputGroup>
-        <p-inputGroupAddon>
-          <i class="pi pi-envelope"></i>
-        </p-inputGroupAddon>
-        <input
-          pInputText
-          placeholder="Introduce tu email..."
-          [(ngModel)]="emailVerify"
-          name="email"
-          required
-        />
-      </p-inputGroup>
-    </div>
+    <form #resendForm="ngForm">
+      <div class="mb-4 w-80">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            placeholder="Introduce tu email..."
+            [(ngModel)]="emailVerify"
+            name="email"
+            required
+          />
+        </p-inputGroup>
+      </div>
+    </form>
 
     <p-inputotp [(ngModel)]="CodeToVerify" [length]="6">
       <ng-template #input let-token let-events="events" let-index="index">
@@ -247,6 +252,6 @@
       <button class="p-button verify" (click)="resendVerificationCode()">
         Reenviar código
       </button>
-      <p-button label="Verificar código" (click)="verifyCode()" />
+      <p-button label="Verificar código" (click)="verifyCode(resendForm)" />
     </div></div
 ></p-dialog>
