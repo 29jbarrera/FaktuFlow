@@ -12,10 +12,15 @@ import { InfoComponent } from './components/info/info.component';
 import { AvisoLegalComponent } from './pages/aviso-legal/aviso-legal.component';
 import { PoliticaCookiesComponent } from './pages/politica-cookies/politica-cookies.component';
 import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politica-privacidad.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 
 export const routes: Routes = [
   {
     path: '',
+    component: LandingPageComponent,
+  },
+  {
+    path: 'login',
     component: AuthComponent,
   },
   {
