@@ -6,6 +6,7 @@ import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
 import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
 import { TabsModule } from 'primeng/tabs';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,8 @@ import { TabsModule } from 'primeng/tabs';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
+  totalUsuarios: number = 0;
+  success: boolean = false;
   year = new Date().getFullYear();
   loading = false;
   resumenFacturas: any;
@@ -62,6 +65,22 @@ export class DashboardComponent implements OnInit {
     this.cargarResumenGastos();
     this.cargarResumenIngresos();
     this.getTotalClientes();
+    this.cargarTotalUsuarios();
+  }
+
+  cargarTotalUsuarios(): void {
+    this.DashboardService.getTotalUsuarios().subscribe(
+      (response) => {
+        this.totalUsuarios = response.totalUsuarios;
+        this.success = true; // Si la respuesta es exitosa, marcamos como exitoso
+        this.loading = false; // La carga ha terminado
+      },
+      (error) => {
+        console.error('Error al obtener el total de usuarios:', error);
+        this.loading = false; // La carga ha terminado, pero hubo un error
+        this.success = false; // No fue exitosa
+      }
+    );
   }
 
   cargarResumenFacturas() {

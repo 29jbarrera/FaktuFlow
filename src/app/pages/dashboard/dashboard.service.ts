@@ -46,4 +46,13 @@ export class DashboardService {
       }
     );
   }
+
+  getTotalUsuarios() {
+    return this.http.get<{ totalUsuarios: number }>(
+      `${this.baseUrl}admin/total-usuarios`,
+      {
+        headers: this.authHeaders,
+      }
+    );
+  }
 }
