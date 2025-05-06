@@ -1,124 +1,157 @@
 <!-- Hero Section -->
 <section
-  class="flex flex-col items-center text-center px-6 py-24 bg-white relative overflow-hidden"
+  class="flex flex-col items-center text-center px-6 pt-28 pb-16 bg-white relative overflow-hidden"
 >
   <!-- FREE Badge -->
-  <div class="absolute top-8 left-1/2 transform -translate-x-1/2">
+  <div class="absolute top-8">
     <span
-      class="inline-flex items-center px-4 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full shadow-sm"
+      class="inline-flex items-center px-4 py-1 bg-green-100 font-color text-sm font-semibold rounded-full shadow-sm"
     >
       <i class="pi pi-check-circle mr-2"></i> Completamente Gratis · 100%
       Responsive
     </span>
   </div>
-  <img
-    src="/assets/ico/FaktuFlow.webp"
-    alt="Dashboard Faktuflow"
-    class="w-80"
-  />
-  <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
-    FaktuFlow
-  </h1>
-  <p class="text-2xl md:text-2xl text-gray-600 mb-8 max-w-3xl">
+
+  <div class="-mb-20 -mt-36">
+    <img
+      src="/assets/ico/FaktuFlow.webp"
+      alt="FaktuFlow Logo"
+      class="w-80 md:w-96"
+    />
+  </div>
+
+  <p class="text-2xl text-gray-600 mb-8 max-w-3xl">
     La forma más moderna de gestionar tus finanzas, facturas y clientes desde
     cualquier dispositivo.
   </p>
+
   <button
     pButton
     type="button"
     label="Empezar ahora"
-    class="p-button-lg p-button-rounded p-button-primary mb-12"
+    class="p-button-lg p-button-primary mb-12 transition-transform hover:scale-110 shadow-md"
     (click)="goToLogin()"
   ></button>
 
-  <img
-    src="/assets/ico/FaktuFlow.webp"
-    alt="Dashboard Faktuflow"
-    class="w-full max-w-2xl rounded-2xl shadow-xl"
-  />
+  <div
+    class="flex flex-col md:flex-row gap-8 px-4 md:px-0 animate-fade-in-up delay-500"
+  >
+    <img
+      src="/assets/landing/resumen.webp"
+      alt="Resumen"
+      class="rounded-2xl shadow-xl max-w-xl"
+    />
+    <img
+      src="/assets/landing/facturas.webp"
+      alt="Facturas"
+      class="rounded-2xl shadow-xl max-w-xl"
+    />
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="flex flex-col items-center mt-10">
+    <!-- Mouse Icon -->
+    <div
+      class="w-6 h-10 border-2 custom-mouse rounded-full flex items-start justify-center p-1"
+    >
+      <div
+        class="w-1 h-2 custom-mouse-scroll rounded-full animate-scroll-dot"
+      ></div>
+    </div>
+
+    <!-- Down Arrow -->
+    <i
+      class="pi pi-arrow-down custom-mouse mt-2 animate-bounce-slow text-xl"
+    ></i>
+  </div>
 </section>
 
 <!-- Features Section -->
-<section class="bg-gray-50 py-28 px-6">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-20">
+<section class="py-24 px-12">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-4xl font-extrabold text-center mb-20 font-color">
       ¿Por qué usar Faktuflow?
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
       <div
         *ngFor="let feature of features"
-        class="flex flex-col items-center text-center bg-white rounded-3xl shadow-2xl p-12 hover:shadow-3xl transition"
-      >
-        <div class="text-blue-600 mb-6 icon-custom">
-          <i [class]="feature.icon" class="icon-custom"></i>
-        </div>
-        <h3 class="text-2xl font-semibold mb-3">{{ feature.title }}</h3>
-        <p class="text-gray-600 text-lg leading-relaxed">
-          {{ feature.description }}
-        </p>
-      </div>
-
-      <div
-        *ngFor="let feature of features"
-        class="bg-gradient-to-br from-green-50 via-white to-green-100 border border-green-200 rounded-2xl shadow-lg p-6 transition-all duration-300 transform hover:scale-95 hover:shadow-xl"
+        class="bg-gradient-to-br from-green-50 via-white to-green-100 border border-green-200 rounded-xl shadow-md p-5 hover:shadow-xl transition-all duration-300 ease-in-out"
       >
         <div class="flex flex-col items-center text-center">
           <i
             [class]="feature.icon"
-            class="pi pi-wallet text-green-500 mb-4 drop-shadow-sm"
+            class="text-green-500 mb-4"
             style="font-size: 2rem"
           ></i>
-          <p class="text-xl font-semibold text-gray-700">
-            {{ feature.title }}
-          </p>
-          <p class="text-green-600 mt-2">
-            {{ feature.description }}
-          </p>
+          <p class="text-lg font-semibold font-color">{{ feature.title }}</p>
+          <p class="text-green-600 mt-2 text-sm">{{ feature.description }}</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA Final -->
-<section class="bg-white py-24 text-center px-6">
-  <h2 class="text-4xl font-bold text-gray-800 mb-4">Empieza hoy mismo</h2>
-  <p class="text-xl text-gray-600 mb-8">
-    Crea tu cuenta gratis y lleva el control financiero de tu negocio como nunca
-    antes.
-  </p>
-  <button
-    pButton
-    type="button"
-    label="Crear cuenta gratis"
-    class="p-button-lg p-button-success p-button-rounded"
-    (click)="goToLogin()"
-  ></button>
+<!-- CTA Section -->
+<section class="bg-white py-20 text-center px-6">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="text-4xl font-bold font-color mb-4">Empieza hoy mismo</h2>
+    <p class="text-xl text-gray-600 mb-4">
+      ¿A qué esperas? Da el primer paso hacia el control total de tus finanzas.
+    </p>
+    <p class="text-lg text-gray-500 mb-8">
+      Crea tu cuenta gratis y lleva el control financiero de tu negocio como
+      nunca antes.
+    </p>
+    <button
+      pButton
+      type="button"
+      label="Crear cuenta"
+      class="p-button-lg transition-transform hover:scale-115 shadow-md animate-bounce"
+      (click)="goToLogin()"
+    ></button>
+  </div>
 </section>
 
-<!-- Author Credit -->
-<section class="bg-gray-100 py-16 px-6">
-  <div
-    class="max-w-md mx-auto text-center bg-white rounded-3xl shadow-lg p-10 flex flex-col items-center"
-  >
+<!-- FAQ Section -->
+<section class="py-24 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-4xl font-bold text-center font-color mb-12">
+      Preguntas Frecuentes
+    </h2>
+
+    <p-accordion [multiple]="true">
+      <p-accordionTab
+        *ngFor="let item of faq"
+        [header]="item.question"
+        class="text-xl font-medium font-color border border-gray-200 rounded-xl overflow-hidden mb-4 shadow hover:shadow-md transition-all"
+      >
+        <p class="text-gray-600 text-base p-5">{{ item.answer }}</p>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</section>
+
+<!-- Autor Section -->
+<section class="bg-gray-50 py-10 text-center px-6 -mb-12">
+  <div class="text-sm text-gray-600 flex flex-col items-center space-y-2">
     <img
       src="https://avatars.githubusercontent.com/29jbarrera"
       alt="Autor"
-      class="w-24 h-24 rounded-full shadow mb-4"
+      class="w-20 h-20 rounded-full shadow-sm"
     />
-    <h3 class="text-xl font-semibold mb-1">Desarrollado por Javier Barrera</h3>
+    <p>
+      Desarrollado por
+      <span class="font-medium text-gray-800">{{ author.name }}</span>
+    </p>
     <a
       href="https://github.com/29jbarrera"
       target="_blank"
-      class="text-blue-600 text-base flex items-center gap-1"
+      class="text-blue-500 hover:brightness-125 flex items-center gap-1 transition-all duration-300 ease-in-out"
     >
-      <i class="pi pi-github"></i> 29jbarrera
+      <i class="pi pi-github text-base"></i> {{ author.github }}
     </a>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-white text-center text-sm text-gray-500 py-6 border-t">
-  &copy; 2025 Faktuflow. Todos los derechos reservados.
-</footer>
+<app-footer></app-footer>

@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { Accordion, AccordionModule } from 'primeng/accordion';
+import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule, ButtonModule, FooterComponent, AccordionModule],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })
@@ -17,8 +19,8 @@ export class LandingPageComponent {
   }
 
   author = {
-    name: 'Juan Pérez',
-    github: 'YOUR_GITHUB_USERNAME',
+    name: 'Javier Barrera',
+    github: '29jbarrera',
   };
 
   features = [
@@ -41,6 +43,39 @@ export class LandingPageComponent {
       icon: 'pi pi-cloud',
       title: 'Acceso en la nube',
       description: 'Trabaja desde cualquier dispositivo sin instalaciones.',
+    },
+    {
+      icon: 'pi pi-star',
+      title: 'Gratuito',
+      description: 'Totalmente gratuito. Ideal para pequeños negocios.',
+    },
+    {
+      icon: 'pi pi-desktop',
+      title: '100% Responsive',
+      description: 'Diseño adaptable a móviles, tablets y escritorios.',
+    },
+  ];
+
+  faq = [
+    {
+      question: '¿FaktuFlow es realmente gratuito?',
+      answer:
+        'Sí. FaktuFlow es 100% gratuito, sin cargos ocultos. Perfecto para autónomos y pequeños negocios.',
+    },
+    {
+      question: '¿Necesito instalar algo?',
+      answer:
+        'No. FaktuFlow funciona completamente en la nube. Solo necesitas una conexión a internet y tu navegador.',
+    },
+    {
+      question: '¿Puedo acceder desde el móvil?',
+      answer:
+        'Sí. Nuestra plataforma es completamente responsive y se adapta a móviles, tablets y computadoras.',
+    },
+    {
+      question: '¿Mis datos están seguros?',
+      answer:
+        'Claro. Usamos cifrado y buenas prácticas para proteger tu información financiera y personal.',
     },
   ];
 }

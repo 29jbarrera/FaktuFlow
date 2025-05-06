@@ -1,3 +1,57 @@
 .icon-custom{
     width: 40px;
 }
+
+.font-color{
+    color: var(--color-primary);
+}
+
+.custom-mouse{
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.custom-mouse-scroll{
+  background-color: var(--color-secondary);
+}
+
+  /* Animaciones básicas */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+
+//Animation mouse
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 1.5s infinite;
+}
+
