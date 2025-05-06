@@ -52,7 +52,7 @@
           <div>
             <button
               class="w-full text-left font-medium px-4 py-2 rounded-md mt-2 button-logout"
-              (click)="logout()"
+              (click)="logoutConfirm()"
             >
               <i class="fas fa-sign-out-alt mr-1"></i>
               Cerrar sesión
@@ -116,3 +116,5 @@
   <router-outlet></router-outlet>
   <app-footer></app-footer>
 </main>
+
+<p-confirmDialog></p-confirmDialog>
