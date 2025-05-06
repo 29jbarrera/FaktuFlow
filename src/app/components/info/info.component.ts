@@ -19,7 +19,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { AuthService } from '../../pages/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-info',
   standalone: true,
@@ -36,10 +37,11 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     RouterModule,
     ToastModule,
+    ConfirmDialogModule,
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss',
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
 })
 export class InfoComponent implements OnInit {
   @ViewChild('passwordForm') passwordForm!: NgForm;
@@ -69,7 +71,8 @@ export class InfoComponent implements OnInit {
     private infoService: InfoService,
     private authService: AuthService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
@@ -226,6 +229,62 @@ export class InfoComponent implements OnInit {
           ];
         },
       });
+  }
+
+  deleteAccountConfirm(): void {
+    this.confirmationService.confirm({
+      message: `¿Estás seguro de que deseas eliminar esta cuenta? Esta acción es irreversible y eliminará todos los datos asociados de manera permanente.`,
+      header: 'Confirmación de eliminación de cuenta',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Sí, eliminar cuenta',
+      acceptButtonStyleClass: 'p-button danger',
+      rejectLabel: 'No',
+      rejectButtonStyleClass: 'p-button cancel',
+      accept: () => {
+        this.deleteAccount();
+      },
+      reject: () => {},
+    });
+  }
+
+  deleteAccount(): void {
+    const usuario_id = this.authService.getUserId();
+    if (usuario_id !== null) {
+      this.infoService.deleteUser(usuario_id).subscribe(
+        (response) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Cuenta Eliminada',
+            detail: 'La cuenta ha sido eliminada exitosamente.',
+            life: 3000,
+          });
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 2500);
+        },
+        (error) => {}
+      );
+    } else {
+      console.error(
+        'Error: usuario_id es null y no se puede eliminar la cuenta.'
+      );
+    }
+  }
+
+  logoutConfirm(): void {
+    this.confirmationService.confirm({
+      message: `¿Estás seguro de que deseas cerrar la sesión?`,
+      header: 'Cerrar sesión',
+      icon: 'pi pi-info-circle',
+      acceptLabel: 'Sí',
+      acceptButtonStyleClass: 'p-button danger',
+      rejectLabel: 'No',
+      rejectButtonStyleClass: 'p-button cancel',
+      accept: () => {
+        this.logout();
+      },
+      reject: () => {},
+    });
   }
 
   logout(): void {

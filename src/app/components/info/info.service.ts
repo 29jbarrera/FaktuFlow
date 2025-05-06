@@ -58,4 +58,11 @@ export class InfoService {
       }
     );
   }
+
+  deleteUser(usuario_id: number) {
+    return this.http.delete(`${environment.apiUrl}auth/delete-user`, {
+      headers: this.authHeaders,
+      body: { usuario_id },
+    });
+  }
 }

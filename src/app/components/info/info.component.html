@@ -115,11 +115,22 @@
         <div class="text-center font-bold py-2">
           <button
             pButton
-            class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-xl transition shadow"
+            class="py-2 px-6 rounded-xl transition shadow"
             (click)="updateUserData()"
           >
             <i class="fas fa-save mr-1"></i>Guardar Cambios
           </button>
+        </div>
+        <div class="border-t pt-6 space-y-4">
+          <div class="text-center font-bold py-2">
+            <button
+              pButton
+              class="py-2 px-6 pbutton danger rounded-xl transition shadow"
+              (click)="deleteAccountConfirm()"
+            >
+              <i class="fas fa-trash mr-1"></i>Eliminar cuenta
+            </button>
+          </div>
         </div>
       </div>
     </p-dialog>
@@ -141,7 +152,7 @@
                   [(ngModel)]="currentPassword"
                   [toggleMask]="true"
                   [feedback]="false"
-                  class="w-72"
+                  class="w-full p-fluid"
                   placeholder="Contraseña actual"
                   name="password"
                   required
@@ -217,15 +228,11 @@
 
     <!-- Cerrar sesión -->
     <div class="text-center pt-6 border-t font-bold">
-      <button
-        pButton
-        type="button"
-        class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full transition"
-        (click)="logout()"
-      >
+      <button pButton class="px-6 py-2 transition" (click)="logoutConfirm()">
         <i class="fas fa-sign-out-alt mr-1"></i> Cerrar sesión
       </button>
     </div>
   </div>
 </div>
 <p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
