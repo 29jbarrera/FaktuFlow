@@ -98,14 +98,14 @@ export class FormComponent implements OnInit {
   onFileSelect(event: any): void {
     const file = event.files[0];
     if (file) {
-      this.formModel.file = file;
+      this.formModel.archivo = file;
       this.uploadedFileName = file.name;
     }
     this.cdr.detectChanges();
   }
 
   removeUploadedFile(): void {
-    this.formModel.file = null;
+    this.formModel.archivo = null;
     this.uploadedFileName = null;
 
     // Limpia el componente p-fileUpload (si el método clear está disponible)
