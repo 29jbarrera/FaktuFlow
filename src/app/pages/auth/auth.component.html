@@ -51,7 +51,11 @@
           </div>
         </div>
 
-        <div *ngFor="let message of messagesLogin">
+        <div class="flex justify-center">
+          <div class="g-recaptcha" [attr.data-sitekey]="recaptchaSiteKey"></div>
+        </div>
+
+        <div class="mt-4" *ngFor="let message of messagesLogin">
           <p-message
             icon="pi pi-times-circle"
             [severity]="message.severity"
@@ -60,8 +64,6 @@
             styleClass="custom-messages"
           ></p-message>
         </div>
-
-        <div class="g-recaptcha" data-sitekey="TU_SITE_KEY"></div>
 
         <div class="w-full flex justify-center mt-8">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>

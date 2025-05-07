@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
@@ -16,6 +16,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { User } from '../../interfaces/user';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
+import { environment } from '../../../environments/environment';
+
+declare var grecaptcha: any;
 
 @Component({
   selector: 'app-auth',
@@ -39,7 +42,7 @@ import { InputOtpModule } from 'primeng/inputotp';
   styleUrl: './auth.component.scss',
   providers: [MessageService],
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   @ViewChild('registerForm') registerForm!: NgForm;
   @ViewChild('resendForm') resendForm!: NgForm;
   nombre: string = '';
@@ -58,6 +61,8 @@ export class AuthComponent {
   emailVerify: string = '';
   CodeToVerify: string = '';
 
+  recaptchaSiteKey = environment.siteKey;
+
   // Función para validar el formato del correo
   isEmailValid(email: string): boolean {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -66,7 +71,35 @@ export class AuthComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+    this.loadRecaptchaScript();
+  }
+
+  private loadRecaptchaScript() {
+    if (!document.getElementById('recaptcha-script')) {
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js';
+      script.async = true;
+      script.defer = true;
+      script.id = 'recaptcha-script'; // Asegúrate de que el script tenga un ID único.
+      document.head.appendChild(script);
+    }
+  }
+
   async onLogin(): Promise<void> {
+    const recaptchaResponse = grecaptcha.getResponse();
+
+    if (!recaptchaResponse) {
+      this.messagesLogin = [
+        {
+          severity: 'error',
+          summary: 'Error',
+          text: 'Por favor, verifica que no eres un robot.',
+        },
+      ];
+      return;
+    }
+
     if (!this.email || !this.password) {
       this.messagesLogin = [
         {
@@ -91,7 +124,7 @@ export class AuthComponent {
 
     try {
       const response: any = await this.authService
-        .login(this.email, this.password)
+        .login(this.email, this.password, recaptchaResponse)
         .toPromise();
 
       this.authService.storeUserData(response);
@@ -137,6 +170,7 @@ export class AuthComponent {
           },
         ];
       }
+      grecaptcha.reset();
       this.isLoading = false;
     }
   }

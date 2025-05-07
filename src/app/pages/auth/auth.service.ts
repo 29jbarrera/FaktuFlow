@@ -23,10 +23,15 @@ export class AuthService {
     return headers;
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
+  login(
+    email: string,
+    password: string,
+    recaptchaResponse: string
+  ): Observable<LoginResponse> {
     const body = {
       email: email,
       password: password,
+      recaptchaResponse: recaptchaResponse,
     };
 
     return this.http.post<LoginResponse>(`${this.apiUrl}auth/login`, body);

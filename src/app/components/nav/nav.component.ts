@@ -65,6 +65,7 @@ export class NavComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 
   toggleMenu(): void {
