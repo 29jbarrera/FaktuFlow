@@ -4,10 +4,9 @@ import {
   ElementRef,
   OnDestroy,
   ViewChild,
-  ChangeDetectorRef,
   Input,
 } from '@angular/core';
-import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {

@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
           prefix: 'p',
           darkModeSelector: 'light',
           cssLayer: false,
-        }, // Configurar el tema de PrimeNG
+        },
       },
     }),
     provideHttpClient(),

@@ -1,4 +1,3 @@
-/* Estilo global del formulario */
 .section-form{
   border: dashed 2px var(--color-primary-low);
 }
@@ -11,14 +10,12 @@ form {
   margin: 0 auto; 
 }
 
-/* Estilo en pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
   form {
-    grid-template-columns: 1fr; /* En pantallas pequeñas, una columna */
+    grid-template-columns: 1fr; 
   }
 }
 
-/* Estilos de las etiquetas */
 label {
   font-weight: bold;
   margin-bottom: 8px;

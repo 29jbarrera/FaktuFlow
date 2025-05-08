@@ -5,7 +5,6 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../pages/auth/auth.service';
-import { NavService } from './nav.service';
 import { FooterComponent } from '../footer/footer.component';
 import { AvatarModule } from 'primeng/avatar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -36,7 +35,6 @@ export class NavComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private navService: NavService,
     private confirmationService: ConfirmationService
   ) {}
 

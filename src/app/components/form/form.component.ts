@@ -80,13 +80,13 @@ export class FormComponent implements OnInit {
     this.uploadedFileName = null;
 
     if (this.fileInput) {
-      (this.fileInput as any)?.clear?.(); // Método propio de p-fileUpload
+      (this.fileInput as any)?.clear?.();
     }
   }
 
   onSubmit(event: Event) {
-    event.preventDefault(); // Evita la recarga de la página
-    this.formSubmit.emit(this.formModel); // Emite el evento cuando se envía el formulario
+    event.preventDefault();
+    this.formSubmit.emit(this.formModel);
   }
 
   isTextInput(field: any): boolean {
@@ -108,7 +108,6 @@ export class FormComponent implements OnInit {
     this.formModel.archivo = null;
     this.uploadedFileName = null;
 
-    // Limpia el componente p-fileUpload (si el método clear está disponible)
     const fileUploadComponent = this.fileInput?.nativeElement as any;
     if (fileUploadComponent?.clear) {
       fileUploadComponent.clear();

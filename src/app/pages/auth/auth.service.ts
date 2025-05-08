@@ -39,11 +39,10 @@ export class AuthService {
 
   // Almacenar los datos del usuario en el sessionStorage
   storeUserData(response: LoginResponse): void {
-    // Almacenar los datos en sessionStorage
-    sessionStorage.setItem('authToken', response.token); // Almacenar el token JWT
-    sessionStorage.setItem('usuario_id', response.usuario_id.toString()); // Almacenar el usuario_id
-    sessionStorage.setItem('userEmail', response.email); // Almacenar el email (si lo necesitas)
-    sessionStorage.setItem('rol', response.rol); // Almacenar el rol (si lo necesitas)
+    sessionStorage.setItem('authToken', response.token);
+    sessionStorage.setItem('usuario_id', response.usuario_id.toString());
+    sessionStorage.setItem('userEmail', response.email);
+    sessionStorage.setItem('rol', response.rol);
     sessionStorage.setItem('nombre', response.nombre);
     sessionStorage.setItem('apellidos', response.apellidos);
   }

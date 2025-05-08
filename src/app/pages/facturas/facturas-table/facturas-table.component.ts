@@ -152,8 +152,8 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
   onSearchChange() {
     clearTimeout(this.searchTimeout);
     this.searchTimeout = setTimeout(() => {
-      this.cargarFacturas(); // usa el searchTerm actual
-    }, 400); // debounce para evitar llamadas excesivas
+      this.cargarFacturas();
+    }, 400);
   }
 
   deleteFactura(id: number, numeroFactura: string): void {

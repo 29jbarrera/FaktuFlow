@@ -4,7 +4,6 @@
   <form (ngSubmit)="onSubmit($event)" class="sm:w-full" #form="ngForm">
     <div *ngFor="let field of formFields">
       <div class="input-group">
-        <!-- Label -->
         <label
           *ngIf="field.type !== 'submit'"
           for="{{ field.name }}"

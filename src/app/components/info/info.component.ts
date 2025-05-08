@@ -265,9 +265,6 @@ export class InfoComponent implements OnInit {
         (error) => {}
       );
     } else {
-      console.error(
-        'Error: usuario_id es null y no se puede eliminar la cuenta.'
-      );
     }
   }
 

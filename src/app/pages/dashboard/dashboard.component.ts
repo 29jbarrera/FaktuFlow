@@ -6,7 +6,6 @@ import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
 import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
 import { TabsModule } from 'primeng/tabs';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-dashboard',
@@ -72,13 +71,12 @@ export class DashboardComponent implements OnInit {
     this.DashboardService.getTotalUsuarios().subscribe(
       (response) => {
         this.totalUsuarios = response.totalUsuarios;
-        this.success = true; // Si la respuesta es exitosa, marcamos como exitoso
-        this.loading = false; // La carga ha terminado
+        this.success = true;
+        this.loading = false;
       },
       (error) => {
-        console.error('Error al obtener el total de usuarios:', error);
-        this.loading = false; // La carga ha terminado, pero hubo un error
-        this.success = false; // No fue exitosa
+        this.loading = false;
+        this.success = false;
       }
     );
   }
@@ -93,7 +91,6 @@ export class DashboardComponent implements OnInit {
         this.actualizarBalanceGlobal();
       },
       error: (err) => {
-        console.error('❌ Error al cargar resumen de facturas:', err);
         this.loading = false;
       },
     });
@@ -109,7 +106,6 @@ export class DashboardComponent implements OnInit {
         this.actualizarBalanceGlobal();
       },
       error: (err) => {
-        console.error('❌ Error al cargar resumen de gastos:', err);
         this.loading = false;
       },
     });
@@ -125,7 +121,6 @@ export class DashboardComponent implements OnInit {
         this.actualizarBalanceGlobal();
       },
       error: (err) => {
-        console.error('❌ Error al cargar resumen de gastos:', err);
         this.loading = false;
       },
     });
@@ -160,9 +155,7 @@ export class DashboardComponent implements OnInit {
       next: (res) => {
         this.totalClientes = res.totalClientes;
       },
-      error: (err) => {
-        console.error('❌ Error al cargar total de clientes:', err);
-      },
+      error: (err) => {},
     });
   }
 
@@ -180,7 +173,7 @@ export class DashboardComponent implements OnInit {
           label: 'Ingresos',
           data: dataIngresos,
           borderWidth: 2,
-          borderColor: '#22c55e', // verde
+          borderColor: '#22c55e',
           tension: 0.4,
           fill: false,
         },
@@ -190,7 +183,7 @@ export class DashboardComponent implements OnInit {
           data: dataFacturas,
           borderWidth: 2,
           backgroundColor: 'rgba(239, 68, 68, 0.3)',
-          borderColor: '#ef4444', // rojo
+          borderColor: '#ef4444',
           tension: 0.4,
           fill: false,
         },
@@ -200,7 +193,7 @@ export class DashboardComponent implements OnInit {
           data: dataGastos,
           borderWidth: 2,
           backgroundColor: 'rgba(59, 130, 246, 0.3)',
-          borderColor: '#3b82f6', // azul
+          borderColor: '#3b82f6',
           tension: 0.4,
           fill: false,
         },
@@ -213,7 +206,7 @@ export class DashboardComponent implements OnInit {
       plugins: {
         legend: {
           labels: {
-            color: '#374151', // texto del gráfico
+            color: '#374151',
           },
         },
       },

@@ -21,7 +21,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (token && isTokenValid(token)) {
     return true;
   } else {
-    sessionStorage.removeItem('authToken'); // Limpieza opcional
+    sessionStorage.removeItem('authToken');
     router.navigate(['/']);
     return false;
   }

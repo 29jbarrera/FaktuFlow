@@ -90,7 +90,7 @@ export class AuthComponent implements OnInit {
     script.src = 'https://www.google.com/recaptcha/api.js';
     script.async = true;
     script.defer = true;
-    script.id = 'recaptcha-script'; // Asegúrate de que el script tenga un ID único.
+    script.id = 'recaptcha-script';
     document.head.appendChild(script);
   }
 
