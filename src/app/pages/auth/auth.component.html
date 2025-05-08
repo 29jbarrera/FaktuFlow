@@ -1,11 +1,21 @@
 <div class="flex justify-center items-center md:h-screen">
+  <div class="absolute top-8 px-6">
+    <span
+      class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full shadow-sm"
+    >
+      <i class="pi pi-info-circle mr-2"></i>
+      El inicio de sesión puede tardar varios segundos en completarse.
+      Agradecemos tu paciencia.
+    </span>
+  </div>
+
   <div
-    class="flex flex-col md:flex-row w-full max-w-5xl p-6 bg-white shadow-lg rounded-lg"
+    class="flex flex-col md:flex-row w-full max-w-5xl p-6 md:pt-0 pt-20 bg-white shadow-xl rounded-lg"
   >
-    <div class="flex-1 p-6 flex flex-col items-center">
+    <div class="flex-1 p-5 flex flex-col items-center">
       <img
         src="/assets/ico/FaktuFlow.avif"
-        class="md:w-96 w-72 my-10"
+        class="md:w-80 w-72 mb-12 mt-8"
         width="176"
         height="128"
       />
@@ -65,7 +75,7 @@
           ></p-message>
         </div>
 
-        <div class="w-full flex justify-center mt-8">
+        <div class="w-full flex justify-center mt-6">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
         <p-progressSpinner
