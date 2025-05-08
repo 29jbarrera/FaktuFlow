@@ -64,9 +64,10 @@
 
 ## 📄 Licencia
 
-Este proyecto está bajo licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
-
----
+Este proyecto está protegido por derechos de autor bajo una **Licencia Propietaria**.  
+Su uso está limitado a fines personales o de evaluación.  
+**Está prohibida su redistribución, copia o uso comercial sin autorización expresa.**  
+Para más detalles, consulta el archivo [LICENSE](./LICENSE).
 
 ## 📩 Contacto
 
