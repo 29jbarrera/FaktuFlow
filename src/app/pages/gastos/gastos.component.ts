@@ -127,12 +127,27 @@ export class GastosComponent {
         this.gastosTableComponent.cargarGastos();
         this.formularioComponent.resetForm();
       },
-      error: (error) =>
-        this.errorHandler.handleHttpError(
-          error,
-          (msgs) => (this.validationMessages = msgs),
-          this.setValidationMessage.bind(this)
-        ),
+      error: (error) => {
+        if (
+          error?.status === 400 &&
+          error?.error?.message ===
+            'Has alcanzado el límite de 200 gastos por usuario. Si necesitas más capacidad, contacta al administrador.'
+        ) {
+          this.validationMessages = [
+            {
+              severity: 'warn',
+              summary: 'Límite máximo alcanzado',
+              text: 'Has alcanzado el límite de 200 gastos por usuario. Si necesitas más capacidad, contacta al administrador.',
+            },
+          ];
+        } else {
+          this.errorHandler.handleHttpError(
+            error,
+            (msgs) => (this.validationMessages = msgs),
+            this.setValidationMessage.bind(this)
+          );
+        }
+      },
     });
   }
 

@@ -186,12 +186,24 @@ export class FacturasComponent implements OnInit {
               text: 'Ya existe una factura con ese número.',
             },
           ];
+        } else if (
+          error?.status === 400 &&
+          error?.error?.message ===
+            'Has alcanzado el límite de 250 facturas por usuario. Si necesitas más capacidad, contacta al administrador.'
+        ) {
+          this.validationMessages = [
+            {
+              severity: 'warn',
+              summary: 'Límite máximo alcanzado',
+              text: 'Has alcanzado el límite de 250 facturas por usuario. Si necesitas más capacidad, contacta al administrador.',
+            },
+          ];
         } else {
           this.validationMessages = [
             {
               severity: 'error',
               summary: 'Error en el servidor',
-              text: 'Hubo un problema al crear la factura. Intentalo nuevamente.',
+              text: 'Hubo un problema al crear la factura. Inténtalo nuevamente.',
             },
           ];
         }

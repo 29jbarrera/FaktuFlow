@@ -1,8 +1,8 @@
-import { ImportEurPipe } from './import-eur.pipe';
+import { ImporteEurPipe } from './import-eur.pipe';
 
 describe('ImportEurPipe', () => {
   it('create an instance', () => {
-    const pipe = new ImportEurPipe();
+    const pipe = new ImporteEurPipe();
     expect(pipe).toBeTruthy();
   });
 });

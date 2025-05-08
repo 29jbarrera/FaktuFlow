@@ -111,12 +111,28 @@ export class ClientesComponent {
         this.clientesTableComponent.cargarClientes();
         this.formularioComponent.resetForm();
       },
-      error: (error) =>
+      error: (error) => {
+        if (
+          error?.status === 400 &&
+          error?.error?.message ===
+            'Has alcanzado el límite de 80 clientes por usuario. Si necesitas más capacidad, contacta al administrador.'
+        ) {
+          this.validationMessages = [
+            {
+              severity: 'warn',
+              summary: 'Límite máximo alcanzado',
+              text: 'Has alcanzado el límite de 80 clientes por usuario. Si necesitas más capacidad, contacta al administrador.',
+            },
+          ];
+          return;
+        }
+
         this.errorHandler.handleHttpError(
           error,
           (msgs) => (this.validationMessages = msgs),
           this.setValidationMessage.bind(this)
-        ),
+        );
+      },
     });
   }
 
