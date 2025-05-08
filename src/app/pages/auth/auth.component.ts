@@ -17,6 +17,7 @@ import { User } from '../../interfaces/user';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
 import { environment } from '../../../environments/environment';
+import { LandingPageService } from '../landing-page/landing-page.service';
 
 declare var grecaptcha: any;
 
@@ -69,9 +70,14 @@ export class AuthComponent implements OnInit {
     return emailPattern.test(email);
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private landingPageService: LandingPageService
+  ) {}
 
   ngOnInit(): void {
+    this.landingPageService.pingBackend().subscribe();
     this.loadRecaptchaScript();
   }
 

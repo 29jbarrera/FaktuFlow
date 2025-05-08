@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { Accordion, AccordionModule } from 'primeng/accordion';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { LandingPageService } from './landing-page.service';
 
 @Component({
   selector: 'app-landing-page',
