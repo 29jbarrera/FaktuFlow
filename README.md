@@ -1,29 +1,75 @@
-# FaktuFlow
+<div align="center">
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
+# 🧾 FaktuFlow · Gestión Financiera
 
-## Development server
+  <img src="https://github.com/user-attachments/assets/44400ef3-4d41-4fee-b3a8-a5c0d3abfa64" alt="FaktuFlow" width="300"/>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+[![MIT License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![Estado](https://img.shields.io/badge/estado-producción-brightgreen)]()
+[![Deploy](https://img.shields.io/badge/deploy-vercel-black?logo=vercel)](https://faktuflow.vercel.app)
+[![Responsive](https://img.shields.io/badge/100%25-Responsive-blue)]()
 
-## Code scaffolding
+🔗 **URL**: [https://faktuflow.vercel.app](https://faktuflow.vercel.app)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+> La forma más moderna y gratuita de gestionar tus **finanzas**, **facturas** y **clientes** desde cualquier dispositivo.
 
-## Build
+</div>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## ✨ Capturas de pantalla
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+| Resumen                                                                                     | Facturación                                                                                  |
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| ![resumen](https://github.com/user-attachments/assets/545b8919-72d3-4eb5-b40f-ced4300eac33) | ![facturas](https://github.com/user-attachments/assets/9ae5b03d-706e-4251-84c5-de7eefa061e3) |
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🚀 Características principales
 
-## Further help
+- ✅ 100% **gratuito** y de uso ilimitado
+- 📱 Diseño **responsive** (PC, tablet y móvil)
+- 🔐 Inicio de sesión protegido con Google reCAPTCHA
+- 💼 Gestión de clientes y facturas en tiempo real
+- 📊 Dashboard con resumen de ingresos y facturas
+- 📨 Notificaciones y mensajes integrados
+- 🔄 Acceso multi-dispositivo
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
 
-# FaktuFlow
+## 🛠️ Tecnologías utilizadas
+
+- **Angular 19**
+- **PrimeNG**
+- **Tailwind CSS**
+- **TypeScript**
+- **Node.js**
+- **Google reCAPTCHA v2**
+- **Resend**
+- **Render**
+- **Vercel**
+
+---
+
+## 🔐 Seguridad
+
+**FaktuFlow** aplica múltiples capas de seguridad para proteger tanto el acceso como los datos de los usuarios:
+
+- ✅ **Google reCAPTCHA v2**: Previene accesos automatizados por bots y protege el formulario de inicio de sesión.
+- ✅ **Buenas prácticas de seguridad en Angular**: Desarrollo con protección contra XSS, CSRF y validaciones robustas.
+- ✅ **Datos cifrados**: Comunicación por HTTPS y tratamiento seguro de datos sensibles.
+- ✅ **Gestión segura de sesiones**: Manejo de tokens seguros y almacenamiento controlado.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo licencia MIT. Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+
+---
+
+## 📩 Contacto
+
+¿Dudas o sugerencias?  
+✉️ javierbarreralopez97@gmail.com  
+💼 [GitHub @29jbarrera](https://github.com/29jbarrera)
