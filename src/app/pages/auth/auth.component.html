@@ -4,8 +4,8 @@
       class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full shadow-sm"
     >
       <i class="pi pi-info-circle mr-2"></i>
-      El inicio de sesión puede tardar varios segundos en completarse.
-      Agradecemos tu paciencia.
+      El inicio de sesión puede tardar unos segundos en completarse. Agradecemos
+      tu paciencia.
     </span>
   </div>
 
@@ -67,6 +67,7 @@
 
         <div class="mt-4" *ngFor="let message of messagesLogin">
           <p-message
+            [life]="8000"
             icon="pi pi-times-circle"
             [severity]="message.severity"
             [text]="message.text"
@@ -78,6 +79,17 @@
         <div class="w-full flex justify-center mt-6">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
+
+        <div class="text-center mt-6">
+          <a
+            routerLink="/"
+            class="text-sm font-color cursor-pointer"
+            (click)="openDialogForgot = true"
+          >
+            ¿Has olvidado tu contraseña?
+          </a>
+        </div>
+
         <p-progressSpinner
           *ngIf="isLoading"
           strokeWidth="3"
@@ -183,6 +195,7 @@
 
         <div *ngFor="let message of messagesRegister">
           <p-message
+            [life]="8000"
             icon="pi pi-times-circle"
             [severity]="message.severity"
             [text]="message.text"
@@ -210,6 +223,55 @@
     </div>
   </div>
 </div>
+
+<p-dialog
+  header=""
+  [(visible)]="openDialogForgot"
+  [modal]="true"
+  styleClass="w-full sm:w-10/12 md:w-1/4 p-3"
+  [closable]="true"
+  (onHide)="openDialog = false"
+  ><div class="flex flex-col items-center">
+    <div class="font-bold text-2xl mb-2">Restablecer contraseña</div>
+    <p class="text-sm text-neutral-500 block mb-3 px-4">
+      *La contraseña solo puede restablecerse 1 vez cada 3 meses, por favor
+      asegurate de tener acceso a tu email.
+    </p>
+    <p class="text-muted-color block mb-6">Por favor introduce tu email.</p>
+    <form #resendFormForgot="ngForm">
+      <div class="mb-4 w-80">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-envelope"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            placeholder="Introduce tu email..."
+            [(ngModel)]="emailResentForgot"
+            name="email"
+            required
+          />
+        </p-inputGroup>
+      </div>
+    </form>
+
+    <div *ngFor="let message of messagesResendForgot">
+      <p-message
+        [life]="8000"
+        icon="pi pi-times-circle"
+        [severity]="message.severity"
+        [text]="message.text"
+        [closable]="true"
+        styleClass="custom-messages my-1 w-96"
+      ></p-message>
+    </div>
+    <div class="flex m-auto gap-10 mt-4 mb-4 self-stretch">
+      <p-button
+        label="Enviar enlace"
+        (click)="resendEmailForgot(resendFormForgot)"
+      />
+    </div></div
+></p-dialog>
 
 <p-dialog
   header=""
@@ -255,6 +317,7 @@
     </p-inputotp>
     <div *ngFor="let message of messagesVerify">
       <p-message
+        [life]="8000"
         icon="pi pi-times-circle"
         [severity]="message.severity"
         [text]="message.text"

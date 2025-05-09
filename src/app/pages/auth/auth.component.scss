@@ -55,6 +55,15 @@
     border-right-style: solid;
     border-color: var(--p-inputtext-border-color);
 }
+
+.font-color{
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+.font-color:hover{
+    color: var(--color-secondary);
+}
   
 
   

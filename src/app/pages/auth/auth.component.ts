@@ -18,6 +18,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
 import { environment } from '../../../environments/environment';
 import { LandingPageService } from '../landing-page/landing-page.service';
+import { ValidationMessage } from '../../interfaces/validation-message.interface';
+import { ResetPasswordService } from '../reset-password/reset-password.service';
 
 declare var grecaptcha: any;
 
@@ -46,6 +48,7 @@ declare var grecaptcha: any;
 export class AuthComponent implements OnInit {
   @ViewChild('registerForm') registerForm!: NgForm;
   @ViewChild('resendForm') resendForm!: NgForm;
+  @ViewChild('resendFormForgot') resendFormForgot!: NgForm;
   nombre: string = '';
   apellidos: string = '';
   email: string = '';
@@ -62,6 +65,10 @@ export class AuthComponent implements OnInit {
   emailVerify: string = '';
   CodeToVerify: string = '';
 
+  openDialogForgot = false;
+  messagesResendForgot: ValidationMessage[] = [];
+  emailResentForgot: string = '';
+
   recaptchaSiteKey = environment.siteKey;
 
   // Función para validar el formato del correo
@@ -73,7 +80,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private landingPageService: LandingPageService
+    private landingPageService: LandingPageService,
+    private resetPasswordService: ResetPasswordService
   ) {}
 
   ngOnInit(): void {
@@ -311,6 +319,51 @@ export class AuthComponent implements OnInit {
           {
             severity: 'error',
             text: err.error.message || 'Error al reenviar el código',
+          },
+        ];
+      },
+    });
+  }
+
+  openModalForgot() {
+    this.openDialogForgot = true;
+  }
+
+  resendEmailForgot(form: NgForm) {
+    this.messagesResendForgot = [];
+
+    if (form.invalid || !this.emailResentForgot) {
+      this.messagesResendForgot = [
+        {
+          severity: 'error',
+          summary: 'Email requerido',
+          text: 'Por favor introduce un email válido para continuar.',
+        },
+      ];
+      return;
+    }
+
+    this.resetPasswordService.forgotPassword(this.emailResentForgot).subscribe({
+      next: (res) => {
+        this.messagesResendForgot = [
+          {
+            severity: 'success',
+            summary: 'Enlace enviado',
+            text: 'Se ha enviado un enlace de restablecimiento a tu correo electrónico.',
+          },
+        ];
+        // Opcional: cerrar modal tras 3 segundos
+        setTimeout(() => {
+          this.openDialogForgot = false;
+          this.emailResentForgot = '';
+        }, 5000);
+      },
+      error: (err) => {
+        this.messagesResendForgot = [
+          {
+            severity: 'error',
+            summary: 'Error',
+            text: err.error.message || 'Ocurrió un error al enviar el enlace.',
           },
         ];
       },
