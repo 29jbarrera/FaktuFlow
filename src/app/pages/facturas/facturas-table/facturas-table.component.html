@@ -89,15 +89,36 @@
         <td>{{ factura.descripcion }}</td>
 
         <td>
+          <!-- PDF desde Cloudinary (raw) -->
           <a
-            *ngIf="factura.archivo"
-            [href]="factura.archivo_url"
-            target="_blank"
+            *ngIf="factura.archivo_url && factura.archivo_url.includes('/raw/')"
+            (click)="
+              downloadPdf(
+                factura.archivo_url,
+                'factura-' + factura.numero + '.pdf'
+              )
+            "
+            style="cursor: pointer"
             class="text-[#112c35] hover:text-[#4ce1b9] transition-colors ml-3"
           >
             <i class="pi pi-file-pdf" style="font-size: 1.4rem"></i>
           </a>
-          <span class="ml-5" *ngIf="!factura.archivo">-</span>
+
+          <!-- Imagen desde Cloudinary (image) -->
+          <a
+            *ngIf="
+              factura.archivo_url && factura.archivo_url.includes('/image/')
+            "
+            [href]="factura.archivo_url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[#112c35] hover:text-[#4ce1b9] transition-colors ml-3"
+          >
+            <i class="pi pi-file-pdf" style="font-size: 1.4rem"></i>
+          </a>
+
+          <!-- Sin archivo -->
+          <span class="ml-5" *ngIf="!factura.archivo_url">-</span>
         </td>
 
         <td class="flex gap-2">
@@ -160,6 +181,7 @@
             pInputText
             required="true"
             id="numeroFactura"
+            name="numeroFactura"
             [(ngModel)]="facturaSeleccionada.numero"
           />
         </p-inputGroup>
@@ -177,6 +199,7 @@
             optionLabel="label"
             optionValue="value"
             [filter]="true"
+            name="cliente"
             class="p-fluid w-full custom-p-select"
           ></p-select>
         </div>
@@ -191,6 +214,7 @@
           <p-datepicker
             [(ngModel)]="facturaSeleccionada.fecha_emision"
             required="true"
+            name="fecha"
             [readonlyInput]="true"
             [showButtonBar]="true"
             dateFormat="dd/mm/yy"
@@ -209,6 +233,7 @@
           <input
             pInputText
             [(ngModel)]="facturaSeleccionada.importe"
+            name="importe"
             required="true"
             autocomplete="off"
             type="number"
@@ -225,6 +250,7 @@
           <textarea
             pTextarea
             [(ngModel)]="facturaSeleccionada.descripcion"
+            name="descripcion"
             required="true"
             class="p-fluid w-full"
           ></textarea>
@@ -239,6 +265,7 @@
         >
           <input
             [(ngModel)]="facturaSeleccionada.estado"
+            name="estado"
             class="peer sr-only"
             [id]="'estado-' + facturaSeleccionada.id"
             type="checkbox"
@@ -253,7 +280,8 @@
         <div>
           <p-fileUpload
             #fileInput
-            [(ngModel)]="facturaSeleccionada.archivo"
+            (change)="(facturaSeleccionada.archivo)"
+            name="archivo"
             mode="basic"
             chooseIcon="pi pi-upload"
             accept=".pdf, .jpg, .png"

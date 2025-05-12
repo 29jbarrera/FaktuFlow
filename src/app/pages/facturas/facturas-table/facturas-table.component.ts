@@ -284,4 +284,16 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
 
     this.cdr.detectChanges();
   }
+
+  downloadPdf(url: string, filename: string): void {
+    fetch(url)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+      })
+      .catch((err) => console.error('Error al descargar PDF:', err));
+  }
 }

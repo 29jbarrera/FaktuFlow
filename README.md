@@ -27,7 +27,7 @@
 
 ## 🚀 Características principales
 
-- ✅ 100% **gratuito** y de uso ilimitado
+- ✅ 100% **gratuito** y de uso limitado
 - 📱 Diseño **responsive** (PC, tablet y móvil)
 - 🔐 Inicio de sesión protegido con Google reCAPTCHA
 - 💼 Gestión de clientes y facturas en tiempo real
