@@ -11,7 +11,7 @@
 
 🔗 **URL**: [https://faktuflow.vercel.app](https://faktuflow.vercel.app)
 
-> La forma más moderna y gratuita de gestionar tus **finanzas**, **facturas** y **clientes** desde cualquier dispositivo.
+La forma más moderna y gratuita de gestionar tus **finanzas**, **facturas** y **clientes** desde cualquier dispositivo.
 
 </div>
 
@@ -32,7 +32,7 @@
 - 🔐 Inicio de sesión protegido con Google reCAPTCHA
 - 💼 Gestión de clientes y facturas en tiempo real
 - 📊 Dashboard con resumen de ingresos y facturas
-- 📨 Notificaciones y mensajes integrados
+- 📨 Mensajes integrados
 - 🔄 Acceso multi-dispositivo
 
 ---
