@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment_prod } from '../../../environments/environment';
 import {
   CreateIngresoRequest,
   Ingreso,
@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class IngresoService {
-  private apiUrl = `${environment.apiUrl}ingresos`;
+  private apiUrl = `${environment_prod.apiUrl}ingresos`;
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   private get authHeaders(): HttpHeaders {

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment_prod } from '../../../environments/environment';
 import { CreateGastoRequest, Gasto, GastosResponse } from './gastos.interface';
 import { AuthService } from '../auth/auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class GastosService {
-  private apiUrl = `${environment.apiUrl}gastos`;
+  private apiUrl = `${environment_prod.apiUrl}gastos`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

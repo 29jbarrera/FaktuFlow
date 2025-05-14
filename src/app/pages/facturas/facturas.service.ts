@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment_prod } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
 import {
   Factura,
@@ -13,7 +13,7 @@ import {
   providedIn: 'root',
 })
 export class FacturasService {
-  private apiUrl = `${environment.apiUrl}facturas`;
+  private apiUrl = `${environment_prod.apiUrl}facturas`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

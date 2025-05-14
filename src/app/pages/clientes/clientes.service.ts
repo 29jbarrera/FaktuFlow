@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment_prod } from '../../../environments/environment';
 import {
   Cliente,
   ClientesResponse,
@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class ClientesService {
-  private apiUrl = `${environment.apiUrl}clientes`;
+  private apiUrl = `${environment_prod.apiUrl}clientes`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

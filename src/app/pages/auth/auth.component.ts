@@ -16,7 +16,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { User } from '../../interfaces/user';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
-import { environment } from '../../../environments/environment';
+import { environment_prod } from '../../../environments/environment';
 import { LandingPageService } from '../landing-page/landing-page.service';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { ResetPasswordService } from '../reset-password/reset-password.service';
@@ -69,7 +69,7 @@ export class AuthComponent implements OnInit {
   messagesResendForgot: ValidationMessage[] = [];
   emailResentForgot: string = '';
 
-  recaptchaSiteKey = environment.siteKey;
+  recaptchaSiteKey = environment_prod.siteKey;
 
   // Función para validar el formato del correo
   isEmailValid(email: string): boolean {

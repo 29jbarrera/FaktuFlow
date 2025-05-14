@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment_prod } from '../../../environments/environment';
 import { UpdateUserResponse, UserData } from '../../interfaces/user';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../pages/auth/auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from '../../pages/auth/auth.service';
   providedIn: 'root',
 })
 export class InfoService {
-  private apiUrl = `${environment.apiUrl}usuarios`;
+  private apiUrl = `${environment_prod.apiUrl}usuarios`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -34,7 +34,7 @@ export class InfoService {
       newPassword,
     };
 
-    return this.http.post(`${environment.apiUrl}auth/change-password`, body, {
+    return this.http.post(`${this.apiUrl}auth/change-password`, body, {
       headers: this.authHeaders,
     });
   }
@@ -46,7 +46,7 @@ export class InfoService {
     email: string
   ) {
     return this.http.put<UpdateUserResponse>(
-      `${environment.apiUrl}auth/update-info`,
+      `${this.apiUrl}auth/update-info`,
       {
         usuario_id,
         nombre,
@@ -60,7 +60,7 @@ export class InfoService {
   }
 
   deleteUser(usuario_id: number) {
-    return this.http.delete(`${environment.apiUrl}auth/delete-user`, {
+    return this.http.delete(`${this.apiUrl}auth/delete-user`, {
       headers: this.authHeaders,
       body: { usuario_id },
     });
