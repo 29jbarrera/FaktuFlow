@@ -20,6 +20,7 @@
     "@angular/router": "^19.2.5",
     "@ngtools/webpack": "^19.2.6",
     "@primeng/themes": "^19.0.10",
+    "@vercel/analytics": "^1.5.0",
     "chart.js": "^3.9.1",
     "dotenv": "^16.5.0",
     "jwt-decode": "^4.0.0",
