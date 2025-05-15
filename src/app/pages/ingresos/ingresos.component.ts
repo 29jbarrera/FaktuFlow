@@ -94,7 +94,7 @@ export class IngresosComponent {
     },
     {
       name: 'submit',
-      label: 'Enviar',
+      label: 'Crear ingreso',
       type: 'submit',
       required: false,
       icon: 'pi pi-send',

@@ -70,6 +70,7 @@ export class ClientesComponent {
       required: false,
       icon: 'pi pi-map-marker',
     },
+    { name: '', label: '', type: '' },
     { name: 'submit', label: 'Crear Cliente', type: 'submit', required: false },
   ];
 

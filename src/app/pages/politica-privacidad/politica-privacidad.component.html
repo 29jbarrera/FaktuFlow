@@ -3,15 +3,15 @@
     class="sm:w-2/3 w-full bg-white shadow-xl rounded-2xl p-10 space-y-6 text-base leading-relaxed"
   >
     <div class="relative h-32 flex items-center justify-center">
-      <a href="/dashboard" class="absolute left-4">
+      <a href="/dashboard" class="absolute md:left-4">
         <img src="/assets/FaktuFlow.ico" class="h-36" />
       </a>
-      <h1 class="text-3xl font-bold text-center w-full">
+      <h1 class="text-3xl font-bold text-center w-full mt-44 md:mt-0">
         Política de Privacidad
       </h1>
     </div>
 
-    <ol class="space-y-4 list-decimal list-inside">
+    <ol class="space-y-4 list-decimal list-inside md:pt-0 pt-20">
       <li>
         <strong>Información que recopilamos:</strong>
         <p>Recopilamos los siguientes tipos de datos:</p>
@@ -20,8 +20,13 @@
           <li>
             Datos de uso del servicio: facturas, ingresos, gastos, clientes
           </li>
-          <li>Información técnica como IP, navegador, dispositivo</li>
-          <li>Datos analíticos mediante Google Analytics</li>
+          <li>
+            Información técnica general como navegador y tipo de dispositivo
+          </li>
+          <li>
+            Datos agregados y anónimos mediante herramientas analíticas sin
+            cookies
+          </li>
         </ul>
       </li>
 
@@ -37,18 +42,12 @@
       </li>
 
       <li>
-        <strong>Google Analytics:</strong>
+        <strong>Analítica sin cookies:</strong>
         <p>
-          Utilizamos Google Analytics para recopilar información anónima sobre
-          el uso de la plataforma: páginas visitadas, duración de la visita,
-          tipo de dispositivo y ubicación aproximada. Puedes inhabilitar este
-          seguimiento mediante el
-          <a
-            class="text-blue-600 underline"
-            href="https://tools.google.com/dlpage/gaoptout"
-            target="_blank"
-            >complemento de navegador de Google Analytics</a
-          >.
+          Utilizamos Vercel Web Analytics para recopilar datos agregados sobre
+          el uso de la plataforma, como número de visitas y páginas vistas. Esta
+          herramienta no utiliza cookies, no identifica al usuario y no almacena
+          información personal como direcciones IP.
         </p>
       </li>
 
@@ -82,7 +81,7 @@
       <li>
         <strong>Seguridad de la información:</strong>
         <p>
-          Faktuflow implementa medidas técnicas y organizativas para proteger
+          FaktuFlow implementa medidas técnicas y organizativas para proteger
           tus datos personales frente a accesos no autorizados o divulgación
           indebida.
         </p>
