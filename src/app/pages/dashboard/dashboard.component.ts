@@ -6,6 +6,7 @@ import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
 import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
 import { TabsModule } from 'primeng/tabs';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ import { TabsModule } from 'primeng/tabs';
     ChartModule,
     ImporteEurPipe,
     TabsModule,
+    LoadingComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -34,6 +36,8 @@ export class DashboardComponent implements OnInit {
   mensualIngresos: any[] = [];
   balanceGlobal: number = 0;
   totalClientes: number = 0;
+
+  pendingRequests = 0;
 
   data: any;
   options: any;
@@ -67,22 +71,26 @@ export class DashboardComponent implements OnInit {
     this.cargarTotalUsuarios();
   }
 
+  get isLoading(): boolean {
+    return this.pendingRequests > 0;
+  }
+
   cargarTotalUsuarios(): void {
-    this.DashboardService.getTotalUsuarios().subscribe(
-      (response) => {
+    this.DashboardService.getTotalUsuarios().subscribe({
+      next: (response) => {
         this.totalUsuarios = response.totalUsuarios;
         this.success = true;
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         this.loading = false;
         this.success = false;
-      }
-    );
+      },
+    });
   }
 
   cargarResumenFacturas() {
-    this.loading = true;
+    this.pendingRequests++;
     this.DashboardService.getResumenPorYear(this.year).subscribe({
       next: (res) => {
         this.resumenFacturas = res.resumen;
@@ -93,10 +101,16 @@ export class DashboardComponent implements OnInit {
       error: (err) => {
         this.loading = false;
       },
+      complete: () => {
+        setTimeout(() => {
+          this.pendingRequests--;
+        }, 3000);
+      },
     });
   }
 
   cargarResumenGastos() {
+    this.pendingRequests++;
     this.loading = true;
     this.DashboardService.getResumenGastosPorYear(this.year).subscribe({
       next: (res) => {
@@ -108,10 +122,14 @@ export class DashboardComponent implements OnInit {
       error: (err) => {
         this.loading = false;
       },
+      complete: () => {
+        this.pendingRequests--;
+      },
     });
   }
 
   cargarResumenIngresos() {
+    this.pendingRequests++;
     this.loading = true;
     this.DashboardService.getResumenIngresosPorYear(this.year).subscribe({
       next: (res) => {
@@ -122,6 +140,9 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => {
         this.loading = false;
+      },
+      complete: () => {
+        this.pendingRequests--;
       },
     });
   }
