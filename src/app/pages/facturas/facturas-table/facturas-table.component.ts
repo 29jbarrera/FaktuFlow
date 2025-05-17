@@ -41,6 +41,7 @@ import {
   map,
   Subscription,
 } from 'rxjs';
+import { LoadingComponent } from '../../../components/loading/loading.component';
 
 @Component({
   selector: 'app-facturas-table',
@@ -65,6 +66,7 @@ import {
     ReactiveFormsModule,
     MessageModule,
     ImporteEurPipe,
+    LoadingComponent,
   ],
   templateUrl: './facturas-table.component.html',
   styleUrl: './facturas-table.component.scss',
@@ -79,6 +81,10 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
   sortField = 'fecha_emision';
   sortOrder = -1;
   currentPage = 1;
+
+  loadingEdit = false;
+  loadingTable = false;
+  loadingDelete = false;
 
   facturaSeleccionada: Partial<Factura> = {};
   openDialog = false;
@@ -120,6 +126,7 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
   }
 
   cargarFacturas(event: TableLazyLoadEvent = {}): void {
+    this.loadingTable = true;
     const {
       first = 0,
       rows = this.limit,
@@ -144,6 +151,7 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
       .subscribe((response: FacturasResponse) => {
         this.facturas = response.facturas;
         this.totalFacturas = response.total;
+        this.loadingTable = false;
       });
   }
 
@@ -166,6 +174,7 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
       rejectLabel: 'No',
       rejectButtonStyleClass: 'p-button cancel',
       accept: () => {
+        this.loadingDelete = true;
         this.facturasService.deleteFactura(id).subscribe((response) => {
           this.facturas = this.facturas.filter((factura) => factura.id !== id);
         });
@@ -175,10 +184,12 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
           detail: 'La factura ha sido eliminada exitosamente.',
           life: 4000,
         });
-
+        this.loadingDelete = false;
         this.cargarFacturas();
       },
-      reject: () => {},
+      reject: () => {
+        this.loadingDelete = false;
+      },
     });
   }
 
@@ -189,13 +200,18 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
   }
 
   actualizarFactura(): void {
+    this.loadingEdit = true;
     this.validationMessages = [];
 
-    if (!this.facturaSeleccionada.id) return;
+    if (!this.facturaSeleccionada.id) {
+      this.loadingEdit = false;
+      return;
+    }
 
     const { numero, cliente_id, fecha_emision, importe } =
       this.facturaSeleccionada;
     if (!numero || !cliente_id || !fecha_emision || !importe) {
+      this.loadingEdit = false;
       this.validationMessages.push({
         severity: 'error',
         summary: 'Error',
@@ -226,6 +242,7 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
           () => {
             this.openDialog = false;
             this.archivoMarcadoParaEliminar = false;
+            this.loadingEdit = false;
             this.messageService.add({
               severity: 'success',
               summary: 'Confirmación',
@@ -235,6 +252,7 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
             this.cargarFacturas();
           },
           (error) => {
+            this.loadingEdit = false;
             this.messageService.add({
               severity: 'warn',
               summary: 'Error',

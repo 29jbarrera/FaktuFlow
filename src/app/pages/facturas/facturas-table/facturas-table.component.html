@@ -13,6 +13,10 @@
     </p-inputGroup>
   </div>
 
+  <div *ngIf="loadingDelete" class="pt-6">
+    <app-loading></app-loading>
+  </div>
+
   <p-table
     [value]="facturas"
     styleClass="p-datatable-sm"
@@ -25,6 +29,7 @@
     [sortField]="sortField"
     [sortOrder]="sortOrder"
     lazy="true"
+    [loading]="loadingTable"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -325,6 +330,10 @@
         [closable]="true"
         styleClass="custom-messages"
       ></p-message>
+    </div>
+
+    <div *ngIf="loadingEdit" class="pt-6">
+      <app-loading></app-loading>
     </div>
   </p-dialog>
 </div>

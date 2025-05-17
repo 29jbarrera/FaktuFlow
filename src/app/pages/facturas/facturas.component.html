@@ -1,5 +1,4 @@
 <app-header [title]="'Facturas'" [icon]="'fas fa-file-pdf'"></app-header>
-
 <app-form
   [formFields]="formFields"
   [formModel]="formModel"
@@ -8,5 +7,5 @@
   (formSubmit)="crearFactura($event)"
   #formulario
 ></app-form>
-
+<app-loading *ngIf="loading"></app-loading>
 <app-facturas-table [clientes]="clientes"></app-facturas-table>

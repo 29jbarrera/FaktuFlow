@@ -11,6 +11,7 @@ import { CreateFacturaRequest } from './factura.interface';
 import { Cliente } from '../clientes/cliente.interface';
 import { FormField } from '../../interfaces/form-field.interface';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-facturas',
@@ -20,6 +21,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
     HeaderComponent,
     FormComponent,
     FacturasTableComponent,
+    LoadingComponent,
   ],
   templateUrl: './facturas.component.html',
   styleUrl: './facturas.component.scss',
@@ -28,6 +30,7 @@ export class FacturasComponent implements OnInit {
   @ViewChild('formulario') formularioComponent!: FormComponent;
   @ViewChild(FacturasTableComponent)
   facturasTableComponent!: FacturasTableComponent;
+  loading = false;
 
   formModel: CreateFacturaRequest & {
     file: File | null;
@@ -121,6 +124,7 @@ export class FacturasComponent implements OnInit {
   }
 
   crearFactura(formModel: CreateFacturaRequest & { usuario_id?: number }) {
+    this.loading = true;
     this.validationMessages = [];
 
     const camposRequeridos: (keyof CreateFacturaRequest)[] = [
@@ -134,6 +138,7 @@ export class FacturasComponent implements OnInit {
     );
 
     if (camposFaltantes.length > 0) {
+      this.loading = false;
       this.validationMessages = [
         {
           severity: 'error',
@@ -146,6 +151,7 @@ export class FacturasComponent implements OnInit {
 
     const usuarioId = this.authService.getUserId();
     if (!usuarioId) {
+      this.loading = false;
       this.validationMessages = [
         {
           severity: 'error',
@@ -173,6 +179,7 @@ export class FacturasComponent implements OnInit {
         this.facturasTableComponent.cargarFacturas();
 
         this.formularioComponent.resetForm();
+        this.loading = false;
       },
       (error) => {
         if (
@@ -207,6 +214,7 @@ export class FacturasComponent implements OnInit {
             },
           ];
         }
+        this.loading = false;
       }
     );
   }

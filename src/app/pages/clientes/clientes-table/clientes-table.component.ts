@@ -125,6 +125,8 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
+      acceptButtonStyleClass: 'p-button danger',
+      rejectButtonStyleClass: 'p-button cancel',
       rejectLabel: 'No',
       accept: () => this.ejecutarEliminacionCliente(id),
     });
