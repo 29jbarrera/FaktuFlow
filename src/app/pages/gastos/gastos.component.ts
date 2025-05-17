@@ -8,11 +8,18 @@ import { AuthService } from '../auth/auth.service';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { CreateGastoRequest } from './gastos.interface';
 import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-gastos',
   standalone: true,
-  imports: [HeaderComponent, FormComponent, CommonModule, GastosTableComponent],
+  imports: [
+    HeaderComponent,
+    FormComponent,
+    CommonModule,
+    GastosTableComponent,
+    LoadingComponent,
+  ],
   templateUrl: './gastos.component.html',
   styleUrl: './gastos.component.scss',
 })
@@ -20,6 +27,8 @@ export class GastosComponent {
   @ViewChild('formulario') formularioComponent!: FormComponent;
   @ViewChild(GastosTableComponent)
   gastosTableComponent!: GastosTableComponent;
+  loading = false;
+
   formModel = {
     nombre_gasto: '',
     categoria: null,
@@ -99,12 +108,17 @@ export class GastosComponent {
   ) {}
 
   createGasto(gasto: CreateGastoRequest): void {
+    this.loading = true;
     this.validationMessages = [];
 
-    if (!this.validarFormulario(gasto)) return;
+    if (!this.validarFormulario(gasto)) {
+      this.loading = false;
+      return;
+    }
 
     const usuarioId = this.authService.getUserId();
     if (!usuarioId) {
+      this.loading = false;
       this.setValidationMessage(
         'error',
         'Error de autenticación',
@@ -126,6 +140,7 @@ export class GastosComponent {
         ];
         this.gastosTableComponent.cargarGastos();
         this.formularioComponent.resetForm();
+        this.loading = false;
       },
       error: (error) => {
         if (
@@ -133,6 +148,7 @@ export class GastosComponent {
           error?.error?.message ===
             'Has alcanzado el límite de 200 gastos por usuario. Si necesitas más capacidad, contacta al administrador.'
         ) {
+          this.loading = false;
           this.validationMessages = [
             {
               severity: 'warn',
@@ -141,6 +157,7 @@ export class GastosComponent {
             },
           ];
         } else {
+          this.loading = false;
           this.errorHandler.handleHttpError(
             error,
             (msgs) => (this.validationMessages = msgs),

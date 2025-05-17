@@ -33,6 +33,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { formatFechaToYMD } from '../../../shared/utils/date.util';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { LoadingComponent } from '../../../components/loading/loading.component';
 
 @Component({
   selector: 'app-gastos-table',
@@ -54,6 +55,7 @@ import { TextareaModule } from 'primeng/textarea';
     SelectModule,
     TextareaModule,
     ImporteEurPipe,
+    LoadingComponent,
   ],
   templateUrl: './gastos-table.component.html',
   styleUrl: './gastos-table.component.scss',
@@ -63,6 +65,10 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
   @Input() categoriaOptions: { label: string; value: string }[] = [];
   gastos: Gasto[] = [];
   totalGastos = 0;
+
+  loadingEdit = false;
+  loadingTable = false;
+  loadingDelete = false;
 
   readonly limit = 5;
   readonly sortField = 'fecha';
@@ -101,6 +107,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
   }
 
   cargarGastos(event: TableLazyLoadEvent = {}): void {
+    this.loadingTable = true;
     const {
       first = 0,
       rows = this.limit,
@@ -125,6 +132,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       .subscribe((response) => {
         this.gastos = response.gastos;
         this.totalGastos = response.total;
+        this.loadingTable = false;
       });
   }
 
@@ -134,12 +142,20 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
+      acceptButtonStyleClass: 'p-button danger',
       rejectLabel: 'No',
-      accept: () => this.ejecutarEliminacionGasto(id),
+      rejectButtonStyleClass: 'p-button cancel',
+      accept: () => {
+        this.ejecutarEliminacionGasto(id);
+      },
+      reject: () => {
+        this.loadingDelete = false;
+      },
     });
   }
 
   private ejecutarEliminacionGasto(id: number): void {
+    this.loadingDelete = true;
     this.gastosService.deleteGasto(id).subscribe({
       next: () => {
         this.messageService.add({
@@ -149,8 +165,10 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
           life: 4000,
         });
         this.cargarGastos();
+        this.loadingDelete = false;
       },
       error: (err) => {
+        this.loadingDelete = false;
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -168,9 +186,13 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
   }
 
   updateGasto(): void {
+    this.loadingEdit = true;
     this.validationMessages = [];
 
-    if (!this.gastoSeleccionado.id) return;
+    if (!this.gastoSeleccionado.id) {
+      this.loadingEdit = false;
+      return;
+    }
 
     const { nombre_gasto, categoria, fecha, importe_total } =
       this.gastoSeleccionado;
@@ -186,6 +208,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       importe_total === undefined ||
       importe_total.toString().trim() === ''
     ) {
+      this.loadingEdit = false;
       this.validationMessages.push({
         severity: 'error',
         summary: 'Campos incompletos',
@@ -204,6 +227,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
     };
 
     if (this.validationMessages.length > 0) {
+      this.loadingEdit = false;
       return;
     }
 
@@ -211,6 +235,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
       .updateGasto(this.gastoSeleccionado.id, gastoSeleccionado)
       .subscribe({
         next: () => {
+          this.loadingEdit = false;
           this.messageService.add({
             severity: 'success',
             summary: 'Gasto Actualizado',
@@ -220,6 +245,7 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
           this.cargarGastos();
         },
         error: (err) => {
+          this.loadingEdit = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
