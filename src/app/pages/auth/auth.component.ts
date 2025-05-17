@@ -12,7 +12,6 @@ import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { User } from '../../interfaces/user';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
@@ -20,6 +19,7 @@ import { environment_prod } from '../../../environments/environment';
 import { LandingPageService } from '../landing-page/landing-page.service';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { ResetPasswordService } from '../reset-password/reset-password.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 declare var grecaptcha: any;
 
@@ -37,9 +37,9 @@ declare var grecaptcha: any;
     ReactiveFormsModule,
     FormsModule,
     MessageModule,
-    ProgressSpinnerModule,
     DialogModule,
     InputOtpModule,
+    LoadingComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -58,7 +58,12 @@ export class AuthComponent implements OnInit {
   passwordRegisterConfirm: string = '';
   messagesLogin: any[] = [];
   messagesRegister: any[] = [];
-  isLoading = false;
+
+  loading = false;
+  loadingRegister = false;
+  loadingResetPassword = false;
+  loadingVerifyCode = false;
+  loadingReenviarCode = false;
 
   openDialog = false;
   messagesVerify: any[] = [];
@@ -139,6 +144,7 @@ export class AuthComponent implements OnInit {
     }
 
     try {
+      this.loading = true;
       const response: any = await this.authService
         .login(this.email, this.password, recaptchaResponse)
         .toPromise();
@@ -152,13 +158,9 @@ export class AuthComponent implements OnInit {
           text: '¡Bienvenido!',
         },
       ];
-      this.isLoading = true;
-      setTimeout(() => {
-        this.router.navigate(['/dashboard']);
-      }, 1000);
+      await this.router.navigate(['/dashboard']);
     } catch (error: any) {
-      console.error('Error en login:', error);
-
+      this.loading = false;
       if (error?.error?.[0]?.msg === 'El email no es válido') {
         this.messagesLogin = [
           {
@@ -187,7 +189,7 @@ export class AuthComponent implements OnInit {
         ];
       }
       grecaptcha.reset();
-      this.isLoading = false;
+      this.loading = false;
     }
   }
 
@@ -221,6 +223,8 @@ export class AuthComponent implements OnInit {
     }
 
     try {
+      this.loadingRegister = true;
+
       const user: User = {
         nombre: this.nombre,
         apellidos: this.apellidos,
@@ -231,6 +235,7 @@ export class AuthComponent implements OnInit {
       const response = await this.authService.register(user).toPromise();
 
       if (!response) {
+        this.loadingRegister = false;
         this.messagesRegister = [
           {
             severity: 'error',
@@ -240,7 +245,7 @@ export class AuthComponent implements OnInit {
         ];
         return;
       }
-
+      this.loadingRegister = true;
       this.messagesRegister = [
         {
           severity: 'success',
@@ -250,11 +255,12 @@ export class AuthComponent implements OnInit {
       ];
 
       form.resetForm();
-
+      this.loadingRegister = false;
       setTimeout(() => {
         this.openDialog = true;
-      }, 3000);
+      }, 2800);
     } catch (error: any) {
+      this.loadingRegister = false;
       console.error('Error en registro:', error);
 
       if (error?.error?.errors && Array.isArray(error.error.errors)) {
@@ -272,6 +278,7 @@ export class AuthComponent implements OnInit {
           },
         ];
       }
+      this.loadingRegister = false;
     }
   }
 
@@ -280,6 +287,7 @@ export class AuthComponent implements OnInit {
   }
 
   verifyCode(form: NgForm) {
+    this.loadingVerifyCode = true;
     this.authService.verifyCode(this.emailVerify, this.CodeToVerify).subscribe({
       next: (res) => {
         this.messagesVerify = [
@@ -291,12 +299,13 @@ export class AuthComponent implements OnInit {
 
         this.CodeToVerify = '';
         form.resetForm();
-
+        this.loadingVerifyCode = false;
         setTimeout(() => {
           this.openDialog = false;
-        }, 2500);
+        }, 3000);
       },
       error: (err) => {
+        this.loadingVerifyCode = false;
         this.messagesVerify = [
           { severity: 'error', text: err.error.message || 'Código incorrecto' },
         ];
@@ -305,6 +314,7 @@ export class AuthComponent implements OnInit {
   }
 
   resendVerificationCode() {
+    this.loadingReenviarCode = true;
     this.authService.resendCode(this.emailVerify).subscribe({
       next: (res) => {
         this.messagesVerify = [
@@ -313,8 +323,10 @@ export class AuthComponent implements OnInit {
             text: res.message || 'Código reenviado con éxito',
           },
         ];
+        this.loadingReenviarCode = false;
       },
       error: (err) => {
+        this.loadingReenviarCode = false;
         this.messagesVerify = [
           {
             severity: 'error',
@@ -330,9 +342,11 @@ export class AuthComponent implements OnInit {
   }
 
   resendEmailForgot(form: NgForm) {
+    this.loadingResetPassword = true;
     this.messagesResendForgot = [];
 
     if (form.invalid || !this.emailResentForgot) {
+      this.loadingResetPassword = false;
       this.messagesResendForgot = [
         {
           severity: 'error',
@@ -342,7 +356,7 @@ export class AuthComponent implements OnInit {
       ];
       return;
     }
-
+    this.loadingResetPassword = true;
     this.resetPasswordService.forgotPassword(this.emailResentForgot).subscribe({
       next: (res) => {
         this.messagesResendForgot = [
@@ -352,13 +366,15 @@ export class AuthComponent implements OnInit {
             text: 'Se ha enviado un enlace de restablecimiento a tu correo electrónico.',
           },
         ];
-        // Opcional: cerrar modal tras 3 segundos
+        form.resetForm();
+        this.loadingResetPassword = false;
         setTimeout(() => {
           this.openDialogForgot = false;
           this.emailResentForgot = '';
         }, 5000);
       },
       error: (err) => {
+        this.loadingResetPassword = false;
         this.messagesResendForgot = [
           {
             severity: 'error',

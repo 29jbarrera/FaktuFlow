@@ -81,6 +81,10 @@
           ></p-message>
         </div>
 
+        <div class="pt-11 -mb-6" *ngIf="loading">
+          <app-loading></app-loading>
+        </div>
+
         <div class="w-full flex justify-center mt-6">
           <p-button label="Iniciar sesión" (click)="onLogin()"></p-button>
         </div>
@@ -94,13 +98,6 @@
             ¿Has olvidado tu contraseña?
           </a>
         </div>
-
-        <p-progressSpinner
-          *ngIf="isLoading"
-          strokeWidth="3"
-          ariaLabel="loading"
-          class="flex justify-center mt-6 -mb-8"
-        />
       </form>
     </div>
 
@@ -212,6 +209,10 @@
           ></p-message>
         </div>
 
+        <div class="pt-11 -mb-6" *ngIf="loadingRegister">
+          <app-loading></app-loading>
+        </div>
+
         <div class="w-full flex justify-center mt-8 pb-12 sm:pb-0">
           <p-button
             label="Registrarse"
@@ -236,7 +237,7 @@
   header=""
   [(visible)]="openDialogForgot"
   [modal]="true"
-  styleClass="w-full sm:w-10/12 md:w-1/4 p-3"
+  styleClass="w-full sm:w-10/12 md:w-1/4 p-3 min-w-[400px]"
   [closable]="true"
   (onHide)="openDialog = false"
   ><div class="flex flex-col items-center">
@@ -273,6 +274,11 @@
         styleClass="custom-messages my-1 w-96"
       ></p-message>
     </div>
+
+    <div class="pt-11 -mb-6" *ngIf="loadingResetPassword">
+      <app-loading></app-loading>
+    </div>
+
     <div class="flex m-auto gap-10 mt-4 mb-4 self-stretch">
       <p-button
         label="Enviar enlace"
@@ -285,7 +291,7 @@
   header=""
   [(visible)]="openDialog"
   [modal]="true"
-  styleClass="w-full sm:w-10/12 md:w-1/4 p-3"
+  styleClass="w-full sm:w-10/12 md:w-1/4 p-3 min-w-[400px]"
   [closable]="true"
   (onHide)="openDialog = false"
   ><div class="flex flex-col items-center">
@@ -332,6 +338,13 @@
         [closable]="true"
         styleClass="custom-messages mt-4 -mb-4 w-96"
       ></p-message>
+    </div>
+
+    <div class="pt-11 -mb-6" *ngIf="loadingVerifyCode">
+      <app-loading></app-loading>
+    </div>
+    <div class="pt-11 -mb-6" *ngIf="loadingReenviarCode">
+      <app-loading></app-loading>
     </div>
     <div class="flex m-auto gap-10 mt-8 mb-4 self-stretch">
       <button class="p-button verify" (click)="resendVerificationCode()">
