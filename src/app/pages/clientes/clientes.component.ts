@@ -8,6 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { CreateClienteRequest } from './cliente.interface';
 import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-clientes',
@@ -17,6 +18,7 @@ import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
     FormComponent,
     CommonModule,
     ClientesTableComponent,
+    LoadingComponent,
   ],
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.scss',
@@ -25,6 +27,7 @@ export class ClientesComponent {
   @ViewChild('formulario') formularioComponent!: FormComponent;
   @ViewChild(ClientesTableComponent)
   clientesTableComponent!: ClientesTableComponent;
+  loading = false;
 
   formModel: CreateClienteRequest = {
     nombre: '',
@@ -81,12 +84,17 @@ export class ClientesComponent {
   ) {}
 
   createCliente(cliente: CreateClienteRequest): void {
+    this.loading = true;
     this.validationMessages = [];
 
-    if (!this.validarFormulario(cliente)) return;
+    if (!this.validarFormulario(cliente)) {
+      this.loading = false;
+      return;
+    }
 
     const usuarioId = this.authService.getUserId();
     if (!usuarioId) {
+      this.loading = false;
       this.setValidationMessage(
         'error',
         'Error de autenticación',
@@ -111,6 +119,7 @@ export class ClientesComponent {
         ];
         this.clientesTableComponent.cargarClientes();
         this.formularioComponent.resetForm();
+        this.loading = false;
       },
       error: (error) => {
         if (
@@ -118,6 +127,7 @@ export class ClientesComponent {
           error?.error?.message ===
             'Has alcanzado el límite de 80 clientes por usuario. Si necesitas más capacidad, contacta al administrador.'
         ) {
+          this.loading = false;
           this.validationMessages = [
             {
               severity: 'warn',
@@ -127,7 +137,7 @@ export class ClientesComponent {
           ];
           return;
         }
-
+        this.loading = false;
         this.errorHandler.handleHttpError(
           error,
           (msgs) => (this.validationMessages = msgs),

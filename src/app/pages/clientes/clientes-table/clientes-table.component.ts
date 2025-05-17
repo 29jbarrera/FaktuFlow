@@ -27,6 +27,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
+import { LoadingComponent } from '../../../components/loading/loading.component';
 
 @Component({
   selector: 'app-clientes-table',
@@ -44,6 +45,7 @@ import { MessageModule } from 'primeng/message';
     InputTextModule,
     ButtonModule,
     MessageModule,
+    LoadingComponent,
   ],
   templateUrl: './clientes-table.component.html',
   styleUrl: './clientes-table.component.scss',
@@ -52,6 +54,10 @@ import { MessageModule } from 'primeng/message';
 export class ClientesTableComponent implements AfterViewInit, OnDestroy {
   clientes: Cliente[] = [];
   totalClientes = 0;
+
+  loadingEdit = false;
+  loadingTable = false;
+  loadingDelete = false;
 
   readonly limit = 5;
   readonly sortField = 'nombre';
@@ -92,6 +98,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
   }
 
   cargarClientes(event: TableLazyLoadEvent = {}): void {
+    this.loadingTable = true;
     const {
       first = 0,
       rows = this.limit,
@@ -116,6 +123,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
       .subscribe((response: ClientesResponse) => {
         this.clientes = response.clientes;
         this.totalClientes = response.total;
+        this.loadingTable = false;
       });
   }
 
@@ -126,13 +134,19 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
       acceptButtonStyleClass: 'p-button danger',
-      rejectButtonStyleClass: 'p-button cancel',
       rejectLabel: 'No',
-      accept: () => this.ejecutarEliminacionCliente(id),
+      rejectButtonStyleClass: 'p-button cancel',
+      accept: () => {
+        this.ejecutarEliminacionCliente(id);
+      },
+      reject: () => {
+        this.loadingDelete = false;
+      },
     });
   }
 
   private ejecutarEliminacionCliente(id: number): void {
+    this.loadingDelete = true;
     this.clientesService.deleteCliente(id).subscribe({
       next: () => {
         this.messageService.add({
@@ -143,6 +157,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
         });
 
         this.cargarClientes();
+        this.loadingDelete = false;
       },
       error: (err) => {
         this.messageService.add({
@@ -162,11 +177,16 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
   }
 
   actualizarCliente(): void {
+    this.loadingEdit = true;
     this.validationMessages = [];
 
-    if (!this.clienteSeleccionado.id) return;
+    if (!this.clienteSeleccionado.id) {
+      this.loadingEdit = false;
+      return;
+    }
 
     if (!this.clienteSeleccionado.nombre?.trim()) {
+      this.loadingEdit = false;
       this.validationMessages.push({
         severity: 'error',
         summary: 'Campos incompletos',
@@ -187,6 +207,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
       delete clienteActualizado.telefono;
 
     if (this.validationMessages.length > 0) {
+      this.loadingEdit = false;
       return;
     }
 
@@ -194,6 +215,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
       .updateCliente(this.clienteSeleccionado.id, clienteActualizado)
       .subscribe(
         (response) => {
+          this.loadingEdit = false;
           this.messageService.add({
             severity: 'success',
             summary: 'Cliente Actualizado',
@@ -207,6 +229,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
           if (error?.error?.errors) {
             error.error.errors.forEach((e: any) => {
               if (e.path === 'email') {
+                this.loadingEdit = false;
                 this.validationMessages.push({
                   severity: 'error',
                   summary: 'Error en el email',
@@ -215,6 +238,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
               }
 
               if (e.path === 'telefono') {
+                this.loadingEdit = false;
                 this.validationMessages.push({
                   severity: 'error',
                   summary: 'Error en el teléfono',
@@ -223,6 +247,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
               }
             });
           } else {
+            this.loadingEdit = false;
             this.messageService.add({
               severity: 'warn',
               summary: 'Error inesperado',
@@ -230,6 +255,7 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
                 error.message || 'Ocurrió un error al actualizar el cliente.',
               life: 4000,
             });
+            this.openDialog = false;
           }
         }
       );
