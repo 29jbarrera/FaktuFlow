@@ -21,6 +21,7 @@ import { AuthService } from '../../pages/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { LoadingComponent } from '../loading/loading.component';
 @Component({
   selector: 'app-info',
   standalone: true,
@@ -38,6 +39,7 @@ import { ConfirmationService } from 'primeng/api';
     RouterModule,
     ToastModule,
     ConfirmDialogModule,
+    LoadingComponent,
   ],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss',
@@ -61,6 +63,11 @@ export class InfoComponent implements OnInit {
 
   openDialog = false;
 
+  loading = false;
+  loadingUpdateUserData = false;
+  loadingChangePassword = false;
+  loadingDeleteAccount = false;
+
   validationPassword: ValidationMessage[] = [];
 
   validationUserData: ValidationMessage[] = [];
@@ -83,11 +90,17 @@ export class InfoComponent implements OnInit {
   }
 
   getUserData(id: number): void {
-    this.infoService.getUserData(id).subscribe((data) => {
-      this.usuario = {
-        ...data,
-      };
-      this.getUserInitial();
+    this.loading = true;
+    this.infoService.getUserData(id).subscribe({
+      next: (data) => {
+        this.usuario = { ...data };
+        this.getUserInitial();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al obtener usuario:', err);
+        this.loading = false;
+      },
     });
   }
 
@@ -103,6 +116,7 @@ export class InfoComponent implements OnInit {
   }
 
   updateUserData() {
+    this.loadingUpdateUserData = true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (
@@ -110,6 +124,7 @@ export class InfoComponent implements OnInit {
       !this.tempUsuario.apellidos ||
       !this.tempUsuario.email
     ) {
+      this.loadingUpdateUserData = false;
       this.validationUserData = [
         {
           severity: 'error',
@@ -121,6 +136,7 @@ export class InfoComponent implements OnInit {
     }
 
     if (!emailRegex.test(this.usuario.email)) {
+      this.loadingUpdateUserData = false;
       this.validationUserData = [
         {
           severity: 'error',
@@ -141,16 +157,18 @@ export class InfoComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.usuario = { ...this.tempUsuario };
+          this.loadingUpdateUserData = true;
           this.messageService.add({
             severity: 'success',
             summary: 'Éxito',
             detail: 'Se han actualizado los datos exitosamente.',
             life: 4000,
           });
-
           this.openDialog = false;
+          this.loadingUpdateUserData = false;
         },
         error: (err) => {
+          this.loadingUpdateUserData = false;
           const serverError =
             err?.error?.errors?.[0]?.msg ||
             err.error.message ||
@@ -167,11 +185,13 @@ export class InfoComponent implements OnInit {
   }
 
   changePassword() {
+    this.loadingChangePassword = true;
     if (
       !this.currentPassword ||
       !this.newPassword ||
       !this.confirmNewPassword
     ) {
+      this.loadingChangePassword = false;
       this.validationPassword = [
         {
           severity: 'error',
@@ -183,6 +203,7 @@ export class InfoComponent implements OnInit {
     }
 
     if (this.newPassword.length < 4) {
+      this.loadingChangePassword = false;
       this.validationPassword = [
         {
           severity: 'error',
@@ -194,6 +215,7 @@ export class InfoComponent implements OnInit {
     }
 
     if (this.newPassword !== this.confirmNewPassword) {
+      this.loadingChangePassword = false;
       this.validationPassword = [
         {
           severity: 'error',
@@ -210,6 +232,7 @@ export class InfoComponent implements OnInit {
       .changePassword(usuario_id, this.currentPassword, this.newPassword)
       .subscribe({
         next: (res) => {
+          this.loadingChangePassword = true;
           this.validationPassword = [
             {
               severity: 'success',
@@ -218,8 +241,10 @@ export class InfoComponent implements OnInit {
             },
           ];
           this.passwordForm.resetForm();
+          this.loadingChangePassword = false;
         },
         error: (err) => {
+          this.loadingChangePassword = false;
           this.validationPassword = [
             {
               severity: 'error',
@@ -248,6 +273,7 @@ export class InfoComponent implements OnInit {
   }
 
   deleteAccount(): void {
+    this.loadingDeleteAccount = true;
     const usuario_id = this.authService.getUserId();
     if (usuario_id !== null) {
       this.infoService.deleteUser(usuario_id).subscribe(
@@ -258,13 +284,13 @@ export class InfoComponent implements OnInit {
             detail: 'La cuenta ha sido eliminada exitosamente.',
             life: 3000,
           });
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 2500);
+          this.loadingDeleteAccount = false;
+          this.router.navigate(['/']);
         },
-        (error) => {}
+        (error) => {
+          this.loadingDeleteAccount = false;
+        }
       );
-    } else {
     }
   }
 

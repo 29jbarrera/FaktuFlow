@@ -1,4 +1,8 @@
-<div class="min-h-screen flex items-center justify-center p-6">
+<div class="min-h-screen flex items-center justify-center" *ngIf="loading">
+  <app-loading></app-loading>
+</div>
+
+<div class="min-h-screen flex items-center justify-center p-6" *ngIf="!loading">
   <div
     class="shadow-2xl content-info bg-zinc-50 rounded-3xl max-w-3xl w-full p-10 space-y-10"
   >
@@ -112,6 +116,10 @@
           ></p-message>
         </div>
 
+        <div class="pt-11 -mb-6" *ngIf="loadingUpdateUserData">
+          <app-loading></app-loading>
+        </div>
+
         <div class="text-center font-bold py-2">
           <button
             pButton
@@ -122,6 +130,9 @@
           </button>
         </div>
         <div class="border-t pt-6 space-y-4">
+          <div class="pt-11 -mb-6" *ngIf="loadingChangePassword">
+            <app-loading></app-loading>
+          </div>
           <div class="text-center font-bold py-2">
             <button
               pButton
@@ -216,6 +227,10 @@
           [closable]="true"
           styleClass="custom-messages"
         ></p-message>
+      </div>
+
+      <div class="pt-11 -mb-6" *ngIf="loadingChangePassword">
+        <app-loading></app-loading>
       </div>
 
       <div class="text-center font-bold">

@@ -9,7 +9,7 @@ import { AuthService } from '../../pages/auth/auth.service';
   providedIn: 'root',
 })
 export class InfoService {
-  private apiUrl = `${environment_prod.apiUrl}usuarios`;
+  private apiUrl = `${environment_prod.apiUrl}`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -18,7 +18,7 @@ export class InfoService {
   }
 
   getUserData(id: number): Observable<UserData> {
-    return this.http.get<UserData>(`${this.apiUrl}/${id}`, {
+    return this.http.get<UserData>(`${this.apiUrl}usuarios/${id}`, {
       headers: this.authHeaders,
     });
   }
