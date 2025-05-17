@@ -9,7 +9,7 @@
 [![Deploy](https://img.shields.io/badge/deploy-vercel-black?logo=vercel)](https://faktuflow.vercel.app)
 [![Responsive](https://img.shields.io/badge/100%25-Responsive-blue)]()
 
-🔗 **URL**: [https://faktuflow.vercel.app](https://faktuflow.vercel.app)
+🔗 **URL**: [https://faktuflow.es](https://faktuflow.es)
 
 La forma más moderna y gratuita de gestionar tus **finanzas**, **facturas** y **clientes** desde cualquier dispositivo.
 
