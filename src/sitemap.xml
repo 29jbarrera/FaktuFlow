@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Página de inicio -->
+  <url>
+    <loc>https://faktuflow.es/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Páginas públicas -->
+  <url>
+    <loc>https://faktuflow.es/login</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/aviso-legal</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/politica-privacidad</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/politica-cookies</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/reset-password</loc>
+    <priority>0.4</priority>
+  </url>
+</urlset>

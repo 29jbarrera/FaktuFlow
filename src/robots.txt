@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://faktuflow.es/sitemap.xml
