@@ -26,6 +26,7 @@ import { MessageModule } from 'primeng/message';
 import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
+import { LoadingComponent } from '../../../components/loading/loading.component';
 
 @Component({
   selector: 'app-ingresos-table',
@@ -47,6 +48,7 @@ import { TextareaModule } from 'primeng/textarea';
     SelectModule,
     TextareaModule,
     ImporteEurPipe,
+    LoadingComponent,
   ],
   templateUrl: './ingresos-table.component.html',
   styleUrl: './ingresos-table.component.scss',
@@ -56,6 +58,10 @@ export class IngresosTableComponent {
   @Input() categoriaOptions: { label: string; value: string }[] = [];
   ingresos: Ingreso[] = [];
   totalIngresos = 0;
+
+  loadingEdit = false;
+  loadingTable = false;
+  loadingDelete = false;
 
   readonly limit = 5;
   readonly sortField = 'fecha_ingreso';
@@ -94,6 +100,7 @@ export class IngresosTableComponent {
   }
 
   cargarIngresos(event: TableLazyLoadEvent = {}): void {
+    this.loadingTable = true;
     const {
       first = 0,
       rows = this.limit,
@@ -118,6 +125,7 @@ export class IngresosTableComponent {
       .subscribe((response) => {
         this.ingresos = response.ingresos;
         this.totalIngresos = response.total;
+        this.loadingTable = false;
       });
   }
 
@@ -127,12 +135,20 @@ export class IngresosTableComponent {
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
+      acceptButtonStyleClass: 'p-button danger',
       rejectLabel: 'No',
-      accept: () => this.ejecutarEliminacionIngreso(id),
+      rejectButtonStyleClass: 'p-button cancel',
+      accept: () => {
+        this.ejecutarEliminacionIngreso(id);
+      },
+      reject: () => {
+        this.loadingDelete = false;
+      },
     });
   }
 
   private ejecutarEliminacionIngreso(id: number): void {
+    this.loadingDelete = true;
     this.ingresoService.deleteIngreso(id).subscribe({
       next: () => {
         this.messageService.add({
@@ -142,8 +158,10 @@ export class IngresosTableComponent {
           life: 4000,
         });
         this.cargarIngresos();
+        this.loadingDelete = false;
       },
       error: (err) => {
+        this.loadingDelete = false;
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -161,9 +179,13 @@ export class IngresosTableComponent {
   }
 
   updateIngreso(): void {
+    this.loadingEdit = true;
     this.validationMessages = [];
 
-    if (!this.ingresoSeleccionado.id) return;
+    if (!this.ingresoSeleccionado.id) {
+      this.loadingEdit = false;
+      return;
+    }
 
     const { nombre_ingreso, categoria, fecha_ingreso, importe_total } =
       this.ingresoSeleccionado;
@@ -179,6 +201,7 @@ export class IngresosTableComponent {
       importe_total === undefined ||
       importe_total.toString().trim() === ''
     ) {
+      this.loadingEdit = false;
       this.validationMessages.push({
         severity: 'error',
         summary: 'Campos incompletos',
@@ -199,6 +222,7 @@ export class IngresosTableComponent {
     };
 
     if (this.validationMessages.length > 0) {
+      this.loadingEdit = false;
       return;
     }
 
@@ -206,6 +230,7 @@ export class IngresosTableComponent {
       .updateIngreso(this.ingresoSeleccionado.id, ingresoSeleccionado)
       .subscribe({
         next: () => {
+          this.loadingEdit = false;
           this.messageService.add({
             severity: 'success',
             summary: 'Ingreso Actualizado',
@@ -215,6 +240,7 @@ export class IngresosTableComponent {
           this.cargarIngresos();
         },
         error: (err) => {
+          this.loadingEdit = false;
           this.messageService.add({
             severity: 'error',
             summary: 'Error',

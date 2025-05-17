@@ -8,6 +8,7 @@ import { AuthService } from '../auth/auth.service';
 import { CreateIngresoRequest } from './ingreso.interface';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-ingresos',
@@ -17,6 +18,7 @@ import { ErrorHandlerService } from '../../shared/utils/error-handler.service';
     CommonModule,
     FormComponent,
     IngresosTableComponent,
+    LoadingComponent,
   ],
   templateUrl: './ingresos.component.html',
   styleUrl: './ingresos.component.scss',
@@ -25,6 +27,8 @@ export class IngresosComponent {
   @ViewChild('formulario') formularioComponent!: FormComponent;
   @ViewChild(IngresosTableComponent)
   ingresosTableComponent!: IngresosTableComponent;
+  loading = false;
+
   formModel = {
     nombre_ingreso: '',
     categoria: null,
@@ -107,12 +111,17 @@ export class IngresosComponent {
   ) {}
 
   createIngreso(ingreso: CreateIngresoRequest): void {
+    this.loading = true;
     this.validationMessages = [];
 
-    if (!this.validarFormulario(ingreso)) return;
+    if (!this.validarFormulario(ingreso)) {
+      this.loading = false;
+      return;
+    }
 
     const usuarioId = this.authService.getUserId();
     if (!usuarioId) {
+      this.loading = false;
       this.setValidationMessage(
         'error',
         'Error de autenticación',
@@ -134,6 +143,7 @@ export class IngresosComponent {
         ];
         this.ingresosTableComponent.cargarIngresos();
         this.formularioComponent.resetForm();
+        this.loading = false;
       },
       error: (error) => {
         if (
@@ -142,6 +152,7 @@ export class IngresosComponent {
             'Has alcanzado el límite de 300 ingresos'
           )
         ) {
+          this.loading = false;
           this.validationMessages = [
             {
               severity: 'warn',
@@ -150,6 +161,7 @@ export class IngresosComponent {
             },
           ];
         } else {
+          this.loading = false;
           this.errorHandler.handleHttpError(
             error,
             (msgs) => (this.validationMessages = msgs),
