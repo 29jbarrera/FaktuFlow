@@ -91,6 +91,27 @@
   </div>
 </section>
 
+<!-- <section class="py-20 bg-gray-50 text-center">
+  <h2 class="text-3xl font-bold mb-8">Contenido útil para tu negocio</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+    <a
+      routerLink="/blog/factura-electronica"
+      class="hover:underline text-blue-600 text-lg"
+      >Cómo gestionar facturas electrónicas en 2025</a
+    >
+    <a
+      routerLink="/blog/finanzas-autonomos"
+      class="hover:underline text-blue-600 text-lg"
+      >Consejos financieros para autónomos</a
+    >
+    <a
+      routerLink="/blog/ingresos-vs-gastos"
+      class="hover:underline text-blue-600 text-lg"
+      >Diferencias entre ingresos, gastos y beneficios</a
+    >
+  </div>
+</section> -->
+
 <!-- CTA Section -->
 <section class="bg-white py-20 text-center px-6">
   <div class="max-w-2xl mx-auto">
@@ -120,13 +141,20 @@
     </h2>
 
     <p-accordion [multiple]="true">
-      <p-accordionTab
-        *ngFor="let item of faq"
-        [header]="item.question"
-        class="text-xl font-medium font-color border border-gray-200 rounded-xl overflow-hidden mb-4 shadow hover:shadow-md transition-all"
+      <p-accordion-panel
+        *ngFor="let item of faq; let i = index"
+        [value]="i"
+        class="mb-4 text-xl font-color border border-gray-200 rounded-xl overflow-hidden shadow hover:shadow-md transition-all"
       >
-        <p class="text-gray-600 text-base p-5">{{ item.answer }}</p>
-      </p-accordionTab>
+        <p-accordion-header>
+          {{ item.question }}
+        </p-accordion-header>
+        <p-accordion-content>
+          <p class="text-gray-600 text-base p-5">
+            {{ item.answer }}
+          </p>
+        </p-accordion-content>
+      </p-accordion-panel>
     </p-accordion>
   </div>
 </section>

@@ -1,5 +1,5 @@
 <div class="flex justify-center items-center md:h-screen">
-  <div class="absolute md:top-8 px-6 top-3 z-10">
+  <!-- <div class="absolute md:top-8 px-6 top-3 z-10">
     <span
       class="flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 text-sm font-semibold rounded-full shadow-sm"
     >
@@ -9,7 +9,7 @@
         Agradecemos su paciencia.
       </p>
     </span>
-  </div>
+  </div> -->
 
   <div
     class="flex flex-col md:flex-row w-full max-w-5xl p-6 bg-white shadow-xl rounded-lg"
@@ -36,6 +36,7 @@
               placeholder="Introduce tu email..."
               [(ngModel)]="email"
               name="email"
+              autocomplete="email"
               required
             />
           </p-inputGroup>
@@ -57,6 +58,7 @@
                 styleClass="w-72"
                 placeholder="Introduce tu contraseña..."
                 name="password"
+                autocomplete="current-password"
                 required
               ></p-password>
             </div>
@@ -150,6 +152,7 @@
               placeholder="Introduce tu email..."
               [(ngModel)]="emailRegister"
               name="email"
+              autocomplete="email"
               required
             />
           </p-inputGroup>
@@ -169,6 +172,7 @@
                 placeholder="Introduce tu contraseña..."
                 [(ngModel)]="passwordRegister"
                 name="password"
+                autocomplete="new-password"
                 required
               ></p-password>
             </div>
@@ -189,6 +193,7 @@
                 placeholder="Introduce tu contraseña..."
                 [(ngModel)]="passwordRegisterConfirm"
                 name="passwordConfirm"
+                autocomplete="new-password"
                 required
               ></p-password>
             </div>
