@@ -55,10 +55,11 @@
             ></i>
             <p class="text-xl font-semibold text-gray-700">Total Facturas</p>
             <p class="text-3xl font-bold text-red-600 mt-2">
-              {{ resumenFacturas.totalImporte | importeEur }}
+              {{ resumenFacturas?.totalImporte | importeEur }}
             </p>
             <p class="text-sm text-gray-500 mt-1">
-              Promedio anual: {{ resumenFacturas.promedioImporte | importeEur }}
+              Promedio anual:
+              {{ resumenFacturas?.promedioImporte | importeEur }}
             </p>
           </div>
         </div>
@@ -74,10 +75,10 @@
             ></i>
             <p class="text-xl font-semibold text-gray-700">Total Gastos</p>
             <p class="text-3xl font-bold text-blue-600 mt-2">
-              {{ resumenGastos.totalImporte | importeEur }}
+              {{ resumenGastos?.totalImporte | importeEur }}
             </p>
             <p class="text-sm text-gray-500 mt-1">
-              Promedio anual: {{ resumenGastos.promedioImporte | importeEur }}
+              Promedio anual: {{ resumenGastos?.promedioImporte | importeEur }}
             </p>
           </div>
         </div>
@@ -93,10 +94,11 @@
             ></i>
             <p class="text-xl font-semibold text-gray-700">Total Ingresos</p>
             <p class="text-3xl font-bold text-green-600 mt-2">
-              {{ resumenIngresos.totalImporte | importeEur }}
+              {{ resumenIngresos?.totalImporte | importeEur }}
             </p>
             <p class="text-sm text-gray-500 mt-1">
-              Promedio anual: {{ resumenIngresos.promedioImporte | importeEur }}
+              Promedio anual:
+              {{ resumenIngresos?.promedioImporte | importeEur }}
             </p>
           </div>
         </div>
@@ -306,7 +308,7 @@
                   Total de Gastos
                 </h3>
                 <p class="text-2xl font-bold text-[#0f172a]">
-                  {{ resumenGastos.totalGastos }}
+                  {{ resumenGastos?.totalGastos }}
                 </p>
               </div>
 
@@ -317,7 +319,7 @@
                   Promedio de Gastos
                 </h3>
                 <p class="text-xl font-bold text-[#0f172a]">
-                  {{ resumenGastos.promedioImporte | importeEur }}
+                  {{ resumenGastos?.promedioImporte | importeEur }}
                 </p>
               </div>
 
@@ -328,7 +330,7 @@
                   Importe Total
                 </h3>
                 <p class="text-xl font-bold text-red-500">
-                  {{ resumenGastos.totalImporte | importeEur }}
+                  {{ resumenGastos?.totalImporte | importeEur }}
                 </p>
               </div>
             </div>
@@ -382,7 +384,7 @@
                   Total de Ingresos
                 </h3>
                 <p class="text-2xl font-bold text-[#0f172a]">
-                  {{ resumenIngresos.totalIngresos }}
+                  {{ resumenIngresos?.totalIngresos }}
                 </p>
               </div>
 
@@ -393,7 +395,7 @@
                   Promedio por Ingreso
                 </h3>
                 <p class="text-xl font-bold text-[#0f172a]">
-                  {{ resumenIngresos.promedioImporte | importeEur }}
+                  {{ resumenIngresos?.promedioImporte | importeEur }}
                 </p>
               </div>
 
@@ -404,7 +406,7 @@
                   Importe Total
                 </h3>
                 <p class="text-xl font-bold text-green-600">
-                  {{ resumenIngresos.totalImporte | importeEur }}
+                  {{ resumenIngresos?.totalImporte | importeEur }}
                 </p>
               </div>
             </div>

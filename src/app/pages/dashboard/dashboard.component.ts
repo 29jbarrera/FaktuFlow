@@ -4,9 +4,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
 import { TabsModule } from 'primeng/tabs';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { ResumenGastos, GastoMensual } from '../../interfaces/gastosDashboard';
+import {
+  IngresoMensual,
+  ResumenIngresos,
+} from '../../interfaces/ingresosDashboard';
+import {
+  FacturaMensual,
+  ResumenFacturasData,
+} from '../../interfaces/facturasDashboard';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,19 +38,26 @@ export class DashboardComponent implements OnInit {
   success: boolean = false;
   year = new Date().getFullYear();
   loading = false;
-  resumenFacturas: any;
-  resumenGastos: any;
-  resumenIngresos: any;
-  mensualFacturas: any[] = [];
-  mensualGastos: any[] = [];
-  mensualIngresos: any[] = [];
+
+  resumenGastos: ResumenGastos | null = null;
+  mensualGastos: GastoMensual[] = [];
+
+  resumenIngresos: ResumenIngresos | null = null;
+  mensualIngresos: IngresoMensual[] = [];
+
+  resumenFacturas: ResumenFacturasData | null = null;
+  mensualFacturas: FacturaMensual[] = [];
+
   balanceGlobal: number = 0;
   totalClientes: number = 0;
 
   pendingRequests = 0;
 
-  data: any;
-  options: any;
+  data: ChartConfiguration<'line' | 'bar'>['data'] = {
+    labels: [],
+    datasets: [],
+  };
+  options: ChartOptions<'line' | 'bar'> = {};
 
   nombreMes(mes: string): string {
     const meses = [
@@ -102,9 +119,7 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       },
       complete: () => {
-        setTimeout(() => {
-          this.pendingRequests--;
-        }, 3000);
+        this.pendingRequests--;
       },
     });
   }
@@ -205,8 +220,6 @@ export class DashboardComponent implements OnInit {
           borderWidth: 2,
           backgroundColor: 'rgba(239, 68, 68, 0.3)',
           borderColor: '#ef4444',
-          tension: 0.4,
-          fill: false,
         },
         {
           type: 'bar',
@@ -215,8 +228,6 @@ export class DashboardComponent implements OnInit {
           borderWidth: 2,
           backgroundColor: 'rgba(59, 130, 246, 0.3)',
           borderColor: '#3b82f6',
-          tension: 0.4,
-          fill: false,
         },
       ],
     };

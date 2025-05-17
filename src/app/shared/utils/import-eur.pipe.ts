@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'importeEur',
 })
 export class ImporteEurPipe implements PipeTransform {
-  transform(value: number): string {
-    if (value != null) {
+  transform(value: number | null | undefined): string {
+    if (typeof value === 'number') {
       const formatted = value.toLocaleString('es-ES', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
