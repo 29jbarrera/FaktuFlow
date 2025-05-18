@@ -1,10 +1,10 @@
-export const environment = {
+export const environment_prod = {
   production: false,
   apiUrl: 'http://localhost:3000/api/',
   siteKey: '6LeUCzErAAAAAGfgpkWHqJbdVuteSFFDe1pup_0A',
 };
 
-export const environment_prod = {
+export const environment_production = {
   production: true,
   apiUrl: 'https://faktuflow-back.onrender.com/api/',
   siteKey: '6LeUCzErAAAAAGfgpkWHqJbdVuteSFFDe1pup_0A',
