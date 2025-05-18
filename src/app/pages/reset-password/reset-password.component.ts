@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { PasswordModule } from 'primeng/password';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-reset-password',
@@ -24,6 +25,7 @@ import { PasswordModule } from 'primeng/password';
     ButtonModule,
     PasswordModule,
     InputGroupModule,
+    LoadingComponent,
   ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
@@ -34,6 +36,8 @@ export class ResetPasswordComponent {
   token: string = '';
   newPassword: string = '';
   message: string = '';
+
+  loading = false;
 
   validationResetPassword: ValidationMessage[] = [];
 
@@ -51,7 +55,9 @@ export class ResetPasswordComponent {
   }
 
   onResetPassword() {
+    this.loading = true;
     if (!this.newPassword || this.newPassword.length < 6) {
+      this.loading = false;
       this.validationResetPassword = [
         {
           severity: 'error',
@@ -66,6 +72,7 @@ export class ResetPasswordComponent {
       .resetPassword(this.email, this.token, this.newPassword)
       .subscribe({
         next: () => {
+          this.loading = true;
           this.validationResetPassword = [
             {
               severity: 'success',
@@ -73,11 +80,11 @@ export class ResetPasswordComponent {
               text: 'Tu contraseña ha sido restablecida correctamente. Redirigiendo...',
             },
           ];
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 3000);
+          this.router.navigate(['/login']);
+          this.loading = false;
         },
         error: (err) => {
+          this.loading = false;
           this.validationResetPassword = [
             {
               severity: 'error',
