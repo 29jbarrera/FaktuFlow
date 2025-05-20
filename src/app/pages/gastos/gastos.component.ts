@@ -41,8 +41,10 @@ export class GastosComponent {
   loadingClientes = true;
   validationMessages: ValidationMessage[] = [];
   categoriaOptions = [
-    { label: 'Mano de obra', value: 'Mano de obra' },
     { label: 'Transporte', value: 'Transporte' },
+    { label: 'Suscripciones', value: 'Suscripciones' },
+    { label: 'Mano de obra', value: 'Mano de obra' },
+    { label: 'Dominio y Hosting', value: 'Dominio y Hosting' },
     { label: 'Cuota', value: 'Cuota' },
     { label: 'Otros', value: 'Otros' },
   ];

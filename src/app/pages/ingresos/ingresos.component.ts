@@ -41,11 +41,13 @@ export class IngresosComponent {
   loadingClientes = true;
   validationMessages: ValidationMessage[] = [];
   categoriaOptions = [
-    { label: 'Cosecha Pipas', value: 'Cosecha Pipas' },
-    { label: 'Cosecha Trigo', value: 'Cosecha Trigo' },
-    { label: 'Cosecha Garbanzo', value: 'Cosecha Garbanzo' },
-    { label: 'Subvención', value: 'Subvención' },
     { label: 'Salario', value: 'Salario' },
+    { label: 'Productos', value: 'Productos' },
+    { label: 'Licencias', value: 'Licencias' },
+    { label: 'Venta de Activos', value: 'Venta de Activos' },
+    { label: 'Software', value: 'Software' },
+    { label: 'Subvención', value: 'Subvención' },
+    { label: 'Cosecha', value: 'Cosecha' },
     { label: 'Otros', value: 'Otros' },
   ];
 
