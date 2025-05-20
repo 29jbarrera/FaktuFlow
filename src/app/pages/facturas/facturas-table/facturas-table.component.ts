@@ -314,4 +314,13 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
       })
       .catch((err) => console.error('Error al descargar PDF:', err));
   }
+
+  getArchivoNombre(archivo: File | string): string {
+    if (typeof archivo === 'string') {
+      return archivo.split('/').pop() || '';
+    } else if (archivo instanceof File) {
+      return archivo.name;
+    }
+    return '';
+  }
 }
