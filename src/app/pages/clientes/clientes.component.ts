@@ -125,14 +125,14 @@ export class ClientesComponent {
         if (
           error?.status === 400 &&
           error?.error?.message ===
-            'Has alcanzado el límite de 80 clientes por usuario. Si necesitas más capacidad, contacta al administrador.'
+            'Has alcanzado el límite de 500 clientes por usuario. Si necesitas más capacidad, contacta al administrador.'
         ) {
           this.loading = false;
           this.validationMessages = [
             {
               severity: 'warn',
               summary: 'Límite máximo alcanzado',
-              text: 'Has alcanzado el límite de 80 clientes por usuario. Si necesitas más capacidad, contacta al administrador.',
+              text: 'Has alcanzado el límite de 500 clientes por usuario. Si necesitas más capacidad, contacta al administrador.',
             },
           ];
           return;

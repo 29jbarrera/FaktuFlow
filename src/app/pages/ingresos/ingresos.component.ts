@@ -151,7 +151,7 @@ export class IngresosComponent {
         if (
           error?.status === 400 &&
           error?.error?.message?.includes(
-            'Has alcanzado el límite de 300 ingresos'
+            'Has alcanzado el límite de 1000 ingresos'
           )
         ) {
           this.loading = false;
@@ -159,7 +159,7 @@ export class IngresosComponent {
             {
               severity: 'warn',
               summary: 'Límite máximo alcanzado',
-              text: 'Has alcanzado el límite de 300 ingresos por usuario. Si necesitas más capacidad, contacta al administrador.',
+              text: 'Has alcanzado el límite de 1000 ingresos por usuario. Si necesitas más capacidad, contacta al administrador.',
             },
           ];
         } else {

@@ -196,13 +196,13 @@ export class FacturasComponent implements OnInit {
         } else if (
           error?.status === 400 &&
           error?.error?.message ===
-            'Has alcanzado el límite de 250 facturas por usuario. Si necesitas más capacidad, contacta al administrador.'
+            'Has alcanzado el límite de 1000 facturas por usuario. Si necesitas más capacidad, contacta al administrador.'
         ) {
           this.validationMessages = [
             {
               severity: 'warn',
               summary: 'Límite máximo alcanzado',
-              text: 'Has alcanzado el límite de 250 facturas por usuario. Si necesitas más capacidad, contacta al administrador.',
+              text: 'Has alcanzado el límite de 1000 facturas por usuario. Si necesitas más capacidad, contacta al administrador.',
             },
           ];
         } else {
