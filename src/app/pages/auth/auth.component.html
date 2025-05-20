@@ -14,7 +14,7 @@
   <div
     class="flex flex-col md:flex-row w-full max-w-5xl p-6 bg-white shadow-xl rounded-lg"
   >
-    <div class="flex-1 p-5 flex flex-col items-center">
+    <div class="flex-1 p-5 flex flex-col items-center -mt-8 sm:mt-0">
       <img
         src="/assets/ico/FaktuFlow.avif"
         class="md:w-80 w-72 mb-12 md:mt-8 mt-20"
@@ -315,20 +315,27 @@
           />
         </p-inputGroup>
       </div>
+      <div class="justify-center flex">
+        <p-inputotp
+          *ngIf="showOtp"
+          name="verificationCode"
+          [length]="6"
+          [(ngModel)]="CodeToVerify"
+        >
+          <ng-template #input let-token let-events="events" let-index="index">
+            <input
+              type="text"
+              [maxLength]="1"
+              (input)="events.input($event)"
+              (keydown)="events.keydown($event)"
+              [attr.value]="token"
+              class="custom-otp-input"
+            />
+          </ng-template>
+        </p-inputotp>
+      </div>
     </form>
 
-    <p-inputotp [(ngModel)]="CodeToVerify" [length]="6">
-      <ng-template #input let-token let-events="events" let-index="index">
-        <input
-          type="text"
-          [maxLength]="1"
-          (input)="events.input($event)"
-          (keydown)="events.keydown($event)"
-          [attr.value]="token"
-          class="custom-otp-input"
-        />
-      </ng-template>
-    </p-inputotp>
     <div *ngFor="let message of messagesVerify">
       <p-message
         [life]="8000"

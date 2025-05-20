@@ -69,6 +69,7 @@ export class AuthComponent implements OnInit {
   messagesVerify: any[] = [];
   emailVerify: string = '';
   CodeToVerify: string = '';
+  showOtp: boolean = true;
 
   openDialogForgot = false;
   messagesResendForgot: ValidationMessage[] = [];
@@ -296,9 +297,12 @@ export class AuthComponent implements OnInit {
             text: res.message || 'Cuenta verificada con éxito.',
           },
         ];
-
-        this.CodeToVerify = '';
         form.resetForm();
+        this.CodeToVerify = '';
+        this.showOtp = false;
+        setTimeout(() => {
+          this.showOtp = true;
+        });
         this.loadingVerifyCode = false;
         setTimeout(() => {
           this.openDialog = false;
@@ -309,6 +313,7 @@ export class AuthComponent implements OnInit {
         this.messagesVerify = [
           { severity: 'error', text: err.error.message || 'Código incorrecto' },
         ];
+        this.CodeToVerify = '';
       },
     });
   }
