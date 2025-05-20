@@ -114,4 +114,19 @@ export class FormComponent implements OnInit {
     }
     this.cdr.detectChanges();
   }
+
+  getIcon(severity: string): string {
+    switch (severity) {
+      case 'success':
+        return 'pi pi-check-circle';
+      case 'info':
+        return 'pi pi-info-circle';
+      case 'warn':
+        return 'pi pi-exclamation-triangle';
+      case 'error':
+        return 'pi pi-times-circle';
+      default:
+        return 'pi pi-info-circle';
+    }
+  }
 }
