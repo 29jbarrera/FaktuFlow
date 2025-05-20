@@ -21,7 +21,11 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
 import { ResetPasswordService } from '../reset-password/reset-password.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 
-declare var grecaptcha: any;
+declare var grecaptcha: {
+  render: (containerId: string, parameters: any) => number;
+  getResponse: (widgetId?: number) => string;
+  reset: (widgetId?: number) => void;
+};
 
 @Component({
   selector: 'app-auth',

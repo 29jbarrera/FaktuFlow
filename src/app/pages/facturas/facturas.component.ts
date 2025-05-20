@@ -9,7 +9,7 @@ import { ClientesService } from '../clientes/clientes.service';
 import { formatFechaToYMD } from '../../shared/utils/date.util';
 import { CreateFacturaRequest } from './factura.interface';
 import { Cliente } from '../clientes/cliente.interface';
-import { FormField } from '../../interfaces/form-field.interface';
+import { FormField } from '../../components/form/interfaces/FormField';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { LoadingComponent } from '../../components/loading/loading.component';
 
