@@ -253,14 +253,40 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
           },
           (error) => {
             this.loadingEdit = false;
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Error',
-              detail: `Error al actualizar la factura, ${
-                error.message || 'intente nuevamente'
-              }`,
-              life: 4000,
-            });
+
+            if (
+              error?.status === 400 &&
+              error?.error?.message === 'Ya existe una factura con ese número.'
+            ) {
+              this.validationMessages = [
+                {
+                  severity: 'error',
+                  summary: 'Error',
+                  text: 'Ya existe una factura con ese número.',
+                },
+              ];
+            } else if (
+              error?.status === 404 &&
+              error?.error?.message === 'Factura no encontrada'
+            ) {
+              this.validationMessages = [
+                {
+                  severity: 'warn',
+                  summary: 'No encontrada',
+                  text: 'La factura que intentas actualizar no existe o no te pertenece.',
+                },
+              ];
+            } else {
+              this.validationMessages = [
+                {
+                  severity: 'error',
+                  summary: 'Error en el servidor',
+                  text:
+                    error?.error?.message ||
+                    'Error al actualizar la factura. Inténtalo nuevamente.',
+                },
+              ];
+            }
           }
         );
     };
@@ -305,14 +331,37 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
 
   downloadPdf(url: string, filename: string): void {
     fetch(url)
-      .then((res) => res.blob())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.blob();
+      })
       .then((blob) => {
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.download = filename;
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Descarga exitosa',
+          detail: `La factura ${filename} se ha descargado correctamente.`,
+          life: 4000,
+        });
       })
-      .catch((err) => console.error('Error al descargar PDF:', err));
+      .catch((err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error en la descarga',
+          detail: `No se pudo descargar la factura. ${
+            err.message || 'Inténtalo de nuevo.'
+          }`,
+          life: 4000,
+        });
+      });
   }
 
   getArchivoNombre(archivo: File | string): string {
