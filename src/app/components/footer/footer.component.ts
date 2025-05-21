@@ -10,6 +10,7 @@ import { NavService } from '../nav/nav.service';
 })
 export class FooterComponent {
   starCount: number = 0;
+  currentYear: number = new Date().getFullYear();
 
   constructor(private navService: NavService) {}
 
