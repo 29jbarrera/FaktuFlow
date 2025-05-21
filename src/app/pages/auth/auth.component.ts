@@ -63,6 +63,8 @@ export class AuthComponent implements OnInit {
   messagesLogin: any[] = [];
   messagesRegister: any[] = [];
 
+  showAlert = true;
+
   loading = false;
   loadingRegister = false;
   loadingResetPassword = false;
@@ -393,5 +395,9 @@ export class AuthComponent implements OnInit {
         ];
       },
     });
+  }
+
+  closeAlert(): void {
+    this.showAlert = false;
   }
 }

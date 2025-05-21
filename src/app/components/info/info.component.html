@@ -27,9 +27,7 @@
         <h3 class="text-2xl font-semibold">
           {{ usuario.nombre }} {{ usuario.apellidos }}
         </h3>
-        <p>
-          <i class="pi pi-envelope text-blue-600 mr-2"></i>{{ usuario.email }}
-        </p>
+        <p>{{ usuario.email }}</p>
         <p class="text-sm text-gray-500">
           <i class="pi pi-calendar text-green-600 mr-2"></i>Miembro desde:
           {{ usuario.fecha_registro | date : "dd/MM/yyyy" }}
