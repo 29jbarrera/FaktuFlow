@@ -195,16 +195,17 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
     }
 
     const clienteActualizado: CreateClienteRequest = {
-      nombre: this.clienteSeleccionado.nombre!,
-      email: this.clienteSeleccionado.email!,
-      telefono: this.clienteSeleccionado.telefono!,
+      nombre: this.clienteSeleccionado.nombre!.trim(),
+      email: this.clienteSeleccionado.email?.trim() || null, // Si vacío, será null
+      telefono:
+        this.clienteSeleccionado.telefono === undefined ||
+        this.clienteSeleccionado.telefono === 0
+          ? null
+          : this.clienteSeleccionado.telefono,
       usuario_id: this.clienteSeleccionado.usuario_id!,
-      direccion_fiscal: this.clienteSeleccionado.direccion_fiscal,
+      direccion_fiscal:
+        this.clienteSeleccionado.direccion_fiscal?.trim() || null, // Si vacío, será null
     };
-
-    if (!clienteActualizado.email) delete clienteActualizado.email;
-    if (!clienteActualizado.telefono || clienteActualizado.telefono === 0)
-      delete clienteActualizado.telefono;
 
     if (this.validationMessages.length > 0) {
       this.loadingEdit = false;
