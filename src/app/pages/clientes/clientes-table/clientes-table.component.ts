@@ -227,28 +227,32 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
           this.openDialog = false;
         },
         (error) => {
-          if (error?.error?.errors) {
+          this.loadingEdit = false;
+          if (error?.error?.errors && Array.isArray(error.error.errors)) {
             error.error.errors.forEach((e: any) => {
+              // Mensajes específicos según campo
               if (e.path === 'email') {
-                this.loadingEdit = false;
                 this.validationMessages.push({
                   severity: 'error',
                   summary: 'Error en el email',
                   text: 'El formato del email no es válido.',
                 });
-              }
-
-              if (e.path === 'telefono') {
-                this.loadingEdit = false;
+              } else if (e.path === 'telefono') {
                 this.validationMessages.push({
                   severity: 'error',
                   summary: 'Error en el teléfono',
                   text: 'El teléfono debe tener exactamente 9 dígitos numéricos.',
                 });
+              } else {
+                // Mensajes genéricos (otros campos)
+                this.validationMessages.push({
+                  severity: 'error',
+                  summary: `Error en ${e.path}`,
+                  text: e.msg,
+                });
               }
             });
           } else {
-            this.loadingEdit = false;
             this.messageService.add({
               severity: 'warn',
               summary: 'Error inesperado',

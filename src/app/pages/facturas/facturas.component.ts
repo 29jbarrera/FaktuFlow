@@ -184,6 +184,17 @@ export class FacturasComponent implements OnInit {
       (error) => {
         if (
           error?.status === 400 &&
+          error?.error?.errors &&
+          Array.isArray(error.error.errors)
+        ) {
+          // Si vienen errores de validación detallados
+          this.validationMessages = error.error.errors.map((e: any) => ({
+            severity: 'error',
+            summary: `Error en ${e.path}`,
+            text: e.msg,
+          }));
+        } else if (
+          error?.status === 400 &&
           error?.error?.message === 'Ya existe una factura con ese número.'
         ) {
           this.validationMessages = [
