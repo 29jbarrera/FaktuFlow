@@ -383,4 +383,12 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
     }
     return '';
   }
+
+  get numeroCorto(): string {
+    const maxLength = 18;
+    const numero = this.facturaSeleccionada.numero || '';
+    return numero.length > maxLength
+      ? numero.slice(0, maxLength) + '...'
+      : numero;
+  }
 }

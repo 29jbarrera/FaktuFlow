@@ -265,4 +265,12 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
         }
       );
   }
+
+  get nombreCorto(): string {
+    const maxLength = 18;
+    const nombre = this.clienteSeleccionado.nombre || '';
+    return nombre.length > maxLength
+      ? nombre.slice(0, maxLength) + '...'
+      : nombre;
+  }
 }

@@ -264,4 +264,12 @@ export class IngresosTableComponent {
         },
       });
   }
+
+  get nombreCorto(): string {
+    const maxLength = 18;
+    const nombre = this.ingresoSeleccionado.nombre_ingreso || '';
+    return nombre.length > maxLength
+      ? nombre.slice(0, maxLength) + '...'
+      : nombre;
+  }
 }

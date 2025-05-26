@@ -268,4 +268,12 @@ export class GastosTableComponent implements AfterViewInit, OnDestroy {
         },
       });
   }
+
+  get nombreCorto(): string {
+    const maxLength = 18;
+    const nombre = this.gastoSeleccionado.nombre_gasto || '';
+    return nombre.length > maxLength
+      ? nombre.slice(0, maxLength) + '...'
+      : nombre;
+  }
 }
