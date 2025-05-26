@@ -3,6 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment_prod } from '../../../environments/environment';
 import { LoginResponse, User, RegisterResponse } from '../../interfaces/user';
+import {
+  ResendCodeResponse,
+  VerifyCodeResponse,
+} from '../../interfaces/VerifyCode';
 
 @Injectable({
   providedIn: 'root',
@@ -66,14 +70,23 @@ export class AuthService {
     sessionStorage.removeItem('rol');
   }
 
-  verifyCode(email: string, codigo_verificacion: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}auth/verify-code`, {
-      email,
-      codigo_verificacion,
-    });
+  verifyCode(
+    email: string,
+    codigo_verificacion: string
+  ): Observable<VerifyCodeResponse> {
+    return this.http.post<VerifyCodeResponse>(
+      `${this.apiUrl}auth/verify-code`,
+      {
+        email,
+        codigo_verificacion,
+      }
+    );
   }
 
-  resendCode(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}auth/resend-code`, { email });
+  resendCode(email: string): Observable<ResendCodeResponse> {
+    return this.http.post<ResendCodeResponse>(
+      `${this.apiUrl}auth/resend-code`,
+      { email }
+    );
   }
 }

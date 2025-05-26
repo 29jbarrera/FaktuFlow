@@ -12,6 +12,7 @@ export interface LoginResponse {
   rol: string;
   nombre: string;
   apellidos: string;
+  message: string;
 }
 
 export interface RegisterResponse {

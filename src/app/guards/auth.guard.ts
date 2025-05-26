@@ -2,12 +2,13 @@ import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { JwtPayload } from '../interfaces/JWT';
 
 function isTokenValid(token: string): boolean {
   try {
-    const decoded: any = jwtDecode(token);
+    const decoded: JwtPayload = jwtDecode(token);
     const now = Math.floor(Date.now() / 1000);
-    return decoded.exp && decoded.exp > now;
+    return typeof decoded.exp === 'number' && decoded.exp > now;
   } catch (e) {
     console.error('Token inválido:', e);
     return false;
