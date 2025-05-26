@@ -320,6 +320,10 @@ export class AuthComponent implements OnInit {
           { severity: 'error', text: err.error.message || 'Código incorrecto' },
         ];
         this.CodeToVerify = '';
+        this.showOtp = false;
+        setTimeout(() => {
+          this.showOtp = true;
+        });
       },
     });
   }
