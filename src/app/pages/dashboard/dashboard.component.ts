@@ -35,6 +35,12 @@ import {
 })
 export class DashboardComponent implements OnInit {
   totalUsuarios: number = 0;
+  totalFacturas: number = 0;
+  totalGastos: number = 0;
+  totalIngresos: number = 0;
+  totalClientesStats: number = 0;
+  usuariosConStats: any[] = [];
+
   success: boolean = false;
   year = new Date().getFullYear();
   loading = false;
@@ -86,6 +92,7 @@ export class DashboardComponent implements OnInit {
     this.cargarResumenIngresos();
     this.getTotalClientes();
     this.cargarTotalUsuarios();
+    this.cargarStatsByUser();
   }
 
   get isLoading(): boolean {
@@ -96,12 +103,29 @@ export class DashboardComponent implements OnInit {
     this.DashboardService.getTotalUsuarios().subscribe({
       next: (response) => {
         this.totalUsuarios = response.totalUsuarios;
+        this.totalFacturas = response.totalFacturas;
+        this.totalGastos = response.totalGastos;
+        this.totalIngresos = response.totalIngresos;
+        this.totalClientesStats = response.totalClientes;
+
         this.success = true;
         this.loading = false;
       },
       error: (error) => {
         this.loading = false;
         this.success = false;
+      },
+    });
+  }
+
+  cargarStatsByUser(): void {
+    this.DashboardService.getStatsByUser().subscribe({
+      next: (response) => {
+        this.usuariosConStats = response.usuarios;
+        console.log('Stats por usuario:', this.usuariosConStats);
+      },
+      error: (error) => {
+        console.error('Error al cargar stats por usuario:', error);
       },
     });
   }

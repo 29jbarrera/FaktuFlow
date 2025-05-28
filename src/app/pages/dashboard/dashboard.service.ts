@@ -5,6 +5,7 @@ import { AuthService } from '../auth/auth.service';
 import { ResumenFacturasResponse } from '../../interfaces/resumenFacturas';
 import { ResumenGastosResponse } from '../../interfaces/resumenGastos';
 import { ResumenIngresosResponse } from '../../interfaces/resumenIngresos';
+import { UsuarioStats } from '../../interfaces/usuariosStats';
 
 @Injectable({
   providedIn: 'root',
@@ -60,8 +61,20 @@ export class DashboardService {
   }
 
   getTotalUsuarios() {
-    return this.http.get<{ totalUsuarios: number }>(
-      `${this.baseUrl}admin/total-usuarios`,
+    return this.http.get<{
+      totalUsuarios: number;
+      totalFacturas: number;
+      totalGastos: number;
+      totalIngresos: number;
+      totalClientes: number;
+    }>(`${this.baseUrl}admin/total-usuarios`, {
+      headers: this.authHeaders,
+    });
+  }
+
+  getStatsByUser() {
+    return this.http.get<{ usuarios: UsuarioStats[] }>(
+      `${this.baseUrl}admin/stats-usuarios`,
       {
         headers: this.authHeaders,
       }

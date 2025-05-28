@@ -6,13 +6,96 @@
 <div *ngIf="!isLoading">
   <div
     *ngIf="success"
-    class="p-4 rounded-lg shadow-lg max-w-md m-auto flex items-center bg-white mt-4 text-green-800"
+    class="p-4 rounded-lg shadow-lg md:w-[80%] w-[95%] m-auto flex-col items-center bg-white mt-8 text-green-800"
   >
-    <i class="fas fa-user-circle text-xl mr-4"></i>
-    <h3 class="font-semibold">Total de usuarios en el sistema:</h3>
-    <p class="font-bold ml-2">
-      {{ totalUsuarios }}
-    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+      <div
+        class="p-4 rounded-lg shadow bg-white text-green-800 flex items-center"
+      >
+        <i class="fas fa-users text-2xl mr-4"></i>
+        <div>
+          <h3 class="font-semibold">Usuarios Registrados</h3>
+          <p class="font-bold">{{ totalUsuarios }}</p>
+        </div>
+      </div>
+
+      <div
+        class="p-4 rounded-lg shadow bg-white text-blue-800 flex items-center"
+      >
+        <i class="fas fa-file-invoice text-2xl mr-4"></i>
+        <div>
+          <h3 class="font-semibold">Total de facturas</h3>
+          <p class="font-bold">{{ totalFacturas }}</p>
+        </div>
+      </div>
+
+      <div
+        class="p-4 rounded-lg shadow bg-white text-red-800 flex items-center"
+      >
+        <i class="fas fa-money-bill-wave text-2xl mr-4"></i>
+        <div>
+          <h3 class="font-semibold">Total de gastos</h3>
+          <p class="font-bold">{{ totalGastos }}</p>
+        </div>
+      </div>
+
+      <div
+        class="p-4 rounded-lg shadow bg-white text-green-700 flex items-center"
+      >
+        <i class="fas fa-coins text-2xl mr-4"></i>
+        <div>
+          <h3 class="font-semibold">Total de ingresos</h3>
+          <p class="font-bold">{{ totalIngresos }}</p>
+        </div>
+      </div>
+
+      <div
+        class="p-4 rounded-lg shadow bg-white text-purple-800 flex items-center"
+      >
+        <i class="fas fa-user-friends text-2xl mr-4"></i>
+        <div>
+          <h3 class="font-semibold">Total de clientes</h3>
+          <p class="font-bold">{{ totalClientesStats }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mostrar tabla de estadísticas por usuario -->
+    <div *ngIf="usuariosConStats.length > 0" class="mt-8 max-w-6xl mx-auto">
+      <h2 class="text-xl font-semibold text-center mb-4 text-gray-700">
+        Estadísticas por usuario
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table
+          class="min-w-full bg-white border border-gray-200 rounded-lg shadow"
+        >
+          <thead class="bg-gray-100 text-gray-700">
+            <tr>
+              <th class="py-2 px-4 border-b">Nombre</th>
+              <th class="py-2 px-4 border-b">Apellidos</th>
+              <th class="py-2 px-4 border-b">Facturas</th>
+              <th class="py-2 px-4 border-b">Gastos</th>
+              <th class="py-2 px-4 border-b">Ingresos</th>
+              <th class="py-2 px-4 border-b">Clientes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let usuario of usuariosConStats"
+              class="hover:bg-gray-50 text-center"
+            >
+              <td class="py-2 px-4 border-b">{{ usuario.nombre }}</td>
+              <td class="py-2 px-4 border-b">{{ usuario.apellidos }}</td>
+              <td class="py-2 px-4 border-b">{{ usuario.total_facturas }}</td>
+              <td class="py-2 px-4 border-b">{{ usuario.total_gastos }}</td>
+              <td class="py-2 px-4 border-b">{{ usuario.total_ingresos }}</td>
+              <td class="py-2 px-4 border-b">{{ usuario.total_clientes }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <div class="p-3 space-y-6 max-w-4xl mx-auto content">
