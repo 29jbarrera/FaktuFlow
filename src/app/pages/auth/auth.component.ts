@@ -21,6 +21,7 @@ import { ValidationMessage } from '../../interfaces/validation-message.interface
 import { ResetPasswordService } from '../reset-password/reset-password.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { firstValueFrom } from 'rxjs';
+import { CheckboxModule } from 'primeng/checkbox';
 
 declare var grecaptcha: {
   render: (containerId: string, parameters: any) => number;
@@ -45,6 +46,7 @@ declare var grecaptcha: {
     DialogModule,
     InputOtpModule,
     LoadingComponent,
+    CheckboxModule,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -61,6 +63,7 @@ export class AuthComponent implements OnInit {
   password: string = '';
   passwordRegister: string = '';
   passwordRegisterConfirm: string = '';
+  aceptaTerminos: boolean = false;
   messagesLogin: ValidationMessage[] = [];
   messagesRegister: ValidationMessage[] = [];
 
@@ -219,6 +222,17 @@ export class AuthComponent implements OnInit {
       return;
     }
 
+    if (!this.aceptaTerminos) {
+      this.messagesRegister = [
+        {
+          severity: 'error',
+          summary: 'Error',
+          text: 'Debes aceptar los términos de uso para continuar',
+        },
+      ];
+      return;
+    }
+
     if (this.passwordRegister !== this.passwordRegisterConfirm) {
       this.messagesRegister = [
         {
@@ -263,6 +277,7 @@ export class AuthComponent implements OnInit {
       ];
 
       form.resetForm();
+      this.aceptaTerminos = false;
       this.loadingRegister = false;
       setTimeout(() => {
         this.openDialog = true;

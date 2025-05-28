@@ -201,6 +201,20 @@
           </div>
         </div>
 
+        <div class="mb-5 flex m-auto items-center gap-3">
+          <p-checkbox
+            [(ngModel)]="aceptaTerminos"
+            binary="true"
+            value="aceptaTerminos"
+            inputId="at"
+            name="terminos"
+            required
+          />
+          <label for="at" class="mt-2 custom-terminos"
+            ><a href="/terminos-de-uso">Acepto los términos de uso *</a></label
+          >
+        </div>
+
         <div *ngFor="let message of messagesRegister">
           <p-message
             [life]="8000"

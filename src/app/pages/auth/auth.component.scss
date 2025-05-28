@@ -64,7 +64,16 @@
 .font-color:hover{
     color: var(--color-secondary);
 }
+
+.custom-terminos{
+transition: 0.3s all ease-in-out;
+}
+
+.custom-terminos:hover{
+  color: var(--color-secondary) !important; 
+}
   
+
 
   
   
