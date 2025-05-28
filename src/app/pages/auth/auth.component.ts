@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
 import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
-import { User } from '../../interfaces/user';
+import { LoginResponse, User } from '../../interfaces/user';
 import { DialogModule } from 'primeng/dialog';
 import { InputOtpModule } from 'primeng/inputotp';
 import { environment_prod } from '../../../environments/environment';
@@ -20,6 +20,8 @@ import { LandingPageService } from '../landing-page/landing-page.service';
 import { ValidationMessage } from '../../interfaces/validation-message.interface';
 import { ResetPasswordService } from '../reset-password/reset-password.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { firstValueFrom } from 'rxjs';
+import { CheckboxModule } from 'primeng/checkbox';
 
 declare var grecaptcha: {
   render: (containerId: string, parameters: any) => number;
@@ -44,6 +46,7 @@ declare var grecaptcha: {
     DialogModule,
     InputOtpModule,
     LoadingComponent,
+    CheckboxModule,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
@@ -60,8 +63,9 @@ export class AuthComponent implements OnInit {
   password: string = '';
   passwordRegister: string = '';
   passwordRegisterConfirm: string = '';
-  messagesLogin: any[] = [];
-  messagesRegister: any[] = [];
+  aceptaTerminos: boolean = false;
+  messagesLogin: ValidationMessage[] = [];
+  messagesRegister: ValidationMessage[] = [];
 
   showAlert = true;
 
@@ -72,7 +76,7 @@ export class AuthComponent implements OnInit {
   loadingReenviarCode = false;
 
   openDialog = false;
-  messagesVerify: any[] = [];
+  messagesVerify: ValidationMessage[] = [];
   emailVerify: string = '';
   CodeToVerify: string = '';
   showOtp: boolean = true;
@@ -152,9 +156,9 @@ export class AuthComponent implements OnInit {
 
     try {
       this.loading = true;
-      const response: any = await this.authService
-        .login(this.email, this.password, recaptchaResponse)
-        .toPromise();
+      const response: LoginResponse = await firstValueFrom(
+        this.authService.login(this.email, this.password, recaptchaResponse)
+      );
 
       this.authService.storeUserData(response);
 
@@ -218,6 +222,17 @@ export class AuthComponent implements OnInit {
       return;
     }
 
+    if (!this.aceptaTerminos) {
+      this.messagesRegister = [
+        {
+          severity: 'error',
+          summary: 'Error',
+          text: 'Debes aceptar los términos de uso para continuar',
+        },
+      ];
+      return;
+    }
+
     if (this.passwordRegister !== this.passwordRegisterConfirm) {
       this.messagesRegister = [
         {
@@ -239,7 +254,7 @@ export class AuthComponent implements OnInit {
         password: this.passwordRegister,
       };
 
-      const response = await this.authService.register(user).toPromise();
+      const response = await firstValueFrom(this.authService.register(user));
 
       if (!response) {
         this.loadingRegister = false;
@@ -262,6 +277,7 @@ export class AuthComponent implements OnInit {
       ];
 
       form.resetForm();
+      this.aceptaTerminos = false;
       this.loadingRegister = false;
       setTimeout(() => {
         this.openDialog = true;
@@ -300,6 +316,7 @@ export class AuthComponent implements OnInit {
         this.messagesVerify = [
           {
             severity: 'success',
+            summary: 'success',
             text: res.message || 'Cuenta verificada con éxito.',
           },
         ];
@@ -317,9 +334,17 @@ export class AuthComponent implements OnInit {
       error: (err) => {
         this.loadingVerifyCode = false;
         this.messagesVerify = [
-          { severity: 'error', text: err.error.message || 'Código incorrecto' },
+          {
+            severity: 'error',
+            summary: 'error',
+            text: err.error.message || 'Código incorrecto',
+          },
         ];
         this.CodeToVerify = '';
+        this.showOtp = false;
+        setTimeout(() => {
+          this.showOtp = true;
+        });
       },
     });
   }
@@ -331,6 +356,7 @@ export class AuthComponent implements OnInit {
         this.messagesVerify = [
           {
             severity: 'info',
+            summary: 'info',
             text: res.message || 'Código reenviado con éxito',
           },
         ];
@@ -341,6 +367,7 @@ export class AuthComponent implements OnInit {
         this.messagesVerify = [
           {
             severity: 'error',
+            summary: 'error',
             text: err.error.message || 'Error al reenviar el código',
           },
         ];
@@ -399,5 +426,20 @@ export class AuthComponent implements OnInit {
 
   closeAlert(): void {
     this.showAlert = false;
+  }
+
+  getIcon(severity: string): string {
+    switch (severity) {
+      case 'success':
+        return 'pi pi-check-circle';
+      case 'info':
+        return 'pi pi-info-circle';
+      case 'warn':
+        return 'pi pi-exclamation-triangle';
+      case 'error':
+        return 'pi pi-times-circle';
+      default:
+        return 'pi pi-info-circle';
+    }
   }
 }

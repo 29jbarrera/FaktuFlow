@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
-  selector: 'app-aviso-legal',
+  selector: 'app-terminos-de-uso',
   imports: [FooterComponent],
-  templateUrl: './aviso-legal.component.html',
-  styleUrl: './aviso-legal.component.scss',
+  templateUrl: './terminos-de-uso.component.html',
+  styleUrl: './terminos-de-uso.component.scss',
 })
-export class AvisoLegalComponent {
+export class TerminosDeUsoComponent {
   getFechaActual(): string {
     const meses = [
       'Enero',

@@ -256,6 +256,17 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
 
             if (
               error?.status === 400 &&
+              error?.error?.errors &&
+              Array.isArray(error.error.errors)
+            ) {
+              // Mostrar errores de validación detallados
+              this.validationMessages = error.error.errors.map((e: any) => ({
+                severity: 'error',
+                summary: `Error en ${e.path}`,
+                text: e.msg,
+              }));
+            } else if (
+              error?.status === 400 &&
               error?.error?.message === 'Ya existe una factura con ese número.'
             ) {
               this.validationMessages = [
@@ -371,5 +382,13 @@ export class FacturasTableComponent implements AfterViewInit, OnDestroy {
       return archivo.name;
     }
     return '';
+  }
+
+  get numeroCorto(): string {
+    const maxLength = 18;
+    const numero = this.facturaSeleccionada.numero || '';
+    return numero.length > maxLength
+      ? numero.slice(0, maxLength) + '...'
+      : numero;
   }
 }

@@ -195,16 +195,17 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
     }
 
     const clienteActualizado: CreateClienteRequest = {
-      nombre: this.clienteSeleccionado.nombre!,
-      email: this.clienteSeleccionado.email!,
-      telefono: this.clienteSeleccionado.telefono!,
+      nombre: this.clienteSeleccionado.nombre!.trim(),
+      email: this.clienteSeleccionado.email?.trim() || null, // Si vacío, será null
+      telefono:
+        this.clienteSeleccionado.telefono === undefined ||
+        this.clienteSeleccionado.telefono === 0
+          ? null
+          : this.clienteSeleccionado.telefono,
       usuario_id: this.clienteSeleccionado.usuario_id!,
-      direccion_fiscal: this.clienteSeleccionado.direccion_fiscal,
+      direccion_fiscal:
+        this.clienteSeleccionado.direccion_fiscal?.trim() || null, // Si vacío, será null
     };
-
-    if (!clienteActualizado.email) delete clienteActualizado.email;
-    if (!clienteActualizado.telefono || clienteActualizado.telefono === 0)
-      delete clienteActualizado.telefono;
 
     if (this.validationMessages.length > 0) {
       this.loadingEdit = false;
@@ -226,28 +227,32 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
           this.openDialog = false;
         },
         (error) => {
-          if (error?.error?.errors) {
+          this.loadingEdit = false;
+          if (error?.error?.errors && Array.isArray(error.error.errors)) {
             error.error.errors.forEach((e: any) => {
+              // Mensajes específicos según campo
               if (e.path === 'email') {
-                this.loadingEdit = false;
                 this.validationMessages.push({
                   severity: 'error',
                   summary: 'Error en el email',
                   text: 'El formato del email no es válido.',
                 });
-              }
-
-              if (e.path === 'telefono') {
-                this.loadingEdit = false;
+              } else if (e.path === 'telefono') {
                 this.validationMessages.push({
                   severity: 'error',
                   summary: 'Error en el teléfono',
                   text: 'El teléfono debe tener exactamente 9 dígitos numéricos.',
                 });
+              } else {
+                // Mensajes genéricos (otros campos)
+                this.validationMessages.push({
+                  severity: 'error',
+                  summary: `Error en ${e.path}`,
+                  text: e.msg,
+                });
               }
             });
           } else {
-            this.loadingEdit = false;
             this.messageService.add({
               severity: 'warn',
               summary: 'Error inesperado',
@@ -259,5 +264,13 @@ export class ClientesTableComponent implements AfterViewInit, OnDestroy {
           }
         }
       );
+  }
+
+  get nombreCorto(): string {
+    const maxLength = 18;
+    const nombre = this.clienteSeleccionado.nombre || '';
+    return nombre.length > maxLength
+      ? nombre.slice(0, maxLength) + '...'
+      : nombre;
   }
 }

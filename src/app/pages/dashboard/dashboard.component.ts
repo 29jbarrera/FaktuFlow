@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit {
 
   cargarResumenFacturas() {
     this.pendingRequests++;
-    this.DashboardService.getResumenPorYear(this.year).subscribe({
+    this.DashboardService.getResumenFacturasPorYear(this.year).subscribe({
       next: (res) => {
         this.resumenFacturas = res.resumen;
         this.mensualFacturas = res.mensual;

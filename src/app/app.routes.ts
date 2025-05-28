@@ -13,6 +13,7 @@ import { PoliticaCookiesComponent } from './pages/politica-cookies/politica-cook
 import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politica-privacidad.component';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { TerminosDeUsoComponent } from './pages/terminos-de-uso/terminos-de-uso.component';
 
 export const routes: Routes = [
   {
@@ -70,6 +71,10 @@ export const routes: Routes = [
   {
     path: 'politica-cookies',
     component: PoliticaCookiesComponent,
+  },
+  {
+    path: 'terminos-de-uso',
+    component: TerminosDeUsoComponent,
   },
   { path: 'reset-password', component: ResetPasswordComponent },
   {

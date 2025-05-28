@@ -238,17 +238,38 @@ export class IngresosTableComponent {
             life: 4000,
           });
           this.cargarIngresos();
+          this.openDialog = false;
         },
         error: (err) => {
           this.loadingEdit = false;
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'No se pudo actualizar el gasto',
-            life: 4000,
-          });
+
+          if (
+            err?.status === 400 &&
+            err?.error?.errors &&
+            Array.isArray(err.error.errors)
+          ) {
+            this.validationMessages = err.error.errors.map((e: any) => ({
+              severity: 'error',
+              summary: `Error en ${e.path}`,
+              text: e.msg,
+            }));
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo actualizar el ingreso',
+              life: 4000,
+            });
+          }
         },
       });
-    this.openDialog = false;
+  }
+
+  get nombreCorto(): string {
+    const maxLength = 18;
+    const nombre = this.ingresoSeleccionado.nombre_ingreso || '';
+    return nombre.length > maxLength
+      ? nombre.slice(0, maxLength) + '...'
+      : nombre;
   }
 }

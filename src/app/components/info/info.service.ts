@@ -4,6 +4,7 @@ import { environment_prod } from '../../../environments/environment';
 import { UpdateUserResponse, UserData } from '../../interfaces/user';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../pages/auth/auth.service';
+import { ChangePasswordResponse } from '../../interfaces/changePassword';
 
 @Injectable({
   providedIn: 'root',
@@ -27,16 +28,20 @@ export class InfoService {
     usuario_id: number,
     currentPassword: string,
     newPassword: string
-  ): Observable<any> {
+  ): Observable<ChangePasswordResponse> {
     const body = {
       usuario_id,
       currentPassword,
       newPassword,
     };
 
-    return this.http.post(`${this.apiUrl}auth/change-password`, body, {
-      headers: this.authHeaders,
-    });
+    return this.http.post<ChangePasswordResponse>(
+      `${this.apiUrl}auth/change-password`,
+      body,
+      {
+        headers: this.authHeaders,
+      }
+    );
   }
 
   updateUserInfo(

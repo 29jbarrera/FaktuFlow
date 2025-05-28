@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment_prod } from '../../../environments/environment';
+import { ResetPasswordResponse } from './reset.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,11 @@ export class ResetPasswordService {
   constructor(private http: HttpClient) {}
 
   // Solicitar restablecimiento de contraseña
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+  forgotPassword(email: string): Observable<ResetPasswordResponse> {
+    return this.http.post<ResetPasswordResponse>(
+      `${this.apiUrl}/forgot-password`,
+      { email }
+    );
   }
 
   // Restablecer la contraseña
@@ -20,11 +24,14 @@ export class ResetPasswordService {
     email: string,
     token: string,
     newPassword: string
-  ): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/reset-password`, {
-      email,
-      token,
-      newPassword,
-    });
+  ): Observable<ResetPasswordResponse> {
+    return this.http.post<ResetPasswordResponse>(
+      `${this.apiUrl}/reset-password`,
+      {
+        email,
+        token,
+        newPassword,
+      }
+    );
   }
 }

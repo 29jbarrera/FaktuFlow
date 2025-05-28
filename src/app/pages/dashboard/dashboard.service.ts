@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment_prod } from '../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
+import { ResumenFacturasResponse } from '../../interfaces/resumenFacturas';
+import { ResumenGastosResponse } from '../../interfaces/resumenGastos';
+import { ResumenIngresosResponse } from '../../interfaces/resumenIngresos';
 
 @Injectable({
   providedIn: 'root',
@@ -14,28 +17,37 @@ export class DashboardService {
     return this.authService.getAuthHeaders();
   }
 
-  getResumenPorYear(year: number) {
+  getResumenFacturasPorYear(year: number) {
     const params = new HttpParams().set('year', year);
-    return this.http.get<any>(`${this.baseUrl}facturas/resumen`, {
-      headers: this.authHeaders,
-      params,
-    });
+    return this.http.get<ResumenFacturasResponse>(
+      `${this.baseUrl}facturas/resumen`,
+      {
+        headers: this.authHeaders,
+        params,
+      }
+    );
   }
 
   getResumenGastosPorYear(year: number) {
     const params = new HttpParams().set('year', year.toString());
-    return this.http.get<any>(`${this.baseUrl}gastos/resumen`, {
-      headers: this.authHeaders,
-      params,
-    });
+    return this.http.get<ResumenGastosResponse>(
+      `${this.baseUrl}gastos/resumen`,
+      {
+        headers: this.authHeaders,
+        params,
+      }
+    );
   }
 
   getResumenIngresosPorYear(year: number) {
     const params = new HttpParams().set('year', year.toString());
-    return this.http.get<any>(`${this.baseUrl}ingresos/resumen`, {
-      headers: this.authHeaders,
-      params,
-    });
+    return this.http.get<ResumenIngresosResponse>(
+      `${this.baseUrl}ingresos/resumen`,
+      {
+        headers: this.authHeaders,
+        params,
+      }
+    );
   }
 
   getTotalClientesPorUsuario() {
