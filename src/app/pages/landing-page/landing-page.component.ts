@@ -12,6 +12,8 @@ import { FooterComponent } from '../../components/footer/footer.component';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent {
+  currentYear: number = new Date().getFullYear();
+
   constructor(private router: Router) {}
 
   goToLogin() {

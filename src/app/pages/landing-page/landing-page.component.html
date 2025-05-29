@@ -91,27 +91,6 @@
   </div>
 </section>
 
-<!-- <section class="py-20 bg-gray-50 text-center">
-  <h2 class="text-3xl font-bold mb-8">Contenido útil para tu negocio</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
-    <a
-      routerLink="/blog/factura-electronica"
-      class="hover:underline text-blue-600 text-lg"
-      >Cómo gestionar facturas electrónicas en 2025</a
-    >
-    <a
-      routerLink="/blog/finanzas-autonomos"
-      class="hover:underline text-blue-600 text-lg"
-      >Consejos financieros para autónomos</a
-    >
-    <a
-      routerLink="/blog/ingresos-vs-gastos"
-      class="hover:underline text-blue-600 text-lg"
-      >Diferencias entre ingresos, gastos y beneficios</a
-    >
-  </div>
-</section> -->
-
 <!-- CTA Section -->
 <section class="bg-white py-20 text-center px-6">
   <div class="max-w-2xl mx-auto">
@@ -133,8 +112,84 @@
   </div>
 </section>
 
+<section class="bg-white text-center -my-20 pb-20">
+  <div
+    class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
+  ></div>
+  <h2 class="text-4xl font-bold mb-8 font-color">Explora Nuestros Blogs</h2>
+  <p class="max-w-4xl mx-auto mb-12 text-gray-600 text-lg leading-relaxed">
+    Descubre contenido práctico y actualizado pensado para autónomos y pequeños
+    empresarios. Aprende a gestionar tus finanzas, cumplir con impuestos y
+    optimizar tu productividad con artículos fáciles de entender y aplicar.
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto px-6">
+    <a
+      href="/blog/factura-digital"
+      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
+    >
+      <h3
+        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
+      >
+        Cómo gestionar facturas electrónicas en {{ currentYear }}
+      </h3>
+      <p
+        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
+      >
+        Simplifica la gestión de tus facturas con consejos actualizados para
+        este año.
+      </p>
+    </a>
+    <a
+      href="/blog/consejos-financieros"
+      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
+    >
+      <h3
+        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
+      >
+        Consejos financieros para autónomos
+      </h3>
+      <p
+        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
+      >
+        Mejora el manejo de tus finanzas con tips prácticos para tu negocio.
+      </p>
+    </a>
+    <a
+      href="/blog/impuestos"
+      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
+    >
+      <h3
+        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
+      >
+        Impuestos para autónomos
+      </h3>
+      <p
+        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
+      >
+        Todo lo que debes saber para cumplir con Hacienda sin estrés.
+      </p>
+    </a>
+
+    <a
+      href="/blog/mejora-la-productividad-de-tu-negocio"
+      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
+    >
+      <h3
+        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
+      >
+        Mejora la productividad de tu negocio
+      </h3>
+      <p
+        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
+      >
+        Estrategias efectivas para optimizar tu tiempo y recursos.
+      </p>
+    </a>
+  </div>
+</section>
+
 <!-- FAQ Section -->
-<section class="py-24 px-6">
+<section class="pb-24 pt-40 px-6">
   <div class="max-w-4xl mx-auto">
     <h2 class="text-4xl font-bold text-center font-color mb-12">
       Preguntas Frecuentes
@@ -160,24 +215,25 @@
 </section>
 
 <!-- Autor Section -->
-<section class="bg-gray-50 py-10 text-center px-6 -mb-12">
+<section class="bg-gray-50 py-6 text-center px-6 -mb-12">
   <div class="text-sm text-gray-600 flex flex-col items-center space-y-2">
     <img
       src="https://avatars.githubusercontent.com/29jbarrera"
       alt="Autor"
-      class="w-20 h-20 rounded-full shadow-sm"
+      class="w-16 h-16 rounded-full shadow-sm"
     />
-    <p>
+    <p class="font-color">
       Desarrollado por
-      <span class="font-medium text-gray-800">{{ author.name }}</span>
+      <span class="font-medium text-gray-800"
+        ><a
+          href="https://github.com/29jbarrera"
+          target="_blank"
+          class="text-blue-500 hover:brightness-125 items-center transition-all duration-300 ease-in-out"
+        >
+          <i class="pi pi-github text-base"></i> {{ author.github }}
+        </a></span
+      >
     </p>
-    <a
-      href="https://github.com/29jbarrera"
-      target="_blank"
-      class="text-blue-500 hover:brightness-125 flex items-center gap-1 transition-all duration-300 ease-in-out"
-    >
-      <i class="pi pi-github text-base"></i> {{ author.github }}
-    </a>
   </div>
 </section>
 
