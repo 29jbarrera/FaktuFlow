@@ -14,6 +14,10 @@ import { PoliticaPrivacidadComponent } from './pages/politica-privacidad/politic
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { TerminosDeUsoComponent } from './pages/terminos-de-uso/terminos-de-uso.component';
+import { FacturaDigitalComponent } from './blogs/factura-digital/factura-digital.component';
+import { ConsejosFinancierosComponent } from './blogs/consejos-financieros/consejos-financieros.component';
+import { ImpuestosComponent } from './blogs/impuestos/impuestos.component';
+import { ProductividadComponent } from './blogs/productividad/productividad.component';
 
 export const routes: Routes = [
   {
@@ -75,6 +79,22 @@ export const routes: Routes = [
   {
     path: 'terminos-de-uso',
     component: TerminosDeUsoComponent,
+  },
+  {
+    path: 'blog/factura-digital',
+    component: FacturaDigitalComponent,
+  },
+  {
+    path: 'blog/consejos-financieros',
+    component: ConsejosFinancierosComponent,
+  },
+  {
+    path: 'blog/impuestos',
+    component: ImpuestosComponent,
+  },
+  {
+    path: 'blog/mejora-la-productividad-de-tu-negocio',
+    component: ProductividadComponent,
   },
   { path: 'reset-password', component: ResetPasswordComponent },
   {
