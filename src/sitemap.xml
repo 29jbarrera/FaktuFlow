@@ -8,23 +8,43 @@
 
   <!-- Páginas públicas -->
   <url>
-    <loc>https://faktuflow.es/login</loc>
+    <loc>https://faktuflow.es/blog/factura-digital</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://faktuflow.es/aviso-legal</loc>
+    <loc>https://faktuflow.es/blog/impuestos</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/blog/consejos-financieros</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/blog/mejora-la-productividad-de-tu-negocio</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/login</loc>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/aviso-legal</loc>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://faktuflow.es/politica-privacidad</loc>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://faktuflow.es/politica-cookies</loc>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://faktuflow.es/terminos-de-uso</loc>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://faktuflow.es/reset-password</loc>
-    <priority>0.4</priority>
+    <priority>0.3</priority>
   </url>
 </urlset>
