@@ -122,69 +122,161 @@
     empresarios. Aprende a gestionar tus finanzas, cumplir con impuestos y
     optimizar tu productividad con artículos fáciles de entender y aplicar.
   </p>
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto px-6">
-    <a
-      href="/blog/factura-digital"
-      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
+  <div
+    class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-screen-2xl mx-auto px-6"
+  >
+    <!-- Facturas electrónicas -->
+    <article
+      class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
     >
-      <h3
-        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-      >
-        Cómo gestionar facturas electrónicas en {{ currentYear }}
-      </h3>
-      <p
-        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
-      >
-        Simplifica la gestión de tus facturas con consejos actualizados para
-        este año.
-      </p>
-    </a>
-    <a
-      href="/blog/consejos-financieros"
-      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
-    >
-      <h3
-        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-      >
-        Consejos financieros para autónomos
-      </h3>
-      <p
-        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
-      >
-        Mejora el manejo de tus finanzas con tips prácticos para tu negocio.
-      </p>
-    </a>
-    <a
-      href="/blog/impuestos"
-      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
-    >
-      <h3
-        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-      >
-        Impuestos para autónomos
-      </h3>
-      <p
-        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
-      >
-        Todo lo que debes saber para cumplir con Hacienda sin estrés.
-      </p>
-    </a>
+      <a href="/blog/factura-digital">
+        <img
+          alt=""
+          src="/assets/blogs/facturas-electronicas.webp"
+          class="h-56 w-full object-cover"
+        />
 
-    <a
-      href="/blog/mejora-la-productividad-de-tu-negocio"
-      class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300 hover-shake"
+        <div class="p-4 sm:p-6">
+          <h3 class="text-lg font-color font-bold">
+            Cómo gestionar facturas electrónicas en {{ currentYear }}
+          </h3>
+
+          <p
+            class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+          >
+            Simplifica la gestión de tus facturas con consejos actualizados para
+            este año.
+          </p>
+
+          <a
+            class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600"
+          >
+            Seguir leyendo
+
+            <span
+              aria-hidden="true"
+              class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+            >
+              &rarr;
+            </span>
+          </a>
+        </div>
+      </a>
+    </article>
+
+    <!-- Consejos financieros  -->
+    <article
+      class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
     >
-      <h3
-        class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-      >
-        Mejora la productividad de tu negocio
-      </h3>
-      <p
-        class="text-gray-500 group-hover:text-gray-700 text-sm leading-relaxed"
-      >
-        Estrategias efectivas para optimizar tu tiempo y recursos.
-      </p>
-    </a>
+      <a href="/blog/consejos-financieros">
+        <img
+          alt=""
+          src="/assets/blogs/consejos-financieros.webp"
+          class="h-56 w-full object-cover"
+        />
+
+        <div class="p-4 sm:p-6">
+          <h3 class="text-lg font-color font-bold">
+            Consejos financieros para autónomos
+          </h3>
+
+          <p
+            class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+          >
+            Mejora el manejo de tus finanzas con tips prácticos para tu negocio.
+          </p>
+
+          <a
+            class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600"
+          >
+            Seguir leyendo
+
+            <span
+              aria-hidden="true"
+              class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+            >
+              &rarr;
+            </span>
+          </a>
+        </div>
+      </a>
+    </article>
+
+    <!-- Impuestos para autónomos -->
+    <article
+      class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+    >
+      <a href="/blog/impuestos">
+        <img
+          alt=""
+          src="/assets/blogs/impuestos.webp"
+          class="h-56 w-full object-cover"
+        />
+
+        <div class="p-4 sm:p-6">
+          <h3 class="text-lg font-color font-bold">
+            Impuestos para autónomos en {{ currentYear }}
+          </h3>
+
+          <p
+            class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+          >
+            Todo lo que debes saber para cumplir con Hacienda sin estrés.
+          </p>
+
+          <a
+            class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600"
+          >
+            Seguir leyendo
+
+            <span
+              aria-hidden="true"
+              class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+            >
+              &rarr;
+            </span>
+          </a>
+        </div>
+      </a>
+    </article>
+
+    <!-- Mejora la productividad -->
+    <article
+      class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+    >
+      <a href="/blog/mejora-la-productividad-de-tu-negocio">
+        <img
+          alt=""
+          src="/assets/blogs/productividad.webp"
+          class="h-56 w-full object-cover"
+        />
+
+        <div class="p-4 sm:p-6">
+          <h3 class="text-lg font-color font-bold">
+            Mejora la productividad de tu negocio
+          </h3>
+
+          <p
+            class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+          >
+            Estrategias efectivas para optimizar tu tiempo y recursos.
+          </p>
+
+          <a
+            class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-blue-600"
+          >
+            Seguir leyendo
+
+            <span
+              aria-hidden="true"
+              class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+            >
+              &rarr;
+            </span>
+          </a>
+        </div>
+      </a>
+    </article>
   </div>
 </section>
 
