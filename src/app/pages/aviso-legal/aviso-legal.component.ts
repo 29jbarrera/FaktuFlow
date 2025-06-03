@@ -3,6 +3,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-aviso-legal',
+  standalone: true,
   imports: [FooterComponent],
   templateUrl: './aviso-legal.component.html',
   styleUrl: './aviso-legal.component.scss',

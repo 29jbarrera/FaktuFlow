@@ -6,6 +6,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @Component({
   selector: 'app-nav-blogs',
+  standalone: true,
   imports: [CommonModule, TieredMenuModule, RouterModule],
   templateUrl: './nav-blogs.component.html',
   styleUrl: './nav-blogs.component.scss',

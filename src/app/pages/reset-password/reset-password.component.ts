@@ -16,6 +16,7 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-reset-password',
+  standalone: true,
   imports: [
     FormsModule,
     CommonModule,

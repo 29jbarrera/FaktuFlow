@@ -3,6 +3,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 
 @Component({
   selector: 'app-terminos-de-uso',
+  standalone: true,
   imports: [FooterComponent],
   templateUrl: './terminos-de-uso.component.html',
   styleUrl: './terminos-de-uso.component.scss',

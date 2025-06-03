@@ -8,6 +8,7 @@ import { NavBlogsComponent } from '../../blogs/nav-blogs/nav-blogs.component';
 
 @Component({
   selector: 'app-landing-page',
+  standalone: true,
   imports: [
     CommonModule,
     ButtonModule,

@@ -4,6 +4,7 @@ import { NavBlogsComponent } from '../nav-blogs/nav-blogs.component';
 
 @Component({
   selector: 'app-factura-digital',
+  standalone: true,
   imports: [FooterComponent, NavBlogsComponent],
   templateUrl: './factura-digital.component.html',
   styleUrl: './factura-digital.component.scss',

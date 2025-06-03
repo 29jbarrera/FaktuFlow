@@ -4,6 +4,7 @@ import { NavBlogsComponent } from '../nav-blogs/nav-blogs.component';
 
 @Component({
   selector: 'app-consejos-financieros',
+  standalone: true,
   imports: [FooterComponent, NavBlogsComponent],
   templateUrl: './consejos-financieros.component.html',
   styleUrl: './consejos-financieros.component.scss',
