@@ -4,10 +4,17 @@ import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { NavBlogsComponent } from '../../blogs/nav-blogs/nav-blogs.component';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [CommonModule, ButtonModule, FooterComponent, AccordionModule],
+  imports: [
+    CommonModule,
+    ButtonModule,
+    FooterComponent,
+    AccordionModule,
+    NavBlogsComponent,
+  ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })

@@ -1,0 +1,107 @@
+<header class="bg-[#112c35] text-white">
+  <nav class="scroll-px-14 lg:px-6 py-2">
+    <div
+      class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
+    >
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center">
+        <img
+          src="/assets/blogs/faktuflow-negativo.webp"
+          class="mr-3 h-6 sm:h-20 -my-5"
+          alt="FaktuFlow"
+        />
+      </a>
+
+      <!-- Mobile toggle button -->
+      <button
+        (click)="isMenuOpen = !isMenuOpen"
+        type="button"
+        class="inline-flex items-center p-2 text-sm text-white rounded-lg lg:hidden hover:bg-gray-700 focus:outline-none"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <svg
+          *ngIf="!isMenuOpen"
+          class="w-6 h-6"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3 5h14a1 1 0 110 2H3a1 1 0 010-2zm0 5h14a1 1 0 110 2H3a1 1 0 010-2zm0 5h14a1 1 0 110 2H3a1 1 0 010-2z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <svg
+          *ngIf="isMenuOpen"
+          class="w-6 h-6"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+
+      <!-- Desktop nav -->
+      <div class="hidden lg:flex lg:items-center lg:space-x-10 text-white">
+        <a
+          routerLink="/"
+          routerLinkActive="text-[#4ce1b9]"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="hover:text-[#4ce1b9] -mr-8"
+          >Inicio</a
+        >
+
+        <!-- PrimeNG Dropdown para Blogs -->
+        <p-tieredMenu
+          [model]="blogItems"
+          popup="true"
+          #blogMenu
+          styleClass="custom-tieredmenu"
+        ></p-tieredMenu>
+
+        <span
+          (click)="blogMenu.toggle($event)"
+          class="cursor-pointer hover:text-[#4ce1b9]"
+          [ngClass]="{ 'text-[#4ce1b9]': router.url.startsWith('/blog') }"
+        >
+          Nuestros Blogs
+        </span>
+
+        <a
+          routerLink="/about"
+          routerLinkActive="text-[#4ce1b9]"
+          class="hover:text-[#4ce1b9]"
+          >Sobre nosotros</a
+        >
+        <a routerLink="/login" class="hover:text-[#4ce1b9]">Acceder</a>
+        <a routerLink="/login" class="hover:text-[#4ce1b9]">Registrarse</a>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div *ngIf="isMenuOpen" class="lg:hidden mt-4 space-y-2 text-sm">
+      <a href="/" class="block">Inicio</a>
+      <div>
+        <span class="block">Blogs</span>
+        <div class="ml-4 space-y-1">
+          <a href="/blog1" class="block">Blog 1</a>
+          <a href="/blog2" class="block">Blog 2</a>
+          <a href="/blog3" class="block">Blog 3</a>
+          <a href="/blog4" class="block">Blog 4</a>
+        </div>
+      </div>
+      <a href="/about" class="block">Sobre nosotros</a>
+      <a href="/login" class="block">Acceder</a>
+      <a
+        href="/login"
+        class="block text-white bg-primary-700 hover:bg-primary-800 font-medium rounded px-4 py-2"
+        >Registrarse</a
+      >
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,28 @@
+:host ::ng-deep .custom-tieredmenu {
+  --p-tieredmenu-background: var(--color-primary-low-nav-blogs) !important;
+  --p-tieredmenu-list-gap: 5px !important;
+  margin-top: 16px !important;
+  margin-left: -35px !important;
+}
+
+:host ::ng-deep .custom-tieredmenu .p-tieredmenu-item-link {
+  color: white !important;
+  font-weight: 500 !important;
+  transition: background-color color 0.4s ease !important;
+}
+
+/* Hover: fondo gris #eeeeee, texto en var(--color-primary) */
+:host ::ng-deep .custom-tieredmenu .p-tieredmenu-item-link:hover {
+  background-color: gainsboro !important;
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+  border-radius: 4px;
+}
+
+:host ::ng-deep .custom-tieredmenu .p-tieredmenu-separator {
+  border-top: 1px solid gainsboro; /* o var(--tu-color) */
+  opacity: 0.5;
+  width: 97%;
+  display: flex;
+  margin: auto;
+}
