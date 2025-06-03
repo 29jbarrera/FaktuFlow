@@ -1,9 +1,10 @@
 <app-nav-blogs></app-nav-blogs>
-<section
-  class="py-16 px-16 my-20 max-w-7xl mx-auto bg-white text-[#112c35] border border-gray-200 rounded-xl"
+
+<article
+  class="w-[95%] md:w-auto py-16 px-3 md:px-16 my-20 max-w-7xl mx-auto bg-white text-[#112c35] border border-gray-200 rounded-xl"
 >
   <!-- Título -->
-  <h1 class="text-5xl font-bold text-[#112c35] mb-6 leading-tight">
+  <h1 class="text-5xl font-bold text-[#112c35] mb-6 leading-tight text-center">
     Consejos financieros para autónomos en {{ currentYear }}: Lleva tus finanzas
     al siguiente nivel
   </h1>
@@ -15,6 +16,11 @@
     y crecimiento. A continuación, te damos consejos prácticos y visuales para
     llevar tu economía profesional al siguiente nivel.
   </p>
+
+  <!-- IMG -->
+  <div class="flex m-auto justify-center mb-10">
+    <img src="/assets/blogs/consejos-financieros.webp" class="h-auto" />
+  </div>
 
   <!-- CONSEJO 1 -->
   <div class="mb-12">
@@ -129,55 +135,175 @@
     </p>
   </div>
 
-  <div class="pt-20">
-    <h2 class="text-3xl font-bold text-[#112c35] mb-10 text-center">
+  <!-- Autor -->
+  <footer class="mt-12 border-t pt-6 text-gray-500 text-sm flex justify-end">
+    <p class="text-right">
+      Redactado por el
+      <strong class="text-[#112c35]">equipo de FaktuFlow</strong> el
+      <time datetime="2025-06-03">03 de junio de {{ currentYear }}</time
+      >.
+    </p>
+  </footer>
+
+  <!-- Otros Blogs -->
+  <section class="bg-white text-center">
+    <div
+      class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
+    ></div>
+    <h2 class="text-3xl font-bold mb-8 font-color">
       ¿Te ha gustado este contenido? Sigue leyendo
     </h2>
+    <p class="max-w-4xl mx-auto mb-12 text-gray-600 text-lg leading-relaxed">
+      Descubre contenido práctico y actualizado pensado para autónomos y
+      pequeños empresarios. Aprende a gestionar tus finanzas, cumplir con
+      impuestos y optimizar tu productividad con artículos fáciles de entender y
+      aplicar.
+    </p>
     <div
-      class="grid w-[90%] m-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto px-6"
     >
-      <a
-        href="/blog/factura-digital"
-        class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300"
+      <!-- Facturas electrónicas -->
+      <article
+        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
       >
-        <h3
-          class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-        >
-          Cómo gestionar facturas electrónicas en {{ currentYear }}
-        </h3>
-        <p class="text-gray-500 group-hover:text-gray-700 text-sm">
-          Simplifica la gestión de tus facturas con consejos actualizados para
-          este año.
-        </p>
-      </a>
-      <a
-        href="/blog/impuestos"
-        class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300"
+        <a href="/blog/factura-digital">
+          <img
+            alt=""
+            src="/assets/blogs/facturas-electronicas.webp"
+            class="h-56 w-full object-cover"
+          />
+
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg font-color font-bold">
+              Cómo gestionar facturas electrónicas en {{ currentYear }}
+            </h3>
+
+            <p
+              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+            >
+              Simplifica la gestión de tus facturas con consejos actualizados
+              para este año.
+            </p>
+
+            <a
+              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-600"
+            >
+              Seguir leyendo
+
+              <span
+                aria-hidden="true"
+                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </a>
+      </article>
+
+      <!-- Impuestos para autónomos -->
+      <article
+        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
       >
-        <h3
-          class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-        >
-          Impuestos para autónomos
-        </h3>
-        <p class="text-gray-500 group-hover:text-gray-700 text-sm">
-          Todo lo que debes saber para cumplir con Hacienda sin estrés.
-        </p>
-      </a>
-      <a
-        href="/blog/mejora-la-productividad-de-tu-negocio"
-        class="group block rounded-lg border border-gray-200 p-6 hover:shadow-lg hover:border-green-500 transition-shadow duration-300"
+        <a href="/blog/impuestos">
+          <img
+            alt=""
+            src="/assets/blogs/impuestos.webp"
+            class="h-56 w-full object-cover"
+          />
+
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg font-color font-bold">
+              Impuestos para autónomos en {{ currentYear }}
+            </h3>
+
+            <p
+              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+            >
+              Todo lo que debes saber para cumplir con Hacienda sin estrés.
+            </p>
+
+            <a
+              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-600"
+            >
+              Seguir leyendo
+
+              <span
+                aria-hidden="true"
+                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </a>
+      </article>
+
+      <!-- Mejora la productividad -->
+      <article
+        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
       >
-        <h3
-          class="text-xl font-semibold text-green-700 mb-2 group-hover:text-green-950"
-        >
-          Mejora la productividad de tu negocio
-        </h3>
-        <p class="text-gray-500 group-hover:text-gray-700 text-sm">
-          Estrategias efectivas para optimizar tu tiempo y recursos.
-        </p>
-      </a>
+        <a href="/blog/mejora-la-productividad-de-tu-negocio">
+          <img
+            alt=""
+            src="/assets/blogs/productividad.webp"
+            class="h-56 w-full object-cover"
+          />
+
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg font-color font-bold">
+              Mejora la productividad de tu negocio
+            </h3>
+
+            <p
+              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+            >
+              Estrategias efectivas para optimizar tu tiempo y recursos.
+            </p>
+
+            <a
+              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-600"
+            >
+              Seguir leyendo
+
+              <span
+                aria-hidden="true"
+                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </a>
+      </article>
     </div>
-  </div>
-</section>
+  </section>
+</article>
+...
+<!-- tu blog completo -->
+
+<!-- JSON-LD para SEO -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Consejos financieros para autónomos en 2025: Lleva tus finanzas al siguiente nivel",
+    "image": "/assets/blogs/consejos-financieros.webp",
+    "author": {
+      "@type": "Person",
+      "name": "Equipo FaktuFlow"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "FaktuFlow",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "/assets/logo.webp"
+      }
+    },
+    "datePublished": "2025-06-03",
+    "dateModified": "2025-06-03"
+  }
+</script>
 
 <app-footer></app-footer>
