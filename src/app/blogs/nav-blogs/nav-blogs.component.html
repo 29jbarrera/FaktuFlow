@@ -1,22 +1,24 @@
 <header class="bg-[#112c35] text-white">
-  <nav class="scroll-px-14 lg:px-6 py-2">
+  <nav class="scroll-px-14 lg:px-6 py-1.5">
     <div
       class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
     >
       <!-- Logo -->
-      <a routerLink="/" class="flex items-center">
-        <img
-          src="/assets/blogs/faktuflow-negativo.webp"
-          class="mr-3 h-6 sm:h-20 -my-5"
-          alt="FaktuFlow"
-        />
-      </a>
+      <div class="w-full lg:w-auto flex justify-center lg:justify-start">
+        <a routerLink="/" class="flex items-center">
+          <img
+            src="/assets/blogs/faktuflow-negativo.webp"
+            class="h-20 sm:h-18 -my-5"
+            alt="FaktuFlow"
+          />
+        </a>
+      </div>
 
       <!-- Mobile toggle button -->
       <button
         (click)="isMenuOpen = !isMenuOpen"
         type="button"
-        class="inline-flex items-center p-2 text-sm text-white rounded-lg lg:hidden hover:bg-gray-700 focus:outline-none"
+        class="ml-auto inline-flex items-center p-2 -mt-10 text-sm text-white rounded-lg lg:hidden hover:bg-[--color-secondary-low] focus:outline-none"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >
@@ -84,22 +86,64 @@
     </div>
 
     <!-- Mobile menu -->
-    <div *ngIf="isMenuOpen" class="lg:hidden mt-4 space-y-2 text-sm">
-      <a href="/" class="block">Inicio</a>
+    <div
+      *ngIf="isMenuOpen"
+      class="lg:hidden mt-4 px-4 space-y-4 text-sm text-white"
+    >
+      <a
+        routerLink="/"
+        routerLinkActive="text-[#4ce1b9]"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="block pt-3 font-semibold transition-colors hover:text-[#4ce1b9]"
+        >Inicio</a
+      >
+      <div class="w-full h-px bg-white/30 -py-2"></div>
       <div>
-        <span class="block">Blogs</span>
-        <div class="ml-4 space-y-1">
-          <a href="/blog1" class="block">Blog 1</a>
-          <a href="/blog2" class="block">Blog 2</a>
-          <a href="/blog3" class="block">Blog 3</a>
-          <a href="/blog4" class="block">Blog 4</a>
+        <span
+          routerLink="/blog"
+          routerLinkActive="text-[#4ce1b9]"
+          class="block font-semibold mb-1"
+          >Nuestros Blogs</span
+        >
+        <div class="ml-6 space-y-3">
+          <a
+            routerLink="/blog/factura-digital"
+            class="block hover:text-[#4ce1b9] transition-colors"
+            >-> Como gestionar facturas electrónicas</a
+          >
+          <a
+            routerLink="/blog/consejos-financieros"
+            class="block hover:text-[#4ce1b9] transition-colors"
+            >-> Lleva tus finanzas al siguiente nivel</a
+          >
+          <a
+            routerLink="/blog/impuestos"
+            class="block hover:text-[#4ce1b9] transition-colors"
+            >-> Impuestos: Lo básicos que debes saber</a
+          >
+          <a
+            routerLink="/blog/mejora-la-productividad-de-tu-negocio"
+            class="block hover:text-[#4ce1b9] transition-colors"
+            >-> Mejora la productividad en tu negocio</a
+          >
         </div>
       </div>
-      <a href="/about" class="block">Sobre nosotros</a>
-      <a href="/login" class="block">Acceder</a>
+      <div class="w-full h-px bg-white/30 -py-2"></div>
       <a
-        href="/login"
-        class="block text-white bg-primary-700 hover:bg-primary-800 font-medium rounded px-4 py-2"
+        routerLink="/about"
+        class="block font-semibold hover:text-[#4ce1b9] transition-colors"
+        >Sobre nosotros</a
+      >
+      <div class="w-full h-px bg-white/30 -py-2"></div>
+      <a
+        routerLink="/login"
+        class="block font-semibold hover:text-[#4ce1b9] transition-colors"
+        >Acceder</a
+      >
+      <div class="w-full h-px bg-white/30 -py-2"></div>
+      <a
+        routerLink="/register"
+        class="block font-semibold hover:text-[#4ce1b9] pb-3 transition-colors"
         >Registrarse</a
       >
     </div>
