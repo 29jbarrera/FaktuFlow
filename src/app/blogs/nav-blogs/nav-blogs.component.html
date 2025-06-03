@@ -75,8 +75,9 @@
         </span>
 
         <a
-          routerLink="/about"
+          routerLink="/sobre-nosotros"
           routerLinkActive="text-[#4ce1b9]"
+          [routerLinkActiveOptions]="{ exact: true }"
           class="hover:text-[#4ce1b9]"
           >Sobre nosotros</a
         >
@@ -130,7 +131,8 @@
       </div>
       <div class="w-full h-px bg-white/30 -py-2"></div>
       <a
-        routerLink="/about"
+        routerLink="/sobre-nosotros"
+        routerLinkActive="text-[#4ce1b9]"
         class="block font-semibold hover:text-[#4ce1b9] transition-colors"
         >Sobre nosotros</a
       >

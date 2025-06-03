@@ -53,6 +53,10 @@ export class NavBlogsComponent {
       return currentUrl.startsWith('/blog');
     }
 
+    if (path === '/sobre-nosotros') {
+      return currentUrl.startsWith('/sobre-nosotros');
+    }
+
     return currentUrl.startsWith(path);
   }
 }

@@ -18,6 +18,7 @@ import { FacturaDigitalComponent } from './blogs/factura-digital/factura-digital
 import { ConsejosFinancierosComponent } from './blogs/consejos-financieros/consejos-financieros.component';
 import { ImpuestosComponent } from './blogs/impuestos/impuestos.component';
 import { ProductividadComponent } from './blogs/productividad/productividad.component';
+import { AboutUsComponent } from './blogs/about-us/about-us.component';
 
 export const routes: Routes = [
   {
@@ -79,6 +80,10 @@ export const routes: Routes = [
   {
     path: 'terminos-de-uso',
     component: TerminosDeUsoComponent,
+  },
+  {
+    path: 'sobre-nosotros',
+    component: AboutUsComponent,
   },
   {
     path: 'blog/factura-digital',
