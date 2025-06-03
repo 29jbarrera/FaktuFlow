@@ -1,11 +1,16 @@
 <app-nav-blogs></app-nav-blogs>
-<section class="py-16 px-6 max-w-5xl mx-auto">
-  <h1 class="text-4xl font-bold mb-6 font-color">
+
+<article
+  class="w-[95%] md:w-auto py-16 px-3 md:px-16 my-20 max-w-7xl mx-auto bg-white text-[#112c35] border border-gray-200 rounded-xl"
+>
+  <!-- TÍTULO -->
+  <h1 class="text-5xl font-bold text-[#112c35] mb-6 leading-tight text-center">
     Impuestos para autónomos en España: Lo básico que debes saber en
     {{ currentYear }}
   </h1>
 
-  <p class="text-gray-600 text-lg mb-8">
+  <!-- INTRO -->
+  <p class="text-lg text-gray-600 mb-14">
     Ser autónomo implica cumplir con diversas obligaciones fiscales que es
     fundamental conocer para evitar sanciones y mantener tu negocio en regla. En
     este artículo te explicamos de forma sencilla qué impuestos debes pagar,
@@ -13,126 +18,303 @@
     hacer tu declaración sin complicaciones.
   </p>
 
-  <h2 class="text-2xl font-semibold mb-4 font-color">
-    1. Principales impuestos que debe pagar un autónomo en España
-  </h2>
-  <p class="text-gray-700 mb-6">
-    Como autónomo, los impuestos más importantes a tener en cuenta son:
-  </p>
+  <!-- IMG -->
+  <div class="flex m-auto justify-center mb-14">
+    <img src="/assets/blogs/consejos-financieros.webp" class="h-auto" />
+  </div>
 
-  <ul class="list-disc pl-6 text-gray-700 mb-6">
-    <li>
-      <strong>IRPF (Impuesto sobre la Renta de las Personas Físicas)</strong>:
-      Se paga sobre los beneficios netos obtenidos y se declara trimestralmente
-      y anualmente.
-    </li>
-    <li>
-      <strong>IVA (Impuesto sobre el Valor Añadido)</strong>: Recae sobre las
-      ventas o servicios prestados. Debes presentar declaraciones trimestrales y
-      la anual.
-    </li>
-    <li>
-      <strong>Cuota de autónomos a la Seguridad Social</strong>: Una cuota fija
-      mensual que varía según la base de cotización elegida.
-    </li>
-  </ul>
+  <!-- SECCIONES EN TARJETAS -->
 
-  <h2 class="text-2xl font-semibold mb-4 font-color">
-    2. Fechas clave para el cumplimiento fiscal en {{ currentYear }}
-  </h2>
-  <p class="text-gray-700 mb-6">
-    Es importante marcar en tu calendario estas fechas para evitar retrasos y
-    sanciones:
-  </p>
+  <!-- Tarjeta 1 + 2 en grid -->
+  <div class="grid md:grid-cols-2 gap-7">
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 mb-14 border-t-4 border-[#112c35]"
+    >
+      <h2 class="text-xl font-semibold text-[#112c35] mb-3">
+        1. Principales impuestos que debe pagar un autónomo en España
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Como autónomo, los impuestos más importantes a tener en cuenta son:
+      </p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>
+          <strong>IRPF:</strong> Impuesto sobre los beneficios netos, con
+          declaraciones trimestrales y anuales.
+        </li>
+        <li>
+          <strong>IVA:</strong> Sobre ventas o servicios prestados, con
+          declaraciones trimestrales y anuales.
+        </li>
+        <li>
+          <strong>Cuota de autónomos:</strong> A la Seguridad Social, con
+          importe mensual según tu base de cotización.
+        </li>
+      </ul>
+    </div>
+    <div
+      class="bg-white shadow-lg rounded-2xl p-6 mb-14 border-t-4 border-[#112c35]"
+    >
+      <h2 class="text-xl font-semibold text-[#112c35] mb-3">
+        2. Fechas clave para el cumplimiento fiscal en {{ currentYear }}
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Es importante marcar en tu calendario estas fechas para evitar retrasos
+        y sanciones:
+      </p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>
+          <strong>Trimestrales de IVA e IRPF:</strong> 20 de abril, julio,
+          octubre y enero (siguiente año).
+        </li>
+        <li>
+          <strong>Modelo 390:</strong> Declaración anual de IVA, en enero.
+        </li>
+        <li>
+          <strong>Modelo 100:</strong> Declaración anual de IRPF, entre abril y
+          junio.
+        </li>
+        <li>
+          <strong>Cuota mensual:</strong> Pago entre el 1 y el 15 de cada mes.
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  <ul class="list-disc pl-6 text-gray-700 mb-6">
-    <li>
-      <strong>Declaraciones trimestrales de IVA e IRPF</strong>: Se presentan
-      los <em>20 de abril, julio, octubre y enero</em> (del año siguiente).
-    </li>
-    <li>
-      <strong>Declaración anual de IVA (modelo 390)</strong>: Se presenta en
-      <em>enero</em>, informando el resumen del año anterior.
-    </li>
-    <li>
-      <strong>Declaración anual de IRPF (modelo 100)</strong>: El plazo suele
-      ser entre <em>abril y junio</em> para la declaración del año fiscal
-      anterior.
-    </li>
-    <li>
-      <strong>Pago de la cuota mensual de autónomos</strong>: Se realiza cada
-      mes, generalmente entre el 1 y el 15.
-    </li>
-  </ul>
+  <!-- TARJETA 3: Deducciones -->
+  <div class="bg-[#f3f7f5] rounded-xl p-6 shadow border border-green-100 mb-14">
+    <h2 class="text-2xl font-semibold mb-4">
+      3. Deducciones comunes para autónomos
+    </h2>
+    <p class="text-gray-700 mb-4">
+      Para pagar menos impuestos, es clave conocer las deducciones legales que
+      puedes aplicar:
+    </p>
+    <ul class="list-disc pl-6 text-gray-700 space-y-2">
+      <li>Gastos de oficina o local (alquiler, suministros).</li>
+      <li>Equipamiento tecnológico y material de oficina.</li>
+      <li>Vehículos afectos a la actividad.</li>
+      <li>Asesorías, marketing y otros servicios profesionales.</li>
+      <li>Cuotas de Seguridad Social y seguros.</li>
+      <li>Formación profesional relacionada.</li>
+    </ul>
+    <p class="text-sm text-gray-500 mt-4 italic">
+      Nota: Conserva todas las facturas para justificar tus deducciones ante
+      Hacienda.
+    </p>
+  </div>
 
-  <h2 class="text-2xl font-semibold mb-4 font-color">
-    3. Deducciones comunes para autónomos
-  </h2>
-  <p class="text-gray-700 mb-6">
-    Para pagar menos impuestos, es clave conocer las deducciones legales que
-    puedes aplicar:
-  </p>
+  <!-- TARJETA 4: Cómo prepararte -->
+  <div class="flex gap-8 items-center last:p-6 mb-14">
+    <div>
+      <h2 class="text-2xl font-semibold mb-4">
+        4. Cómo preparar tu declaración sin estrés
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Aquí algunos consejos para facilitar la gestión fiscal y evitar
+        sorpresas:
+      </p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>Registra ingresos y gastos de forma ordenada y continua.</li>
+        <li>
+          Usa herramientas digitales como <strong>FaktuFlow</strong> para
+          facturación y control.
+        </li>
+        <li>Revisa tus obligaciones fiscales periódicamente.</li>
+        <li>Consulta con un asesor en casos complejos o ante dudas.</li>
+        <li>Accede y presenta tus modelos desde la Agencia Tributaria:</li>
+        <li>
+          <a
+            href="https://www.agenciatributaria.es"
+            target="_blank"
+            class="text-blue-600 hover:underline"
+          >
+            www.agenciatributaria.es
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <img src="/assets/blogs/consejos-financieros.webp" class="h-auto" />
+    </div>
+  </div>
 
-  <ul class="list-disc pl-6 text-gray-700 mb-6">
-    <li>Gastos de local u oficina (alquiler, suministros).</li>
-    <li>Material de oficina y equipamiento tecnológico.</li>
-    <li>Gastos de vehículo, si está afectado a la actividad profesional.</li>
-    <li>Servicios profesionales externos (asesoría, publicidad, etc.).</li>
-    <li>Cuotas de la Seguridad Social y seguros profesionales.</li>
-    <li>Formación relacionada con la actividad.</li>
-  </ul>
-
-  <p class="text-gray-700 mb-6">
-    <em>Nota:</em> Es fundamental conservar todas las facturas y justificantes
-    para poder acreditarlas ante Hacienda.
-  </p>
-
-  <h2 class="text-2xl font-semibold mb-4 font-color">
-    4. Cómo preparar tu declaración sin estrés
-  </h2>
-  <p class="text-gray-700 mb-6">
-    Aquí algunos consejos para facilitar la gestión fiscal y evitar sorpresas:
-  </p>
-
-  <ul class="list-disc pl-6 text-gray-700 mb-6">
-    <li>Lleva un registro ordenado y actualizado de ingresos y gastos.</li>
-    <li>
-      Utiliza herramientas digitales para facturación y contabilidad, como
-      <strong>FaktuFlow</strong>.
-    </li>
-    <li>Revisa periódicamente tus obligaciones para no acumular retrasos.</li>
-    <li>
-      Consulta a un asesor fiscal para casos complejos o dudas específicas.
-    </li>
-    <li>
-      Accede y presenta tus modelos desde la web oficial de la Agencia
-      Tributaria:
-    </li>
-    <li>
-      <a
-        href="https://www.agenciatributaria.es"
-        target="_blank"
-        class="text-blue-600 hover:underline"
-      >
-        www.agenciatributaria.es
-      </a>
-    </li>
-  </ul>
-
-  <p class="text-gray-700">
-    Prepararte con tiempo y usar las herramientas adecuadas hará que cumplas con
-    Hacienda sin estrés y puedas centrarte en hacer crecer tu negocio.
-  </p>
-
+  <!-- CTA: FaktuFlow -->
   <div
-    class="bg-green-50 border border-green-200 rounded-lg p-4 text-green-800 mt-8"
+    class="bg-[#e6f5ee] border border-green-200 rounded-xl p-6 shadow text-[#112c35] mb-10"
   >
-    <p class="font-semibold mb-1">¿Quieres simplificar tu gestión?</p>
-    <p>
+    <h2 class="text-xl font-bold mb-2">¿Quieres simplificar tu gestión?</h2>
+    <p class="mb-4">
       Prueba <strong>FaktuFlow</strong>, la plataforma que te ayuda a organizar
       tus facturas y controlar tus finanzas de manera fácil y eficiente.
       <em>Empieza gratis hoy mismo.</em>
     </p>
+    <a
+      href="/login"
+      class="inline-block bg-[#112c35] text-white px-5 py-2 rounded-md text-sm hover:bg-[#0e1f2a] transition"
+    >
+      Probar gratis
+    </a>
   </div>
-</section>
+
+  <!-- TARJETA CONCLUSIÓN -->
+  <div
+    class="bg-[#f1f5f9] border border-gray-300 rounded-xl p-6 shadow-sm text-[#112c35]"
+  >
+    <h2 class="text-xl font-bold mb-3">Conclusión</h2>
+    <p class="text-gray-700">
+      Entender y cumplir con tus obligaciones fiscales como autónomo es clave
+      para la estabilidad de tu negocio. Si mantienes un buen control
+      financiero, conoces las fechas clave y aprovechas las herramientas y
+      deducciones disponibles, estar al día con Hacienda será mucho más fácil.
+      No dejes que los impuestos sean un obstáculo: con planificación y apoyo,
+      puedes centrarte en lo que realmente importa — hacer crecer tu proyecto.
+    </p>
+  </div>
+
+  <!-- Autor -->
+  <footer class="mt-12 border-t pt-6 text-gray-500 text-sm flex justify-end">
+    <p class="text-right">
+      Redactado por el
+      <strong class="text-[#112c35]">equipo de FaktuFlow</strong> el
+      <time datetime="2025-06-03">03 de junio de {{ currentYear }}</time
+      >.
+    </p>
+  </footer>
+
+  <!-- Otros Blogs -->
+  <section class="bg-white text-center">
+    <div
+      class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
+    ></div>
+    <h2 class="text-3xl font-bold mb-8 font-color">
+      ¿Te ha gustado este contenido? Sigue leyendo
+    </h2>
+    <p class="max-w-4xl mx-auto mb-14 text-gray-600 text-lg leading-relaxed">
+      Descubre contenido práctico y actualizado pensado para autónomos y
+      pequeños empresarios. Aprende a gestionar tus finanzas, cumplir con
+      impuestos y optimizar tu productividad con artículos fáciles de entender y
+      aplicar.
+    </p>
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto px-6"
+    >
+      <!-- Facturas electrónicas -->
+      <article
+        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+      >
+        <a href="/blog/factura-digital">
+          <img
+            alt=""
+            src="/assets/blogs/facturas-electronicas.webp"
+            class="h-56 w-full object-cover"
+          />
+
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg font-color font-bold">
+              Cómo gestionar facturas electrónicas en {{ currentYear }}
+            </h3>
+
+            <p
+              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+            >
+              Simplifica la gestión de tus facturas con consejos actualizados
+              para este año.
+            </p>
+
+            <a
+              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-600"
+            >
+              Seguir leyendo
+
+              <span
+                aria-hidden="true"
+                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </a>
+      </article>
+
+      <!-- Consejos financieros  -->
+      <article
+        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+      >
+        <a href="/blog/consejos-financieros">
+          <img
+            alt=""
+            src="/assets/blogs/consejos-financieros.webp"
+            class="h-56 w-full object-cover"
+          />
+
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg font-color font-bold">
+              Consejos financieros para autónomos
+            </h3>
+
+            <p
+              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+            >
+              Mejora el manejo de tus finanzas con tips prácticos para tu
+              negocio.
+            </p>
+
+            <a
+              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-600"
+            >
+              Seguir leyendo
+
+              <span
+                aria-hidden="true"
+                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </a>
+      </article>
+
+      <!-- Mejora la productividad -->
+      <article
+        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+      >
+        <a href="/blog/mejora-la-productividad-de-tu-negocio">
+          <img
+            alt=""
+            src="/assets/blogs/productividad.webp"
+            class="h-56 w-full object-cover"
+          />
+
+          <div class="p-4 sm:p-6">
+            <h3 class="text-lg font-color font-bold">
+              Mejora la productividad de tu negocio
+            </h3>
+
+            <p
+              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
+            >
+              Estrategias efectivas para optimizar tu tiempo y recursos.
+            </p>
+
+            <a
+              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-green-600"
+            >
+              Seguir leyendo
+
+              <span
+                aria-hidden="true"
+                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+              >
+                &rarr;
+              </span>
+            </a>
+          </div>
+        </a>
+      </article>
+    </div>
+  </section>
+</article>
+
 <app-footer></app-footer>
