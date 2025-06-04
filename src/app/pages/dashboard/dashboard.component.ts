@@ -122,7 +122,6 @@ export class DashboardComponent implements OnInit {
     this.DashboardService.getStatsByUser().subscribe({
       next: (response) => {
         this.usuariosConStats = response.usuarios;
-        console.log('Stats por usuario:', this.usuariosConStats);
       },
       error: (error) => {
         console.error('Error al cargar stats por usuario:', error);
