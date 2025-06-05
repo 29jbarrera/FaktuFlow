@@ -128,9 +128,9 @@
       <div class="flex">
         <button
           (click)="generarPDFConLogo()"
-          class="p-button font-semibold w-52"
+          class="p-button font-semibold w-60 h-12"
         >
-          Exportar PDF {{ year }}
+          <i class="fas fa-download mr-2"></i> Descargar PDF {{ year }}
         </button>
       </div>
     </div>
@@ -541,3 +541,4 @@
     </p-tabs>
   </div>
 </div>
+<p-toast></p-toast>

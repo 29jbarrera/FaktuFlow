@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from './dashboard.service';
 import { ChartModule } from 'primeng/chart';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { ImporteEurPipe } from '../../shared/utils/import-eur.pipe';
 import { TabsModule } from 'primeng/tabs';
@@ -38,9 +40,11 @@ interface jsPDFWithAutoTable extends jsPDF {
     ImporteEurPipe,
     TabsModule,
     LoadingComponent,
+    ToastModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
+  providers: [MessageService],
 })
 export class DashboardComponent implements OnInit {
   totalUsuarios: number = 0;
@@ -98,7 +102,10 @@ export class DashboardComponent implements OnInit {
     return meses[index] || 'Desconocido';
   }
 
-  constructor(private DashboardService: DashboardService) {}
+  constructor(
+    private DashboardService: DashboardService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.cargarResumenFacturas();
@@ -294,6 +301,12 @@ export class DashboardComponent implements OnInit {
 
   public generarPDFConLogo(): void {
     this.exportarPDF(logoBase64);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'PDF generado',
+      detail: 'El archivo PDF se ha descargado correctamente.',
+      life: 4000,
+    });
   }
 
   exportarPDF(logoBase64: string) {
