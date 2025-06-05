@@ -31,6 +31,7 @@ export class NavComponent implements OnInit {
   userApellidos: string | null = null;
   isMenuVisible: boolean = true;
   userInitial: string = '';
+  pantallaPequena: boolean = false;
 
   constructor(
     private router: Router,
@@ -42,6 +43,8 @@ export class NavComponent implements OnInit {
     this.userName = sessionStorage.getItem('nombre');
     this.userApellidos = sessionStorage.getItem('apellidos');
     this.getUserInitial();
+    this.checkWindowSize();
+    window.addEventListener('resize', this.checkWindowSize.bind(this));
   }
 
   logoutConfirm(): void {
@@ -71,9 +74,18 @@ export class NavComponent implements OnInit {
   }
 
   closeMenu(): void {
-    if (window.innerWidth < 640) {
+    if (window.innerWidth < 1640) {
       this.isMenuVisible = false;
     }
+    if (window.innerWidth > 1640) {
+      this.isMenuVisible = true;
+    }
+  }
+
+  checkWindowSize() {
+    const width = window.innerWidth;
+    this.pantallaPequena = width < 1024;
+    this.isMenuVisible = !this.pantallaPequena;
   }
 
   navigateMiPerfil(): void {
