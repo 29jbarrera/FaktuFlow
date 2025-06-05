@@ -1,14 +1,24 @@
-<header class="bg-[#112c35] text-white">
-  <nav class="scroll-px-14 lg:px-6 py-1.5">
+<header class="custom-header">
+  <nav class="scroll-px-14 lg:px-6 lg:py-2.5 py-5">
     <div
       class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl"
     >
       <!-- Logo -->
-      <div class="w-full lg:w-auto flex justify-center lg:justify-start">
-        <a routerLink="/" class="flex items-center">
+      <div
+        class="w-full lg:w-auto flex justify-center lg:justify-start relative"
+      >
+        <a
+          routerLink="/"
+          class="flex items-center justify-center relative w-36 lg:mt-0 mt-2 lg:mb-0 -mb-2"
+        >
           <img
             src="/assets/blogs/faktuflow-negativo.webp"
-            class="h-20 sm:h-18 -my-4"
+            class="absolute top-0 left-0 right-0 bottom-0 m-auto logo-default"
+            alt="FaktuFlow"
+          />
+          <img
+            src="/assets/blogs/faktuflow-nav.webp"
+            class="absolute top-0 left-0 right-0 bottom-0 m-auto logo-scrolled"
             alt="FaktuFlow"
           />
         </a>
@@ -18,7 +28,7 @@
       <button
         (click)="isMenuOpen = !isMenuOpen"
         type="button"
-        class="ml-auto inline-flex items-center p-2 -mt-10 text-sm text-white rounded-lg lg:hidden hover:bg-[--color-secondary-low] focus:outline-none"
+        class="ml-auto inline-flex items-center p-2 -mt-3 -mb-2 text-sm text-white rounded-lg lg:hidden hover:bg-[--color-secondary-low] focus:outline-none"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >

@@ -25,3 +25,58 @@
   display: flex;
   margin: auto;
 }
+
+.custom-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  animation-name: adjust-header;
+  animation-timeline: scroll();
+  animation-range: 0 230px;
+  animation-fill-mode: both;
+  animation-duration: 3s; /* Necesario para que se interpolen bien los valores */
+  animation-timing-function: linear; 
+}
+
+@keyframes adjust-header {
+  0% {
+  background: linear-gradient(to right, #1a3e4a 0%, #112c35 100%);
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    background: rgba(17, 44, 53, 0.6);
+    backdrop-filter: blur(7px);
+    box-shadow: 0 14px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.logo-container img {
+  transition: opacity 0.3s ease;
+  position: absolute;
+}
+
+.logo-default {
+  opacity: 1;
+  animation: show-default-logo linear both;
+  animation-timeline: scroll();
+  animation-range: 0 550px;
+}
+
+.logo-scrolled {
+  opacity: 0;
+  animation: show-scrolled-logo linear both;
+  animation-timeline: scroll();
+  animation-range: 0 550px;
+}
+
+@keyframes show-default-logo {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes show-scrolled-logo {
+  to {
+    opacity: 1;
+  }
+}
