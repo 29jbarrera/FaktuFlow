@@ -306,12 +306,12 @@ export class DashboardComponent implements OnInit {
     const marginX = 14;
 
     if (logoBase64) {
-      const pxToMm = 25.4 / 96; // conversión px a mm
-      const fixedWidth = 226 * pxToMm; // ~59.8 mm
-      const fixedHeight = 80 * pxToMm; // ~21.17 mm
-      const logoX = (pageWidth - fixedWidth) / 2; // centrar imagen horizontalmente
-      const logoY = 7; // posición vertical fija (ajusta si quieres)
-      const marginBelowImage = 30; // margen deseado en mm
+      const pxToMm = 25.4 / 96;
+      const fixedWidth = 226 * pxToMm;
+      const fixedHeight = 80 * pxToMm;
+      const logoX = (pageWidth - fixedWidth) / 2;
+      const logoY = 7;
+      const marginBelowImage = 30;
       const textY = logoY + fixedHeight + marginBelowImage;
       doc.addImage(logoBase64, 'PNG', logoX, logoY, fixedWidth, fixedHeight);
     }
@@ -561,10 +561,10 @@ export class DashboardComponent implements OnInit {
       '* Documento generado por Faktuflow – compromiso con la excelencia financiera.';
     doc.setFont('helvetica', 'italic');
     doc.setFontSize(8);
-    doc.setTextColor('#888888'); // gris claro
+    doc.setTextColor('#888888');
     const notaWidth = doc.getTextWidth(nota);
     const posX = (pageWidth - notaWidth) / 2;
-    const posY = doc.internal.pageSize.getHeight() - 7; // 10mm desde el borde inferior
+    const posY = doc.internal.pageSize.getHeight() - 7;
 
     doc.text(nota, posX, posY);
 
