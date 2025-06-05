@@ -69,6 +69,9 @@ export class DashboardComponent implements OnInit {
   pendingRequests = 0;
 
   logoBase64: string = '';
+  nombre = sessionStorage.getItem('nombre') || '';
+  apellidos = sessionStorage.getItem('apellidos') || '';
+  userText = `${this.nombre} ${this.apellidos}`.trim() || '';
 
   data: ChartConfiguration<'line' | 'bar'>['data'] = {
     labels: [],
@@ -319,7 +322,7 @@ export class DashboardComponent implements OnInit {
     doc.setTextColor('#112c35');
     doc.text(`Resumen Anual Finanzas ${this.year}`, marginX, 40);
 
-    const userText = 'Usuario';
+    const userText = this.userText;
     const userWidth = doc.getTextWidth(userText);
     doc.text(userText, pageWidth - marginX - userWidth, 40);
 
@@ -552,6 +555,18 @@ export class DashboardComponent implements OnInit {
       balanceX + balanceTarjetaAncho - balanceValorAncho - 5,
       currentY + 17
     );
+
+    // Al final de exportarPDF(), antes de doc.save()
+    const nota =
+      '* Documento generado por Faktuflow – compromiso con la excelencia financiera.';
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8);
+    doc.setTextColor('#888888'); // gris claro
+    const notaWidth = doc.getTextWidth(nota);
+    const posX = (pageWidth - notaWidth) / 2;
+    const posY = doc.internal.pageSize.getHeight() - 7; // 10mm desde el borde inferior
+
+    doc.text(nota, posX, posY);
 
     // Guardar PDF
     doc.save(`Resumen-Faktuflow-${this.year}.pdf`);
