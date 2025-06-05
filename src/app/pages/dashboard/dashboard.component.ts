@@ -17,6 +17,15 @@ import {
   FacturaMensual,
   ResumenFacturasData,
 } from '../../interfaces/facturasDashboard';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { logoBase64 } from './imgBase64';
+
+interface jsPDFWithAutoTable extends jsPDF {
+  lastAutoTable?: {
+    finalY: number;
+  };
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -58,6 +67,8 @@ export class DashboardComponent implements OnInit {
   totalClientes: number = 0;
 
   pendingRequests = 0;
+
+  logoBase64: string = '';
 
   data: ChartConfiguration<'line' | 'bar'>['data'] = {
     labels: [],
@@ -276,5 +287,273 @@ export class DashboardComponent implements OnInit {
         },
       },
     };
+  }
+
+  public generarPDFConLogo(): void {
+    this.exportarPDF(logoBase64);
+  }
+
+  exportarPDF(logoBase64: string) {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4',
+    }) as jsPDFWithAutoTable;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const marginX = 14;
+
+    if (logoBase64) {
+      const pxToMm = 25.4 / 96; // conversión px a mm
+      const fixedWidth = 226 * pxToMm; // ~59.8 mm
+      const fixedHeight = 80 * pxToMm; // ~21.17 mm
+      const logoX = (pageWidth - fixedWidth) / 2; // centrar imagen horizontalmente
+      const logoY = 7; // posición vertical fija (ajusta si quieres)
+      const marginBelowImage = 30; // margen deseado en mm
+      const textY = logoY + fixedHeight + marginBelowImage;
+      doc.addImage(logoBase64, 'PNG', logoX, logoY, fixedWidth, fixedHeight);
+    }
+
+    // Títulos principales
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor('#112c35');
+    doc.text(`Resumen Anual Finanzas ${this.year}`, marginX, 40);
+
+    const userText = 'Usuario';
+    const userWidth = doc.getTextWidth(userText);
+    doc.text(userText, pageWidth - marginX - userWidth, 40);
+
+    // Línea divisoria principal
+    doc.setDrawColor('#112c35');
+    doc.setLineWidth(0.3);
+    doc.line(marginX, 44, pageWidth - marginX, 44);
+
+    let currentY = 55;
+
+    const tableStyleCommon = {
+      margin: { left: marginX, right: marginX },
+      styles: {
+        fontSize: 10,
+        cellPadding: { top: 2, bottom: 2, left: 1, right: 1 },
+        halign: 'center' as const,
+      },
+      columnStyles: {
+        0: { cellWidth: 40 },
+        1: { cellWidth: 40 },
+        2: { cellWidth: 50 },
+      },
+      alternateRowStyles: { fillColor: '#f8f8f8' },
+      bodyStyles: {
+        halign: 'center' as const,
+        lineWidth: 0.2,
+        lineColor: '#ccc',
+      },
+    };
+
+    // Función para renderizar tabla con barra divisoria justo abajo
+    const renderTable = (
+      title: string,
+      color: string,
+      rows: { mes: string; total: number; totalImporte: number }[],
+      columns: string[]
+    ) => {
+      doc.setFontSize(13);
+      doc.setTextColor(color);
+      doc.setFont('helvetica', 'bold');
+      doc.text(title, marginX, currentY);
+      currentY += 4;
+
+      // Barra divisoria
+      doc.setDrawColor(color);
+      doc.setLineWidth(0.4);
+      doc.line(marginX, currentY, pageWidth - marginX, currentY);
+      currentY += 4;
+
+      // Anchos de columnas según tu configuración
+      const colWidths = [40, 40, 50];
+      const tableWidth = colWidths.reduce((a, b) => a + b, 0);
+
+      // Calcular margen izquierdo para centrar tabla
+      const marginLeft = (pageWidth - tableWidth) / 2;
+
+      autoTable(doc, {
+        startY: currentY,
+        head: [columns],
+        body: rows.map((r) => [
+          this.nombreMes(r.mes),
+          r.total,
+          r.totalImporte.toFixed(2),
+        ]),
+        styles: {
+          fontSize: 10,
+          cellPadding: { top: 2, bottom: 2, left: 1, right: 1 },
+          halign: 'center',
+        },
+        columnStyles: {
+          0: { cellWidth: 40 },
+          1: { cellWidth: 40 },
+          2: { cellWidth: 50 },
+        },
+        alternateRowStyles: { fillColor: '#f8f8f8' },
+        bodyStyles: {
+          halign: 'center',
+          lineWidth: 0.2,
+          lineColor: '#ccc',
+        },
+        margin: { left: marginLeft },
+        headStyles: {
+          fillColor: color,
+          textColor: '#fff',
+          fontStyle: 'bold',
+          halign: 'center',
+          lineWidth: 0.5,
+          lineColor: color,
+        },
+        theme: 'grid',
+      });
+
+      currentY = (doc.lastAutoTable?.finalY || currentY) + 12;
+    };
+
+    // Tablas
+    if (this.mensualFacturas?.length) {
+      renderTable('Facturas Mensuales', '#800020', this.mensualFacturas, [
+        'Mes',
+        'Facturas',
+        'Importe Total',
+      ]);
+    }
+
+    if (this.mensualGastos?.length) {
+      renderTable('Gastos Mensuales', '#003366', this.mensualGastos, [
+        'Mes',
+        'Gastos',
+        'Importe Total',
+      ]);
+    }
+
+    if (this.mensualIngresos?.length) {
+      renderTable('Ingresos Mensuales', '#228B22', this.mensualIngresos, [
+        'Mes',
+        'Ingresos',
+        'Importe Total',
+      ]);
+    }
+
+    // Cálculo del balance global
+    const totalFacturas =
+      this.mensualFacturas?.reduce((acc, f) => acc + f.totalImporte, 0) || 0;
+    const totalGastos =
+      this.mensualGastos?.reduce((acc, g) => acc + g.totalImporte, 0) || 0;
+    const totalIngresos =
+      this.mensualIngresos?.reduce((acc, i) => acc + i.totalImporte, 0) || 0;
+    const balanceFinal = totalIngresos - totalGastos;
+
+    // Balance Global - Título y barra divisoria
+    doc.setFontSize(13);
+    doc.setTextColor('#112c35');
+    doc.setFont('helvetica', 'bold');
+    doc.text('Balance Global Anual', marginX, currentY);
+    currentY += 4;
+
+    doc.setDrawColor('#112c35');
+    doc.setLineWidth(0.4);
+    doc.line(marginX, currentY, pageWidth - marginX, currentY);
+    currentY += 8;
+
+    // TARJETAS DE RESUMEN
+    const tarjetaAltura = 24;
+    const tarjetaAncho = (pageWidth - marginX * 2 - 20) / 3; // 3 tarjetas en fila
+    const tarjetaMarginY = 10;
+
+    // Las 3 primeras tarjetas en una fila
+    const resumenTarjetasFila1 = [
+      {
+        titulo: 'Total Facturas',
+        valor: `${totalFacturas.toFixed(2)} €`,
+        color: '#800020',
+      },
+      {
+        titulo: 'Total Gastos',
+        valor: `${totalGastos.toFixed(2)} €`,
+        color: '#003366',
+      },
+      {
+        titulo: 'Total Ingresos',
+        valor: `${totalIngresos.toFixed(2)} €`,
+        color: '#228B22',
+      },
+    ];
+
+    for (let i = 0; i < resumenTarjetasFila1.length; i++) {
+      const tarjeta = resumenTarjetasFila1[i];
+      const x = marginX + i * (tarjetaAncho + 10);
+      const y = currentY;
+
+      // Fondo gris claro uniforme
+      doc.setFillColor('#f7f7f7');
+      doc.roundedRect(x, y, tarjetaAncho, tarjetaAltura, 2, 2, 'F');
+
+      // Borde del color correspondiente
+      doc.setDrawColor(tarjeta.color);
+      doc.roundedRect(x, y, tarjetaAncho, tarjetaAltura, 2, 2);
+
+      // Título
+      doc.setTextColor('#112c35');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.text(tarjeta.titulo, x + 5, y + 9);
+
+      // Valor
+      doc.setFontSize(12);
+      const valorAncho = doc.getTextWidth(tarjeta.valor);
+      doc.text(tarjeta.valor, x + tarjetaAncho - valorAncho - 5, y + 17);
+    }
+
+    // Segunda fila: tarjeta Balance Final centrada
+    currentY += tarjetaAltura + tarjetaMarginY;
+    const balanceTarjetaAncho = 100;
+    const balanceX = (pageWidth - balanceTarjetaAncho) / 2;
+
+    // Fondo gris claro uniforme
+    doc.setFillColor('#f7f7f7');
+    doc.roundedRect(
+      balanceX,
+      currentY,
+      balanceTarjetaAncho,
+      tarjetaAltura,
+      2,
+      2,
+      'F'
+    );
+
+    // Borde
+    doc.setDrawColor('#333333');
+    doc.roundedRect(
+      balanceX,
+      currentY,
+      balanceTarjetaAncho,
+      tarjetaAltura,
+      2,
+      2
+    );
+
+    // Texto
+    doc.setTextColor('#000');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text('Balance Final', balanceX + 5, currentY + 9);
+
+    doc.setFontSize(12);
+    const balanceValor = `${balanceFinal.toFixed(2)} €`;
+    const balanceValorAncho = doc.getTextWidth(balanceValor);
+    doc.text(
+      balanceValor,
+      balanceX + balanceTarjetaAncho - balanceValorAncho - 5,
+      currentY + 17
+    );
+
+    // Guardar PDF
+    doc.save(`Resumen-Faktuflow-${this.year}.pdf`);
   }
 }
