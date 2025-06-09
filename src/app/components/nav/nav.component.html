@@ -7,11 +7,11 @@
 </button>
 
 <nav
-  class="fixed top-0 w-full lg:w-[18%] left-0 h-screen overflow-hidden shadow-lg z-10 min-w-[260px] bg-white transition-transform duration-300 ease-in-out"
+  class="fixed top-0 w-full lg:w-[18%] left-0 h-screen overflow-hidden shadow-lg z-10 min-w-[260px] nav-color transition-transform duration-300 ease-in-out"
   *ngIf="isMenuVisible"
 >
   <!-- Logo centrado -->
-  <div class="flex justify-center items-center py-6 mb-2">
+  <div class="flex justify-center items-center py-6 lg:mb-2 mb-0">
     <div
       class="bg-white border-4 rounded-[6%] p-1 shadow-lg py-7"
       style="border-color: var(--color-secondary)"
@@ -22,7 +22,9 @@
 
   <!-- Zona de bienvenida y dropdown para el correo -->
   <div class="py-2 px-5 justify-center">
-    <h3 class="text-2xl font-semibold text-center mb-10">Bienvenido 👋🏻</h3>
+    <h3 class="text-2xl font-semibold text-center lg:mb-12 mb-4">
+      Bienvenido 👋🏻
+    </h3>
 
     <p-accordion [activeIndex]="1">
       <p-accordion-panel value="0">
