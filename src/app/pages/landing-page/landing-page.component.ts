@@ -35,32 +35,32 @@ export class LandingPageComponent {
 
   features = [
     {
-      icon: 'pi pi-file',
+      icon: 'fas fa-file',
       title: 'Facturación rápida',
       description: 'Crea, gestiona y consulta facturas desde cualquier lugar.',
     },
     {
-      icon: 'pi pi-users',
+      icon: 'fas fa-users',
       title: 'Gestión de clientes',
       description: 'Organiza tu base de clientes de forma intuitiva.',
     },
     {
-      icon: 'pi pi-chart-line',
+      icon: 'fas fa-chart-line',
       title: 'Resumen financiero',
       description: 'Gráficos y reportes claros mensuales y anuales.',
     },
     {
-      icon: 'pi pi-cloud',
+      icon: 'fas fa-cloud',
       title: 'Acceso en la nube',
       description: 'Trabaja desde cualquier dispositivo sin instalaciones.',
     },
     {
-      icon: 'pi pi-star',
+      icon: 'fas fa-star',
       title: 'Gratuito',
       description: 'Totalmente gratuito. Ideal para pequeños negocios.',
     },
     {
-      icon: 'pi pi-desktop',
+      icon: 'fas fa-desktop',
       title: '100% Responsive',
       description: 'Diseño adaptable a móviles, tablets y escritorios.',
     },

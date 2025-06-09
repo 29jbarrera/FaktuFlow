@@ -1,13 +1,24 @@
 <app-nav-blogs></app-nav-blogs>
 
 <section
-  class="w-[95%] md:w-auto py-16 px-3 md:px-16 my-20 z-10 max-w-[75%] mx-auto bg-white text-[#112c35] border border-gray-200 rounded-xl"
+  class="relative w-full md:w-auto lg:max-w-[70%] mx-auto py-16 px-3 md:px-16 my-20 z-10 min-h-screen bg-gradient-to-b from-white via-[#f4f9fb] to-white rounded-3xl overflow-hidden"
 >
-  <div class="max-w-6xl mx-auto text-center">
-    <h2 class="text-4xl font-extrabold mb-6 font-color">
+  <!-- FONDOS ABSTRACTOS -->
+  <div
+    class="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] bg-teal-100 opacity-30 blur-3xl rounded-full z-0"
+  ></div>
+  <div
+    class="absolute bottom-[-80px] right-[-80px] w-[400px] h-[400px] bg-teal-100 opacity-30 blur-2xl rounded-full z-0"
+  ></div>
+
+  <!-- TÍTULO -->
+  <div class="relative z-10 max-w-6xl mx-auto text-center">
+    <h2
+      class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#112c35] to-[#56c0a8] mb-12 mt-6"
+    >
       Una nueva forma de entender la gestión financiera
     </h2>
-    <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
+    <p class="text-xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
       En Faktuflow, combinamos diseño intuitivo, automatización inteligente y
       experiencia real para ayudarte a gestionar tus finanzas con facilidad.
       Nuestro equipo trabaja cada día con un solo objetivo: que tu gestión sea
@@ -15,77 +26,61 @@
     </p>
   </div>
 
-  <!-- Imagen destacada + texto -->
+  <!-- SECCIÓN IMAGEN + TEXTO -->
   <div
-    class="flex flex-col md:flex-row items-center gap-12 max-w-6xl mx-auto my-12"
+    class="relative z-10 grid lg:grid-cols-2 items-center gap-24 px-10 mx-auto mt-28 mb-28"
   >
     <img
-      src="/assets/landing/dev-laptop.webp"
+      src="/assets/about/about-us-img.webp"
       alt="Equipo Faktuflow"
-      class="rounded-2xl shadow-lg w-full md:w-1/2"
+      class="w-full rounded-3xl shadow-2xl transform hover:scale-105 hover:rotate-1 transition duration-500"
     />
-    <div class="text-left">
-      <h3 class="text-2xl font-bold font-color mb-4">
+    <div class="animate-fade-in">
+      <h3 class="text-4xl font-bold mb-4 font-color">
         Tecnología hecha para personas
       </h3>
-      <p class="text-gray-600 mb-4">
+      <p class="text-gray-600 text-lg mb-4 leading-relaxed">
         Hemos diseñado Faktuflow escuchando a autónomos, emprendedores y
         pequeños negocios. Sabemos que tu tiempo vale oro, por eso cada función
         está pensada para facilitar tu día a día, no para complicarlo.
       </p>
-      <p class="text-gray-600">
+      <p class="text-gray-600 text-lg leading-relaxed">
         Nuestro equipo trabaja continuamente para ofrecer una herramienta
         rápida, segura y actualizada.
       </p>
     </div>
   </div>
 
-  <!-- Nuestra Esencia -->
-  <div class="max-w-6xl mx-auto text-center">
-    <h2 class="text-4xl font-extrabold mb-6 font-color">
+  <!-- NUESTROS VALORES (ABSTRACT GRID CON ROTACIONES) -->
+  <div class="max-w-7xl mx-auto mb-24 relative z-10">
+    <h2 class="text-4xl font-extrabold text-center mb-12 font-color">
       Lo que nos mueve en Faktuflow
     </h2>
-    <p class="text-xl text-gray-600 mb-16 max-w-3xl mx-auto">
-      No somos solo una herramienta, somos una filosofía de trabajo. Creamos
-      Faktuflow para cambiar la forma en que los pequeños negocios y autónomos
-      se relacionan con sus finanzas.
-    </p>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-      <div class="flex flex-col items-center text-cente">
-        <i class="fas fa-handshake text-[#112c35] text-5xl mb-6"></i>
-        <h3 class="text-xl font-semibold font-color mb-2">Compromiso real</h3>
-        <p class="text-gray-600 text-sm max-w-xs">
-          Escuchamos a nuestros usuarios. Cada mejora y funcionalidad nace de
-          problemas reales que queremos resolver contigo.
-        </p>
-      </div>
-      <div class="flex flex-col items-center text-center">
-        <i class="fas fa-eye text-[#112c35] text-5xl mb-6"></i>
-        <h3 class="text-xl font-semibold font-color mb-2">
-          Claridad sin rodeos
-        </h3>
-        <p class="text-gray-600 text-sm max-w-xs">
-          Nos alejamos de lo complicado. Tu información debe ser comprensible y
-          tus tareas, rápidas de ejecutar.
-        </p>
-      </div>
-      <div class="flex flex-col items-center text-center">
-        <i class="fas fa-sync text-[#112c35] text-5xl mb-6"></i>
-        <h3 class="text-xl font-semibold font-color mb-2">
-          Siempre a la última
-        </h3>
-        <p class="text-gray-600 text-sm max-w-xs">
-          La tecnología no se detiene, y nosotros tampoco. Faktuflow evoluciona
-          continuamente para ofrecerte herramientas actuales, prácticas y
-          alineadas con las últimas tendencias del sector.
-        </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+      <div
+        *ngFor="let feature of features"
+        class="bg-gradient-to-br from-white via-[#f0fbf8] to-[#bfe4dc] border border-[#c6ede4] rounded-xl shadow-sm p-6 hover:shadow-md transition-all duration-300 ease-in-out"
+      >
+        <div class="flex flex-col items-center text-center">
+          <i
+            [class]="feature.icon"
+            class="text-[#112c35] mb-4"
+            style="font-size: 2.4rem"
+          ></i>
+          <p class="text-lg font-semibold text-[#112c35]">
+            {{ feature.title }}
+          </p>
+          <p class="mt-2 text-sm text-[#3a7569]">{{ feature.description }}</p>
+        </div>
       </div>
     </div>
   </div>
-  <!-- Blog y contenido actualizado -->
-  <div class="max-w-6xl mx-auto text-center mt-24">
-    <h2 class="text-3xl font-bold font-color mb-4">
+
+  <!-- CTA BLOG -->
+  <div
+    class="relative z-10 max-w-5xl mx-auto text-center mb-24 animate-fade-in"
+  >
+    <h2 class="text-3xl font-bold mb-4 font-color">
       Siempre investigando, siempre compartiendo
     </h2>
     <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
@@ -95,19 +90,19 @@
       fiscalidad, gestión financiera y nuevas herramientas. Todo pensado para
       mantenerte siempre a la última, sin complicaciones.
     </p>
-    <div class="flex justify-center">
-      <a
-        href="/blog/factura-digital"
-        class="inline-block bg-[#112c35] hover:scale-105 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition ease-in duration-300"
-      >
-        Explorar blogs
-      </a>
-    </div>
+    <a
+      href="/blog/factura-digital"
+      class="inline-block bg-[#112c35] hover:bg-[#0e232b] text-white py-3 px-8 font-bold rounded-md shadow-lg"
+    >
+      Explorar blogs
+    </a>
   </div>
-
+  <div
+    class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
+  ></div>
   <!-- Fundador -->
   <div
-    class="mt-24 p-6 rounded-xl border-gray-200 border bg-slate-50 text-center max-w-3xl mx-auto"
+    class="mt-24 mb-6 p-6 rounded-xl border-gray-200 border bg-slate-50 text-center max-w-3xl mx-auto"
   >
     <blockquote class="text-xl text-gray-700 italic leading-relaxed">
       “En Faktuflow creemos que la tecnología debe adaptarse a ti, no al revés.
@@ -120,9 +115,8 @@
         class="w-20 h-20 rounded-full shadow-sm mb-2"
       />
       <span class="font-semibold text-gray-800">Javier Barrera</span>
-      <span class="text-green-600 text-sm">Fundador de Faktuflow</span>
+      <span class="text-[#3a7569] text-sm">Fundador de Faktuflow</span>
     </div>
   </div>
 </section>
->
 <app-footer></app-footer>
