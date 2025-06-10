@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavService } from '../nav/nav.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,18 +8,5 @@ import { NavService } from '../nav/nav.service';
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-  starCount: number = 0;
   currentYear: number = new Date().getFullYear();
-
-  constructor(private navService: NavService) {}
-
-  ngOnInit(): void {
-    this.getStartCount();
-  }
-
-  getStartCount(): void {
-    this.navService.getStarCount().subscribe((count) => {
-      this.starCount = count;
-    });
-  }
 }
