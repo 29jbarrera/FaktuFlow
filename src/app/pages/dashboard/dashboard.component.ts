@@ -463,7 +463,7 @@ export class DashboardComponent implements OnInit {
       this.mensualGastos?.reduce((acc, g) => acc + g.totalImporte, 0) || 0;
     const totalIngresos =
       this.mensualIngresos?.reduce((acc, i) => acc + i.totalImporte, 0) || 0;
-    const balanceFinal = totalIngresos - totalGastos;
+    const balanceFinal = totalIngresos - (totalFacturas + totalGastos);
 
     // Balance Global - Título y barra divisoria
     doc.setFontSize(13);
