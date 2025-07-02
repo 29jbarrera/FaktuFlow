@@ -21,6 +21,7 @@ import { ProductividadComponent } from './blogs/productividad/productividad.comp
 import { AboutUsComponent } from './blogs/about-us/about-us.component';
 import { FidelizarClientesComponent } from './blogs/fidelizar-clientes/fidelizar-clientes.component';
 import { ErroresComunesComponent } from './blogs/errores-comunes/errores-comunes.component';
+import { HerramientasDigitalesComponent } from './blogs/herramientas-digitales/herramientas-digitales.component';
 
 export const routes: Routes = [
   {
@@ -110,6 +111,10 @@ export const routes: Routes = [
   {
     path: 'blog/errores-comunes-al-comenzar',
     component: ErroresComunesComponent,
+  },
+  {
+    path: 'blog/herramientas-digitales-esenciales',
+    component: HerramientasDigitalesComponent,
   },
   { path: 'reset-password', component: ResetPasswordComponent },
   {
