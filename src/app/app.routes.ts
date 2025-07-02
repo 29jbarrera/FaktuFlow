@@ -19,6 +19,7 @@ import { ConsejosFinancierosComponent } from './blogs/consejos-financieros/conse
 import { ImpuestosComponent } from './blogs/impuestos/impuestos.component';
 import { ProductividadComponent } from './blogs/productividad/productividad.component';
 import { AboutUsComponent } from './blogs/about-us/about-us.component';
+import { FidelizarClientesComponent } from './blogs/fidelizar-clientes/fidelizar-clientes.component';
 
 export const routes: Routes = [
   {
@@ -100,6 +101,10 @@ export const routes: Routes = [
   {
     path: 'blog/mejora-la-productividad-de-tu-negocio',
     component: ProductividadComponent,
+  },
+  {
+    path: 'blog/cómo-atraer-y-fidelizar-clientes',
+    component: FidelizarClientesComponent,
   },
   { path: 'reset-password', component: ResetPasswordComponent },
   {
