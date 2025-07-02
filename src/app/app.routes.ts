@@ -22,6 +22,7 @@ import { AboutUsComponent } from './blogs/about-us/about-us.component';
 import { FidelizarClientesComponent } from './blogs/fidelizar-clientes/fidelizar-clientes.component';
 import { ErroresComunesComponent } from './blogs/errores-comunes/errores-comunes.component';
 import { HerramientasDigitalesComponent } from './blogs/herramientas-digitales/herramientas-digitales.component';
+import { TarifasServiciosComponent } from './blogs/tarifas-servicios/tarifas-servicios.component';
 
 export const routes: Routes = [
   {
@@ -115,6 +116,10 @@ export const routes: Routes = [
   {
     path: 'blog/herramientas-digitales-esenciales',
     component: HerramientasDigitalesComponent,
+  },
+  {
+    path: 'blog/tarifas-justas-por-servicios',
+    component: TarifasServiciosComponent,
   },
   { path: 'reset-password', component: ResetPasswordComponent },
   {
