@@ -11,50 +11,81 @@
     class="absolute bottom-[-80px] right-[-80px] w-[400px] h-[400px] bg-teal-100 opacity-30 blur-2xl rounded-full z-0"
   ></div>
 
-  <!-- TÍTULO -->
+  <!-- 1. TÍTULO INICIAL -->
   <div class="relative z-10 max-w-6xl mx-auto text-center">
     <h2
       class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[#112c35] to-[#56c0a8] mb-12 mt-6"
     >
-      Una nueva forma de entender la gestión financiera
+      Transformamos la gestión financiera para autónomos y pymes
     </h2>
     <p class="text-xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">
-      En Faktuflow, combinamos diseño intuitivo, automatización inteligente y
-      experiencia real para ayudarte a gestionar tus finanzas con facilidad.
-      Nuestro equipo trabaja cada día con un solo objetivo: que tu gestión sea
-      más clara, rápida y sin complicaciones.
+      En Faktuflow, creemos que la tecnología debe ser cercana, útil y humana.
+      Nuestra misión es ofrecer herramientas inteligentes que simplifiquen tu
+      día a día financiero y te ayuden a crecer sin fricciones.
     </p>
   </div>
 
-  <!-- SECCIÓN IMAGEN + TEXTO -->
+  <!-- 2. KPIs DESTACADOS -->
+  <div class="relative z-10 max-w-6xl mx-auto text-center mt-20 mb-28 px-6">
+    <h2 class="text-4xl font-extrabold mb-12 font-color">
+      Crecemos contigo, paso a paso
+    </h2>
+    <div class="text-3xl font-bold text-[#112c35] mt-10 mb-10">
+      <span class="text-[#3a7569]">+{{ animatedUsers }}</span> usuarios ya
+      confían en nosotros
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+      <div class="bg-white border rounded-xl py-6 px-4 shadow-md">
+        <p class="text-5xl font-bold text-[#3a7569]">
+          +{{ animatedInvoices.toLocaleString("es-ES") }}
+        </p>
+
+        <p class="text-gray-600 mt-2">Facturas generadas en pruebas</p>
+      </div>
+      <div class="bg-white border rounded-xl py-6 px-4 shadow-md">
+        <p class="text-5xl font-bold text-[#3a7569]">{{ animatedUptime }}%</p>
+        <p class="text-gray-600 mt-2">Uptime desde el lanzamiento</p>
+      </div>
+      <div class="bg-white border rounded-xl py-6 px-4 shadow-md">
+        <p class="text-5xl font-bold text-[#3a7569]">
+          {{ animatedResponseTime }} min
+        </p>
+        <p class="text-gray-600 mt-2">Tiempo medio de respuesta en soporte</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. SECCIÓN TEXTO + IMAGEN -->
   <div
-    class="relative z-10 grid lg:grid-cols-2 items-center gap-24 px-10 mx-auto mt-28 mb-28"
+    class="relative z-10 grid lg:grid-cols-2 items-center gap-24 px-10 mx-auto mt-12 mb-28"
   >
     <img
-      src="/assets/about/about-us-img.webp"
+      src="/assets/og-faktuflow.webp"
       alt="Equipo Faktuflow"
       class="w-full max-w-[600px] rounded-3xl shadow-2xl transform hover:scale-105 hover:rotate-1 transition duration-500"
     />
     <div class="animate-fade-in">
       <h3 class="text-4xl font-bold mb-4 font-color">
-        Tecnología hecha para personas
+        Tecnología con propósito
       </h3>
       <p class="text-gray-600 text-lg mb-4 leading-relaxed">
-        Hemos diseñado Faktuflow escuchando a autónomos, emprendedores y
-        pequeños negocios. Sabemos que tu tiempo vale oro, por eso cada función
-        está pensada para facilitar tu día a día, no para complicarlo.
+        Faktuflow nace de una necesidad real: que autónomos y pequeños negocios
+        puedan gestionar sus finanzas sin ser expertos. Escuchamos a nuestros
+        usuarios, diseñamos con empatía y desarrollamos con foco en la
+        simplicidad.
       </p>
       <p class="text-gray-600 text-lg leading-relaxed">
-        Nuestro equipo trabaja continuamente para ofrecer una herramienta
-        rápida, segura y actualizada.
+        Más que un software, somos tu aliado digital. Un equipo comprometido con
+        crear una experiencia ágil, segura y preparada para los desafíos del
+        presente y del futuro.
       </p>
     </div>
   </div>
 
-  <!-- NUESTROS VALORES (ABSTRACT GRID CON ROTACIONES) -->
+  <!-- 4. NUESTROS PILARES -->
   <div class="max-w-7xl mx-auto mb-24 relative z-10">
     <h2 class="text-4xl font-extrabold text-center mb-12 font-color">
-      Lo que nos mueve en Faktuflow
+      Nuestros pilares
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
       <div
@@ -76,39 +107,11 @@
     </div>
   </div>
 
-  <!-- CTA BLOG -->
+  <!-- 5. TESTIMONIO FUNDADOR -->
   <div
-    class="relative z-10 max-w-5xl mx-auto text-center mb-24 animate-fade-in"
+    class="mt-24 mb-6 p-6 rounded-xl border-gray-200 border bg-emerald-200/5 text-center max-w-3xl mx-auto"
   >
-    <h2 class="text-3xl font-bold mb-4 font-color">
-      Siempre investigando, siempre compartiendo
-    </h2>
-    <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-      En nuestros
-      <span class="text-[#112c35] font-semibold">blogs</span>
-      encontrarás artículos frescos, consejos prácticos y análisis sobre
-      fiscalidad, gestión financiera y nuevas herramientas. Todo pensado para
-      mantenerte siempre a la última, sin complicaciones.
-    </p>
-    <a
-      href="/blog/factura-digital"
-      class="inline-block bg-[#112c35] hover:bg-[#0e232b] text-white py-3 px-8 font-bold rounded-md shadow-lg"
-    >
-      Explorar blogs
-    </a>
-  </div>
-  <div
-    class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
-  ></div>
-  <!-- Fundador -->
-  <div
-    class="mt-24 mb-6 p-6 rounded-xl border-gray-200 border bg-slate-50 text-center max-w-3xl mx-auto"
-  >
-    <blockquote class="text-xl text-gray-700 italic leading-relaxed">
-      “En Faktuflow creemos que la tecnología debe adaptarse a ti, no al revés.
-      Nuestro compromiso es ofrecerte una experiencia fluida, útil y sencilla.”
-    </blockquote>
-    <div class="mt-6 flex flex-col items-center">
+    <div class="mb-6 flex flex-col items-center">
       <img
         src="https://avatars.githubusercontent.com/29jbarrera"
         alt="Javier Barrera"
@@ -117,6 +120,11 @@
       <span class="font-semibold text-gray-800">Javier Barrera</span>
       <span class="text-[#3a7569] text-sm">Fundador de Faktuflow</span>
     </div>
+    <blockquote class="text-xl text-gray-700 italic leading-relaxed">
+      “En Faktuflow creemos que la tecnología debe adaptarse a ti, no al revés.
+      Nuestro compromiso es ofrecerte una experiencia fluida, útil y sencilla.”
+    </blockquote>
   </div>
 </section>
+
 <app-footer></app-footer>
