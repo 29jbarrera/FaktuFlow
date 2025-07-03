@@ -148,7 +148,7 @@
     </p>
   </footer>
 
-  <!-- Otros Blogs -->
+  <!-- Otros blogs -->
   <section class="bg-white text-center">
     <div
       class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
@@ -162,123 +162,60 @@
       actualizada sobre fiscalidad, organización financiera y buenas prácticas
       para gestionar tu actividad con eficiencia.
     </p>
-    <div
-      class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-screen-2xl mx-auto px-6"
-    >
-      <!-- Facturas electrónicas -->
-      <article
-        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+    <!-- Carrusel: Flechas laterales + Grid -->
+    <div class="flex justify-center items-center gap-7">
+      <!-- Flecha izquierda -->
+      <button
+        (click)="prevPage()"
+        [disabled]="currentPage === 0"
+        class="text-[#112c35] disabled:opacity-30 hover:text-[#2e5e53] text-2xl transition"
       >
-        <a href="/blog/factura-digital">
-          <img
-            alt=""
-            src="/assets/blogs/facturas-electronicas.webp"
-            class="h-56 w-full object-cover"
-          />
+        <i class="fas fa-chevron-left"></i>
+      </button>
 
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg font-color font-bold">
-              Cómo gestionar facturas electrónicas en {{ currentYear }}
-            </h3>
-
-            <p
-              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
-            >
-              Simplifica la gestión de tus facturas con consejos actualizados
-              para este año.
-            </p>
-
-            <a
-              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#3a7569]"
-            >
-              Seguir leyendo
-
-              <span
-                aria-hidden="true"
-                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
-              >
-                &rarr;
-              </span>
+      <!-- Grid de blogs -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <ng-container *ngFor="let blog of visibleBlogs">
+          <article
+            class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+          >
+            <a [routerLink]="blog.link">
+              <img
+                [src]="blog.image"
+                [alt]="blog.title"
+                class="h-56 w-full object-cover"
+              />
+              <div class="p-4 sm:p-4">
+                <h3 class="text-lg font-color font-bold">{{ blog.title }}</h3>
+                <p
+                  class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {{ blog.description }}
+                </p>
+                <span
+                  class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#3a7569]"
+                >
+                  Seguir leyendo
+                  <span
+                    aria-hidden="true"
+                    class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+                    >&rarr;</span
+                  >
+                </span>
+              </div>
             </a>
-          </div>
-        </a>
-      </article>
+          </article>
+        </ng-container>
+      </div>
 
-      <!-- Impuestos para autónomos -->
-      <article
-        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+      <!-- Flecha derecha -->
+      <button
+        (click)="nextPage()"
+        [disabled]="(currentPage + 1) * blogsPerPage >= blogs.length"
+        class="text-[#112c35] disabled:opacity-30 hover:text-[#2e5e53] text-2xl transition"
       >
-        <a href="/blog/impuestos">
-          <img
-            alt=""
-            src="/assets/blogs/impuestos.webp"
-            class="h-56 w-full object-cover"
-          />
-
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg font-color font-bold">
-              Impuestos para autónomos en {{ currentYear }}
-            </h3>
-
-            <p
-              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
-            >
-              Todo lo que debes saber para cumplir con Hacienda sin estrés.
-            </p>
-
-            <a
-              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#3a7569]"
-            >
-              Seguir leyendo
-
-              <span
-                aria-hidden="true"
-                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
-              >
-                &rarr;
-              </span>
-            </a>
-          </div>
-        </a>
-      </article>
-
-      <!-- Mejora la productividad -->
-      <article
-        class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
-      >
-        <a href="/blog/mejora-la-productividad-de-tu-negocio">
-          <img
-            alt=""
-            src="/assets/blogs/productividad.webp"
-            class="h-56 w-full object-cover"
-          />
-
-          <div class="p-4 sm:p-6">
-            <h3 class="text-lg font-color font-bold">
-              Mejora la productividad de tu negocio
-            </h3>
-
-            <p
-              class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400"
-            >
-              Estrategias efectivas para optimizar tu tiempo y recursos.
-            </p>
-
-            <a
-              class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#3a7569]"
-            >
-              Seguir leyendo
-
-              <span
-                aria-hidden="true"
-                class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
-              >
-                &rarr;
-              </span>
-            </a>
-          </div>
-        </a>
-      </article>
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </section>
 </article>

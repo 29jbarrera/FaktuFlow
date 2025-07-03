@@ -167,6 +167,77 @@
       >.
     </p>
   </footer>
+
+  <!-- Otros blogs -->
+  <section class="bg-white text-center">
+    <div
+      class="bg-white max-w-5xl mx-auto my-20 h-0.5 bg-gradient-to-r from-transparent via-[#112c35] to-transparent"
+    ></div>
+    <h2 class="text-3xl font-bold mb-8 font-color">
+      ¿Te ha resultado útil este artículo? Hay más contenido para ti
+    </h2>
+    <p class="max-w-4xl mx-auto mb-14 text-gray-600 text-lg leading-relaxed">
+      Sigue aprendiendo con guías prácticas pensadas para autónomos y
+      profesionales independientes. Aquí encontrarás información clara y
+      actualizada sobre fiscalidad, organización financiera y buenas prácticas
+      para gestionar tu actividad con eficiencia.
+    </p>
+    <!-- Carrusel: Flechas laterales + Grid -->
+    <div class="flex justify-center items-center gap-7">
+      <!-- Flecha izquierda -->
+      <button
+        (click)="prevPage()"
+        [disabled]="currentPage === 0"
+        class="text-[#112c35] disabled:opacity-30 hover:text-[#2e5e53] text-2xl transition"
+      >
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <!-- Grid de blogs -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <ng-container *ngFor="let blog of visibleBlogs">
+          <article
+            class="rounded-lg bg-white shadow-xs group block border border-gray-200 hover:shadow-lg hover:border-gray-300 transition-shadow duration-300 hover-shake"
+          >
+            <a [routerLink]="blog.link">
+              <img
+                [src]="blog.image"
+                [alt]="blog.title"
+                class="h-56 w-full object-cover"
+              />
+              <div class="p-4 sm:p-4">
+                <h3 class="text-lg font-color font-bold">{{ blog.title }}</h3>
+                <p
+                  class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {{ blog.description }}
+                </p>
+                <span
+                  class="group mt-4 inline-flex items-center gap-1 text-sm font-medium text-[#3a7569]"
+                >
+                  Seguir leyendo
+                  <span
+                    aria-hidden="true"
+                    class="block transition-all group-hover:ms-0.5 rtl:rotate-180"
+                    >&rarr;</span
+                  >
+                </span>
+              </div>
+            </a>
+          </article>
+        </ng-container>
+      </div>
+
+      <!-- Flecha derecha -->
+      <button
+        (click)="nextPage()"
+        [disabled]="(currentPage + 1) * blogsPerPage >= blogs.length"
+        class="text-[#112c35] disabled:opacity-30 hover:text-[#2e5e53] text-2xl transition"
+      >
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </section>
 </article>
 
 <!-- TODO: image url de seo errores -->
