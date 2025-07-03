@@ -39,6 +39,26 @@ export class NavBlogsComponent {
         label: '-> Mejora la productividad en tu negocio',
         routerLink: '/blog/mejora-la-productividad-de-tu-negocio',
       },
+      { separator: true },
+      {
+        label: '-> Cómo atraer y fidelizar clientes',
+        routerLink: 'blog/cómo-atraer-y-fidelizar-clientes',
+      },
+      { separator: true },
+      {
+        label: '-> Errores comunes al comenzar',
+        routerLink: 'blog/errores-comunes-al-comenzar',
+      },
+      { separator: true },
+      {
+        label: '-> Herramientas digitales esenciales',
+        routerLink: 'blog/herramientas-digitales-esenciales',
+      },
+      { separator: true },
+      {
+        label: '-> Ajustar tarifas justas por servicios',
+        routerLink: 'blog/tarifas-justas-por-servicios',
+      },
     ];
   }
 

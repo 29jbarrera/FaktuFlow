@@ -3,6 +3,8 @@
   --p-tieredmenu-list-gap: 5px !important;
   margin-top: 16px !important;
   margin-left: -35px !important;
+  height: 200px !important;
+  overflow-y: auto !important;
 }
 
 :host ::ng-deep .custom-tieredmenu .p-tieredmenu-item-link {
